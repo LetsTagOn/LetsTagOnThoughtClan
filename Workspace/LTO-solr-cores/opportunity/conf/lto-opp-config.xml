@@ -1,0 +1,69 @@
+<dataConfig>
+	<dataSource type="JdbcDataSource" driver="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/lto" user="root" password="" />
+	<document>
+		<entity name="opportunity"
+			query="select o.id,o.name,o.type,o.dateStart,o.dateEnd,
+o.description,o.latLong,a.street as 'address_street',a.city as 'address_city', 
+a.state as 'address_state',a.country as 'address_country', 
+a.postalCode as 'address_postal_code',
+creator.name as 'creator_name', creator.emailAddress as 'creator_email_address' ,
+creator.phoneNumber as 'creator_phone_number' 
+ from Opportunity o Left Join Address a on o.address=a.id 
+ Left Join Party p on o.createdByParty=p.id
+Inner Join User creator on creator.id=p.user"
+deltaImportQuery="select o.id,o.name,o.type,o.dateStart,o.dateEnd,
+o.description,o.latLong,a.street as 'address_street',a.city as 'address_city', 
+a.state as 'address_state',a.country as 'address_country', 
+a.postalCode as 'address_postal_code',
+creator.name as 'creator_name', creator.emailAddress as 'creator_email_address' ,
+creator.phoneNumber as 'creator_phone_number' 
+ from Opportunity o Left Join Address a on o.address=a.id 
+ Left Join Party p on o.createdByParty=p.id
+Inner Join User creator on creator.id=p.user where o.id='${dataimporter.delta.id}'"
+deltaQuery="select id from Opportunity o where o.modifiedDate > '${dataimporter.last_index_time}'"
+>
+			<field column="id" name="id" />
+			<field column="name" name="name" />
+			<field column="type" name="type" />
+			<field column="dateStart" name="dateStart" />
+			<field column="dateEnd" name="dateEnd" />
+			<field column="description" name="description" />
+			<field column="latLong" name="latLong" />
+
+			<entity name="cause"
+				query="select c.name as 'cause'
+ from Cause c, OpportunityCauseXref ocx where 
+ocx.opportunity=${opportunity.id} AND ocx.cause=c.id"
+deltaImportQuery="select c.name as 'cause'
+ from Cause c, OpportunityCauseXref ocx where 
+ocx.opportunity=${opportunity.id} AND ocx.cause=c.id">
+
+				<field column="cause" name="cause" />
+			</entity>
+			<entity name="job"
+				query="select j.name as 'jobtype', ojx.numberOfPositions, ojx.selectionCriteria, ojx.status
+ from JobType j, OpportunityJobType ojx where 
+ojx.opportunity=${opportunity.id} AND ojx.jobType=j.id"
+deltaImportQuery="select j.name as 'jobtype', ojx.numberOfPositions, ojx.selectionCriteria, ojx.status
+ from JobType j, OpportunityJobType ojx where 
+ojx.opportunity=${opportunity.id} AND ojx.jobType=j.id">
+				<field column="jobtype" name="jobtype" />
+			</entity>
+			
+			
+			
+			
+				<field column="address_street" name="address_street" />
+				<field column="address_city" name="address_city" />
+				<field column="address_state" name="address_state" />
+				<field column="address_country" name="address_country" />
+				<field column="address_postal_code" name="address_postal_code" />
+				<field column="creator_name" name="creator_name" />
+				<field column="creator_email_address" name="creator_email_address"/>
+				<field column="creator_phone_number" name="creator_phone_number"/>
+
+			
+		</entity>
+	</document>
+</dataConfig>

@@ -1,0 +1,39 @@
+<div ng-include="'./js/pages/header/navigation-header.html'"></div>
+<div class="container lto-main-container">
+	<div class="content-area">
+		<div class="row">
+			<div class="col-sm-8" ng-init="viewAllNotificationOfUser()">
+				<div class="row no-margin well well-consent" ng-if="allNotificationList.length >= 0">
+					<div dir-paginate="notification in notifications | itemsPerPage: 5 | filter:q " total-items="totalNotifications" current-page="pagination.current" current-page="pagination.current">
+						<div class="col-xs-12 lto-current-user-connection cursor" ng-click="actionOnNotification(notification)">
+							<div class="hide"></div>
+							<div class="float-left ">
+								<img class="profile-img lto-pending-notification-image" ng-src="{{getProfileImage(notification.params.senderProfilePicture)}}" ng-if="notification.params.senderProfilePicture != null"> <img class="profile-img lto-pending-notification-image" src="../images/UserImage.png" ng-if="notification.params.senderProfilePicture == null">
+							</div>
+							<div class="float-left lto-notification-RHS">
+								<div class="">
+									<a class="lto-notification-pending-user" ng-model="notification.params.senderUserId">From: {{notification.params.senderName}}</a>
+								</div>
+								<div class="lto-notification-RHS-message">{{notification.content}}</div>
+							</div>
+							<div class="float-right lto-notification-action-container">
+								<span class="glyphicon glyphicon-bell lto-notifaication-mark-read-btn" ng-click="markNotificationAsRead(notification)"></span>
+							</div>
+						</div>
+					</div>
+					<dir-pagination-controls boundary-links="true" on-page-change="pageChanged(newPageNumber)" template-url="/js/pages/fragments/pagination/dirPagination.tpl.html" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> </dir-pagination-controls>
+				</div>
+				<!-- 	<div
+					class="row no-margin row-space well well-consent col-xs-12 col-sm-12 col-md-12 col-lg-12"
+					ng-if="allNotificationList.length == 0">
+					<div class="lto-not-connected-msg">No Notifications</div>
+				</div> -->
+			</div>
+			<div class="col-sm-4">
+				<div ng-include="'./js/pages/connections/connection_suggestion_list.html'"></div>
+				<div ng-include="'./js/pages/common/right_suggestions.html'"></div>
+			</div>
+		</div>
+		</main>
+	</div>
+</div>
