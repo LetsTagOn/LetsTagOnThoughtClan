@@ -14,29 +14,20 @@ apply plugin: 'java'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'spring-boot'
 apply plugin: 'war'
-
 apply plugin: 'maven-publish'
 
-
-
 dependencies {
-   compile project(':LetsTagOnDao')
-   
+   compile project(':LetsTagOnDao')   
    compile project(':LetsTagOnService')
-   
    compile project(':LetsTagOnFacade')
-   
    compile project(':LetsTagOnWeb')
 }
 
 allprojects {
-	task lto(dependsOn:'publishToMavenLocal') << {
-		
-				task -> println "Project name :  $task.project.name" ;
-				
+	task lto(dependsOn:'publishToMavenLocal') << {	
+				task -> println "Project name :  $task.project.name" ;				
 			}
 }
-
 
 subprojects {
 	publishToMavenLocal

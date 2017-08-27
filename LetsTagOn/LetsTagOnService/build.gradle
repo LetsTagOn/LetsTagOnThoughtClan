@@ -50,9 +50,18 @@ configurations {
 dependencies {
 	compile('com.letstagon:letstagon-dao:0.1')
 	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('org.scala-lang:scala-library:2.11.0')
+	compile('javax.mail:mail:1.4.7')
+	compile('jaf:activation:1.0.2')
+	compile('org.apache.velocity:velocity')
+	compile('org.apache.velocity:velocity-tools')
+	compile('org.springframework:spring-context')
+	compile('org.springframework:spring-context-support')
+	compile('com.amazonaws:aws-java-sdk-s3:1.10.72')
+	compile('javax.xml.bind:jaxb-api:2.1')
+	compile('org.apache.tika:tika-core:1.12')
 	testCompile('org.springframework.boot:spring-boot-starter-test') 
 }
-
 
 eclipse {
 	classpath {

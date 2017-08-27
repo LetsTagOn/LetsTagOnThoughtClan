@@ -1,0 +1,9 @@
+
+Rsquid:S1214""Move constants to a class or enum.(Õ²øÝH®RCRITICALZ
+CODE_SMELL
+^squid:S1135"2Complete the task associated to this TODO comment.(¹ÒÁþH¯RINFOZ
+CODE_SMELL
+gsquid:S1118":Add a private constructor to hide the implicit public one.(þð‰ÂH°RMAJORZ
+CODE_SMELL
+rsquid:S1610"EConvert the abstract class "LetsTagOnDaoConstants" into an interface.(þð‰ÂH±RMINORZ
+CODE_SMELL
