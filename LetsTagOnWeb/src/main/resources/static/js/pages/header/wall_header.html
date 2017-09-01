@@ -1,0 +1,80 @@
+<header class="top-header" role="banner" ng-controller="BootstrapModalController as modal">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid ">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" asria-expanded="false">
+					<span class="sr-only">Toggle navigation </span> <span class="icon-bar"> </span> <span class="icon-bar"> </span> <span class="icon-bar"> </span>
+				</button>
+				<a href="#/" class="start-header__logo visible-xs text-center"> <span class="logo-header">Teamworks </span>
+				</a>
+			</div>
+			<div class="collapse navbar-collapse lto-header-container" id="bs-example-navbar-collapse-1">
+				<a href="#/" class="start-header__logo hidden-xs"> <img class="cursor lto-image" src="./images/Letstagon.png" alt="...">
+				</a>
+				<ul class="pull-right utility-bar lto-user-profile-header-RHS" ng-controller="NotificationsController">
+					<li><a class="" href="#/cp/personalInformation" i18n="{{'common.lto_link_editProfile'}}"> <span class="glyphicon glyphicon-pencil"> </span>
+					</a></li>
+					<li><a ng-href="#/profile/user/{{userId}}" i18n="{{'common.lto_link_myProfile'}}"> <span class="glyphicon glyphicon-eye-open"> </span>
+					</a></li>
+					<li><a ng-href="#/search/user/" i18n="{{'common.lto_button_text_search'}}"> <span class="glyphicon glyphicon-search"> </span>
+					</a></li>
+					<li class="dropdown" ng-if="pendingConnectionList.length > 0"><a data-toggle="dropdown" role="button" aria-expanded="false" i18n="{{'common.lto_span_connection'}}"> <span class="glyphicon glyphicon-tags"> </span>
+					</a>
+						<ul class="dropdown-menu lto-pending-connection-user-dropdownList lto-connection-dropdown-adj" role="menu">
+							<div class="lto-pending-section-header">
+								<span class="float-left lto-pending-connection-label" i18n="{{'common.lto_link_pendingConnection'}}"></span> <span><a class="lto-pending-connection-all pull-right cursor" ng-click="showPendingConnections()" i18n="{{'common.lto_link_viewAll'}}"></a></span>
+							</div>
+							<hr class="start-property-tile__separator">
+							<li class="lto-pending-connection-drop-row" ng-repeat="connection in pendingConnectionList | limitTo:3">
+								<div class="float-left ">
+									<img class="profile-img lto-pending-connection-image" ng-src="{{getProfileImage(connection.party1.userBean.profilePicture)}}" ng-if="connection.party1.userBean.profilePicture != null"> <img class="profile-img lto-pending-connection-image" src="../images/UserImage.png" ng-if="connection.party1.userBean.profilePicture == null">
+								</div>
+								<div class="float-left ">
+									<div class="">
+										<a class="lto-connection-pending-user" href="#/profile/user/{{connection.party1.userBean.id}}">{{connection.party1.userBean.name}}</a>
+									</div>
+									<div>{{connection.party1.userBean.addressBean.country}}</div>
+								</div>
+								<div class="float-right lto-connection-action-container" id="{{connection.party2.id}}">
+									<div class="circle" ng-click="connectionAcceptence(connection)" title="accept">a</div>
+									<div class="circle" ng-click="connectionReject(connection)" title="reject">r</div>
+								</div>
+								<hr class="start-property-tile__separator">
+							</li>
+							<li class="float-left" style="margin: 10px;">
+								<div class="float-left ">
+									<div class="">
+										<a class="lto-connection-pending-user" href="#/view/connection/user/{{userId}}" i18n="{{'common.lto_link_connectedList'}}"></a>
+									</div>
+								</div>
+							</li>
+						</ul> <span class="badge badge-notify" ng-if="pendingConnectionList.length > 0">{{pendingConnectionList.length}} </span></li>
+					<li class="dropdown" ng-if="pendingConnectionList.length == 0"><a data-toggle="dropdown" role="button" aria-expanded="false" i18n="{{'common.lto_link_connections'}}"> <span class="glyphicon glyphicon-tags"> </span>
+					</a>
+						<ul class="dropdown-menu lto-pending-connection-user-dropdownList lto-connection-dropdown-adj" role="menu">
+							<div class="lto-pending-section-header">
+								<span class="float-left lto-pending-connection-label" i18n="{{'common.lto_link_pendingConnection'}}"></span>
+							</div>
+							<hr class="start-property-tile__separator">
+							<li class="lto-pending-connection-drop-row">
+								<div class="">
+									<div class="text-center" i18n="{{'common.lto_span_noPendingConnection'}}"></div>
+								</div>
+							</li>
+							<li class="lto-pending-connection-drop-row">
+								<div class="float-left ">
+									<div class="">
+										<a class="lto-connection-pending-user" href="#/view/connection/user/{{userId}}" i18n="{{'common.lto_link_connectedList'}}"></a>
+									</div>
+								</div>
+							</li>
+						</ul></li>
+					<li class=""><a href="" ng-click="logout()" i18n="{{'common.lto_span_logOut'}}"> <span class="glyphicon glyphicon-log-out"> </span>
+					</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<actionsuccess visible="showLtoSuccessModal"></actionsuccess>
+	<actionerror visible="showLtoErrorModal"></actionerror>
+</header>

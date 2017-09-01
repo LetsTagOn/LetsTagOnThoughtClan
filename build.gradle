@@ -1,0 +1,34 @@
+buildscript {
+	ext {
+		springBootVersion = '1.3.3.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'spring-boot'
+apply plugin: 'war'
+apply plugin: 'maven-publish'
+
+dependencies {
+   compile project(':LetsTagOnDao')   
+   compile project(':LetsTagOnService')
+   compile project(':LetsTagOnFacade')
+   compile project(':LetsTagOnWeb')
+}
+
+allprojects {
+	task lto(dependsOn:'publishToMavenLocal') << {	
+				task -> println "Project name :  $task.project.name" ;				
+			}
+}
+
+subprojects {
+	publishToMavenLocal
+}

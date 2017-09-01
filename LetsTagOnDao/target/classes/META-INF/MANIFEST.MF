@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: letstagon-dao
+Implementation-Version: 0.1.0
+Built-By: Satish
+Implementation-Vendor-Id: com.letstagon
+Build-Jdk: 1.8.0_144
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+

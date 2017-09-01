@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="./images/favicon.ico">
+<title>LetsTagOn</title>
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="./css/vendor/datepicker.css" />
+<link rel="stylesheet" href="./css/vendor/bootstrap.css" />
+<link rel="stylesheet" href="./css/vendor/bootstrap-datetimepicker.min.css" />
+<link rel="stylesheet" href="./css/vendor/bootstrap.min.css" />
+<link rel="stylesheet" href="./css/vendor/bootstrap-switch.css" />
+<link rel="stylesheet" href="./css/vendor/ng-img-crop.css" />
+<link rel="stylesheet" href="./css/vendor/autocomplete.css" />
+<!-- Custom styles for this template -->
+<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
+<link rel="stylesheet" type="text/css" href="./css/custom.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="./css/typography.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="./css/styles.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="./css/responsive-styles.css" media="screen" />
+<style type="text/css">
+[ng\:cloak],[ng-cloak],.ng-cloak {
+	display: none !important;
+}
+</style>
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBE1dO3LakO7hlALLPmkxwbiHbDmYZzKWQ&libraries=places" async defer></script>
+</head>
+<body ng-app="letstagon" ng-cloak class="ng-cloak">
+	<div id="loading-indicator" style="display: none"></div>
+	<!--  Header -->
+	<div ng-controller="MainController">
+		<div ng-if=" authenticated" ng-include="'./js/pages/header/postLoginHeader.html'"></div>
+		<div ng-if="!authenticated" ng-include="'./js/pages/header/preLoginHeader.html'"></div>
+		<div ng-view></div>
+		<footer class="footer foot-note">
+			<div class="container lto-footer-container">
+				<ul>
+					<li>About us</li>
+					<li>Contact us</li>
+					<li>Terms of use</li>
+					<li>Privacy policy</li>
+				</ul>
+				<span class="pull-right">Copyright &copy;2015-2016 LetsTagOn</span>
+			</div>
+		</footer>
+	</div>
+	<!-- Bootstrap core JavaScript
+================================================== -->
+	<script src="js/angular-bootstrap.js" type="text/javascript"></script>
+	<script src="js/library/moment.js" type="text/javascript"></script>
+	<script src="js/library/angular-moment.min.js" type="text/javascript"></script>
+	<script src="js/library/angular-messages.js"></script>
+	<script src="js/library/jquery-1.11.1.min.js" type="text/javascript"></script>
+	<script src='js/library/bootstrap-datepicker.js'></script>
+	<script src='js/library/bootstrap-datetimepicker.min.js'></script>
+	<script src='js/library/bootstrap-switch.js'></script>
+	<script src="js/library/bootstrap.min.js" type="text/javascript"></script>
+	<script src="js/library/ui-bootstrap-0.6.0.min.js" type="text/javascript"></script>
+	<script src="js/library/ui-bootstrap-tpls.js" type="text/javascript"></script>
+	<script src="js/library/modernizr.custom.js"></script>
+	<script src="js/library/ng-img-crop.js"></script>
+	<script src="js/library/ng-infinite-scroll.min.js"></script>
+	<script src="js/library/autocomplete.js"></script>
+	<script src="js/library/angularjs-dropdown-multiselect.js"></script>
+	<script src="js/library/angular-localization.js"></script>
+	<script src="js/library/angular-cookies.js"></script>
+	<script src="js/library/angular-sanitize.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/pages/completeYourProfile/linkedinSupport.js"></script>
+	<script src="js/pages/home/home.js"></script>
+	<script src="js/pages/common/main.js"></script>
+	<script src="js/pages/common/register.js"></script>
+	<script src="js/pages/password/password.js"></script>
+	<script src="js/pages/modal/modal.js"></script>
+	<script src="js/pages/completeYourProfile/completeProfile.js"></script>
+	<script src="js/pages/completeYourProfile/volunteerInterests.js"></script>
+	<script src="js/pages/completeYourProfile/userExperience.js"></script>
+	<script src="js/pages/completeYourProfile/privacySettings.js"></script>
+	<script src="js/pages/profile/profile.js"></script>
+	<script src="js/pages/search/search.js"></script>
+	<script src="js/pages/connections/connection.js"></script>
+	<script src="js/pages/opportunity/opportunity.js"></script>
+	<script src="js/pages/opportunity/manageOpportunity.js"></script>
+	<script src="js/pages/opportunity/googleAddressAutocomplete.js"></script>
+	<script src="js/pages/Notification/notification.js"></script>
+	<script src="js/pages/messages/message.js"></script>
+	<script src="js/pages/localization/localization.js"></script>
+	<script src="js/pages/fragments/pagination/dirPagination.js"></script>
+	<script src="js/pages/wall/lto-wall.js"></script>
+</body>
+</html>

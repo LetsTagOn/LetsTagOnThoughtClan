@@ -1,0 +1,40 @@
+<div class="container" ng-controller="ProfessionalDetailsController">
+	<div class="row lto-main-container lto-main-container-row " ng-init="checkForLinkedInProfessionalDetails()">
+		<div class="row-space hidden-md hidden-sm"></div>
+		<main class="col-xs-12 col-sm-12 col-md-12 no-padding "> <header class="container profile-header">
+			<div class="container-fluid">
+				<h2 class="text-center" i18n="{{'common.lto_heading_professionalDetails'}}"></h2>
+				<!-- <a href="#" class="pull-right">Update</a> -->
+			</div>
+		</header>
+		<div class="col-xs-12 col-sm-12 profile-form">
+		<div class="col-xs-12 col-sm-12" ng-repeat="profession in linkedInProfessionalExperience">
+			<label> <span class="float-left"> 
+			             <input type="checkbox" ng-model="profession.selected">
+			         </span> 
+			         <span class="float-left lto-prof-exp-section">
+					<h2 class="lto-cp-exp-details-row" ng-model="profession.title">{{profession.title}}</h2>
+					<h3 class="lto-cp-exp-details-row" ng-model="profession.organizationName">{{profession.organizationName}}</h3>
+					<h4 class="lto-cp-exp-details-row" ng-model="profession.location">{{profession.location}}</h4>
+					<h5 class="lto-cp-exp-details-row" ng-model="profession.startDate">
+						From : {{profession.startDate | date:'MMM-yyyy'}} <span> to </span> {{profession.endDate | date:'MMM-yyyy'}} <span ng-if="!!profession.endDate" ng-model="profession.endDate"> {{profession.endDate | date:'MMM-yyyy'}} </span> <span ng-if="!profession.endDate"> present. </span>
+					</h5>
+					<h5 class="lto-cp-exp-details-row" ng-model="profession.description">{{profession.description}}</h5>
+			</span>
+			</label>
+		</div>
+		<div class="text-center">
+            <button ng-show="linkedInProfessionalExperience.length > 0" class="btn btn-primary btn--block-centered lto-cp-edu-btn" ng-click="saveProfessionalDetails()" i18n="{{'common.lto_button_text_save'}}"></button>
+            <div class="success-toast-message" ng-show="success">
+                <span ng-model="actionSuccess">{{actionSuccess}}</span>
+            </div>
+            <div class="error-toast-message" ng-show="error">
+                <span ng-model="actionError">{{actionError}}</span>
+            </div>
+        </div>
+		</div>
+		</main>
+		<!-- /main content area -->
+	</div>
+	<!-- /container-fluid -->
+</div>

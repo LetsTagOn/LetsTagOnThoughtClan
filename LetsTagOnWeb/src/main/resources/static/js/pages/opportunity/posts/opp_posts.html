@@ -1,0 +1,78 @@
+<h2>Post regarding event</h2>
+
+<div
+	class="row no-margin row-space well well-consent col-xs-12 col-sm-12 col-lg-12"
+	ng-if="oppPostsList.length == 0">
+	<div class="lto-not-connected-msg">No posts yet related to this
+		event yet.</div>
+</div>
+
+<div ng-if="authenticated" class="row no-margin cursor well well-consent">
+
+	<div class="">
+
+
+		<form name="oppPostForm" ng-submit="postForEvent()"
+			novalidate="novalidate">
+			<div class=" form-bottom-margin col-xs-12 col-sm-10 pull-left">
+				<textarea type="text" name="description" class="form-control"
+					id="description"
+					placeholder="Describe your experience of this event.."
+					ng-model="oppPost.content"></textarea>
+			</div>
+
+
+			<button
+				class="btn-post btn btn-primary btn--block-centered lto-cp-exp-btn col-xs-3 col-sm-2 pull-right "
+				ng-click="submitted=true">Post</button>
+
+
+
+		</form>
+
+
+	</div>
+</div>
+
+
+
+<h2 ng-if="oppPostsList.length>0">Related Posts</h2>
+
+<div class="row no-margin cursor well well-consent"
+	ng-repeat="post in oppPostsList">
+
+
+	<div class="col-xs-4 col-sm-2 col-md-2">
+		<div class="pull-left margin-right-10">
+			<img class="lto-profile-adj"
+				ng-if="post.postedByParty.userBean.profilePicture != null"
+				ng-src="{{getProfileImage(post.postedByParty.userBean.profilePicture)}}">
+			<img class="lto-profile-adj"
+				ng-if="post.postedByParty.userBean.profilePicture == null"
+				src="../images/UserImage.png">
+		</div>
+
+
+	</div>
+	<div class="col-xs-8 col-sm-10 col-md-10 start-property-tile__title">
+		<div>
+			<div class="col-md-6  pull-left">
+				<h3 class="start-property-tile__heading  link-color"
+					ng-click="redirectPost(post.id)">{{post.postedByParty.userBean.name}}</h3>
+				<div class="font-size-12 hide"
+					ng-show="post.postedByParty.userBean.name.length>0">By -
+					{{post.postedByParty.userBean.name}}</div>
+			</div>
+
+		</div>
+		<hr class="start-property-tile__separator opportunity-list-separator">
+		<p>{{post.content}}</p>
+
+	</div>
+</div>
+
+
+<a class="more-results cursor"
+	ng-show="oppPostsList.length<totalPostsCount"
+	ng-click="getNextPostList()"
+	i18n="{{'common.lto_opp_posts_show_more'}}"><b class="caret"></b></a>

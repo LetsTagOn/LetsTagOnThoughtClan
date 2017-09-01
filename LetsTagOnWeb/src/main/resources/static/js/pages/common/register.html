@@ -1,0 +1,83 @@
+<div class="modal fade register-modal" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-controller="RegisterController">
+	<div class="modal-dialog register-modal-dialog">
+		<div class="modal-content register-modal-content">
+			<div class="container">
+				<div class="row">
+					<main class="col-xs-12 col-sm-12 col-md-12 no-padding ">
+					<div class="content-area">
+						<header class="container profile-header register-profile-header">
+							<div class="container-fluid">
+								<a href="#/" class="cursor pull-left" data-dismiss="modal" aria-label="" i18n="{{'common.lto_link_close'}}"></a>
+								<h2 class="text-center" i18n="{{'common.lto_heading_registerPage'}}"></h2>
+							</div>
+						</header>
+						<div class="row-space register-profile-header-txt">
+							<div class="lead-text">
+								<p>
+									You can save time by connecting your <strong> Linkedin account instead.
+								</p>
+								<p>This way you will be able to sign in using your social account details and get access to more features.</p>
+							</div>
+						</div>
+						<div class="row-space  register-profile-connect-section">
+							<div class="container text-center profile-form">
+								<span i18n="{{'common.lto_lable_connectWith'}}"></span>
+								<!-- <button class="btn btn--inline-block btn-linkedin">Linkedin</button> -->
+								<div class="btn btn--inline-block btn-linkedin">
+									<a href="/linkedin/signin" i18n="{{'common.lto_button_text_linkedinSignin'}}"></a>
+								</div>
+								<!-- <button class="btn btn--inline-block
+                                  btn-facebook">Facebook</button>
+								
+								<button  class="btn btn--inline-block
+                                 * btn-google">Google+</button> -->
+							</div>
+						</div>
+						<form name="register" ng-submit="register.$valid && registerForm()" novalidate="novalidate">
+							<div class="container row-space profile-form register-profile-form">
+								<div class="row">
+									<div class="col-xs-12 col-sm-6 register-row">
+										<label for="trade" i18n="{{'common.lto_label_user_firstName'}}"></label><input type="text" name="firstName" class="form-control" id="firstName" placeholder="{{'common.lto_placeholder_firstName' |i18n}}" no-special-char ng-model="customer.firstName" ng-required="true"><span class="glyphicon glyphicon-user"></span><span class="error"
+											ng-show="submitted && register.firstName.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"
+										></span>
+									</div>
+									<div class="col-xs-12 col-sm-6 register-row">
+										<label for="trade" i18n="{{'common.lto_label_user_lastName'}}"></label><input type="text" name="lastName" class="form-control" id="lastName" placeholder="{{'common.lto_placeholder_lastname'|i18n}}" no-special-char ng-model="customer.lastName" ng-required="true"><span class="glyphicon glyphicon-user"></span><span class="error"
+											ng-show="submitted && register.lastName.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"
+										></span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-sm-6 register-row">
+										<label for="trade" i18n="{{'common.lto_label_user_emailAddress'}}"></label><input type="email" name="emailAddress" class="form-control" id="emailAddress" placeholder="{{'common.lto_placeholder_emailAddress'|i18n}}" ng-model="customer.emailAddress" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" ng-required="true"><span class="glyphicon glyphicon-envelope"></span><span class="error"
+											ng-show="submitted && register.emailAddress.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"
+										></span><span class="error" ng-show="register.emailAddress.$error.pattern || register.emailAddress.$error.email">Email Address invalid</span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-sm-6 register-row">
+										<label for="trade" i18n="{{'common.lto_label_user_password'}}"></label><input type="password" name="password" class="form-control" id="password" placeholder="{{'common.lto_placeholder_password'|i18n}}" ng-model="customer.password" ng-required="true" ng-minlength="6" ng-maxlength="20"><span class="glyphicon glyphicon-eye-close"></span><span class="error"
+											ng-show="submitted && register.password.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"
+										></span><span class="help-block error" ng-show="((register.password.$error.minlength || register.password.$error.maxlength) && register.password.$dirty) ">Password should have atleast 6 characters</span>
+									</div>
+									<div class="col-xs-12 col-sm-6 register-row">
+										<label for="trade" i18n="{{'common.lto_label_user_confirmPassword'}}"></label><input type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="{{'common.lto_placeholder_confirmPassword'|i18n}}" ng-model="customer.confirmPassword" ng-required="true" data-password-verify="customer.password" ng-minlength="6" ng-maxlength="20"><span
+											class="glyphicon glyphicon-eye-close"
+										></span><span class="error" ng-show="submitted && register.confirmPassword.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span><span class="error" ng-show="register.confirmPassword.$error.passwordVerify">Passwords do not match</span>
+									</div>
+								</div>
+							</div>
+							<div class="text-center register-form-txt-center">
+								<p>
+									By creating an account, I accept <a href="#/">Terms of Service</a> and <a href="#/" i18n="{{'common.lto_link_privacyPolicy'}}"></a>
+								</p>
+								<button class="btn btn-primary btn--block-centered" ng-click="submitted=true" i18n="{{'common.lto_button_text_createAccount'}}"></button>
+							</div>
+						</form>
+					</div>
+					</main>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
