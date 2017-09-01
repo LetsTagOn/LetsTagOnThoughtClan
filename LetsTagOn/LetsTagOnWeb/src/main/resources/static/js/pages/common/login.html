@@ -1,0 +1,38 @@
+<div class="modal fade in login-modal" id="modalLogin">
+	<div class="modal-dialog login-form-modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<a href="#/" class="cursor pull-right" data-dismiss="modal" aria-label="" i18n="{{'common.lto_button_text_close'}}"></a>
+				<h2 class="col-md-7 col-md-offset-3" i18n="{{'common.lto_heading_WelcomeToLetsTagOn'}}"></h2>
+			</div>
+			<div class="modal-body">
+				<form name="loginForm" ng-submit="loginForm.$valid && login()" novalidate="novalidate" class="form-horizontal ng-valid ng-dirty ng-valid-parse" role="form">
+					<div class="form-group" ng-show="error">
+						<h3 class="col-md-5 col-md-offset-4 error" ng-model="authenticationError">{{authenticationError}}</h3>
+					</div>
+					<div class="form-group lto-login-form-row">
+						<label class="col-md-2 col-md-offset-2 lto-login-label" for="username" i18n="{{'common.lto_label_user_emailAddress'}}"></label>
+						<div class="col-md-6">
+							<input class="form-control lto-login-input" type="text" id="username" name="username" ng-model="credentials.userName" required /><span class="glyphicon glyphicon-user lto-login-icon"></span>
+							<span class="error" ng-show="submitted && loginForm.username.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-2 col-md-offset-2 lto-login-label" for="password" i18n="{{'common.lto_label_user_password'}}"></label>
+						<div class="col-md-6">
+							<input class="form-control lto-login-input" type="password" id="password" name="password" ng-model="credentials.password" required><span class="glyphicon glyphicon-eye-close lto-login-icon"></span><span class="error" ng-show="submitted && loginForm.password.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-md-1 col-sm-1 col-xs-offset-3  col-md-offset-4">
+							<button type="submit" class="btn btn-primary" ng-click="submitted = true" i18n="{{'common.lto_button_text_login'}}"></button>
+						</div>
+						<div class="col-md-3 col-sm-3 col-xs-offset-3 col-sm-offset-1 col-md-offset-1">
+							<a class="lto-login-forget-pass-link" href="" data-toggle="modal" data-target="#modalForgotPassword" data-dismiss="modal" i18n="{{'common.lto_link_forgotPassword'}}"></a><br /> <a class="lto-login-forget-pass-link" href="/linkedin/signin" i18n="{{'common.lto_link_signinViaLinkedin'}}"></a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

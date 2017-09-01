@@ -1,0 +1,74 @@
+<dataConfig>
+	<dataSource type="JdbcDataSource" driver="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://localhost:3306/lto" user="root" password="" />
+	<document>
+		<entity name="user"
+			query="select u.id, u.username, u.emailaddress, u.profilePicture, 
+u.phoneNumber, u.firstName, u.lastName, concat(u.firstName,' ',u.lastName) as 
+'fullName',   a.street as 'address_street',a.city as 'address_city', 
+a.state as 'address_state',a.country as 'address_country', 
+a.postalCode as 'address_postal_code' from User u Left Join Address a on u.address=a.id"
+deltaImportQuery="select u.id, u.username, u.emailaddress, u.profilePicture, 
+u.phoneNumber, u.firstName, u.lastName, concat(u.firstName,' ',u.lastName) as 
+'fullName',   a.street as 'address_street',a.city as 'address_city', 
+a.state as 'address_state',a.country as 'address_country', 
+a.postalCode as 'address_postal_code' from User u Left Join Address a on u.address=a.id where u.id='${dataimporter.delta.id}'"
+deltaQuery="select id from User u where u.modifiedDate > '${dataimporter.last_index_time}'"
+>
+			<field column="id" name="id" />
+			<field column="username" name="username" />
+			<field column="emailaddress" name="emailaddress" />
+			<field column="profilePicture" name="profilePicture" />
+			<field column="phoneNumber" name="phoneNumber" />
+			<field column="firstName" name="firstName" />
+			<field column="lastName" name="lastName" />
+			<field column="fullName" name="fullName" />
+			
+			
+
+			<entity name="cause"
+				query="select c.name as 'cause'
+ from Party p, Cause c, PartyCauseXref pcx where 
+p.user=${user.id} AND p.id=pcx.party AND pcx.cause=c.id"
+				deltaImportQuery="select c.name as 'cause'
+ from Party p, Cause c, PartyCauseXref pcx where 
+p.user=${user.id} AND p.id=pcx.party AND pcx.cause=c.id"
+
+>
+			
+				<field column="cause" name="cause" />
+			</entity>
+			<entity name="job"
+				query="select j.name as 'jobtype'
+ from Party p, PartyJobTypeXref pjx, JobType j where 
+p.user=${user.id} AND pjx.party=p.id AND pjx.jobType=j.id"
+deltaImportQuery="select j.name as 'jobtype'
+ from Party p, PartyJobTypeXref pjx, JobType j where 
+p.user=${user.id} AND pjx.party=p.id AND pjx.jobType=j.id">
+				<field column="jobtype" name="jobtype" />
+			</entity>
+			
+			<entity name="party"
+				query="select p.id as 'party',p.user as 'user',p.rating as 'rating'
+ from Party p where 
+p.user=${user.id}"
+deltaImportQuery="select p.id as 'id',p.user as 'user',p.rating as 'rating'
+ from Party p where 
+p.user=${user.id} ">
+				<field column="party" name="party" />
+				<field column="rating" name="rating" />
+			</entity>
+			
+			
+			
+			
+				<field column="address_street" name="address_street" />
+				<field column="address_city" name="address_city" />
+				<field column="address_state" name="address_state" />
+				<field column="address_country" name="address_country" />
+				<field column="address_postal_code" name="address_postal_code" />
+
+			
+		</entity>
+	</document>
+</dataConfig>

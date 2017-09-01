@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "letsTagon.appUrl",
+  "type": "java.lang.String",
+  "description": "App URL to be used in emails or elsewhere."
+}]}

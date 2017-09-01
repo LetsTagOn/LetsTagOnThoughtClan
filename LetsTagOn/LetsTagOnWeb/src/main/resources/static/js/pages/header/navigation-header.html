@@ -1,0 +1,98 @@
+<!-- HTML File with navigation header details -->
+
+<div class="row  no-margin well well-consent"></div>
+<div class="lto-profile-container well" ng-controller="ProfileController" ng-show="authenticated">
+	<section class="row no-margin well well-consent lto-profile-row lto-header-container">
+		<!-------------------------------------------------------------------------------- First Navigation header -------------------------------------------------------------------->
+		<div class="col-xs-12 navigation-bar" ng-show="authenticated || showProfileInfo">
+			<ul class="col-xs-12 col-sm-8 lto-profile-LHS float-left">
+				<li class="main-header col-xs-5  col-sm-1 lto-list-item"><a class="" href="#/" i18n="{{'common.lto_link_home'}}"></a></li>
+				<li class="main-header col-xs-5  col-sm-1 lto-list-item dropdown"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Profile</a>
+					<ul class="dropdown-menu" role="menu">
+						<li class="lto-profile-drop-row"><a href="#/profile/user/{{userId}}" i18n="{{'common.lto_link_viewProfile'}}"></a></li>
+						<li class="lto-profile-drop-row"><a href="#/cp/personalInformation" i18n="{{'common.lto_link_editProfile'}}"></a></li>
+						<li class="lto-profile-drop-row"><a href="#/cp/privacy" i18n="{{'common.lto_link_privacy'}}"></a></li>
+					</ul></li>
+				<li class="main-header col-xs-5  col-sm-2 lto-list-item"><a href="#/view/connection/user/{{userId}}" i18n="{{'common.lto_link_connections'}}"></a></li>
+				<li class="main-header col-xs-5  col-sm-1 lto-list-item"><a href="#/search/user/" i18n="{{'common.lto_button_text_search'}}"></a></li>
+				<li class="main-header col-xs-5  col-sm-1 dropdown lto-list-item"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" i18n="{{'common.lto_link_opportunity'}}"> </a>
+					<ul class="dropdown-menu" role="menu">
+						<li class="lto-profile-drop-row"><a ng-click="redirect('/search/opportunity/')" i18n="{{'common.lto_link_allOpportunity'}}"></a></li>
+						<li class="lto-profile-drop-row"><a ng-click="redirect('/view/createdOpportunities')" i18n="{{'common.lto_link_createdOpportunity'}}"></a></li>
+						<li class="lto-profile-drop-row"><a ng-click="redirect('/view/upcomingOpportunities')" i18n="{{'common.lto_link_myUpcomingEvent'}}"></a></li>
+					</ul></li>
+			</ul>
+			<ul class="col-xs-4 lto-profile-RHS float-right" ng-if="displayUserDetails.id != userId">
+				<!-- <li><a href="#">Follows you</a></li>
+					<li class="lto-profile-settings"><a href="#"><span
+							class="glyphicon glyphicon-cog"></span><span
+							class="glyphicon glyphicon-chevron-down"></span> </a></li>
+					<li class="lto-profile-following-btn"><a href="#"><button
+								class="btn btn-primary btn--block-centered">Following</button></a></li> -->
+				<span ng-show="ifConnected" class="glyphicon glyphicon-bookmark"><li  i18n="{{'common.lto_span_tagged'}}"></li></span>
+				<span  ng-show="ifPending" class="glyphicon glyphicon-bell"><li i18n="{{'common.lto_span_sentConnectionRequest'}}"></li></span>
+				<li ng-show="tagOn" class="lto-profile-following-btn"><a ng-click="sendInvite(displayUserDetails)"><button class="btn btn-primary btn--block-centered" i18n="{{'common.lto_button_text_tagOn'}}"></button></a></li>
+				<li ng-show="pendingResponse" class="lto-profile-following-btn"><span class="lto-pending-action-conatiner cursor" ng-click="acceptInvite(displayUserDetails)"><span class="glyphicon glyphicon-ok lto-glyphicon-adj" i18n="{{'common.lto_button_accept'}}"></span><span></span> </span> <span class="lto-pending-action-conatiner cursor" ng-click="rejectInvite(displayUserDetails)"><span class="glyphicon glyphicon-remove lto-glyphicon-adj" i18n="{{'common.lto_button_reject'}}"></span><span></span> </span></li>
+			</ul>
+		</div>
+	</section>
+	<!----------------------------------------------------------------------------------- End of Section ------------------------------------------->
+	<!------------------------------------------------------------------------------------ Profile Picture and info section ------------------------->
+	<div class="row no-margin" ng-show="showProfileInfo">
+		<div class="col-xs-12 no-padding">
+			<div class="update-picture">
+				<div class="profile-image">
+					<img class="user-pic" ng-src="{{getProfileImage(displayUserDetails.profilePicture)}}" ng-if="displayUserDetails.profilePicture != null"> <img class="user-pic" src="../images/UserImage.png" ng-if="displayUserDetails.profilePicture == null"> <span class="screen-reader-text">Customer Image</span>
+				</div>
+				<div class="profile-info">
+					<h2>{{displayUserDetails.name}}</h2>
+					<!-- <p class="text-center">Art of Living, Swatchh Bharat Abhiyan..</p> -->
+					<p class="text-center">
+						<span class=""><span class="glyphicon glyphicon-send"></span>{{displayUserDetails.addressBean.country}}<span ng-if="displayUserDetails.addressBean.state.length > 0">,</span>{{displayUserDetails.addressBean.state}}</span>
+						<!-- <span class=""><span class="glyphicon glyphicon-bookmark"></span>Sudarshan
+								Kriya Certified</span> -->
+					</p>
+					<p class="text-center">
+						<span class="" ng-if="displayUserDetails.addressBean.street.length > 0"> {{displayUserDetails.addressBean.city}}<span>,</span>{{displayUserDetails.addressBean.street}}
+						</span> <span ng-if="displayUserDetails.addressBean.street.length > 0"><span ng-if="displayUserDetails.addressBean.postalCode.length > 0">,</span>{{displayUserDetails.addressBean.postalCode}}</span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!----------------------------------------------------------------------------  End of section ------------------------------------------------------------------------------------>
+	<!-- Section which gives details of no of connections -->
+	<section class="row  no-margin well well-consent lto-user-details-conatiner lto-header-container" ng-show="showProfileInfo">
+		<div class="col-xs-7 col-xs-offset-1 lto-user-link">
+			<span class="glyphicon glyphicon-link v-align"></span> <span class="right-align lto-user-profile-link">https://letstagon.com/in/{{displayUserDetails.firstName}}-{{displayUserDetails.lastName}}-{{displayUserDetails.id}}</span>
+		</div>
+		<div class="col-xs-12 col-sm-2 col-sm-offset-1 col-md-2 col-md-offset-1 lto-vol-opp">
+			<span><strong>{{volunteerOpportunityCount}}+ </strong> <any i18n="{{'common.lto_span_oppCompleted'}}"></any></span>
+		</div>
+		<div class="col-xs-12 col-sm-2 col-md-2 lto-vol-connection">
+			<span><strong>{{volunteerConnectionCount}}+ </strong> <any i18n="{{'common.lto_link_connections'}}"></any></span>
+		</div>
+	</section>
+	<!-------------------------------------------------- End of section ------------------------------------->
+	<!-------------------------------------------------- Section with opportunity related links ------------------------------------------------------------->
+	<!-- <section class="row  no-margin well well-consent"
+		ng-init="getAllOpportunity()" ng-show="!showProfileInfo && authenticated">
+		<div class="col-xs-12 navigation-bar">
+			<ul>
+
+				<li class="vertical-separator"></li>
+				<li><a href="#"><span>Join us to Bring the change</span></a></li>
+				<li><a href="#/search/user"><span>Tag a Friend Along</span></a></li>
+				<li class="vertical-separator"></li>
+				<li><a href="" class="glyphicon glyphicon-calendar"
+					ng-click="redirect('/view/createdOpportunities')"><span>&nbsp;Created
+							Events</span></a></li>
+				<li class="vertical-separator"></li>
+				<li><a href="" class="glyphicon glyphicon-calendar"
+					ng-click="redirect('/view/upcomingOpportunities')"><span>&nbsp;My
+							Upcoming Events</span></a></li>
+			</ul>
+		</div>
+	</section> -->
+	<!---------------------------------------------------- End of sections  ----------------------------------------------------->
+</div>

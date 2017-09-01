@@ -1,0 +1,170 @@
+<div ng-include="'./js/pages/header/navigation-header.html'"></div>
+<div class="container " ng-app="lto-messages">
+	<div class="container ">
+		<div class="row">
+			<br> <br>
+			<main class=" ">
+			<div class="col-xs-12 col-sm-8 lto-cp-exp">
+				<!-- Adding messages content here -->
+				<div class="container-fluid">
+					<nav class="navbar navbar-default visible-xs">
+						<div class="container-fluid">
+							<div class="navbar-header">
+								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+									<span class="glyphicon glyphicon-list-alt"></span>
+								</button>
+							</div>
+							<div class="collapse navbar-collapse" id="myNavbar">
+								<div class="col-md-4 col-sm-3 well">
+									<!-- Section to auto populate contact  List -->
+									<!-- button section to add contacts  -->
+									<div class="input-group lto-mess-start-conv cursor" ng-if="isAddContacts == true" ng-click="showSearchBox()">
+										<img src="../images/people.png" class="pull-left lto-mess-conv-icon"> <span class="lto-mess-conv-txt">Start New Conversation</span>
+									</div>
+									<!--  End -->
+									<!-- Input search section to auto populate contacts by name -->
+									<form role="search">
+										<div class="input-group lto-mess-search-box-container" ng-if="isAddContacts == false">
+											<div class="pull-left">
+												<img src="../images/people.png" class="lto-mess-contact-icon cursor" ng-click="showSearchBox()">
+											</div>
+											<div class="lto-mess-search-box pull-left">
+												<input type="text" class="form-control lto-mess-search-input" placeholder="Search" ng-model="search.name" ng-keypress="getChatSuggestionList()" data-toggle="dropdown">
+												<ul class="dropdown-menu lto-mess-dropdown" role="menu" id="usersListId" ng-if="suggestionListOfUserByNames.length > 0">
+													<li class="cursor lto-mess-li" ng-repeat="party in suggestionListOfUserByNames" ng-click="startConversationWithUser(party)">
+														<div class="pull-left">
+															<img src="../images/UserImage.png" ng-if="party.userBean.profilePicture == null" class="img-circle lto-mess-auto-comp-img"> <img ng-src="{{getProfileImage(party.userBean.profilePicture)}}" ng-if="party.userBean.profilePicture != null" class="img-circle lto-mess-auto-comp-img">
+														</div>
+														<div class="pull-left">
+															<span>{{party.userBean.firstName}}<br />{{party.userBean.lastName}}
+															</span>
+														</div> <span class="pull-right text-highlight"><span class="glyphicon glyphicon-star"></span>{{party.rating}}</span>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</form>
+									<!--  End -->
+									<ul class="nav nav-pills nav-stacked">
+										<div ng-init="getContactList()">
+											<li class="lto-msg-contact-list cursor" ng-repeat="contact in contactList" ng-click="getConversation(contact)" id="contactM{{contact.id}}"><img src="../images/UserImage.png" ng-if="contact.userBean.profilePicture == null" class="img-circle lto-msg-usr-img lto-mess-cont-adj"> <img ng-src="{{getProfileImage(contact.userBean.profilePicture)}}"
+												ng-if="contact.userBean.profilePicture != null" class="img-circle lto-msg-usr-img lto-mess-cont-adj"
+											> <span class="lto-msg-usr-name" id="contactM{{contact.userBean.firstName}}">{{contact.userBean.name}}</span> <span class="glyphicon glyphicon-trash lto-msg-del pull-right" title="Delete conversation?" ng-click="deleteConversation(contact.id)"></span></li>
+										</div>
+									</ul>
+									<br>
+								</div>
+							</div>
+						</div>
+						<!-- End of section -->
+				</div>
+				</nav>
+				<div class="container-fluid">
+					<div class="row">
+						<!-- Append Conversation contact section -->
+						<div class="col-md-4 col-sm-3 well lto-cont-section hidden-xs">
+							<!-- Section to auto populate contact  List -->
+							<!-- button section to add contacts  -->
+							<div class="input-group lto-mess-start-conv cursor" ng-if="isAddContacts == true" ng-click="showSearchBox()">
+								<img src="../images/people.png" class="pull-left lto-mess-conv-icon"> <span class="lto-mess-conv-txt">Start New Conversation</span>
+							</div>
+							<!--  End -->
+							<!-- Input search section to auto populate contacts by name -->
+							<form role="search">
+								<div class="input-group lto-mess-search-box-container" ng-if="isAddContacts == false">
+									<div class="pull-left">
+										<img src="../images/people.png" class="lto-mess-contact-icon cursor" ng-click="showSearchBox()">
+									</div>
+									<div class="lto-mess-search-box pull-left">
+										<input type="text" class="form-control lto-mess-search-input" placeholder="Search" ng-model="search.name" ng-keypress="getChatSuggestionList()" data-toggle="dropdown">
+										<ul class="dropdown-menu lto-mess-dropdown" role="menu" id="usersListId" ng-if="suggestionListOfUserByNames.length > 0">
+											<li class="cursor lto-mess-li" ng-repeat="party in suggestionListOfUserByNames" ng-click="startConversationWithUser(party)">
+												<div class="pull-left">
+													<img src="../images/UserImage.png" ng-if="party.userBean.profilePicture == null" class="img-circle lto-mess-auto-comp-img"> <img ng-src="{{getProfileImage(party.userBean.profilePicture)}}" ng-if="party.userBean.profilePicture != null" class="img-circle lto-mess-auto-comp-img">
+												</div>
+												<div class="pull-left">
+													<span>{{party.userBean.firstName}}<br />{{party.userBean.lastName}}
+													</span>
+												</div> <span class="pull-right text-highlight"><span class="glyphicon glyphicon-star"></span>{{party.rating}}</span>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</form>
+							<!--  End -->
+							<ul class="nav nav-pills nav-stacked">
+								<div ng-init="getContactList()">
+									<li class="lto-msg-contact-list cursor" ng-repeat="contact in contactList" ng-click="getConversation(contact)" id="contact{{contact.id}}"><img src="../images/UserImage.png" ng-if="contact.userBean.profilePicture == null" class="img-circle lto-msg-usr-img lto-mess-cont-adj"> <img ng-src="{{getProfileImage(contact.userBean.profilePicture)}}"
+										ng-if="contact.userBean.profilePicture != null" class="img-circle lto-msg-usr-img lto-mess-cont-adj"
+									> <span class="lto-msg-usr-name" id="contact{{contact.userBean.firstName}}">{{contact.userBean.name}}</span> <span class="glyphicon glyphicon-trash lto-msg-del pull-right" title="Delete conversation?" ng-click="deleteConversation(contact.id)"></span></li>
+								</div>
+							</ul>
+							<br>
+						</div>
+						<!-- End -->
+						<!-- Append Conversation section of each contact -->
+						<div class="col-md-8 col-sm-9 well">
+							<div class="panel">
+								<div>
+									<div class="panel-body lto-message-cont-section" id="panel-body">
+										<ul class="chat" ng-repeat="message in conversationList">
+											<!-- Append toParty message -->
+											<li class="left clearfix" ng-if="message.fromParty.userBean.id != userId"><span class="chat-img pull-left"> <img src="../images/UserImage.png" ng-if="message.fromParty.userBean.profilePicture == null" class="img-circle lto-msg-usr-img"></img> <img ng-src="{{getProfileImage(message.fromParty.userBean.profilePicture)}}" ng-if="message.fromParty.userBean.profilePicture != null"
+													class="img-circle lto-msg-usr-img"
+												></img>
+											</span>
+												<p class="lto-message">{{message.messageText}}</p>
+												<div class="chat-body clearfix">
+													<div class="header">
+														<!-- <strong class="primary-font">{{x.sentBy}}</strong> -->
+														<!--  <small
+															class="pull-right text-muted"> <span
+															class="glyphicon glyphicon-time"></span><time class="font-size-12 " am-time-ago="message.sentTime"></time>
+														</small>  -->
+													</div>
+												</div></li>
+											<!-- End -->
+											<!-- Append From party message -->
+											<li class="right clearfix" ng-if="message.fromParty.userBean.id == userId"><span class="chat-img pull-right"> <img src="../images/UserImage.png" ng-if="message.fromParty.userBean.profilePicture == null" class="img-circle lto-msg-usr-img"></img> <img ng-src="{{getProfileImage(message.fromParty.userBean.profilePicture)}}"
+													ng-if="message.fromParty.userBean.profilePicture != null" class="img-circle lto-msg-usr-img"
+												></img>
+											</span>
+												<p class="lto-message pull-right">{{message.messageText}}</p>
+												<div class="chat-body clearfix">
+													<div class="header">
+													<!-- 	 <small class=" text-muted pull-left"> <span
+																class="glyphicon glyphicon-time"></span><time class="font-size-12 " am-time-ago="message.sentTime"></time>
+															</small> -->
+														<!-- <strong class="pull-right primary-font">{{x.recievedBy}}</strong> -->
+													</div>
+												</div></li>
+										</ul>
+									</div>
+									<div class="panel-footer">
+                                        <div class="input-group">
+                                            <input id="btn-input" type="text" class="form-control input-sm" placeholder="Type your message here..." ng-model="message.messageText" ng-keyup="$event.keyCode == 13 && sendMessageToParty()" /> <span class="input-group-btn">
+                                                <button class="btn btn-warning btn-sm" id="btn-chat" ng-click="sendMessageToParty()">Send</button>
+                                            </span>
+                                        </div>
+                                        <!-- <span class="glyphicon glyphicon-paperclip pull-right"></span>
+                                                    <span class="glyphicon glyphicon-picture pull-right"></span> -->
+                                    </div>
+								</div>
+								
+							</div>
+						</div>
+						<!-- End -->
+					</div>
+				</div>
+			</div>
+			<!-- Closing messages content here -->
+			<div class="col-xs-12 col-sm-4 col-md-4 lto-invite-widget">
+				<div ng-include="'./js/pages/connections/connection_suggestion_list.html'"></div>
+				<div ng-include="'./js/pages/common/right_suggestions.html'"></div>
+			</div>
+			</main>
+			<!-- /main content area -->
+		</div>
+	</div>
+	<!-- /container-fluid -->
+</div>

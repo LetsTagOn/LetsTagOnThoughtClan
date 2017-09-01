@@ -1,0 +1,145 @@
+<div ng-include="'./js/pages/header/navigation-header.html'"></div>
+<div class="container lto-main-container">
+	<div class="content-area">
+		<div class="row">
+			<div class="col-sm-8">
+				<div class="row no-margin well well-consent information-section">
+					<div class="row">
+						<h3 class="pull-left opportunity-title cursor" ng-click="redirect('/view/opportunity/'+oppDetails.id)">{{oppDetails.name}}</h3>
+						<div class="pull-right opportunity-btn-container">
+							<li ng-show="manageOppButton" class="btn btn-primary dropdown btn-margin-left pull-right"><span class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Manage</span>
+								<ul class="dropdown-menu" role="menu">
+									<li class=""><a href="#/opportunity/manageApplications/{{oppDetails.id}}">Application status</a></li>
+									<li class=""><a href="#/opportunity/manageAttendance/{{oppDetails.id}}">Attendance</a></li>
+									<li class=""><a href="#/opportunity/manageFeedback/{{oppDetails.id}}">Give Feedback</a></li>
+								</ul></li>
+							<button ng-show="editOppButton" class="btn btn-primary pull-right btn-margin-right" ng-click="editOpp(oppDetails)">Edit</button>
+						</div>
+					</div>
+					<h4>
+						<strong ng-if="oppDetails.description.length>1">Information about the event</strong>
+					</h4>
+					<p>
+					<div ng-if="!oppDetails.description">No description avaliable!!</div>
+					<div ng-if="oppDetails.description">
+						{{oppDetails.description}}<a href="" class="pull-right">Read More</a>
+					</div>
+					</p>
+					<div class="row no-margin row-space">
+						<div class="col-xs-12 navigation-bar">
+							<ul>
+								<li ng-if="oppDetails.contactPerson.id>0"><a class="" href="#/profile/user/{{oppDetails.contactPerson.id}}"> <span class="glyphicon glyphicon-user"></span> {{oppDetails.contactPerson.name}} </br> <span class="right-align"> {{oppDetails.contactPerson.phoneNumber}}</span>
+								</a></li>
+								<li class="vertical-separator" ng-if="oppDetails.dateStart"></li>
+								<li ng-if="oppDetails.dateStart" class="event-date-detail"><span class="glyphicon glyphicon-calendar"></span>{{oppDetails.dateStart | date: 'dd-MMM-yyyy'}} <span> to </span> {{oppDetails.dateEnd | date: 'dd-MMM-yyyy'}}</li>
+								<li class="vertical-separator" ng-if="oppDetails.dateStart"></li>
+								<li ng-if="oppDetails.dateStart"><span class="glyphicon glyphicon-time"></span>{{oppDetails.dateStart | date: 'HH:MM'}}-{{oppDetails.dateEnd | date: 'HH:MM'}}</li>
+								<li class="vertical-separator" ng-if="oppDetails.addressBean"></li>
+								<li ng-if="oppDetails.addressBean && oppDetails.addressBean.formattedAddress == null"><span class="glyphicon glyphicon-map-marker"></span> <span><span ng-if="oppDetails.addressBean.street">{{oppDetails.addressBean.street}}</br></span> <span class="right-align">{{oppDetails.addressBean.city}}<span ng-if="oppDetails.addressBean.country">,
+												{{oppDetails.addressBean.country}}</span>
+									</span> </span></li>
+								<li class="lto-opp-address-list" ng-if="oppDetails.addressBean && oppDetails.addressBean.formattedAddress != null"><span class="glyphicon glyphicon-map-marker"></span> <span><span>{{oppDetails.addressBean.formattedAddress}}</span> </span> </span></li>
+							</ul>
+							<div class="hide" id="latLng">{{oppDetails.latLong}}</div>
+						</div>
+					</div>
+				</div>
+				<h2 ng-if="oppDetails.partyParticipations.length>0">Applied Volunteers List</h2>
+				<!-- table here -->
+				<div class="row no-margin row-space">
+					<div ng-if="participants.length>=3" class="search-field col-md-12 col-sm-12 col-xs-12 opportunity-search-container">
+						<input type="text" ng-model="q" name="trade" class="form-control opportunity-search-adj" placeholder="Search for Applied Volunteers"> <span class="glyphicon glyphicon-search"> </span>
+					</div>
+					<br> <br>
+					<div dir-paginate="participation in participants | itemsPerPage: participantsPerPage | filter:q " total-items="totalParticipants" current-page="pagination.current" class="col-xs-5 col-sm-3 opportunity-user-list">
+						<div class="user__thumbnail ">
+							<img ng-src="{{getProfileImage(participation.partyBean.userBean.profilePicture)}}" ng-if="participation.partyBean.userBean.profilePicture != null"> <img src="../images/UserImage.png" ng-if="participation.partyBean.userBean.profilePicture == null">
+							<div class="user-info">
+								<span class="icon-descriptor"><span ng-click="redirect('/profile/user/'+participation.partyBean.userBean.id)">{{participation.partyBean.userBean.name}}</span> <!-- Rating section -->
+									<div ng-if="participation.rating != null">
+										<div ng-init="rating = participation.rating"></div>
+										<div class="star-rating" star-rating rating-value="rating" data-max="5" on-rating-selected="rateFunction(rating,participation.id)"></div>
+										{{rating}}
+									</div>
+									<div ng-if="participation.rating == null">
+										<div ng-init="rating = star.rating + 1"></div>
+										<div class="star-rating" star-rating rating-value="rating" data-max="5" on-rating-selected="rateFunction(rating,participation.id)"></div>
+										{{rating}}
+									</div> </span>
+								<hr>
+								<!-- FeedBack Section -->
+								<div class="cursor">
+									<span class="glyphicon glyphicon-edit"></span> <span data-toggle="modal" data-target="#modalFeedBack{{participation.id}}" id="{{participation.id}}">Give Feedback</span>
+									<div class="modal fade" id="modalFeedBack{{participation.id}}">
+										<div class="modal-dialog feedBack-modal-dialog">
+											<div class="modal-content">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal">&times;</button>
+													<h2 class="modal-title">Feed Back for {{participation.partyBean.userBean.name}}</h2>
+												</div>
+												<div class="modal-body">
+													<form ng-submit="submitFeedBack(participation.id)">
+														<textarea name="feedback" class="form-control feedback-txtarea" id="feedback{{participation.id}}" placeholder="Some lines about {{participation.partyBean.userBean.name}}" ng-model="participation.review">
+														</textarea>
+														<button class="btn btn-primary btn--block-centered feedBack-btn">Save</button>
+														<div class="success-toast-message" ng-show="success">
+															<span ng-model="actionSuccess">{{actionSuccess}}</span>
+														</div>
+														<div class="error-toast-message" ng-show="error">
+															<span ng-model="actionError">{{actionError}}</span>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<dir-pagination-controls boundary-links="true" on-page-change="pageChanged(newPageNumber)" template-url="/js/pages/fragments/pagination/dirPagination.tpl.html"></dir-pagination-controls>
+					<div class="row no-margin row-space well well-consent col-xs-12 col-sm-12 col-lg-12 ng-scope" ng-if="oppDetails.partyParticipations.length==0">
+						<div class="lto-not-connected-msg" i18n="common.lto_span_noVOlunteerApplied"></div>
+					</div>
+					<!-- 						<h2 style="">Similar Opportunites</h2>
+						<div class="row no-margin">
+							<div class="col-xs-4">
+								<div class="well well-consent event-cal">
+									<div>
+										<img src="./images/image2.jpg">
+										<p>
+											<span><strong>Volunteers</strong></span> <span>
+												Working as a UN Volunteer with UNHCR</span>
+										</p>
+									</div>
+									<div>
+										<button class="btn btn-secondary">Share</button>
+										<button class="btn btn-secondary">Invite a Friend</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-xs-4">
+								<div class="well well-consent event-cal">
+									<div>
+										<img src="./images/image2.jpg">
+										<p>
+											<span><strong>Volunteers</strong></span> <span>
+												Working as a UN Volunteer with UNHCR</span>
+										</p>
+									</div>
+									<div>
+										<button class="btn btn-secondary">Share</button>
+										<button class="btn btn-secondary">Invite a Friend</button>
+									</div>
+								</div>
+							</div>
+						</div> -->
+				</div>
+			</div>
+			<!--  Common to all manage opportunity Pages-->
+			<div ng-include="'./js/pages/opportunity/opportunity_suggestion.html'"></div>
+		</div>
+	</div>
+	</main>
+</div>
+</div>
