@@ -61,11 +61,12 @@ letsTagOn.controller('MainController', function($rootScope, $http, $location, $r
         }).success(function(data) {
             authenticate(function() {
                 if ($rootScope.authenticated) {
+                	$location.path("/"); // Sourabh: added to redirect to home page on successful login
                     $scope.error = false;
                     $scope.submitted = false;
                     $rootScope.showWallHeader = true;
                 } else {
-                    $location.path("/");
+                 // Sourabh: Fixed issue of rerouting to home page. This was tryng to relocate to welcome page. Hence commented.   $location.path("/");
                     $scope.error = true;
                     $scope.authenticationError = "Invalid credentails";
                 }

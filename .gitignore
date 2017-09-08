@@ -29,6 +29,8 @@ tmp/
 local.properties
 .settings/
 .loadpath
+.sonarlint/
+Servers/
 
 # Eclipse Core
 .project
