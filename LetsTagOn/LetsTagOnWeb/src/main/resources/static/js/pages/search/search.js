@@ -16,7 +16,7 @@ searchModule.controller('SearchController',
         $scope.showOppDateRange = false;
         $rootScope.dateRange = false;
         $scope.results = [];
-        $scope.totalResults = 0;
+        $scope.totalResults = -1; // Sourabh: made -1 from 0 to fix search issue. Code is checking if totalResults = 0
         // Function to set the maximum resilt size
         $scope.getResultsPerPage = function() {
             return 10;
@@ -55,7 +55,7 @@ searchModule.controller('SearchController',
 
             if (typeof(keyword) != "undefined" && keyword != "") {
                 $scope.searchString = keyword;
-                // $scope.getResultsPage(1);
+                $scope.getResultsPage(1); // Sourabh: uncommented this line to fix search issue
             }
 
             $http({
@@ -294,9 +294,11 @@ searchModule.controller('SearchController',
                 function(result) {
                     $scope.results = [];
                     $scope.results = result.data.response.docs;
+                    if(result.data.response.numFound > 0) // Sourabh: added this code to set searchresults
 
                     $scope.totalResults = result.data.response.numFound;
-
+                    else
+                    	$scope.totalResults = 0;
                     if (result.data.facet_counts) {
                         // set facet counts
 
@@ -609,7 +611,7 @@ searchModule.controller('SearchController',
             }
         };
 
-        $scope.getResultsPage(1);
+     // Sourabh: commented this as this is being called before the field value is passed   $scope.getResultsPage(1);
 
         // Function to get the connection status for each search result
         $scope.checkConnection = function(userID) {

@@ -18,7 +18,7 @@ hs_err_pid*
 
 ### Eclipse ###
 
-.metadata
+.metadata/
 bin/
 target/
 tmp/
@@ -29,6 +29,8 @@ tmp/
 local.properties
 .settings/
 .loadpath
+.sonarlint/
+Servers/
 
 # Eclipse Core
 .project
