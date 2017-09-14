@@ -213,7 +213,8 @@ completeProfile.controller('PersonalInformationController', function($http, $sco
         address.street = $scope.user.addressBean.street;
         address.formattedAddress = address.street + " " + address.city + " " +address.state+" "+ address.country+" " +address.postalCode
         $scope.user.addressBean = address;
-        $scope.user.dateOfBirth = new Date($("#userDateOfBirth").val());
+        var parts = $("#userDateOfBirth").val().split("/");
+        $scope.user.dateOfBirth = new Date(parts[2],parts[0]-1,parts[1]); 
         
 
         $('#loading-indicator').show();
