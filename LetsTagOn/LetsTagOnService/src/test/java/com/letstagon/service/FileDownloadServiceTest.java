@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -27,7 +28,8 @@ import com.letstagon.service.file.LtoFileService;
 public class FileDownloadServiceTest {
 
 	/** The download service. */
-	@Autowired
+	@Autowired()
+	@Qualifier("ltoFileService")
 	private LtoFileService downloadService;
 
 	/** The tika. */
@@ -46,7 +48,7 @@ public class FileDownloadServiceTest {
 	@Test
 	public void downloadFile() throws InterruptedException, IOException {
 
-		File file = downloadService.downloadFile(downloadService.getProfileImagesS3BucketName(), "pics/test.jpg");
+		File file = downloadService.downloadFile(downloadService.getProfileImagesS3BucketName(), "pic/test.png");
 
 		LOG.info("File name : " + file.getName());
 		LOG.info("File content type : " + tika.detect(file));
