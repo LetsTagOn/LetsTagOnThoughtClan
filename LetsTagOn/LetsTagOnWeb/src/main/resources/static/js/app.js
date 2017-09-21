@@ -6,7 +6,7 @@ angular
         'letstagon', ['ngRoute', 'ngMessages', 'home', 'main', 'completeProfile',
             "search", "profile", "bootstrapModal",
             "connectionModule", "opportunityModule",
-            "opportunityManagementModule",
+            "opportunityManagementModule","about us","contact us",
             "angularUtils.directives.dirPagination",
             "notificationModule", "ngLocalize", "localization",
             "messageModule", "wallModule", "angularMoment"
@@ -127,6 +127,14 @@ angular
                     templateUrl: './js/pages/completeYourProfile/import_professional_details.html',
                     controller: 'ProfessionalDetailsController',
                     controllerAs: 'controller'
+                })  .when('/about us', {
+                    templateUrl: './js/pages/About Us/about_us.html',
+                    controller: 'aboutcontroller',
+                    controllerAs: 'controller'
+                }) .when('/contact us',{
+                	templateUrl: './js/pages/Contact Us/contact_us.html',
+                	controller: 'contactuscontroller',
+                	controllerAs: 'controller'
                 }).otherwise("/");
 
             $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
