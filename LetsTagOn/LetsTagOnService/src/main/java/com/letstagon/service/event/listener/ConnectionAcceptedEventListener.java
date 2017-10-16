@@ -18,8 +18,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
-import com.amazonaws.util.json.JSONException;
-import com.amazonaws.util.json.JSONObject;
+import com.amazonaws.util.json.Jackson;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.letstagon.common.CommonConstants;
 import com.letstagon.dao.model.Notification;
 import com.letstagon.dao.model.PrivacySettings;
@@ -29,36 +30,41 @@ import com.letstagon.service.event.ConnectionAcceptedEvent;
 
 // TODO: Auto-generated Javadoc
 /**
- * The listener interface for receiving connectionAcceptedEvent events.
- * The class that is interested in processing a connectionAcceptedEvent
- * event implements this interface, and the object created
- * with that class is registered with a component using the
- * component's <code>addConnectionAcceptedEventListener<code> method. When
- * the connectionAcceptedEvent event occurs, that object's appropriate
- * method is invoked.
+ * The listener interface for receiving connectionAcceptedEvent events. The
+ * class that is interested in processing a connectionAcceptedEvent event
+ * implements this interface, and the object created with that class is
+ * registered with a component using the component's
+ * <code>addConnectionAcceptedEventListener<code> method. When the
+ * connectionAcceptedEvent event occurs, that object's appropriate method is
+ * invoked.
  *
  * @see ConnectionAcceptedEventEvent
  */
 @Component
-public class ConnectionAcceptedEventListener extends BaseNotificationEventListner implements ApplicationListener<ConnectionAcceptedEvent> {
-	
+public class ConnectionAcceptedEventListener extends BaseNotificationEventListner
+		implements ApplicationListener<ConnectionAcceptedEvent> {
+
 	/** The Constant LOG. */
 	private static final Logger LOG = LoggerFactory.getLogger(ConnectionAcceptedEventListener.class);
-	
+
 	/** The mail sender. */
 	@Autowired
 	private JavaMailSender mailSender;
-	
+
 	/** The velocity engine. */
 	@Autowired
 	private VelocityEngine velocityEngine;
-	
+
 	/** The privacy settings. */
 	@Autowired
 	private UserPrivacySettingsService privacySettings;
-	
-	/* (non-Javadoc)
-	 * @see org.springframework.context.ApplicationListener#onApplicationEvent(org.springframework.context.ApplicationEvent)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.context.ApplicationListener#onApplicationEvent(org.
+	 * springframework.context.ApplicationEvent)
 	 */
 	@Override
 	@Async
@@ -67,15 +73,15 @@ public class ConnectionAcceptedEventListener extends BaseNotificationEventListne
 		boolean sendNotification = true;
 		boolean sendEmailAlerts = true;
 		PrivacySettings privacy = privacySettings.getUserPrivacySettings(event.getToParty().getUserBean().getId());
-		if(privacy != null){
-			if(privacy.getEmailAlertsOn() != null && !privacy.getEmailAlertsOn()){
+		if (privacy != null) {
+			if (privacy.getEmailAlertsOn() != null && !privacy.getEmailAlertsOn()) {
 				sendEmailAlerts = false;
 			}
-			if(privacy.getEmailNotificationFrequency() != null && !privacy.getEmailNotificationFrequency()){
+			if (privacy.getEmailNotificationFrequency() != null && !privacy.getEmailNotificationFrequency()) {
 				sendNotification = false;
 			}
 		}
-		if(sendNotification){
+		if (sendNotification) {
 			Notification notification = new Notification();
 			notification.setContent(NotificationTypeEnum.CONNECTION_ACCEPT.getMessage());
 			notification.setPartyBean(event.getToParty());
@@ -84,43 +90,46 @@ public class ConnectionAcceptedEventListener extends BaseNotificationEventListne
 			notification.setStatus(true);
 			notification.setIsRead(false);
 			notification.setThumbnailUrl(CommonConstants.THUMBNAIL_PROFILE_URL);
-			JSONObject jsonObject = new JSONObject();
-			try {
-				jsonObject.put("senderId", event.getFromParty().getId());
-				jsonObject.put("senderUserId",event.getFromParty().getUserBean().getId());
-				jsonObject.put("senderName", event.getFromParty().getUserBean().getName());
-				jsonObject.put("senderProfilePicture", event.getFromParty().getUserBean().getProfilePicture());
-				notification.setParams(jsonObject.toString());
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			this.createNotification(notification);	
-		}else {
-			LOG.info("Connection accepted Notification has not been sent check privacy settings to user id"+event.getFromParty().getUserBean().getId());
+			ObjectMapper mapper = new ObjectMapper();
+			ObjectNode node = mapper.createObjectNode();
+			node.put("senderId", event.getFromParty().getId());
+			node.put("senderUserId", event.getFromParty().getUserBean().getId());
+			node.put("senderName", event.getFromParty().getUserBean().getName());
+			node.put("senderProfilePicture", event.getFromParty().getUserBean().getProfilePicture());
+			notification.setParams(node.toString());
+
+			this.createNotification(notification);
+		} else {
+			LOG.info("Connection accepted Notification has not been sent check privacy settings to user id"
+					+ event.getFromParty().getUserBean().getId());
 		}
-		if(sendEmailAlerts){
+		if (sendEmailAlerts) {
 			this.sendEmail(event);
-		}else {
-			LOG.info("Connection accepted Email has not been sent check privacy settings to user id"+event.getFromParty().getUserBean().getId());
+		} else {
+			LOG.info("Connection accepted Email has not been sent check privacy settings to user id"
+					+ event.getFromParty().getUserBean().getId());
 		}
-		
+
 	}
 
-	/* (non-Javadoc)
-	 * @see com.letstagon.service.event.listener.BaseNotificationEventListner#createNotification(com.letstagon.dao.model.Notification)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.letstagon.service.event.listener.BaseNotificationEventListner#
+	 * createNotification(com.letstagon.dao.model.Notification)
 	 */
-	public Notification createNotification(Notification source){
+	public Notification createNotification(Notification source) {
 		return super.createNotification(source);
 	}
-	
+
 	/**
 	 * Send email.
 	 *
-	 * @param event the event
+	 * @param event
+	 *            the event
 	 */
-	
-	public void sendEmail(ConnectionAcceptedEvent event){
+
+	public void sendEmail(ConnectionAcceptedEvent event) {
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public void prepare(MimeMessage mimeMessage) throws Exception {
@@ -131,11 +140,10 @@ public class ConnectionAcceptedEventListener extends BaseNotificationEventListne
 				message.setSentDate(new Date());
 				Map model = new HashMap();
 				model.put("regMessage",
-						CommonConstants.CONNECTION_ACCEPT_EVENT_MESSAGE+event.getFromParty().getUserBean().getName());
+						CommonConstants.CONNECTION_ACCEPT_EVENT_MESSAGE + event.getFromParty().getUserBean().getName());
 				model.put("name", event.getToParty().getUserBean().getName());
-				String text = VelocityEngineUtils.mergeTemplateIntoString(
-						velocityEngine, "velocity/connectionAcceptTemplate.vm", "UTF-8",
-						model);
+				String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
+						"velocity/connectionAcceptTemplate.vm", "UTF-8", model);
 				message.setText(text, true);
 			}
 		};

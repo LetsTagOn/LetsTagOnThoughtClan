@@ -5,8 +5,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.regions.Regions;
+import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.transfer.TransferManager;
+import com.amazonaws.services.s3.transfer.TransferManagerBuilder;
+import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -15,24 +19,7 @@ import com.amazonaws.services.s3.transfer.TransferManager;
 @Configuration
 public class AwsS3Config {
 
-	/** The access key. */
-	@Value("${aws.accessKeyId}")
-	private String accessKey;
-
-	/** The secret key. */
-	@Value("${aws.secretKey}")
-	private String secretKey;
-
-	/**
-	 * Gets the s 3 credentials.
-	 *
-	 * @return the s 3 credentials
-	 */
-	@Bean
-	public BasicAWSCredentials getS3Credentials() {
-		return new BasicAWSCredentials(this.accessKey, this.secretKey);
-	}
-
+	
 	/**
 	 * Gets the transaction manager.
 	 *
@@ -40,7 +27,7 @@ public class AwsS3Config {
 	 */
 	@Bean
 	public TransferManager getTransactionManager() {
-		return new TransferManager(this.getS3Credentials());
+		return TransferManagerBuilder.standard().withS3Client(this.getS3Client()).build();
 	}
 
 	/**
@@ -49,8 +36,11 @@ public class AwsS3Config {
 	 * @return the s 3 client
 	 */
 	@Bean
-	public AmazonS3Client getS3Client() {
-		return new AmazonS3Client(this.getS3Credentials());
+	public AmazonS3 getS3Client() {
+		
+		return AmazonS3ClientBuilder.standard()
+                .withRegion(Regions.US_WEST_2)
+                .build();
 	}
 
 }

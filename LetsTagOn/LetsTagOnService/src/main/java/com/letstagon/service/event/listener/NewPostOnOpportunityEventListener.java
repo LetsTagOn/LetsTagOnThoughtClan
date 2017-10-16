@@ -18,8 +18,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
-import com.amazonaws.util.json.JSONException;
-import com.amazonaws.util.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.letstagon.common.CommonConstants;
 import com.letstagon.dao.model.Notification;
 import com.letstagon.dao.model.PrivacySettings;
@@ -29,37 +29,41 @@ import com.letstagon.service.event.NewPostOnOpportunityEvent;
 
 // TODO: Auto-generated Javadoc
 /**
- * The listener interface for receiving newPostOnOpportunityEvent events.
- * The class that is interested in processing a newPostOnOpportunityEvent
- * event implements this interface, and the object created
- * with that class is registered with a component using the
- * component's <code>addNewPostOnOpportunityEventListener<code> method. When
- * the newPostOnOpportunityEvent event occurs, that object's appropriate
- * method is invoked.
+ * The listener interface for receiving newPostOnOpportunityEvent events. The
+ * class that is interested in processing a newPostOnOpportunityEvent event
+ * implements this interface, and the object created with that class is
+ * registered with a component using the component's
+ * <code>addNewPostOnOpportunityEventListener<code> method. When the
+ * newPostOnOpportunityEvent event occurs, that object's appropriate method is
+ * invoked.
  *
  * @see NewPostOnOpportunityEventEvent
  */
 @Component
 public class NewPostOnOpportunityEventListener extends BaseNotificationEventListner
 		implements ApplicationListener<NewPostOnOpportunityEvent> {
-	
+
 	/** The Constant LOG. */
 	private static final Logger LOG = LoggerFactory.getLogger(NewPostOnOpportunityEventListener.class);
-	
+
 	/** The mail sender. */
 	@Autowired
 	private JavaMailSender mailSender;
-	
+
 	/** The velocity engine. */
 	@Autowired
 	private VelocityEngine velocityEngine;
-	
+
 	/** The privacy settings. */
 	@Autowired
 	private UserPrivacySettingsService privacySettings;
-	
-	/* (non-Javadoc)
-	 * @see org.springframework.context.ApplicationListener#onApplicationEvent(org.springframework.context.ApplicationEvent)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.context.ApplicationListener#onApplicationEvent(org.
+	 * springframework.context.ApplicationEvent)
 	 */
 	@Override
 	@Async
@@ -67,16 +71,17 @@ public class NewPostOnOpportunityEventListener extends BaseNotificationEventList
 		LOG.trace("NewPostOnOpportunityEventListener occured");
 		boolean sendNotification = true;
 		boolean sendEmailAlerts = true;
-		PrivacySettings privacy = privacySettings.getUserPrivacySettings(event.getOpportunity().getCreatedByParty().getUserBean().getId());
-		if(privacy != null){
-			if(privacy.getEmailAlertsOn() != null && !privacy.getEmailAlertsOn()){
+		PrivacySettings privacy = privacySettings
+				.getUserPrivacySettings(event.getOpportunity().getCreatedByParty().getUserBean().getId());
+		if (privacy != null) {
+			if (privacy.getEmailAlertsOn() != null && !privacy.getEmailAlertsOn()) {
 				sendEmailAlerts = false;
 			}
-			if(privacy.getEmailNotificationFrequency() != null && !privacy.getEmailNotificationFrequency()){
+			if (privacy.getEmailNotificationFrequency() != null && !privacy.getEmailNotificationFrequency()) {
 				sendNotification = false;
 			}
 		}
-		if(sendNotification){
+		if (sendNotification) {
 			Notification notification = new Notification();
 			notification.setContent(NotificationTypeEnum.NEW_POST_ON_OPPORTUNITY.getMessage());
 			notification.setPartyBean(event.getOpportunity().getCreatedByParty());
@@ -84,47 +89,48 @@ public class NewPostOnOpportunityEventListener extends BaseNotificationEventList
 			notification.setSentOn(new Date());
 			notification.setStatus(true);
 			notification.setIsRead(false);
-			JSONObject jsonObject = new JSONObject();
-			try {
-				jsonObject.put("senderId", event.getPost().getPostedByParty().getId());
-				jsonObject.put("senderUserId", event.getPost().getPostedByParty().getUserBean().getId());
-				jsonObject.put("senderName", event.getPost().getPostedByParty().getUserBean().getName());
-				jsonObject.put("senderProfilePicture",
-						event.getPost().getPostedByParty().getUserBean().getProfilePicture());
-				jsonObject.put("opportunityId", event.getOpportunity().getId());
-				jsonObject.put("postId", event.getPost().getId());
-				notification.setParams(jsonObject.toString());
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				LOG.error("Exception while creating json object for userFom partyId:"+event.getPost().getPostedByParty().getId()+" to partyid:"+event.getOpportunity().getCreatedByParty());
-				e.printStackTrace();
-			}
+			ObjectMapper mapper = new ObjectMapper();
+			ObjectNode node = mapper.createObjectNode();
+
+			node.put("senderId", event.getPost().getPostedByParty().getId());
+			node.put("senderUserId", event.getPost().getPostedByParty().getUserBean().getId());
+			node.put("senderName", event.getPost().getPostedByParty().getUserBean().getName());
+			node.put("senderProfilePicture", event.getPost().getPostedByParty().getUserBean().getProfilePicture());
+			node.put("opportunityId", event.getOpportunity().getId());
+			node.put("postId", event.getPost().getId());
+			notification.setParams(node.toString());
+
 			this.createNotification(notification);
-		}else {
-			LOG.info("invite to opp Notification has not been sent check privacy settings to user id"+event.getOpportunity().getCreatedByParty().getUserBean().getId());
+		} else {
+			LOG.info("invite to opp Notification has not been sent check privacy settings to user id"
+					+ event.getOpportunity().getCreatedByParty().getUserBean().getId());
 		}
-		if(sendEmailAlerts){
+		if (sendEmailAlerts) {
 			this.sendEmail(event);
-		}else {
-			LOG.info("invite to opp Email has not been sent check privacy settings to user id"+event.getOpportunity().getCreatedByParty().getUserBean().getId());
+		} else {
+			LOG.info("invite to opp Email has not been sent check privacy settings to user id"
+					+ event.getOpportunity().getCreatedByParty().getUserBean().getId());
 		}
-		
 
 	}
 
-	/* (non-Javadoc)
-	 * @see com.letstagon.service.event.listener.BaseNotificationEventListner#createNotification(com.letstagon.dao.model.Notification)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.letstagon.service.event.listener.BaseNotificationEventListner#
+	 * createNotification(com.letstagon.dao.model.Notification)
 	 */
 	public Notification createNotification(Notification source) {
 		return super.createNotification(source);
 	}
-	
+
 	/**
 	 * Send email.
 	 *
-	 * @param event the event
+	 * @param event
+	 *            the event
 	 */
-	public void sendEmail(NewPostOnOpportunityEvent event){
+	public void sendEmail(NewPostOnOpportunityEvent event) {
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public void prepare(MimeMessage mimeMessage) throws Exception {
@@ -137,9 +143,8 @@ public class NewPostOnOpportunityEventListener extends BaseNotificationEventList
 				model.put("regMessage",
 						CommonConstants.NEW_POST_ON_OPP_EVENT_MESSAGE + event.getOpportunity().getName());
 				model.put("name", event.getPost().getPostedForParty().getUserBean().getName());
-				String text = VelocityEngineUtils.mergeTemplateIntoString(
-						velocityEngine, "velocity/template.vm", "UTF-8",
-						model);
+				String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "velocity/template.vm",
+						"UTF-8", model);
 				message.setText(text, true);
 			}
 		};

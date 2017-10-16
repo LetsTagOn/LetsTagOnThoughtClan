@@ -18,8 +18,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
-import com.amazonaws.util.json.JSONException;
-import com.amazonaws.util.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.letstagon.common.CommonConstants;
 import com.letstagon.dao.model.Notification;
 import com.letstagon.dao.model.PrivacySettings;
@@ -31,34 +31,39 @@ import com.letstagon.service.event.OppApplicationStatusChangeEvent;
 /**
  * The listener interface for receiving oppApplicationStatusChangeEvent events.
  * The class that is interested in processing a oppApplicationStatusChangeEvent
- * event implements this interface, and the object created
- * with that class is registered with a component using the
- * component's <code>addOppApplicationStatusChangeEventListener<code> method. When
- * the oppApplicationStatusChangeEvent event occurs, that object's appropriate
+ * event implements this interface, and the object created with that class is
+ * registered with a component using the component's
+ * <code>addOppApplicationStatusChangeEventListener<code> method. When the
+ * oppApplicationStatusChangeEvent event occurs, that object's appropriate
  * method is invoked.
  *
  * @see OppApplicationStatusChangeEventEvent
  */
 @Component
-public class OppApplicationStatusChangeEventListener extends BaseNotificationEventListner implements ApplicationListener<OppApplicationStatusChangeEvent> {
-	
+public class OppApplicationStatusChangeEventListener extends BaseNotificationEventListner
+		implements ApplicationListener<OppApplicationStatusChangeEvent> {
+
 	/** The Constant LOG. */
 	private static final Logger LOG = LoggerFactory.getLogger(OppApplicationStatusChangeEventListener.class);
-	
+
 	/** The mail sender. */
 	@Autowired
 	private JavaMailSender mailSender;
-	
+
 	/** The velocity engine. */
 	@Autowired
 	private VelocityEngine velocityEngine;
-	
+
 	/** The privacy settings. */
 	@Autowired
 	private UserPrivacySettingsService privacySettings;
-	
-	/* (non-Javadoc)
-	 * @see org.springframework.context.ApplicationListener#onApplicationEvent(org.springframework.context.ApplicationEvent)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.context.ApplicationListener#onApplicationEvent(org.
+	 * springframework.context.ApplicationEvent)
 	 */
 	@Override
 	@Async
@@ -66,62 +71,67 @@ public class OppApplicationStatusChangeEventListener extends BaseNotificationEve
 		LOG.trace("OppApplicationStatusChangeEventListener occured");
 		boolean sendNotification = true;
 		boolean sendEmailAlerts = true;
-		PrivacySettings privacy = privacySettings.getUserPrivacySettings(event.getOpportunity().getCreatedByParty().getUserBean().getId());
-		if(privacy != null){
-			if(privacy.getEmailAlertsOn() != null && !privacy.getEmailAlertsOn()){
+		PrivacySettings privacy = privacySettings
+				.getUserPrivacySettings(event.getOpportunity().getCreatedByParty().getUserBean().getId());
+		if (privacy != null) {
+			if (privacy.getEmailAlertsOn() != null && !privacy.getEmailAlertsOn()) {
 				sendEmailAlerts = false;
 			}
-			if(privacy.getEmailNotificationFrequency() != null && !privacy.getEmailNotificationFrequency()){
+			if (privacy.getEmailNotificationFrequency() != null && !privacy.getEmailNotificationFrequency()) {
 				sendNotification = false;
 			}
 		}
-		if(sendNotification){
-		Notification notification = new Notification();
-		notification.setContent(NotificationTypeEnum.OPPORTUNITY_APPLICATION_STATUS_CHANGE.getMessage());
-		notification.setPartyBean(event.getParty());
-		notification.setType(NotificationTypeEnum.OPPORTUNITY_APPLICATION_STATUS_CHANGE.getEventType());
-		notification.setSentOn(new Date());
-		notification.setStatus(true);
-		notification.setIsRead(false);
-		notification.setThumbnailUrl(CommonConstants.THUMBNAIL_OPPORTUNITY_URL);
-		JSONObject jsonObject = new JSONObject();
-		try {
-			jsonObject.put("senderId", event.getOpportunity().getCreatedByParty().getId());
-			jsonObject.put("senderUserId",event.getOpportunity().getCreatedByParty().getUserBean().getId());
-			jsonObject.put("senderName", event.getOpportunity().getCreatedByParty().getUserBean().getName());
-			jsonObject.put("senderProfilePicture", event.getOpportunity().getCreatedByParty().getUserBean().getProfilePicture());
-			jsonObject.put("opportunityId", event.getOpportunity().getId());
-			notification.setParams(jsonObject.toString());
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			LOG.error("Exception while creating json object for userFom partyId:"+event.getOpportunity().getCreatedByParty().getId()+" to partyid:"+event.getParty().getId());
-			e.printStackTrace();
+		if (sendNotification) {
+			Notification notification = new Notification();
+			notification.setContent(NotificationTypeEnum.OPPORTUNITY_APPLICATION_STATUS_CHANGE.getMessage());
+			notification.setPartyBean(event.getParty());
+			notification.setType(NotificationTypeEnum.OPPORTUNITY_APPLICATION_STATUS_CHANGE.getEventType());
+			notification.setSentOn(new Date());
+			notification.setStatus(true);
+			notification.setIsRead(false);
+			notification.setThumbnailUrl(CommonConstants.THUMBNAIL_OPPORTUNITY_URL);
+			ObjectMapper mapper = new ObjectMapper();
+			ObjectNode node = mapper.createObjectNode();
+
+			node.put("senderId", event.getOpportunity().getCreatedByParty().getId());
+			node.put("senderUserId", event.getOpportunity().getCreatedByParty().getUserBean().getId());
+			node.put("senderName", event.getOpportunity().getCreatedByParty().getUserBean().getName());
+			node.put("senderProfilePicture",
+					event.getOpportunity().getCreatedByParty().getUserBean().getProfilePicture());
+			node.put("opportunityId", event.getOpportunity().getId());
+			notification.setParams(node.toString());
+
+			this.createNotification(notification);
+		} else {
+			LOG.info("Opp application status Notification has not been sent check privacy settings to user id"
+					+ event.getParty().getUserBean().getId());
 		}
-		this.createNotification(notification);
-		}else {
-			LOG.info("Opp application status Notification has not been sent check privacy settings to user id"+event.getParty().getUserBean().getId());
-		}
-		if(sendEmailAlerts){
+		if (sendEmailAlerts) {
 			this.sendEmail(event);
-		}else {
-			LOG.info("Opp application status Email has not been sent check privacy settings to user id"+event.getParty().getUserBean().getId());
+		} else {
+			LOG.info("Opp application status Email has not been sent check privacy settings to user id"
+					+ event.getParty().getUserBean().getId());
 		}
-		
+
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.letstagon.service.event.listener.BaseNotificationEventListner#createNotification(com.letstagon.dao.model.Notification)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.letstagon.service.event.listener.BaseNotificationEventListner#
+	 * createNotification(com.letstagon.dao.model.Notification)
 	 */
-	public Notification createNotification(Notification source){
+	public Notification createNotification(Notification source) {
 		return super.createNotification(source);
 	}
-	
+
 	/**
 	 * Send email.
 	 *
-	 * @param event the event
+	 * @param event
+	 *            the event
 	 */
-	public void sendEmail(OppApplicationStatusChangeEvent event){
+	public void sendEmail(OppApplicationStatusChangeEvent event) {
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public void prepare(MimeMessage mimeMessage) throws Exception {
@@ -131,12 +141,10 @@ public class OppApplicationStatusChangeEventListener extends BaseNotificationEve
 				message.setSubject(CommonConstants.EMAIL_SUBJECT);
 				message.setSentDate(new Date());
 				Map model = new HashMap();
-				model.put("regMessage",
-						CommonConstants.APPLICATION_STATUS_EVENT_MESSAGE);
+				model.put("regMessage", CommonConstants.APPLICATION_STATUS_EVENT_MESSAGE);
 				model.put("name", event.getParty().getUserBean().getName());
-				String text = VelocityEngineUtils.mergeTemplateIntoString(
-						velocityEngine, "velocity/oppApplicationStatusTemplate.vm", "UTF-8",
-						model);
+				String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
+						"velocity/oppApplicationStatusTemplate.vm", "UTF-8", model);
 				message.setText(text, true);
 			}
 		};
