@@ -74,7 +74,7 @@
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk-s3</artifactId>
-			<version>1.10.72</version>
+			<version>1.11.212</version>
 		</dependency>
 		<!-- http://mvnrepository.com/artifact/javax.xml.bind/jaxb-api -->
 		<!-- <dependency>

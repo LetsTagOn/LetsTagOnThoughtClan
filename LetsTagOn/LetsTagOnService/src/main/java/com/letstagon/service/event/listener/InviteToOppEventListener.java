@@ -18,8 +18,8 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
-import com.amazonaws.util.json.JSONException;
-import com.amazonaws.util.json.JSONObject;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.letstagon.common.CommonConstants;
 import com.letstagon.dao.model.Notification;
 import com.letstagon.dao.model.PrivacySettings;
@@ -29,36 +29,40 @@ import com.letstagon.service.event.InviteToOppEvent;
 // TODO: Auto-generated Javadoc
 
 /**
- * The listener interface for receiving inviteToOppEvent events.
- * The class that is interested in processing a inviteToOppEvent
- * event implements this interface, and the object created
- * with that class is registered with a component using the
- * component's <code>addInviteToOppEventListener<code> method. When
- * the inviteToOppEvent event occurs, that object's appropriate
- * method is invoked.
+ * The listener interface for receiving inviteToOppEvent events. The class that
+ * is interested in processing a inviteToOppEvent event implements this
+ * interface, and the object created with that class is registered with a
+ * component using the component's <code>addInviteToOppEventListener
+ * <code> method. When the inviteToOppEvent event occurs, that object's
+ * appropriate method is invoked.
  *
  * @see InviteToOppEventEvent
  */
 @Component
-public class InviteToOppEventListener extends BaseNotificationEventListner implements ApplicationListener<InviteToOppEvent> {
-	
+public class InviteToOppEventListener extends BaseNotificationEventListner
+		implements ApplicationListener<InviteToOppEvent> {
+
 	/** The Constant LOG. */
 	private static final Logger LOG = LoggerFactory.getLogger(InviteToOppEventListener.class);
-	
+
 	/** The mail sender. */
 	@Autowired
 	private JavaMailSender mailSender;
-	
+
 	/** The velocity engine. */
 	@Autowired
 	private VelocityEngine velocityEngine;
-	
+
 	/** The privacy settings. */
 	@Autowired
 	private UserPrivacySettingsService privacySettings;
-	
-	/* (non-Javadoc)
-	 * @see org.springframework.context.ApplicationListener#onApplicationEvent(org.springframework.context.ApplicationEvent)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.springframework.context.ApplicationListener#onApplicationEvent(org.
+	 * springframework.context.ApplicationEvent)
 	 */
 	@Override
 	@Async
@@ -66,16 +70,17 @@ public class InviteToOppEventListener extends BaseNotificationEventListner imple
 		LOG.trace("InviteToOppEventListener occured");
 		boolean sendNotification = true;
 		boolean sendEmailAlerts = true;
-		PrivacySettings privacy = privacySettings.getUserPrivacySettings(event.getInvitingParty().getUserBean().getId());
-		if(privacy != null){
-			if(privacy.getEmailAlertsOn() != null && !privacy.getEmailAlertsOn()){
+		PrivacySettings privacy = privacySettings
+				.getUserPrivacySettings(event.getInvitingParty().getUserBean().getId());
+		if (privacy != null) {
+			if (privacy.getEmailAlertsOn() != null && !privacy.getEmailAlertsOn()) {
 				sendEmailAlerts = false;
 			}
-			if(privacy.getEmailNotificationFrequency() != null && !privacy.getEmailNotificationFrequency()){
+			if (privacy.getEmailNotificationFrequency() != null && !privacy.getEmailNotificationFrequency()) {
 				sendNotification = false;
 			}
 		}
-		if(sendNotification){
+		if (sendNotification) {
 			Notification notification = new Notification();
 			notification.setContent(NotificationTypeEnum.INVITE_TO_OPPORTUNITY.getMessage());
 			notification.setPartyBean(event.getInvitedParty());
@@ -84,42 +89,45 @@ public class InviteToOppEventListener extends BaseNotificationEventListner imple
 			notification.setStatus(true);
 			notification.setIsRead(false);
 			notification.setThumbnailUrl(CommonConstants.THUMBNAIL_OPPORTUNITY_URL);
-			JSONObject jsonObject = new JSONObject();
-			try {
-				jsonObject.put("senderId", event.getInvitingParty().getId());
-				jsonObject.put("senderUserId",event.getInvitingParty().getUserBean().getId());
-				jsonObject.put("senderName", event.getInvitingParty().getUserBean().getName());
-				jsonObject.put("senderProfilePicture", event.getInvitingParty().getUserBean().getProfilePicture());
-				jsonObject.put("opportunityId", event.getOpportunity().getId());
-				notification.setParams(jsonObject.toString());
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			ObjectMapper mapper = new ObjectMapper();
+			ObjectNode node = mapper.createObjectNode();
+			node.put("senderId", event.getInvitingParty().getId());
+			node.put("senderUserId", event.getInvitingParty().getUserBean().getId());
+			node.put("senderName", event.getInvitingParty().getUserBean().getName());
+			node.put("senderProfilePicture", event.getInvitingParty().getUserBean().getProfilePicture());
+			node.put("opportunityId", event.getOpportunity().getId());
+			notification.setParams(node.toString());
+
 			this.createNotification(notification);
-		}else {
-			LOG.info("invite to opp Notification has not been sent check privacy settings to user id"+event.getInvitingParty().getUserBean().getId());
+		} else {
+			LOG.info("invite to opp Notification has not been sent check privacy settings to user id"
+					+ event.getInvitingParty().getUserBean().getId());
 		}
-		if(sendEmailAlerts){
+		if (sendEmailAlerts) {
 			this.sendEmail(event);
-		}else {
-			LOG.info("invite to opp Email has not been sent check privacy settings to user id"+event.getInvitingParty().getUserBean().getId());
+		} else {
+			LOG.info("invite to opp Email has not been sent check privacy settings to user id"
+					+ event.getInvitingParty().getUserBean().getId());
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see com.letstagon.service.event.listener.BaseNotificationEventListner#createNotification(com.letstagon.dao.model.Notification)
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.letstagon.service.event.listener.BaseNotificationEventListner#
+	 * createNotification(com.letstagon.dao.model.Notification)
 	 */
-	public Notification createNotification(Notification source){
+	public Notification createNotification(Notification source) {
 		return super.createNotification(source);
 	}
-	
+
 	/**
 	 * Send email.
 	 *
-	 * @param event the event
+	 * @param event
+	 *            the event
 	 */
-	public void sendEmail(InviteToOppEvent event){
+	public void sendEmail(InviteToOppEvent event) {
 		MimeMessagePreparator preparator = new MimeMessagePreparator() {
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public void prepare(MimeMessage mimeMessage) throws Exception {
@@ -130,11 +138,10 @@ public class InviteToOppEventListener extends BaseNotificationEventListner imple
 				message.setSentDate(new Date());
 				Map model = new HashMap();
 				model.put("regMessage",
-						event.getInvitingParty().getUserBean().getName()+CommonConstants.INVITE_OPP_EVENT_MESSAGE);
+						event.getInvitingParty().getUserBean().getName() + CommonConstants.INVITE_OPP_EVENT_MESSAGE);
 				model.put("name", event.getInvitedParty().getUserBean().getName());
-				String text = VelocityEngineUtils.mergeTemplateIntoString(
-						velocityEngine, "velocity/inviteTemplate.vm", "UTF-8",
-						model);
+				String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "velocity/inviteTemplate.vm",
+						"UTF-8", model);
 				message.setText(text, true);
 			}
 		};
