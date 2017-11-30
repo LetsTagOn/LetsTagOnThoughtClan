@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Date;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,10 @@ import com.letstagon.facade.dto.UserDTO;
 import com.letstagon.service.OpportunityService;
 import com.letstagon.web.controller.ControllerConstants;
 import com.letstagon.web.session.LtoSessionService;
+import com.letstagon.facade.dto.PaginatedResponseDTO;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.data.domain.PageRequest;
+import com.letstagon.web.constant.LetsTagOnwebConstants.SearchConstans;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -359,6 +364,26 @@ public class OpportunityManagementRestController {
 
 		
 
+	}
+	
+	/**
+	 * Find upcoming opportunities for party after current date.
+	 *
+	 * @param status the status
+	 * @param page the page
+	 * @param size the size
+	 * @return the paginated response DTO
+	 */
+	@RequestMapping(value = "/opportunity/upcoming", method = RequestMethod.GET)
+	public PaginatedResponseDTO findUpcomingOpportunitiesForPartyAfterCurrentDate(
+			@RequestParam(name = "status", required = false) Boolean status,
+			@RequestParam(name = "page", required = false, defaultValue = "0") int page,
+			@RequestParam(name = "size", required = false, defaultValue = SearchConstans.PAGE_SIZE_DEFAULT_STRING) int size) {
+
+		// TODO-find allowed parties
+		PartyDTO applyingPartyDTO = findLoggedInParty(0);
+		return this.opportunityManagementFacade.findAllByPartyBeanAndStatusAndAfterDateStart(applyingPartyDTO,
+				new Date(), new PageRequest(page, size));
 	}
 
 }

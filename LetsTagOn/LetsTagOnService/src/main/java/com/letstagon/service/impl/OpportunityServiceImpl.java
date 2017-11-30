@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +15,7 @@ import com.letstagon.dao.model.Cause;
 import com.letstagon.dao.model.Opportunity;
 import com.letstagon.dao.model.OpportunityCauseXref;
 import com.letstagon.dao.model.OpportunityJobType;
+import com.letstagon.dao.model.PaginatedSearchResponseModel;
 import com.letstagon.dao.model.Party;
 import com.letstagon.dao.model.User;
 import com.letstagon.dao.repository.AddressRepository;
@@ -244,5 +248,25 @@ public class OpportunityServiceImpl implements OpportunityService {
 		return opportunityRepository.save(opp);
 		
 	}
+	
+
+	/* (non-Javadoc)
+	 * @see com.letstagon.service.PartyParticipationService#findAllByPartyBeanAndStatusAndAfterDateStart(com.letstagon.dao.model.Party, java.lang.Boolean, java.util.Date, org.springframework.data.domain.PageRequest)
+	 */
+	@Override
+	public PaginatedSearchResponseModel findAllByPartyBeanAndStatusAndAfterDateStart(long partyDTO,
+			Date dateStart, PageRequest pageRequest) {
+
+		if (partyDTO <= 0) {
+			throw new InvalidParameterException("Invalid parameter, not enough input");
+		}
+
+		Page<Opportunity> result = this.opportunityRepository.findAllByPartyBeanAndStatusAndStartDateAfter(new Party(partyDTO), dateStart, pageRequest);
+
+		return new PaginatedSearchResponseModel(result.getContent(), pageRequest.getPageNumber(), result.getSize(),
+				result.getTotalElements());
+	}
+
+
 
 }
