@@ -111,7 +111,7 @@ opportunity.controller('OpportunityController', function($http, $scope, $rootSco
 // ======================================================= End =====================================================================
 
 
-// ======================================================= Controller to show the upcoming opportunites ============================
+//  ======================================================= Controller to show the upcoming opportunites ============================
 opportunity.controller('UpcomingOpportunityController', function($http, $scope, $rootScope, $location, $timeout, $filter) {
     console.info("OpportunityController called");
     $scope.listOpportunity = {};
