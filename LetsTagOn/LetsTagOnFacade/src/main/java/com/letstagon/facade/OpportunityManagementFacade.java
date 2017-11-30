@@ -1,15 +1,11 @@
 package com.letstagon.facade;
 
-import java.util.Date;
 import java.util.List;
-
-import org.springframework.data.domain.PageRequest;
 
 import com.letstagon.exception.profile.InvalidPreferenceException;
 import com.letstagon.facade.dto.OpportunityCauseXrefDTO;
 import com.letstagon.facade.dto.OpportunityDTO;
 import com.letstagon.facade.dto.OpportunityJobTypeDTO;
-import com.letstagon.facade.dto.PaginatedResponseDTO;
 import com.letstagon.facade.dto.PartyDTO;
 import com.letstagon.facade.dto.UserDTO;
 
@@ -108,17 +104,5 @@ public interface OpportunityManagementFacade {
 	 * @throws InvalidPreferenceException the invalid preference exception
 	 */
 	OpportunityDTO saveOrUpdateLatLongForOpportunity(long oppId, String latLong) throws InvalidPreferenceException;
-	
-	/**
-	 * Find all opportunities after date start.
-	 *
-	 * @param applyingPartyDTO the applying party DTO
-	 * @param dateStart the date start
-	 * @param pageRequest the page request
-	 * @return the paginated response DTO
-	 */
-	public PaginatedResponseDTO findAllByPartyBeanAndAfterDateStart(PartyDTO applyingPartyDTO,
-			Date dateStart, PageRequest pageRequest);
-
 
 }

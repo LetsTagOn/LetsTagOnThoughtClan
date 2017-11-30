@@ -2,7 +2,6 @@ package com.letstagon.web.controller.rest;
 
 import java.security.InvalidParameterException;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,12 +9,10 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.letstagon.dao.model.User;
@@ -32,12 +29,10 @@ import com.letstagon.facade.dto.OpportunityCauseXrefDTO;
 import com.letstagon.facade.dto.OpportunityDTO;
 import com.letstagon.facade.dto.OpportunityJobTypeCauseDTO;
 import com.letstagon.facade.dto.OpportunityJobTypeDTO;
-import com.letstagon.facade.dto.PaginatedResponseDTO;
 import com.letstagon.facade.dto.PartyDTO;
 import com.letstagon.facade.dto.PartyParticipationDTO;
 import com.letstagon.facade.dto.UserDTO;
 import com.letstagon.service.OpportunityService;
-import com.letstagon.web.constant.LetsTagOnwebConstants.SearchConstans;
 import com.letstagon.web.controller.ControllerConstants;
 import com.letstagon.web.session.LtoSessionService;
 
@@ -361,26 +356,9 @@ public class OpportunityManagementRestController {
 			LOG.info("getUserCauseSelectedDetails exception:" + e.getLocalizedMessage());
 		}
 		return response;
-	}
-	
-	/**
-	 * Find upcoming opportunities for party after current date.
-	 *
-	 * @param status the status
-	 * @param page the page
-	 * @param size the size
-	 * @return the paginated response DTO
-	 */
-	@RequestMapping(value = "/opportunity/upcoming", method = RequestMethod.GET)
-	public PaginatedResponseDTO findUpcomingOpportunitiesForPartyAfterCurrentDate(
-			@RequestParam(name = "status", required = false) Boolean status,
-			@RequestParam(name = "page", required = false, defaultValue = "0") int page,
-			@RequestParam(name = "size", required = false, defaultValue = SearchConstans.PAGE_SIZE_DEFAULT_STRING) int size) {
 
-		// TODO-find allowed parties
-		PartyDTO applyingPartyDTO = findLoggedInParty(0);
-		return this.opportunityManagementFacade.findAllByPartyBeanAndAfterDateStart(applyingPartyDTO,
-				new Date(), new PageRequest(page, size));
+		
+
 	}
 
 }

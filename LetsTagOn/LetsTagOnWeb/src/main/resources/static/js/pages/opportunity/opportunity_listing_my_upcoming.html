@@ -8,16 +8,16 @@
 					<div class="row no-margin well well-consent" ng-repeat="participation in  participationDetailList">
 						<div class="col-xs-4">
 							<ul class="start-list--icons">
-								<li><span class="icon glyphicon glyphicon-user"></span> <span class="icon-descriptor">{{participation.description}}</span></li>
-								<li><span class="icon glyphicon glyphicon-calendar"></span> <span class="icon-descriptor">{{participation.dateEnd | date:'yyyy-MM-dd HH:MM:ss'}}</span></li>
-								<li><span class="icon glyphicon glyphicon-time"></span> <span class="icon-descriptor">{{participation.dateStart | date:'yyyy-MM-dd HH:MM:ss'}}</span></li>
-								<li><span class="icon glyphicon glyphicon-map-marker"></span> <span class="icon-descriptor">{{participation.addressBean.city}}</span></li>
+								<li><span class="icon glyphicon glyphicon-user"></span> <span class="icon-descriptor">{{participation.jobTypeBean.description}}</span></li>
+								<li><span class="icon glyphicon glyphicon-calendar"></span> <span class="icon-descriptor">{{participation.opportunityBean.dateEnd | date:'yyyy-MM-dd HH:MM:ss'}}</span></li>
+								<li><span class="icon glyphicon glyphicon-time"></span> <span class="icon-descriptor">{{participation.opportunityBean.dateStart | date:'yyyy-MM-dd HH:MM:ss'}}</span></li>
+								<li><span class="icon glyphicon glyphicon-map-marker"></span> <span class="icon-descriptor">{{participation.opportunityBean.addressBean.city}}</span></li>
 							</ul>
 						</div>
 						<div class="col-xs-8 start-property-tile__title">
-							<h3 class="start-property-tile__heading cursor" ng-click="showDetailPage(participation.opportunityBean.id)">{{participation.name}}</h3>
+							<h3 class="start-property-tile__heading cursor" ng-click="showDetailPage(participation.opportunityBean.id)">{{participation.opportunityBean.name}}</h3>
 							<hr class="start-property-tile__separator opportunity-list-separator">
-							<p>{{ participation.description | limitTo:100 }}{{participation.description > 100 ? '...' : ''}}</p>
+							<p>{{ participation.opportunityBean.description | limitTo:100 }}{{participation.opportunityBean.description > 100 ? '...' : ''}}</p>
 						</div>
 					</div>
 					<div class="row no-margin row-space well well-consent col-xs-12 col-sm-12 col-lg-12" ng-if="participationDetailList.length == 0">
