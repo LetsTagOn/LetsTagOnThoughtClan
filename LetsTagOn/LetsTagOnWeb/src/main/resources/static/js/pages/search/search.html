@@ -123,10 +123,10 @@
 										<h3 class="lto-cp-exp-details-row lto-search-small-text">
 											{{ resultItem.description | limitTo:100 }}{{resultItem.description.length > 100 ? '...' : ''}} <span class="lto-cp-exp-details-row">{{resultItem.phoneNumber}}</span> <br> <span class="lto-search-small-text"> <span class="lto-search-small-text font-bold" i18n="{{'common.lto_lable_address'}}"></span> <span class="lto-search-small-text"
 												ng-show="resultItem.address_city.length > 0"
-											>{{resultItem.address_city}}</span> <span class="lto-search-small-text" ng-show="resultItem.address_state.length > 0"><span ng-if="resultItem.address_city.length > 0">,</span> {{resultItem.address_state}}</span><span class="lto-search-small-text" ng-show="resultItem.address_country.length > 0"><span ng-if="resultItem.address_state.length > 0">,</span> {{resultItem.address_country}}</span><span
+											>{{resultItem.addressBean.city}}</span> <span class="lto-search-small-text" ng-show="resultItem.address_state.length > 0"><span ng-if="resultItem.address_city.length > 0">,</span> {{resultItem.address_state}}</span><span class="lto-search-small-text" ng-show="resultItem.address_country.length > 0"><span ng-if="resultItem.address_state.length > 0">,</span> {{resultItem.address_country}}</span><span
 												class="lto-search-small-text" ng-show="resultItem.address_postal_code.length > 0"
 											><span ng-if="resultItem.address_country.length > 0">,</span> {{resultItem.address_postal_code}}</span>
-											</span> <br> <span class="lto-search-small-text"> <span class="lto-search-small-text font-bold">Created by :</span> <span class="lto-search-small-text"> {{resultItem.creator_name}} , {{resultItem.creator_email_address}} </span>
+											</span> <br> <span class="lto-search-small-text"> <span class="lto-search-small-text font-bold">Created by :</span> <span class="lto-search-small-text"> {{resultItem.contactPerson.name}} , {{resultItem.contactPerson.emailAddress}} </span>
 											</span> <span ng-if="resultItem.cause.length>0" class="lto-search-small-text font-bold"><br>Causes :</span> <span ng-repeat="cause in resultItem.cause" class="lto-search-small-text"> {{cause}} </span> <span ng-if="resultItem.jobtype.length>0" class="lto-search-small-text font-bold"><br>Skills Needed : :</span> <span ng-repeat="jobtype in resultItem.jobtype"
 												class="lto-search-small-text"
 											> {{jobtype}} </span>
