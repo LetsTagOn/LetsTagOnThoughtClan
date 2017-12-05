@@ -104,6 +104,12 @@ public interface OpportunityService {
 	 * @return the opportunities created by party
 	 */
 	List<Opportunity> getOpportunitiesCreatedByParty(Party party);
+	
+	/**
+	 * Gets the opportunities
+	 * @return the opportunities
+	 */
+	List<Opportunity> getOpportunities(long limit, int offset);
 
 	/**
 	 * Change opportunity job status.

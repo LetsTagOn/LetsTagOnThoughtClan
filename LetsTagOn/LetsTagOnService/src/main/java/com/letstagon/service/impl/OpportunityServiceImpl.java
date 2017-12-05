@@ -4,6 +4,9 @@ import java.security.InvalidParameterException;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -47,6 +50,10 @@ public class OpportunityServiceImpl implements OpportunityService {
 	/** The address repository. */
 	@Autowired
 	private AddressRepository addressRepository;
+	
+	/** The entity manager. */
+	@Autowired
+	private EntityManager entityManager;
 
 	/* (non-Javadoc)
 	 * @see com.letstagon.service.OpportunityService#createOpportunity(com.letstagon.dao.model.Opportunity)
@@ -223,6 +230,23 @@ public class OpportunityServiceImpl implements OpportunityService {
 		}
 
 		return this.opportunityRepository.findAllByCreatedByParty(party);
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.letstagon.service.OpportunityService#getOpportunities
+	 */
+	@Override
+	public List<Opportunity> getOpportunities(long limit, int offset) {
+		
+		String selectQuery = "SELECT DISTINCT(o) from Opportunity o ";
+		Query query = this.entityManager.createQuery(selectQuery);
+		
+		query.setFirstResult((int) limit);
+		query.setMaxResults(offset);
+
+		List<Opportunity> oppList = query.getResultList();
+
+		return oppList;
 	}
 
 	/* (non-Javadoc)

@@ -150,6 +150,23 @@ public class OpportunityManagementRestController {
 
 		return resp;
 	}
+	
+	/**
+	 * Gets All opportunities.
+	 *
+	 * @return All opportunities
+	 */
+	@RequestMapping(value = "/user/opportunities", method = RequestMethod.GET)
+	public AjaxResponseDTO getOpportunities(@RequestParam(name = "limit", required = false, defaultValue = "1") long limit,
+			@RequestParam(name = "offset", required = false, defaultValue = "10") int offset) {
+
+		LOG.trace("Getting All opportunities");
+
+		AjaxResponseDTO resp = new AjaxResponseDTO();
+		resp.setData(opportunityManagementFacade.getOpportunities(limit, offset));
+
+		return resp;
+	}
 
 	/**
 	 * Creates the opportunity.

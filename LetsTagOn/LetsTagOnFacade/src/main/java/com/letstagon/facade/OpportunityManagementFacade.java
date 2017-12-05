@@ -88,6 +88,13 @@ public interface OpportunityManagementFacade {
 	 * @return the opportunities created by party
 	 */
 	List<OpportunityDTO> getOpportunitiesCreatedByParty(PartyDTO partyDTO);
+	
+	/**
+	 * Gets the opportunities.
+	 *
+	 * @return the opportunities
+	 */
+	List<OpportunityDTO> getOpportunities(long limit, int offset);
 
 	/**
 	 * Change opportunity job status.

@@ -57,6 +57,20 @@ searchModule.controller('SearchController',
                 $scope.searchString = keyword;
                 $scope.getResultsPage(1); // Sourabh: uncommented this line to fix search issue
             }
+            
+            $http({
+                url: '/user/opportunities?limit=0&offset=0',
+                dataType: 'json',
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).success(function(response) {
+            	$scope.results = response.data;
+                $scope.totalResults = response.data.length;
+            }).error(function() {
+                console.info("-- " + error);
+            });
 
             $http({
                 url: '/master/data',
@@ -288,32 +302,23 @@ searchModule.controller('SearchController',
 
         // Function called to get Search results from solr
         $scope.getResultsPage = function(pageNumber) {
-            // this is just an example, in reality this stuff should
-            // be in a service
-            $http.get($scope.generateSolrSearchQuery(pageNumber)).then(
-                function(result) {
-                    $scope.results = [];
-                    $scope.results = result.data.response.docs;
-                    if(result.data.response.numFound > 0) // Sourabh: added this code to set searchresults
-
-                    $scope.totalResults = result.data.response.numFound;
-                    else
-                    	$scope.totalResults = 0;
-                    if (result.data.facet_counts) {
-                        // set facet counts
-
-                        $scope
-                            .setFacetCounts(result.data.facet_counts)
-                    }
-
-                    if ($scope.getCoreName() === "users") {
-
-                        $scope
-                            .showConnectionStatus($scope.results);
-
-                    }
-
-                });
+        	if (pageNumber < 0)
+                pageNumber = 1;
+        	
+        	$scope.pageLimit = ((pageNumber - 1) * 10);
+        	
+        	$http({
+                url: '/user/opportunities?limit=' + $scope.pageLimit,
+                dataType: 'json',
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).success(function(response) {
+            	$scope.results = response.data;
+            }).error(function() {
+                console.info("-- " + error);
+            });
         };
 
         // Function called to get facets 

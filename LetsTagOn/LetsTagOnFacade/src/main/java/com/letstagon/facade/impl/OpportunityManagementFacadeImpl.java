@@ -185,6 +185,17 @@ public class OpportunityManagementFacadeImpl implements OpportunityManagementFac
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.letstagon.facade.OpportunityManagementFacade#getOpportunitiesCreatedByParty(com.letstagon.facade.dto.PartyDTO)
+	 */
+	@Override
+	public List<OpportunityDTO> getOpportunities(long limit, int offset) {
+		
+		List<Opportunity> oppList = this.opportunityService.getOpportunities(limit, offset);
+		return this.convertOppModelList(oppList);
+		
+	}
+	
 	/**
 	 * Convert opp model list.
 	 *
