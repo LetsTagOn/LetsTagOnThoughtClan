@@ -19,6 +19,7 @@
 							<hr class="start-property-tile__separator opportunity-list-separator">
 							<p>{{ participation.description | limitTo:100 }}{{participation.description > 100 ? '...' : ''}}</p>
 						</div>
+						<a href="#/view/opportunity/{{participation.id}}">Read More</a>
 					</div>
 					<div class="row no-margin row-space well well-consent col-xs-12 col-sm-12 col-lg-12" ng-if="participationDetailList.length == 0">
 						<div class="lto-not-connected-msg">You don't have any upcoming opportunities.</div>
