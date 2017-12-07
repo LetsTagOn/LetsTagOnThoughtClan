@@ -7,6 +7,24 @@ letsTagOn.controller('RegisterController', function($http, $scope, $rootScope, $
     $scope.customer = {};
 
     //Common on registartion and complete profile step_1
+    $('#myTermsofUse').on('shown.bs.modal', function() {
+      	$('#myModal').unbind();
+    });
+    $('#myTermsofUse').on('hidden.bs.modal', function() {
+      	//$('#myModal').bind();
+    });
+    
+    $('#myPolicy').on('shown.bs.modal', function() {
+      	$('#myModal').unbind();
+    });
+    $('#myPolicy').on('hidden.bs.modal', function() {
+      	$('#myModal').bind();
+    });
+    
+    $('#registerclose').on('click', function() {
+      	$('#myModal').modal('hide')
+    });
+
     $("#dateOfBirth").datepicker({
         format: "yyyy-mm-dd",
         todayHighlight: true,
