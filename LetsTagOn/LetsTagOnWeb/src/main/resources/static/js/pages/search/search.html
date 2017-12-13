@@ -117,8 +117,8 @@
 										<img class="lto-profile-adj" ng-if="resultItem.bannerImage != null" ng-src="{{getBannerImage(resultItem.bannerImage)}}"> <img class="lto-profile-adj" ng-if="resultItem.bannerImage == null" src="../images/image2.png">
 									</div>
 									<div class="pull-left col-xs-5 col-sm-6">
-										<h3 class="lto-cp-exp-details-row lto-search-result-row-one cursor" ng-click="">
-											<span class="cursor font-bold" ng-click="">{{resultItem.name}}</span>
+										<h3 class="lto-cp-exp-details-row lto-search-result-row-one cursor" ng-click="paintOppDetails(resultItem.id)">
+											<span class="cursor font-bold" ng-click="paintOppDetails(resultItem.id)">{{resultItem.name}}</span>
 										</h3>
 										<h3 class="lto-cp-exp-details-row lto-search-small-text">
 											{{ resultItem.description | limitTo:100 }}{{resultItem.description.length > 100 ? '...' : ''}} <span class="lto-cp-exp-details-row">{{resultItem.phoneNumber}}</span> <br> <span class="lto-search-small-text"> <span class="lto-search-small-text font-bold" i18n="{{'common.lto_lable_address'}}"></span> <span class="lto-search-small-text"
