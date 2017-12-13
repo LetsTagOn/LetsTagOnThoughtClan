@@ -57,20 +57,6 @@ searchModule.controller('SearchController',
                 $scope.searchString = keyword;
                 $scope.getResultsPage(1); // Sourabh: uncommented this line to fix search issue
             }
-            
-            $http({
-                url: '/user/opportunities?limit=0&offset=0',
-                dataType: 'json',
-                method: 'GET',
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).success(function(response) {
-            	$scope.results = response.data;
-                $scope.totalResults = response.data.length;
-            }).error(function() {
-                console.info("-- " + error);
-            });
 
             $http({
                 url: '/master/data',
@@ -288,7 +274,7 @@ searchModule.controller('SearchController',
 
         $scope.upComingEvents = [];
 
-        // Function called to get upcoming events					
+        // Function called to get upcoming events                   
         $scope.getUpcomingEvents = function() {
 
             $http.get($scope.generateUpcomingEventsQuery(1)).then(
@@ -302,23 +288,32 @@ searchModule.controller('SearchController',
 
         // Function called to get Search results from solr
         $scope.getResultsPage = function(pageNumber) {
-        	if (pageNumber < 0)
-                pageNumber = 1;
-        	
-        	$scope.pageLimit = ((pageNumber - 1) * 10);
-        	
-        	$http({
-                url: '/user/opportunities?limit=' + $scope.pageLimit,
-                dataType: 'json',
-                method: 'GET',
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            }).success(function(response) {
-            	$scope.results = response.data;
-            }).error(function() {
-                console.info("-- " + error);
-            });
+            // this is just an example, in reality this stuff should
+            // be in a service
+            $http.get($scope.generateSolrSearchQuery(pageNumber)).then(
+                function(result) {
+                    $scope.results = [];
+                    $scope.results = result.data.response.docs;
+                    if(result.data.response.numFound > 0) // Sourabh: added this code to set searchresults
+
+                    $scope.totalResults = result.data.response.numFound;
+                    else
+                        $scope.totalResults = 0;
+                    if (result.data.facet_counts) {
+                        // set facet counts
+
+                        $scope
+                            .setFacetCounts(result.data.facet_counts)
+                    }
+
+                    if ($scope.getCoreName() === "users") {
+
+                        $scope
+                            .showConnectionStatus($scope.results);
+
+                    }
+
+                });
         };
 
         // Function called to get facets 
@@ -360,8 +355,9 @@ searchModule.controller('SearchController',
                 "&" +
                 $scope.getFacetQuery($scope
                     .getSimpleFacetFields()) +
-                $scope.getQueryString() +
-                $scope.getFilterQueryString();
+                $scope.getQueryString() ;
+                //   Modified by Ravi
+              //  $scope.getFilterQueryString();
         };
 
         // Function to generate search query in search page
@@ -382,8 +378,9 @@ searchModule.controller('SearchController',
                 "&" +
                 $scope.getFacetQuery($scope
                     .getSimpleFacetFields()) +
-                $scope.getQueryString() +
-                $scope.getFilterQueryString();
+                $scope.getQueryString() ;
+             //   Modified by Ravi
+             //   $scope.getFilterQueryString();
         };
 
         // Function to generate facet query string 
@@ -409,8 +406,8 @@ searchModule.controller('SearchController',
 
         // Function to get base url
         $scope.getBaseUrl = function() {
-            return "http://ec2-54-187-229-255.us-west-2.compute.amazonaws.com:8983/solr/";
-            //return "http://localhost:8983/solr/";
+            //return "http://ec2-54-187-229-255.us-west-2.compute.amazonaws.com:8983/solr/";
+            return "http://34.239.2.92:8983/solr/";
         };
 
         // Function to set the local flags based on search mode
@@ -530,12 +527,12 @@ searchModule.controller('SearchController',
 
                 if ($scope.searchMode == "users") {
                     // if searching users
+                    
                     if ($rootScope.userId > 0) {
-                        return "&q=(fullName:" +
+                       return "&q=(fullName:" +
                             $scope.searchString + " AND -id:" +
-                            $rootScope.userId + ")";
-                    }
-
+                           $rootScope.userId + ")";
+                   }
                     return "&q=fullName:" + $scope.searchString;
                 } else if ($scope.searchMode == "opportunity") {
                     var subQuery = "";
@@ -566,7 +563,9 @@ searchModule.controller('SearchController',
                         }
                     }
                     // if searching users
-                    return "&q=name:" + $scope.searchString + "" + subQuery + "" + dateRangeQuery;
+                    //modified by Ravi
+                   // return "&q=name:" + $scope.searchString + "" + subQuery + "" + dateRangeQuery;
+                   return "&q=name:" + $scope.searchString ;
                 }
             } else {
                 if ($scope.searchMode == "users") {
@@ -598,7 +597,8 @@ searchModule.controller('SearchController',
                         subQuery = "&q=*:*" + dateRangeQuery;
                     } else {
                         if (!$rootScope.dateRange) {
-                            subQuery = subQuery + "&q=dateEnd:[NOW TO NOW%2B1YEAR]";
+                            //Modified by Ravi
+                         //   subQuery = subQuery + "&q=dateEnd:[NOW TO NOW%2B1YEAR]";
                         }
                     }
 
