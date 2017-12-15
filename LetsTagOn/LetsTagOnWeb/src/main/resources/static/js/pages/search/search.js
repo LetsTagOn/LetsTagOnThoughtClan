@@ -53,7 +53,7 @@ searchModule.controller('SearchController',
 
             var keyword = $scope.getSearchKeyWordFromUrl();
 
-            if (typeof(keyword) != "undefined" && keyword != "") {
+            if (typeof(keyword) != "undefined" || keyword != "") {
                 $scope.searchString = keyword;
                 $scope.getResultsPage(1); // Sourabh: uncommented this line to fix search issue
             }
