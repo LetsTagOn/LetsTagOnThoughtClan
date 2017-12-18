@@ -1,9 +1,0 @@
-<html>
-	<body>
-		<h3>Hi, ${name} sent a message</h3>
-		<p>
-			${regMessage}
-		</p>
-	</body>
-
-</html>
