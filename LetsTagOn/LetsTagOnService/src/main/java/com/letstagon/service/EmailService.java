@@ -21,6 +21,15 @@ public interface EmailService {
 	 * @param email the email
 	 */
 	public void sendLTONotification(String name, String email);
+	
+	/**
+	 * Send Contact Us mail notification.
+	 *
+	 * @param name the name
+	 * @param email the email
+	 * @param message the message
+	 */
+	public void sendContactUsMail(String name, String email, String message);
 
 	/**
 	 * Send email.

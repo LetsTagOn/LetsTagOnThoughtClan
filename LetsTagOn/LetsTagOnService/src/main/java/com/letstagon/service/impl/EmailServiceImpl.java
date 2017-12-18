@@ -58,6 +58,31 @@ public class EmailServiceImpl implements EmailService {
 	}
 	
 	/* (non-Javadoc)
+	 * @see com.letstagon.service.EmailService#sendLTONotification(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void sendContactUsMail(final String name,final String email,final String userMessage) {
+		MimeMessagePreparator preparator = new MimeMessagePreparator() {
+			@SuppressWarnings({ "rawtypes", "unchecked" })
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+				message.setTo("info@letstagon.com");
+				message.setFrom(email);
+				message.setSubject(name+"-"+email);
+				message.setSentDate(new Date());
+				Map model = new HashMap();
+				model.put("regMessage",userMessage);
+				model.put("name", name);
+				String text = VelocityEngineUtils.mergeTemplateIntoString(
+						velocityEngine, "velocity/emailtemplatecontactus.vm", "UTF-8",
+						model);
+				message.setText(text, true);
+			}
+		};
+		mailSender.send(preparator);
+	}
+	
+	/* (non-Javadoc)
 	 * @see com.letstagon.service.EmailService#sendEmail(org.springframework.mail.javamail.MimeMessagePreparator)
 	 */
 	@Override
