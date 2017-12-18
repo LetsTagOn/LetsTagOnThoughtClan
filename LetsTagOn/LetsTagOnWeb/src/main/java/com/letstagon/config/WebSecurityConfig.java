@@ -53,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/index.html", "/welcome.html", "/change_password.html", "/linkedin/auth",
 						"/linkedin/signin", "/", "/resetPassword", "/lto/resetPassword", "/register/customer",
 						"/password/forgotPassword", "/password/resetPassword", "/fileDl/**", "/fileRd/**",
-						"/uploadFile", "/opportunity/*/userDetails", "/opportunity/**	")
+						"/uploadFile", "/opportunity/*/userDetails", "/contact/us" ,"/opportunity/**	")
 				.permitAll().antMatchers(permittedUrls).permitAll().anyRequest().authenticated().and().csrf()
 				.csrfTokenRepository(csrfTokenRepository()).and().addFilterAfter(csrfHeaderFilter(), CsrfFilter.class);
 

@@ -19,6 +19,16 @@ public interface EmailFacade {
 	 * @throws Exception the exception
 	 */
 	public void sendLTONotification(String name, String email) throws Exception;
+	
+	/**
+	 * Send Contact Us notification.
+	 *
+	 * @param name the name
+	 * @param email the email
+	 * @param message the message
+	 * @throws Exception the exception
+	 */
+	public void sendContactUsMail(String name, String email, String message) throws Exception;
 
 	/**
 	 * Forgot password.

@@ -67,5 +67,34 @@ public class RegistrationRestController {
 		return responseDTO;
 
 	}
+	
+	/**
+	 * Customer contact message mail service.
+	 *
+	 * @param user the user
+	 * @return the ajax response DTO
+	 * @throws Exception the exception
+	 */
+	@RequestMapping(value = "/contact/us", method = RequestMethod.POST)
+	public AjaxResponseDTO contactUs(@RequestBody UserDTO user) throws Exception {
+		LOG.info("Contact us details of:" + user.getName() + " and with email:"
+				+ user.getEmailAddress());
+		AjaxResponseDTO responseDTO = new AjaxResponseDTO();
+		try {
+			// to send email to user after registration
+			emailFacade.sendContactUsMail(user.getUserName(), user.getEmailAddress(), user.getSummary());
+			LOG.info("contact us Email sent successfully to the user with email: " + user.getEmailAddress());
+			responseDTO.setData("success");
+		} catch (NonUniqueResultException nue) {
+			LOG.info("User details Error: " + user.getUserName());
+			AjaxErrorDTO errorDTO = new AjaxErrorDTO();
+			errorDTO.setErrorCode(ControllerConstants.ErrorCodes.BAD_REQUEST);
+			errorDTO.setErrorMessage(ControllerConstants.ErrorMessages.USER_NOT_FOUND);
+			responseDTO.setError(errorDTO);
+		}
+
+		return responseDTO;
+
+	}
 
 }
