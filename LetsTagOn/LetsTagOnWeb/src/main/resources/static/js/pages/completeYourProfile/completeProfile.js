@@ -98,6 +98,16 @@ completeProfile.controller('PersonalInformationController', function($http, $sco
             });
         }
     };
+    
+    $("#userDateOfBirth").datepicker({
+        format: "mm/dd/yyyy",
+        todayHighlight: true
+    }).on('changeDate', function(e) {
+        $scope.user.dateOfBirth = $(this).val();
+        $(this).focus();
+        $(this).datepicker('hide');
+    });
+    
     //================================ capture usertype ===============================
 
     $scope.saveUserType = function(userType) {
