@@ -5,20 +5,35 @@
 letsTagOn.controller('RegisterController', function($http, $scope, $rootScope, $location, $timeout) {
     //User Registration
     $scope.customer = {};
+    $scope.flag	=	0;
 
     //Common on registartion and complete profile step_1
-    $('#myTermsofUse').on('shown.bs.modal', function() {
-      	$('#myModal').unbind();
-    });
     $('#myTermsofUse').on('hidden.bs.modal', function() {
-      	//$('#myModal').bind();
+    	if($scope.flag	==	1){
+    		$('#myModal').fadeIn();
+    	}
+    	$('#myModal').unbind();
+    	$('#myModal').bind();
+    	$scope.flag	=	0;
     });
     
-    $('#myPolicy').on('shown.bs.modal', function() {
-      	$('#myModal').unbind();
-    });
     $('#myPolicy').on('hidden.bs.modal', function() {
-      	$('#myModal').bind();
+    	if($scope.flag	==	1){
+    		$('#myModal').fadeIn();
+    	}
+    	$('#myModal').unbind();
+    	$('#myModal').bind();
+    	$scope.flag	=	0;
+    });
+    
+    $('#myTerms').on('click', function() {
+    	$scope.flag	=	1;
+    	$('#myModal').fadeOut();
+    });
+    
+    $('#myPrivacy').on('click', function() {
+    	$scope.flag	=	1;
+    	$('#myModal').fadeOut();
     });
     
     $('#registerclose').on('click', function() {
