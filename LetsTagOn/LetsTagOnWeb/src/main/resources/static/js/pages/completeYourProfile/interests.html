@@ -13,7 +13,7 @@
 					<li class="cursor active" ng-click="redirect('/cp/personalInformation')" i18n="{{'common.lto_link_personalInfo'}}"></li>
 					<li class="cursor active" i18n="{{'common.lto_link_experience'}}" ng-click="redirect('/cp/experiences')"></li>
 					<li class="cursor active" i18n="{{'common.lto_link_interest'}}"></li>
-					<li class="cursor" ng-click="redirect('/cp/privacy')" i18n="{{'common.lto_link_privacySettings'}}"></li>
+					<!-- <li class="cursor" ng-click="redirect('/cp/privacy')" i18n="{{'common.lto_link_privacySettings'}}"></li> -->
 				</ul>
 			</div>
 			<div class=" hidden-md hidden-sm hidden-lg row-space personal-info-progress-wrap">
@@ -141,7 +141,10 @@
 			<!-- end -->
 			<div class="text-center">
 				<button class="btn btn-primary btn--block-centered" ng-click="redirect('/cp/experiences')" i18n="{{'common.lto_button_text_back'}}"></button>
-				<button class="btn btn-primary btn--block-centered" ng-click="redirect('/cp/privacy')" i18n="{{'common.lto_button_text_next'}}"></button>
+
+				<button class="btn btn-primary btn--block-centered" ng-click="redirectProfilePage()" i18n="{{'common.lto_button_done'}}"></button>
+			
+				<!-- <button class="btn btn-primary btn--block-centered" ng-click="redirect('/cp/privacy')" i18n="{{'common.lto_button_text_next'}}"></button> -->
 			</div>
 		</main>
 		<!-- /main content area -->
