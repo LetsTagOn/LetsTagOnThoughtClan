@@ -230,22 +230,22 @@ opportunity.controller("CreateOpportunityController", function(
     };
 
     $scope.eventClick = "program";
-    $("#startDateEvent").datetimepicker({});
-    // $("#startDateEvent")
-    //     .datepicker({
-    //         format: "dd/mm/yyyy"
-    //     })
-    //     .on("changeDate", function(e) {
-    //         $(this).datepicker("hide");
-    //     });
-    $("#endDateEvent").datetimepicker({});
-    // $("#endDateEvent")
-    //     .datetimepicker({
-    //         format: "dd/mm/yyyy"
-    //     })
-    //     .on("changeDate", function(e) {
-    //         $(this).datetimepicker("hide");
-    //     });
+    // $("#startDateEvent").datetimepicker({});
+    $("#startDateEvent")
+        .datepicker({
+            format: "dd/mm/yyyy"
+        })
+        .on("changeDate", function(e) {
+            $(this).datepicker("hide");
+        });
+    // $("#endDateEvent").datetimepicker({});
+    $("#endDateEvent")
+        .datepicker({
+            format: "dd/mm/yyyy"
+        })
+        .on("changeDate", function(e) {
+            $(this).datepicker("hide");
+        });
     $scope.displayStartDate = function() {
         $scope.event.dateStart = $("#startDateEvent").val();
     };
@@ -394,7 +394,7 @@ opportunity.controller("OpportunityEditController", function(
             .removeClass("focus-effect");
     });
     $("#eventStartDate")
-        .datetimepicker({})
+        .datepicker({})
         .on("changeDate", function(e) {
             $scope.event.dateStart = $(this).val();
             $(this).focus();
@@ -402,7 +402,7 @@ opportunity.controller("OpportunityEditController", function(
         });
     $scope.displayStartDate = function() {
         $("#eventStartDate")
-            .datetimepicker({})
+            .datepicker({})
             .on("changeDate", function(e) {
                 $scope.event.dateStart = $(this).val();
                 $(this).focus();
@@ -410,7 +410,7 @@ opportunity.controller("OpportunityEditController", function(
             });
     };
     $("#eventEndDate")
-        .datetimepicker({})
+        .datepicker({})
         .on("changeDate", function(e) {
             $scope.event.dateStart = $(this).val();
             $(this).focus();
@@ -418,7 +418,7 @@ opportunity.controller("OpportunityEditController", function(
         });
     $scope.displayEndDate = function() {
         $("#eventEndDate")
-            .datetimepicker({})
+            .datepicker({})
             .on("changeDate", function(e) {
                 $scope.event.dateStart = $(this).val();
                 $(this).focus();
@@ -869,11 +869,11 @@ opportunity.controller("OpportunityProgramEditController", function(
         $scope.event.addressBean.street = "";
         $scope.eventSuccess = false;
     };
-    $("#eventStartDate").datetimepicker({});
+    $("#eventStartDate").datepicker({ autoclose: true });
     $scope.displayStartDate = function() {
         $scope.event.dateStart = $("#eventStartDate").val();
     };
-    $("#eventEndDate").datetimepicker({});
+    $("#eventEndDate").datepicker({ autoclose: true });
     $scope.displayEndDate = function() {
         $scope.event.dateEnd = $("#eventEndDate").val();
     };
