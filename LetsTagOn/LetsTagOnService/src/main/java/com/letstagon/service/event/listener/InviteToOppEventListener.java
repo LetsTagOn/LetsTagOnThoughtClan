@@ -133,7 +133,7 @@ public class InviteToOppEventListener extends BaseNotificationEventListner
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 				message.setTo(event.getInvitedParty().getUserBean().getEmailAddress());
-				message.setFrom("info.letstagon@gmail.com");
+				message.setFrom("no-reply@letstagon.com");
 				message.setSubject(CommonConstants.EMAIL_SUBJECT);
 				message.setSentDate(new Date());
 				Map model = new HashMap();

@@ -41,7 +41,7 @@ public class EmailServiceImpl implements EmailService {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 				message.setTo(email);
-				message.setFrom("info.letstagon@gmail.com");
+				message.setFrom("no-reply@letstagon.com");
 				message.setSubject("Registration-LetsTagOn");
 				message.setSentDate(new Date());
 				Map model = new HashMap();
@@ -67,8 +67,8 @@ public class EmailServiceImpl implements EmailService {
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 				message.setTo("info@letstagon.com");
-				message.setFrom(email);
-				message.setSubject(name+"-"+email);
+				message.setFrom("no-reply@letstagon.com");
+				message.setSubject("Message on LetsTagOn from "+name+" with Email ID: "+email);
 				message.setSentDate(new Date());
 				Map model = new HashMap();
 				model.put("regMessage",userMessage);

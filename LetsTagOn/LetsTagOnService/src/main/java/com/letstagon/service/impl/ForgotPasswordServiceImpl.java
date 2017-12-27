@@ -103,7 +103,7 @@ public class ForgotPasswordServiceImpl implements ForgotPasswordService {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 				message.setTo(email);
 				//message.setBcc("balaji@thoughtclan.com");
-				message.setFrom("info.letstagon@gmail.com");
+				message.setFrom("no-reply@letstagon.com");
 				message.setSubject("Password Reset Notification-LetsTagOn");
 				message.setSentDate(new Date());
 				Map model = new HashMap();
