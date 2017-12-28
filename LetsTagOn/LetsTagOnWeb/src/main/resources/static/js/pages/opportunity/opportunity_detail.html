@@ -199,7 +199,10 @@
 							<h3 class="start-property-tile__heading">{{opp.name}}</h3>
 							<hr class="start-property-tile__separator">
 							<p>
-								<img src="./images/image4.jpg" /> <img src="./images/image5.jpg" /> <img src="./images/image6.jpg" />
+								<img class="lto-opp-banner-img" ng-src="{{getBannerImage(opp.bannerImage)}}" ng-if="opp.bannerImage != null"> <img src="../images/event.jpg" class="lto-opp-banner-img" ng-if="opp.bannerImage == null">
+								<img src="./images/image4.jpg" ng-if="opp.bannerImage == null"/> 
+								<img src="./images/image5.jpg" ng-if="opp.bannerImage == null"/> 
+								<img src="./images/image6.jpg" ng-if="opp.bannerImage == null"/>
 							</p>
 							<a href="#">Read More</a>
 						</div>

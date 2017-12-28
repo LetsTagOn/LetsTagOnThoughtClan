@@ -69,7 +69,7 @@
 								<div class="row-space" ng-controller="UploadOportunityImageController">
 									<div class="opportunity-banner-upload-conatiner">
 										<div class="pull-left opportunity-banner-upload-LHS">
-											<img class="lto-opp-banner-img" ng-src="{{getBannerImage(event.bannerImage)}}" ng-if="event.bannerImage != null"> <img src="../images/event.jpg" class="lto-opp-banner-img" ng-if="event.bannerImage == null">
+											<img class="lto-opp-banner-img" ng-src="{{MainController.getBannerImage(event.bannerImage)}}" ng-if="event.bannerImage != null"> <img src="../images/event.jpg" class="lto-opp-banner-img" ng-if="event.bannerImage == null">
 											<h2 class="text-center">{{event.name}}</h2>
 										</div>
 										<div class="pull-left opportunity-banner-upload-RHS">

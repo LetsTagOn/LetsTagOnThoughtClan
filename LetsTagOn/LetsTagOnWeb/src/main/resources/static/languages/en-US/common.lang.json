@@ -78,6 +78,8 @@
   "lto_link_privacy": "Privacy",
   "lto_link_allOpportunity": "All Opportunities",
   "lto_link_createdOpportunity": "Created Events",
+  "lto_link_searchOpportunity": "Opportunities",
+  "lto_link_searchVolunteer": "Volunteers",
   "lto_link_myUpcomingEvent": "My Upcoming Events",
   "lto_link_privacySettings": "Privacy Settings",
   "lto_link_personalInfo": "Personal Information",

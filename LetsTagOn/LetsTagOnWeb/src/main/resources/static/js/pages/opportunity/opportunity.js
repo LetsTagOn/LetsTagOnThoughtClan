@@ -105,7 +105,7 @@ opportunity.controller("OpportunityController", function(
     $timeout,
     $filter
 ) {
-    console.info("OpportunityController called");
+    // console.info("OpportunityController called");
     $scope.listOpportunity = {};
     $scope.getAllOpportunity = function() {
         $http({
@@ -125,7 +125,7 @@ opportunity.controller("OpportunityController", function(
     };
 
     $scope.showDetailPage = function(id) {
-        console.info(id);
+        // console.info(id);
         $location.path("/view/opportunity/" + id);
     };
 
@@ -1039,6 +1039,7 @@ opportunity.controller("ViewOpportunityController", function(
     })
         .success(function(response) {
             if (response.error == null) {
+                console.log(response.data);
                 $scope.oppDetails = response.data;
                 $scope.compareDate(response.data.dateEnd);
                 $scope.checkIfEditToBeShown(oppID);

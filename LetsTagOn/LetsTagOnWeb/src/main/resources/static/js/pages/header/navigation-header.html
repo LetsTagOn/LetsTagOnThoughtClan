@@ -14,7 +14,14 @@
 						<!-- <li class="lto-profile-drop-row"><a href="#/cp/privacy" i18n="{{'common.lto_link_privacy'}}"></a></li> -->
 					</ul></li>
 				<li class="main-header col-xs-5  col-sm-2 lto-list-item"><a href="#/view/connection/user/{{userId}}" i18n="{{'common.lto_link_connections'}}"></a></li>
-				<li class="main-header col-xs-5  col-sm-1 lto-list-item"><a href="#/search/opportunity/" i18n="{{'common.lto_button_text_search'}}"></a></li>
+				<!-- <li class="main-header col-xs-5  col-sm-1 lto-list-item"><a href="#/search/opportunity/" i18n="{{'common.lto_button_text_search'}}"></a></li> -->
+				<li class="main-header col-xs-5  col-sm-1 dropdown lto-list-item"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" i18n="{{'common.lto_button_text_search'}}"> </a>
+					<ul class="dropdown-menu" role="menu">
+						<li class="lto-profile-drop-row"><a href="#/search/opportunity/" i18n="{{'common.lto_link_searchOpportunity'}}"></a></li>
+						<li class="lto-profile-drop-row"><a href="#/search/user/" i18n="{{'common.lto_link_searchVolunteer'}}"></a></li>
+						<!-- <li class="lto-profile-drop-row"><a href="#/cp/privacy" i18n="{{'common.lto_link_privacy'}}"></a></li> -->
+					</ul>
+				</li>
 				<li class="main-header col-xs-5  col-sm-1 dropdown lto-list-item"><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" i18n="{{'common.lto_link_opportunity'}}"> </a>
 					<ul class="dropdown-menu" role="menu">
 						<li class="lto-profile-drop-row"><a data-toggle="modal" data-target="#opportunityCreateModal" i18n="{{'common.lto_link_addOpportunity'}}"></a></li>

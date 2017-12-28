@@ -37,7 +37,7 @@ angular
                 controllerAs: "controller"
             })
             .when("/resetPassword", {
-                templateUrl: "./change_password.html",
+                templateUrl: "./js/pages/password/change_password.html",
                 controller: "MainController",
                 controllerAs: "controller"
             })
