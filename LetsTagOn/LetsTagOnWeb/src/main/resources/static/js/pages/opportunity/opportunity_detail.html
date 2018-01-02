@@ -28,15 +28,16 @@
 							<img ng-src="{{getBannerImage(oppDetails.bannerImage)}}" ng-if="oppDetails.bannerImage != null"> <img src="../images/event.jpg" ng-if="oppDetails.bannerImage == null">
 						</div>
 					</div>
-					<h4>
+					<div class="row no-margin row-space">
+						<div class="col-xs-12">
+						<h4>
 						<strong ng-if="oppDetails.description.length>1">Information about the event</strong>
-					</h4>
-					<p>
-						<span ng-if="!oppDetails.description">No description !!</span> {{oppDetails.description}}<a href="" class="pull-right">Read More</a>
-					</p>
-					<p>
-						<span ng-if="!oppDetails.dateStart"> No detail available!! </span>
-					</p>
+						</h4>
+						<p>
+						<span ng-if="!oppDetails.description">No description !!</span> {{oppDetails.description}} <!-- <a href="" class="pull-right">Read More</a> -->
+						</p>
+						</div>
+					</div>
 					<div class="row no-margin row-space">
 						<div class="col-xs-12 navigation-bar">
 							<ul>
@@ -204,7 +205,7 @@
 								<img src="./images/image5.jpg" ng-if="opp.bannerImage == null"/> 
 								<img src="./images/image6.jpg" ng-if="opp.bannerImage == null"/>
 							</p>
-							<a href="#">Read More</a>
+							<a href="#/view/opportunity/{{opp.id}}">Read More</a>
 						</div>
 					</div>
 				</div>

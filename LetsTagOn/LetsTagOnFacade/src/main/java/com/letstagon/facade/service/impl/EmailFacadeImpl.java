@@ -38,6 +38,15 @@ public class EmailFacadeImpl implements EmailFacade {
 		// calling email service to send email for user after registration
 		emailService.sendLTONotification(name, email);
 	}
+	
+	/* (non-Javadoc)
+	 * @see com.letstagon.facade.service.EmailFacade#sendLTONotification(java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void sendContactUsMail(String name, String email, String message) throws Exception {
+		// calling email service to send email for user after registration
+		emailService.sendContactUsMail(name, email, message);
+	}
 
 	/* (non-Javadoc)
 	 * @see com.letstagon.facade.service.EmailFacade#forgotPassword(java.lang.String)

@@ -149,10 +149,10 @@ opportunity.controller("UpcomingOpportunityController", function(
     $scope.listOpportunity = {};
     $scope.getAllOpportunity = function() {
         $http({
-            url:
-                "/opportunity/partyParticipation/upcoming?status=true&size=100",
+            url: "/opportunity/upcoming?status=true&size=100",
             dataType: "json",
             method: "GET",
+
             headers: {
                 "Content-Type": "application/json"
             }

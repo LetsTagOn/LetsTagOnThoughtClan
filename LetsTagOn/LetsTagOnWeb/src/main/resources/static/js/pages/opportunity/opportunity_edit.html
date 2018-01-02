@@ -26,7 +26,8 @@
 										</div>
 										<div class="col-md-6">
 											<label for="description">Description</label>
-											<textarea type="text" name="description" rows="1" class="form-control" id="description" placeholder="Some words about event" ng-model="event.description"></textarea>
+											<textarea type="text" name="description" ng-maxlength="1000" rows="1" class="form-control" id="description" placeholder="Some words about event" ng-model="event.description"></textarea>
+											<span class="help-block error" ng-show="((eventForm.description.$error.maxlength) && eventForm.description.$dirty) ">Maximum 1000 Characters Allowed</span>
 										</div>
 										<div class="col-md-6">
 											<label for="date">Date</label> <input type="text" name="eventStartDate" class="form-control" id="eventStartDate" placeholder="Enter Start Date of Event" ng-model="event.dateStart" ng-required="true" ng-focus="displayStartDate()"> <span class="glyphicon glyphicon-calendar"></span> <span class="error" ng-show="submitted && eventForm.eventStartDate.$error.required">Mandatory

@@ -1,10 +1,14 @@
 package com.letstagon.service;
 
+import java.util.Date;
 import java.util.List;
+
+import org.springframework.data.domain.PageRequest;
 
 import com.letstagon.dao.model.Opportunity;
 import com.letstagon.dao.model.OpportunityCauseXref;
 import com.letstagon.dao.model.OpportunityJobType;
+import com.letstagon.dao.model.PaginatedSearchResponseModel;
 import com.letstagon.dao.model.Party;
 import com.letstagon.dao.model.User;
 import com.letstagon.exception.profile.InvalidPreferenceException;
@@ -100,6 +104,12 @@ public interface OpportunityService {
 	 * @return the opportunities created by party
 	 */
 	List<Opportunity> getOpportunitiesCreatedByParty(Party party);
+	
+	/**
+	 * Gets the opportunities
+	 * @return the opportunities
+	 */
+	List<Opportunity> getOpportunities(long limit, int offset);
 
 	/**
 	 * Change opportunity job status.
@@ -127,5 +137,17 @@ public interface OpportunityService {
 	 * @throws InvalidPreferenceException the invalid preference exception
 	 */
 	Opportunity saveOrUpdateLatLongForOpportunity(long oppId, String latLong) throws InvalidPreferenceException;
+	
+	/**
+	 * Find all by opportunities after date start.
+	 *
+	 * @param applyingPartyDTO the party id
+	 * @param status the status
+	 * @param dateStart the date start
+	 * @param pageRequest the page request
+	 * @return the paginated search response model
+	 */
+	PaginatedSearchResponseModel findAllByPartyBeanAndStatusAndAfterDateStart(long applyingPartyDTO,
+			Date dateStart, PageRequest pageRequest);
 
 }

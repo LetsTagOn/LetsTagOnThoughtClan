@@ -18,7 +18,7 @@ public class MailConfig {
 
 	/** The host. */
 	//@Value("${email.host}")
-	private String host="smtp.gmail.com";
+	private String host="smtp.zoho.com";
 
 	/** The port. */
 	//@Value("${email.port}")
@@ -26,11 +26,11 @@ public class MailConfig {
 
 	/** The username. */
 	//@Value("${email.username}")
-	private String username="info.letstagon@gmail.com";
+	private String username="no-reply@letstagon.com";
 
 	/** The password. */
 	//@Value("${email.password}")
-	private String password="Harley@1";
+	private String password="letstagon123";
 
 	/**
 	 * Java mail service.

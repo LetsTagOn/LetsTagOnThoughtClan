@@ -3,17 +3,20 @@ package com.letstagon.facade.impl;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import com.letstagon.dao.model.Opportunity;
 import com.letstagon.dao.model.OpportunityCauseXref;
 import com.letstagon.dao.model.OpportunityJobType;
+import com.letstagon.dao.model.PaginatedSearchResponseModel;
 import com.letstagon.dao.model.Party;
 import com.letstagon.dao.model.User;
 import com.letstagon.exception.profile.InvalidPreferenceException;
@@ -21,6 +24,7 @@ import com.letstagon.facade.OpportunityManagementFacade;
 import com.letstagon.facade.dto.OpportunityCauseXrefDTO;
 import com.letstagon.facade.dto.OpportunityDTO;
 import com.letstagon.facade.dto.OpportunityJobTypeDTO;
+import com.letstagon.facade.dto.PaginatedResponseDTO;
 import com.letstagon.facade.dto.PartyDTO;
 import com.letstagon.facade.dto.UserDTO;
 import com.letstagon.facade.populator.LtoPopulator;
@@ -181,6 +185,17 @@ public class OpportunityManagementFacadeImpl implements OpportunityManagementFac
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see com.letstagon.facade.OpportunityManagementFacade#getOpportunitiesCreatedByParty(com.letstagon.facade.dto.PartyDTO)
+	 */
+	@Override
+	public List<OpportunityDTO> getOpportunities(long limit, int offset) {
+		
+		List<Opportunity> oppList = this.opportunityService.getOpportunities(limit, offset);
+		return this.convertOppModelList(oppList);
+		
+	}
+	
 	/**
 	 * Convert opp model list.
 	 *
@@ -198,6 +213,25 @@ public class OpportunityManagementFacadeImpl implements OpportunityManagementFac
 		}
 		return dtoList;
 
+	}
+	/**
+	 * Convert opportunity list paginated.
+	 *
+	 * @param modelList the model list
+	 * @return the list
+	 */
+	private List<OpportunityDTO> opportunityListPaginated(List<? extends Object> modelList) {
+
+		if (CollectionUtils.isEmpty(modelList)) {
+			return Collections.emptyList();
+		}
+
+		List<OpportunityDTO> list = new ArrayList<OpportunityDTO>();
+		for (Object model : modelList) {
+			list.add(this.oppConverter.convert((Opportunity) model));
+		}
+
+		return list;
 	}
 
 	/* (non-Javadoc)
@@ -217,6 +251,20 @@ public class OpportunityManagementFacadeImpl implements OpportunityManagementFac
 	public OpportunityDTO saveOrUpdateLatLongForOpportunity(long oppId,String latLong) throws InvalidPreferenceException {
 		Opportunity opp = opportunityService.saveOrUpdateLatLongForOpportunity(oppId, latLong);
 		return this.oppConverter.convert(opp);
+	}
+	
+	/* (non-Javadoc)
+	 * @see com.letstagon.facade.PartyParticipationFacade#findAllByPartyBeanAndStatusAndAfterDateStart(com.letstagon.facade.dto.PartyDTO, java.lang.Boolean, java.util.Date, org.springframework.data.domain.PageRequest)
+	 */
+	@Override
+	public PaginatedResponseDTO findAllByPartyBeanAndStatusAndAfterDateStart(PartyDTO applyingPartyDTO,
+			Date dateStart, PageRequest pageRequest) {
+
+		PaginatedSearchResponseModel result = opportunityService
+				.findAllByPartyBeanAndStatusAndAfterDateStart(applyingPartyDTO.getId(), dateStart, pageRequest);
+
+		return new PaginatedResponseDTO(result.getPage(), pageRequest.getPageSize(), result.getTotalCount(),
+				this.opportunityListPaginated(result.getSearchResult()));
 	}
 
 }

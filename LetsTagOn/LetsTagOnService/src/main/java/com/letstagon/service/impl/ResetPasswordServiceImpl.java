@@ -96,7 +96,7 @@ public class ResetPasswordServiceImpl implements ResetPasswordService {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 				message.setTo(user.getEmailAddress());
 				// message.setBcc("balaji@thoughtclan.com");
-				message.setFrom("info.letstagon@gmail.com");
+				message.setFrom("no-reply@letstagon.com");
 				message.setSubject("Reset Password Update-LetsTagOn");
 				message.setSentDate(new Date());
 				Map model = new HashMap();
