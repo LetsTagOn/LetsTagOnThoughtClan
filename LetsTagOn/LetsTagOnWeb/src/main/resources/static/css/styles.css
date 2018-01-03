@@ -1429,22 +1429,32 @@ ul.rating {
     border-bottom: 3px solid #231f20;
     font-weight: 700;
     font-size: 28px;
+    position: relative;
+    z-index: 1;
 }
 
 .Title span:before {
     content: "";
-
-    top: 40px;
+    right: 100%;
+    top: 45%;
     height: 10px;
-    width: 41%;
+    width: 1000px;
     border-top: 1px solid black;
     border-bottom: 1px solid black;
-    display: block;
-    position: relative;
+    position: absolute;
+    z-index: -1;
+}
 
-    /* margin-top: -1px;
-    margin-right: 0.5em;
-    right: 100%;*/
+.Title span:after {
+    content: "";
+    left: 100%;
+    top: 45%;
+    height: 10px;
+    width: 1000px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    position: absolute;
+    z-index: -1;
 }
 
 #Welcome-AboutUs h2 {
@@ -1498,9 +1508,7 @@ ul.rating {
 }
 
 #How-It-Works .card li {
-    /*list-style-type: disc;*/
-
-    /*line-height: px;*/
+    position: relative;
     font-size: 15px;
     font-weight: 600;
     letter-spacing: 0.05em;
@@ -1510,9 +1518,12 @@ ul.rating {
 }
 
 #How-It-Works .card li:before {
-    content: “\00bb”;
+    content: "\00bb";
     font-size: 20px;
     list-style: none;
+    margin-right: 10px;
+    position: absolute;
+    left: -10px;
 }
 
 /*.lto-about-us {
