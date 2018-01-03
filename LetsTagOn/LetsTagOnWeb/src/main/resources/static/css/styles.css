@@ -1407,7 +1407,115 @@ ul.rating {
         Styles for About Us Page
 ------------------------------------------------------ */
 
-.lto-about-us {
+.AboutUs-Container {
+    background-color: #ddd;
+    padding-top: 80px;
+    padding-right: 60px;
+    padding-left: 60px;
+    padding-bottom: 40px;
+}
+
+.Title {
+    text-transform: uppercase;
+    text-align: center;
+
+    margin: 0 auto;
+    letter-spacing: 0.135em;
+    padding-bottom: 0.125em;
+    line-height: 1.5em;
+}
+
+.Title span {
+    border-bottom: 3px solid #231f20;
+    font-weight: 700;
+    font-size: 28px;
+}
+
+.Title span:before {
+    content: "";
+
+    top: 40px;
+    height: 10px;
+    width: 41%;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    display: block;
+    position: relative;
+
+    /* margin-top: -1px;
+    margin-right: 0.5em;
+    right: 100%;*/
+}
+
+#Welcome-AboutUs h2 {
+    margin-bottom: 2.5em;
+
+    font-size: 21px;
+    font-weight: 800; /*differs from that of reference page*/
+    line-height: 26px;
+    letter-spacing: 0.05em;
+    text-align: center;
+}
+
+#Welcome-AboutUs img {
+    display: block;
+    margin: 0 auto;
+}
+
+.largeDesc {
+    max-width: 960px;
+    background: #fff;
+    font-size: 15px;
+    line-height: 1.368em;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 50px;
+    margin: 20px auto;
+}
+#How-It-Works {
+    max-width: 960px;
+    /*border: 1px solid red;*/
+    margin: 10px auto;
+}
+#How-It-Works .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 1em 1em;
+    grid-auto-rows: minmax(400px, auto);
+}
+
+#How-It-Works .card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    padding: 10px 10px;
+}
+
+#How-It-Works .card h3 {
+    text-align: center;
+    font-weight: 700;
+    font-size: 25px;
+}
+
+#How-It-Works .card li {
+    /*list-style-type: disc;*/
+
+    /*line-height: px;*/
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding: 10px;
+    list-style-position: outside;
+    margin-left: 1em;
+}
+
+#How-It-Works .card li:before {
+    content: “\00bb”;
+    font-size: 20px;
+    list-style: none;
+}
+
+/*.lto-about-us {
     line-height: 1.5;
     color: #000;
 }
@@ -1420,7 +1528,7 @@ ul.rating {
 
 .lto-about-us ol {
     margin-top: 10px;
-}
+}*/
 
 /* ---------------------------------------------------
         Styles for message module

@@ -938,3 +938,59 @@ and (orientation : landscape) {
        padding: 0;
     }
 }
+
+/************
+About Us Page Responsive Styles
+************/
+@media screen and (min-width: 1120px) {
+    #Welcome-AboutUs h2 {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+/*@media screen and (max-width: 876px) {
+    .inner {
+        max-width: 860px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 35px;
+        padding-right: 35px;
+    }
+}
+
+@media screen and (max-width: 1040px) and (min-width: 860px) {
+    .inner {
+        max-width: 860px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 35px;
+        padding-right: 35px;
+    }
+
+    p.largetxt {
+        font-size: 15px;
+        line-height: 1.368em;
+    }
+}
+
+@media screen and (max-width: 1276px) and (min-width: 860px) {
+    .gridcol__inline {
+        display: block;
+    }
+
+    .gridcol__inline .grid-feature {
+        left: auto;
+        right: auto;
+        position: relative;
+    }
+}
+
+@media screen and (max-width: 1276px) and (min-width: 0) {
+    .grid-feature {
+        padding: 50px;
+    }
+}
+*/
+
+
