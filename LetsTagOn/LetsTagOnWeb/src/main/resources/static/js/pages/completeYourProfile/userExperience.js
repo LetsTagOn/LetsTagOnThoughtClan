@@ -362,6 +362,7 @@ completeProfile.controller('ExperienceController', function($http, $scope, $root
         $scope.userVolunteerExperience.skillarea = experience.skill;
         $scope.userVolunteerExperience.comment = experience.comment;
         $scope.userVolunteerExperience.other = experience.other;
+        $scope.userVolunteerExperience.hours = experience.hours;
 
         $scope.userVolunteerExperience.startDate = $filter('date')(experience.startDate, 'MM-dd-yyyy');
         $scope.userVolunteerExperience.endDate = $filter('date')(experience.endDate, 'MM-dd-yyyy');
