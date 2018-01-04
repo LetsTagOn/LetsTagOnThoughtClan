@@ -29,14 +29,14 @@
 													></span><span class="help-block error" ng-show="((programForm.programName.$error.minlength) && programForm.programName.$dirty) " i18n="{{'common.lto_span_errorMessage'}}"></span>
 												</div>
 												<div class="col-xs-12 col-sm-6 ">
-													<label for="description">Description</label>
+													<label for="description">Description (What is the work involved?)</label>
 													<textarea type="text" name="description" class="form-control" id="description" ng-model="program.description" placeholder="{{'common.lto_placeholder_program_description'|i18n}}"></textarea>
 												</div>
 												<div class="text-center">
 													<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click="submitted=true" i18n="{{'common.lto_button_text_save'}}"></button>
 													<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" data-dismiss="modal" i18n="{{'common.lto_button_text_cancle'}}"></button>
 													<div class="success-toast-message" ng-show="programSuccess">
-														<span ng-model="programActionSuccess">Program added Successfully.</span>
+														<span ng-model="programActionSuccess">Project added Successfully.</span>
 													</div>
 													<div class="error-toast-message" ng-show="programError">
 														<span ng-model="eventActionError">Something went Wrong!!</span>
@@ -55,7 +55,7 @@
                                                 i18n="{{'common.lto_span_errorMessage'}}"></span>
 												</div>
 												<div class="col-xs-12 col-sm-6 ">
-													<label for="description" i18n="{{'common.lto_lable_description'}}"></label>
+													<label for="description" i18n="{{'common.lto_lable_event_description'}}"></label>
 													<textarea type="text" name="description" class="form-control" id="description" placeholder="{{'common.lto_placeholder_eventDescription'|i18n}}" ng-model="event.description"></textarea>
 												</div>
 												<div class="col-xs-12 col-sm-6 ">

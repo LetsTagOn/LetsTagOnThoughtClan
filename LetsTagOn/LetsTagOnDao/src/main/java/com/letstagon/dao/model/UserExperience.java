@@ -58,10 +58,23 @@ public class UserExperience implements Serializable {
 	/** The cause. */
 	private String cause;
 	
+	/** The skill. */
+	private String skill;
+
 	/** The organization name. */
 	private String organizationName;
-
 	
+	/** The other cause. */
+	private String other;
+	
+	/** The other skill. */
+	private String comment;
+	
+	
+
+	/** The hours. */
+	private String hours;
+
 	/**
 	 * Instantiates a new user experience.
 	 */
@@ -262,6 +275,43 @@ public class UserExperience implements Serializable {
 	 */
 	public void setCause(String cause) {
 		this.cause = cause;
+	}
+	
+	public String getSkill() {
+		return skill;
+	}
+
+	public void setSkill(String skill) {
+		this.skill = skill;
+	}
+
+	public String getOther() {
+		return other;
+	}
+
+
+	public void setOther(String other) {
+		this.other = other;
+	}
+
+
+	public String getComment() {
+		return comment;
+	}
+
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+
+	public String getHours() {
+		return hours;
+	}
+
+
+	public void setHours(String hours) {
+		this.hours = hours;
 	}
 
 
