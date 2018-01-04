@@ -949,6 +949,24 @@ About Us Page Responsive Styles
         margin-right: auto;
     }
 }
+
+@media screen and (max-width: 1000px) and (min-width: 500px){
+    #TheTeam .Profile-Cards{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 1em 2em;
+        grid-auto-rows: minmax(100px, auto);
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #TheTeam .Profile-Cards{
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 1em;
+        grid-auto-rows: minmax(100px, auto);
+    }
+}
 /*@media screen and (max-width: 876px) {
     .inner {
         max-width: 860px;

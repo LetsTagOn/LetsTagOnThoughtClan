@@ -2,70 +2,139 @@
 <html lang="en">
 
 <body>
-	<div class="AboutUs-Container">
-		<section id="Welcome-AboutUs">
-	
-	<h1 class="Title"><span>Welcome</span></h1>
-	<h2>LetsTagOn is a networking and collaboration platform for change champions to connect with organizations and other volunteers for a cause.</h2>
-	<div>
-		<img src="./images/letstagonbanner.png" alt="Banner Image">	
-	</div>
-	
-	<p class="largeDesc">LetsTagOn provides volunteer opportunities, enables volunteer connection,  and aims to help them “Tag On” to improve the collective efforts. <br><br>The platform with further features is under development. But that doesn't stop us from on-boarding you! Featured volunteering events are on <a href="/#/welcome">home page</a>. You can register to those based on your interest and availability. We are also working with corporate and educational institutes volunteers on some interesting volunteering projects. Get in touch with us If your team wants to be part of them. <br><br>True to its vision, the platform is being developed by a set of volunteers who are passionate about technology solutions for this sector. If you want to get updates and want access to a beta version or just want to say hello, <a href="/#/contact us">do write to us!</a></p>	
-	
-</section>
-<section id="How-It-Works">
-	<h1 class="Title"><span>How  It Works</span></h1>
-	<div class="cards">
-		<div class="card">
-			<h3>Volunteers</h3>
-			<img src="./images/landing_page_image1.png" alt="pic of Volunteers">
-			<ul>
-				<li>Share your story and update contributions to inspire more people to volunteer</li>
-				<li>Track and share history of your contributions which would help you build a volunteering profile</li>
-				<li>Connect and network with people having similar interests</li>
-				<li>Look for events to participate and opportunities to contribute </li>
-			</ul>
-
-		</div>
-		<div class="card">
-			<h3>Volunteers</h3>
-			<img src="./images/landing_page_image1.png" alt="pic of Volunteers">
-			<ul>
-				<li>Share your story and update contributions to inspire more people to volunteer</li>
-				<li>Track and share history of your contributions which would help you build a volunteering profile</li>
-				<li>Connect and network with people having similar interests</li>
-				<li>Look for events to participate and opportunities to contribute </li>
-			</ul>
-
-		</div>
-		<div class="card">
-			<h3>Volunteers</h3>
-			<img src="./images/landing_page_image1.png" alt="pic of Volunteers">
-			<ul>
-				<li>Share your story and update contributions to inspire more people to volunteer</li>
-				<li>Track and share history of your contributions which would help you build a volunteering profile</li>
-				<li>Connect and network with people having similar interests</li>
-				<li>Look for events to participate and opportunities to contribute </li>
-			</ul>
-		</div>
-		<div class="card">
-			<h3>Volunteers</h3>
-			<img src="./images/landing_page_image1.png" alt="pic of Volunteers">
-			<ul>
-				<li>Share your story and update contributions to inspire more people to volunteer</li>
-				<li>Track and share history of your contributions which would help you build a volunteering profile</li>
-				<li>Connect and network with people having similar interests</li>
-				<li>Look for events to participate and opportunities to contribute </li>
-			</ul>
-		</div>	
-	</div>
-	
-</section>	
-	</div>
-	
-	
+    <div class="AboutUs-Container" id="top" ng-controller="aboutcontroller">
+        <section id="Welcome-AboutUs">
+            <h1 class="Title"><span>Welcome</span></h1>
+            <h2>LetsTagOn is a networking and collaboration platform for change champions to connect with organizations and other volunteers for a cause.</h2>
+            <div>
+                <img src="./images/letstagonbanner.png" alt="Banner Image">
+            </div>
+            <p class="largeDesc">LetsTagOn provides volunteer opportunities, enables volunteer connection, and aims to help them “Tag On” to improve the collective efforts.
+                <br>
+                <br>The platform with further features is under development. But that doesn't stop us from on-boarding you! Featured volunteering events are on <a href="/#/welcome">home page</a>. You can register to those based on your interest and availability. We are also working with corporate and educational institutes volunteers on some interesting volunteering projects. Get in touch with us If your team wants to be part of them.
+                <br>
+                <br>True to its vision, the platform is being developed by a set of volunteers who are passionate about technology solutions for this sector. If you want to get updates and want access to a beta version or just want to say hello, <a href="/#/contact us">do write to us!</a></p>
+        </section>
+        <section id="How-It-Works">
+            <h1 class="Title"><span>How  It Works</span></h1>
+            <div class="cards">
+                <div class="card">
+                    <h3>Volunteers</h3>
+                    <img src="./images/landing_page_image1.png" alt="pic of Volunteers">
+                    <ul>
+                        <li>Share your story and update contributions to inspire more people to volunteer</li>
+                        <li>Track and share history of your contributions which would help you build a volunteering profile</li>
+                        <li>Connect and network with people having similar interests</li>
+                        <li>Look for events to participate and opportunities to contribute </li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>NGOs/Lead Volunteers</h3>
+                    <img src="./images/landing_page_image1.png" alt="pic of Volunteers">
+                    <ul>
+                        <li>Increase reach of your causes to a larger set of individuals who are interested to contribute</li>
+                        <li>Reduce cost of volunteer acquisition</li>
+                        <li>Build credibility through recommendation and network influence</li>
+                        <li>Track, maintain and share history of your activities</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Corporates</h3>
+                    <img src="./images/landing_page_image1.png" alt="pic of Volunteers">
+                    <ul>
+                        <li>Nurture kindness in your employees and provide opportunities to contribute to social causes</li>
+                        <li>Consolidate and align the individual contribution of employees towards CSR efforts</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Educational Institutes</h3>
+                    <img src="./images/landing_page_image1.png" alt="pic of Volunteers">
+                    <ul>
+                        <li>Make your community service effective and visible</li>
+                        <li>Leverage your large student volunteer base for greater collective outcomes</li>
+                        <li>Build student all-round personality through volunteering </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <section id="TheTeam">
+            <h1 class="Title"><span>The Team</span></h1>
+            <div class="Profile-Cards">
+                <div class="Profile-Card">
+                    <div>
+                        <h3>Chetana Koulagi</h3>
+                        <h4>Founder</h4>
+                    </div>
+                    <a href="https://www.linkedin.com/in/vinod-kumar-06ab9218/" 
+                    target="_blank"
+                    class="cursor"><img src="./images/Chethana.png" alt="Team member pic"></a>
+                    <p>18+ years in the IT industry with the last decade in Infosys. Passionate volunteer @ govt schools and Project Management Institute</p>
+                </div>
+                <div class="Profile-Card">
+                    <div>
+                        <h3>Mithun Kalga</h3>
+                        <h4>Strategy & Planning</h4>
+                    </div>
+                    <a href="https://www.linkedin.com/in/vinod-kumar-06ab9218/" 
+                    target="_blank"
+                    class="cursor"><img src="./images/Mithun.png" alt="Team member pic"></a>
+                    <p>10+ years in building 3 startups across Education, e-commerce and non-profit sectors</p>
+                </div>
+                <div class="Profile-Card">
+                    <div>
+                        <h3>Ravindra Karanam</h3>
+                        <h4>Architect, Digital Platform</h4>
+                    </div>
+                    <a href="https://www.linkedin.com/in/vinod-kumar-06ab9218/" 
+                    target="_blank"
+                    class="cursor"><img src="./images/Ravi.png" alt="Team member pic"></a>
+                    <p>25+ years experience in Technology Strategy, Architecture & Design, Product Development</p>
+                </div>
+                <div class="Profile-Card">
+                    <div>
+                        <h3>Sravani Gorantala</h3>
+                        <h4>NGO Interface & <br> Bus. Analyst</h4>
+                    </div>
+                    <a href="https://www.linkedin.com/in/vinod-kumar-06ab9218/" 
+                    target="_blank"
+                    class="cursor"><img src="./images/Sravani.png" alt="Team member pic"></a>
+                    <p>13 years of experience in Business Analysis & Project Coordination</p>
+                </div>
+                <div class="Profile-Card">
+                    <div>
+                        <h3>Savita Bhavsar</h3>
+                        <h4>Volunteering <br>Event Management</h4>
+                    </div>
+                    <a href="https://www.linkedin.com/in/vinod-kumar-06ab9218/" 
+                    target="_blank"
+                    class="cursor"><img src="./images/Savita.png" alt="Team member pic"></a>
+                    <p>13 years of experience in corporate event planning & execution</p>
+                </div>
+                <div class="Profile-Card">
+                    <div>
+                        <h3>Sathya Uday</h3>
+                        <h4>Platform Development</h4>
+                    </div>
+                    <a href="https://www.linkedin.com/in/vinod-kumar-06ab9218/" 
+                    target="_blank"
+                    class="cursor"><img src="./images/Vinod.jpg" alt="Team member pic"></a>
+                    <p>5 years of experience in software development</p>
+                </div>
+                <div class="Profile-Card">
+                    <div>
+                        <h3>Vinod Kumar</h3>
+                        <h4>Platform Development</h4>
+                    </div>
+                    <a href="https://www.linkedin.com/in/vinod-kumar-06ab9218/" 
+                    target="_blank"
+                    class="cursor"><img src="./images/Vinod.jpg" alt="Team member pic"></a>
+                    <p>15 years of experience in product development and management</p>
+                </div>
+            </div>
+        </section>
+    </div>
 </body>
+
 </html>
 <!-- <!DOCTYPE html>
 <html lang="en">
@@ -176,7 +245,6 @@
 		</div>
 	</body>
 </html> -->
-
 <!-- <html>
 <body>
 <h2>About Us</h2><br>
