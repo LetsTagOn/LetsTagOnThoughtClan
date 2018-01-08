@@ -19,25 +19,29 @@
 									<div class="col-md-12">
 										<div class="col-md-6">
 											<div>
-												<label for="eventName">Activity/Event Name</label> <input type="text" name="eventName" class="form-control" id="eventName" ng-minlength="3" placeholder="Enter Event Name" ng-model="event.name" ng-required="true"> <span class="glyphicon glyphicon-user"></span> <span class="error" ng-show="submitted && eventForm.eventName.$error.required">Mandatory Field</span> <span
+												<label for="eventName">Activity/Event Name</label> <input type="text" name="eventName" class="form-control" id="eventName" ng-minlength="3" placeholder="Enter Activity/Event Name" ng-model="event.name" ng-required="true"> <span class="glyphicon glyphicon-user"></span> <span class="error" ng-show="submitted && eventForm.eventName.$error.required">Mandatory Field</span> <span
 													class="help-block error" ng-show="((eventForm.eventName.$error.minlength) && eventForm.eventName.$dirty) "
 												> Minimun 3 Characters Required</span>
 											</div>
 										</div>
 										<div class="col-md-6">
 											<label for="description">Description (What is the work involved?)</label>
-											<textarea type="text" name="description" ng-maxlength="1000" rows="1" class="form-control" id="description" placeholder="Some words about event" ng-model="event.description"></textarea>
+											<textarea type="text" name="description" ng-maxlength="1000" rows="1" class="form-control" id="description" placeholder="Some words about activity/event" ng-model="event.description"></textarea>
 											<span class="help-block error" ng-show="((eventForm.description.$error.maxlength) && eventForm.description.$dirty) ">Maximum 1000 Characters Allowed</span>
 										</div>
 										<div class="col-md-6">
-											<label for="date">Date</label> <input type="text" name="eventStartDate" class="form-control" id="eventStartDate" placeholder="Enter Start Date of Activity/Event" ng-model="event.dateStart" ng-required="true" ng-focus="displayStartDate()"> <span class="glyphicon glyphicon-calendar"></span> <span class="error" ng-show="submitted && eventForm.eventStartDate.$error.required">Mandatory
+											<input type="text" name="eventStartDate" class="form-control" id="eventStartDate" placeholder="Enter Start Date of Activity/Event" ng-model="event.dateStart" ng-required="true" ng-focus="displayStartDate()"> <span class="glyphicon glyphicon-calendar"></span> <span class="error" ng-show="submitted && eventForm.eventStartDate.$error.required">Mandatory
 												Field</span>
 										</div>
 										<div class="col-md-6">
-											<label for="date"></label> <input type="text" name="eventEndDate" class="form-control" ng-focus="displayEndDate()" id="eventEndDate" placeholder="Enter End Date of Activity/Event" ng-model="event.dateEnd" ng-required="true"> <span class="glyphicon glyphicon-calendar"></span> <span class="error" ng-show="submitted && eventForm.eventEndDate.$error.required">Mandatory Field</span>
+											<input type="text" name="eventEndDate" class="form-control" ng-focus="displayEndDate()" id="eventEndDate" placeholder="Enter End Date of Activity/Event" ng-model="event.dateEnd" ng-required="true"> <span class="glyphicon glyphicon-calendar"></span> <span class="error" ng-show="submitted && eventForm.eventEndDate.$error.required">Mandatory Field</span>
 										</div>
 										<div class="col-md-6" ng-show="areaFound">
-											<label>Address</label> <input id="autocomplete" placeholder="Enter your address" name="formattedAddress" type="text" class="form-control" ng-model="event.addressBean.formattedAddress"></input>
+											<label>Address?
+            								On Field: <input type="radio" ng-model="address.name" value="onfield" ng-click="ShowAddress('Y')" />
+            								Virtual: <input type="radio" ng-model="address.name" value="virtual" ng-click="ShowAddress('N')" />
+        									</label> 
+											<input ng-show="IsVisible" id="autocomplete" placeholder="Enter your address" name="formattedAddress" type="text" class="form-control" ng-model="event.addressBean.formattedAddress"></input>
 										</div>
 										<div class="col-md-6" ng-hide="areaFound">
 											<label>Address</label> <input ng-model="event.street" type="text" name="street_number" class="form-control" placeholder="Enter street number" id="street_number"></input> <input class="form-control" name="locality" placeholder="Enter City" id="locality" ng-required="areaFound == false" ng-model="event.addressBean.city"></input> <span class="error"
@@ -49,7 +53,7 @@
 											<div class="hide" id="latitude"></div>
 											<div class="hide" id="longitude"></div>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-6" ng-show="IsVisible">
 											<label class="cursor lto-google-search-txt" ng-show="areaFound"><a ng-click="changeAreaFoundStatus()">No Relevant Matches Found Click to Add customised address?</a></label> <label class="cursor lto-address-txt" ng-hide="areaFound"><a ng-click="changeAreaFoundStatus()">Search Location using google api</a></label>
 										</div>
 									</div>

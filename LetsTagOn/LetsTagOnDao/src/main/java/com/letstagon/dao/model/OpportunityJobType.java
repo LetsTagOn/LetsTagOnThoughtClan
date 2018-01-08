@@ -23,6 +23,8 @@ public class OpportunityJobType implements Serializable {
 	/** The number of positions. */
 	private int numberOfPositions;
 	
+	private int hours;
+
 	/** The selection criteria. */
 	private String selectionCriteria;
 	
@@ -80,7 +82,25 @@ public class OpportunityJobType implements Serializable {
 	public void setNumberOfPositions(int numberOfPositions) {
 		this.numberOfPositions = numberOfPositions;
 	}
+	
+	/**
+	 * Gets the number of hours.
+	 *
+	 * @return the number of hours
+	 */
+	public int getHours() {
+		return hours;
+	}
 
+	/**
+	 * Sets the number of hours.
+	 *
+	 * @param hours the new number of hours
+	 */
+	public void setHours(int hours) {
+		this.hours = hours;
+	}
+	
 
 	/**
 	 * Gets the selection criteria.

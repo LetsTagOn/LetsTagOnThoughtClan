@@ -234,8 +234,8 @@ opportunity.controller('CreateOpportunityController', function($http, $scope, $r
         var event = new Object();
         event.name = $scope.event.name;
         event.description = $scope.event.description;
-        event.dateStart = new Date($("#eventStartDate").val());
-        event.dateEnd = new Date($("#eventEndDate").val());
+        event.dateStart = new Date($("#startDateEvent").val());
+        event.dateEnd = new Date($("#endDateEvent").val());
         event.type = "EVENT";
         var address = new Object();
         address.city = $scope.event.addressBean.city
@@ -274,6 +274,12 @@ opportunity.controller('OpportunityEditController', function($http, $scope, $roo
     $scope.jobSectionDisplay = false;
     $scope.saveJobRole = "create";
     $scope.areaFound = true;
+    
+    $scope.IsVisible = false;
+    $scope.ShowAddress = function (value) {
+        //If DIV is visible it will be hidden and vice versa.
+        $scope.IsVisible = value == "Y";
+    }
 
     $scope.changeAreaFoundStatus = function() {
         $scope.areaFound = $scope.areaFound ? false : true;
@@ -343,6 +349,7 @@ opportunity.controller('OpportunityEditController', function($http, $scope, $roo
             selectedJob.id = $scope.jobType.id;
         }
         selectedJob.numberOfPositions = $scope.jobType.numberOfPositions;
+        selectedJob.hours = $scope.jobType.hours;
         selectedJob.selectionCriteria = $scope.jobType.selectionCriteria;
         selectedJob.status = jobStatus;
 
@@ -373,6 +380,7 @@ opportunity.controller('OpportunityEditController', function($http, $scope, $roo
 
         $scope.jobType = {
             numberOfPositions: "",
+            hours: "",
             selectionCriteria: ""
         };
     };
@@ -399,6 +407,7 @@ opportunity.controller('OpportunityEditController', function($http, $scope, $roo
         $scope.jobSectionDisplay = false;
         $scope.jobType = {
             numberOfPositions: "",
+            hours: "",
             selectionCriteria: "",
             id: null
         };
@@ -442,6 +451,7 @@ opportunity.controller('OpportunityEditController', function($http, $scope, $roo
         event.dateEnd = new Date($("#eventEndDate").val());
         event.type = "EVENT";
         var address = new Object();
+        if($scope.IsVisible == true){
         address.city = $("#locality").val();
         address.country = $("#country").val();
         address.postalCode = $("#postal_code").val();
@@ -457,6 +467,7 @@ opportunity.controller('OpportunityEditController', function($http, $scope, $roo
             fullAddress = $("input[name='formattedAddress']").val();
         }
         getLatitudeLongitude(fullAddress);
+        }
         setTimeout(function() {
             event.latLong = $("#latitude").val().toString() + "," + $("#longitude").val().toString();
             $http({
@@ -501,7 +512,7 @@ opportunity.controller('OpportunityEditController', function($http, $scope, $roo
         $scope.masterCauseList = [];
         $scope.userCauses = [];
         $scope.jobType = {};
-
+        $scope.IsVisible = false;
 
         // ======================================causes====================================================
 
@@ -520,6 +531,18 @@ opportunity.controller('OpportunityEditController', function($http, $scope, $roo
             $scope.event.dateStart = $filter('date')($scope.event.dateStart, 'yyyy-MM-dd HH:mm:ss');
             $scope.event.dateEnd = $filter('date')($scope.event.dateEnd, 'yyyy-MM-dd HH:mm:ss');
             $scope.event.addressBean.postalCode = parseInt($scope.event.addressBean.postalCode);
+            if($scope.event.addressBean.country != null || $scope.event.addressBean.state != null || $scope.event.addressBean.city != null){
+            	$scope.address = {
+            	        name: 'onfield'
+            	};
+            	$scope.IsVisible = true;
+            }
+            if($scope.event.addressBean.country == null && $scope.event.addressBean.state == null && $scope.event.addressBean.state == null){
+            	$scope.address = {
+            	        name: 'virtual'
+            	};
+            	$scope.IsVisible = false;
+            }
             $scope.masterCauseList = response.data.causeDTO;
             console.info($scope.masterCauseList);
             $scope.masterJobTypeList = response.data.jobTypeDTO;
@@ -603,6 +626,7 @@ opportunity.controller('OpportunityEditController', function($http, $scope, $roo
         $scope.addJobSectionDisplays();
         $scope.jobType.id = job.id;
         $scope.jobType.numberOfPositions = parseInt(job.numberOfPositions);
+        $scope.jobType.hours = parseInt(job.hours);
         $scope.jobType.selectionCriteria = job.selectionCriteria;
         $scope.removeJobFromMasterJobType();
         $scope.masterJobTypeList.unshift(job.jobTypeBean);
@@ -619,6 +643,7 @@ opportunity.controller('OpportunityEditController', function($http, $scope, $roo
         $scope.jobType.id = null;
         $scope.jobType = {
             numberOfPositions: "",
+            hours: "",
             selectionCriteria: "",
             id: null
         };
