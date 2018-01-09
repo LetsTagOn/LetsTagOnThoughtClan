@@ -398,7 +398,7 @@ opportunity.controller('OpportunityEditController', function($http, $scope, $roo
                 }
             }
         }
-        if ($scope.masterJobTypeList.length > 0)
+        if (!$scope.masterJobTypeList == undefined && $scope.masterJobTypeList.length > 0)
             $scope.selectedJobType = $scope.masterJobTypeList[0].id;
     };
 
@@ -811,6 +811,10 @@ opportunity.controller('OpportunityProgramEditController',
         $scope.editProgramWithCreateEvent = function() {
             $scope.program = {};
             $scope.program.linkedEvents = [];
+            $scope.IsVisible = false;
+            $scope.ShowAddress = function (value) {
+                $scope.IsVisible = value == "Y";
+            }
             $http({
                 url: '/opportunity/cause/edit/' + programID,
                 dataType: 'json',

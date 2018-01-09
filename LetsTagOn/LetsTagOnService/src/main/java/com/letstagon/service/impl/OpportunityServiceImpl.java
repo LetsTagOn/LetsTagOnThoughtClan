@@ -158,6 +158,7 @@ public class OpportunityServiceImpl implements OpportunityService {
 		oppJobType.setNumberOfPositions(opportunityJobType.getNumberOfPositions());
 		oppJobType.setSelectionCriteria(opportunityJobType.getSelectionCriteria());
 		oppJobType.setStatus(opportunityJobType.getStatus());
+		oppJobType.setHours(opportunityJobType.getHours());
 		this.opportunityJobTypeRepository.save(oppJobType);
 
 		updateModifiedDate(oppJobType.getOpportunityBean().getId());
