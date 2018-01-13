@@ -59,7 +59,7 @@ public class UserExperienceFacadeImpl implements UserExperienceFacade {
 			List<UserExperience> volunteerDetails = (List<UserExperience>) hashMap.get("volunteeringDetails");
 			List<UserExperienceDTO> educationalDetailList = new ArrayList<UserExperienceDTO>();
 			List<UserExperienceDTO> professionalDetailslist = new ArrayList<UserExperienceDTO>();
-			List<UserExperienceDTO>volunteeringDetailsList = new ArrayList<UserExperienceDTO>();
+			List<UserExperience> volunteeringDetailsList = new ArrayList<UserExperience>();
 			if (professionalDetails != null) {
 				for (UserExperience userExperience : professionalDetails) {
 					UserExperienceDTO experience = userExperienceModelConverter.convert(userExperience);
@@ -74,8 +74,7 @@ public class UserExperienceFacadeImpl implements UserExperienceFacade {
 			}
 			if (volunteerDetails != null) {
 				for (UserExperience userExperience : volunteerDetails) {
-					UserExperienceDTO experience = userExperienceModelConverter.convert(userExperience);
-					volunteeringDetailsList.add(experience);
+					volunteeringDetailsList.add(userExperience);
 				}
 			}
 			map.put("educationDetails", educationalDetailList);

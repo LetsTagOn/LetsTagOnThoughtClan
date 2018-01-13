@@ -19,6 +19,9 @@ public class OpportunityJobTypeDTO implements Serializable {
 	/** The number of positions. */
 	private int numberOfPositions;
 	
+	/** The number of hours. */
+	private int hours;
+	
 	/** The selection criteria. */
 	private String selectionCriteria;
 	
@@ -71,6 +74,24 @@ public class OpportunityJobTypeDTO implements Serializable {
 	 */
 	public void setNumberOfPositions(int numberOfPositions) {
 		this.numberOfPositions = numberOfPositions;
+	}
+	
+	/**
+	 * Gets the number of hours.
+	 *
+	 * @return the number of hours
+	 */
+	public int getHours() {
+		return hours;
+	}
+
+	/**
+	 * Sets the number of hours.
+	 *
+	 * @param hours the new number of hours
+	 */
+	public void setHours(int hours) {
+		this.hours = hours;
 	}
 
 	/**

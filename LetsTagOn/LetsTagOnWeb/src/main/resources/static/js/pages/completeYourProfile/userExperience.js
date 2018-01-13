@@ -6,6 +6,34 @@ completeProfile.controller('ExperienceController', function($http, $scope, $root
     $scope.userEducation = {};
     $scope.userExperience = {};
     $scope.userVolunteerExperience = {};
+    $scope.masterSkills	=	[];
+    $scope.masterCauseList = [];
+    $scope.isRequired	=	false;
+    $scope.value	=	false;
+    $http({
+        url: '/profile/interests/user/' + $rootScope.userId,
+        dataType: 'json',
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        cache: false
+
+    }).success(function(response) {
+        if (response.error == null) {
+
+            //skills
+            $scope.masterSkills = response.data.skills.masterSkills;
+
+            //causes
+            $scope.masterCauseList = response.data.causes.masterCauses;
+        } else {
+            $scope.actionError = response.error.errorMessage;
+            $scope.error = true;
+        }
+    }).error(function(error) {
+        $scope.error = error;
+    });
     /*Highlight Element on focus and blur*/
     $("input").on("focus", function() {
         $(this).prev().addClass("focus-effect");
@@ -157,6 +185,34 @@ completeProfile.controller('ExperienceController', function($http, $scope, $root
         $scope.userExperience.id = experience.id;
         $scope.isExpVisible = true;
     };
+    
+    $scope.GetSkill = function() {
+    	var skillDes = $("#skillarea option:selected").html();
+    	$scope.userVolunteerExperience.skill	=	skillDes;
+    	 if($scope.userVolunteerExperience.skill == "Other" || $scope.userVolunteerExperience.skill == "Hobby"){
+    		 $scope.isRequired = true;
+    		 $("#comment").attr("readonly", false)
+    	 }
+    	 else{
+    		 $("#comment").attr("readonly", true)
+    		 $("#comment").val("");
+    		 $scope.isRequired = false;
+    	 }
+    };
+    
+    $scope.GetCause = function() {
+    	var causeDes = $("#causearea option:selected").html();
+    	$scope.userVolunteerExperience.cause = causeDes;
+    	if($scope.userVolunteerExperience.cause == "Other"){
+    		 $("#other").attr("readonly", false)
+    		 $scope.value	=	true;
+    	 }
+    	 else{
+    		 $("#other").attr("readonly", true)
+    		 $("#other").val("");
+    		 $scope.value	=	false;
+    	 }
+    };
 
     //TO save experience details of user
     $scope.saveExperienceDetails = function() {
@@ -283,6 +339,30 @@ completeProfile.controller('ExperienceController', function($http, $scope, $root
         $scope.userVolunteerExperience.organizationName = experience.organizationName;
         $scope.userVolunteerExperience.title = experience.title;
         $scope.userVolunteerExperience.cause = experience.cause;
+        $scope.userVolunteerExperience.skill = experience.skill;
+        if($scope.userVolunteerExperience.cause == "Other"){
+        	$("#other").attr("readonly", false)
+        	$scope.value	=	true;
+   	 	}
+        else{
+   		 	$("#other").attr("readonly", true)
+   		 	$("#other").val("");
+   		 	$scope.value	=	false;
+   	 	}
+        if($scope.userVolunteerExperience.skill == "Other" || $scope.userVolunteerExperience.skill == "Hobby"){
+   		 	$scope.isRequired = true;
+   		 	$("#comment").attr("readonly", false)
+        }
+   	 	else{
+   	 		$("#comment").attr("readonly", true)
+   	 		$("#comment").val("");
+   	 		$scope.isRequired = false;
+   	 	}
+        $scope.userVolunteerExperience.causearea = experience.cause;
+        $scope.userVolunteerExperience.skillarea = experience.skill;
+        $scope.userVolunteerExperience.comment = experience.comment;
+        $scope.userVolunteerExperience.other = experience.other;
+        $scope.userVolunteerExperience.hours = experience.hours;
 
         $scope.userVolunteerExperience.startDate = $filter('date')(experience.startDate, 'MM-dd-yyyy');
         $scope.userVolunteerExperience.endDate = $filter('date')(experience.endDate, 'MM-dd-yyyy');

@@ -91,6 +91,7 @@ public class UserPersonalInformationServiceImpl implements UserPersonalInformati
 			userModal.setPhoneNumber(userDetails.getPhoneNumber());
 			userModal.setSummary(userDetails.getSummary());
 			userModal.setAddressBean(address);
+			userModal.setUserTypeBean(userDetails.getUserTypeBean());
 			
 		}else {
 			

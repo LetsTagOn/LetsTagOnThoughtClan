@@ -20,13 +20,13 @@
 					></li>
 					<li
 						class="cursor"
-						ng-click="redirect('/cp/experiences')"
-						i18n="{{'common.lto_link_experience'}}"
+						ng-click="redirect('/cp/interests')"
+						i18n="{{'common.lto_link_interest'}}"
 					></li>
 					<li
 						class="cursor"
-						ng-click="redirect('/cp/interests')"
-						i18n="{{'common.lto_link_interest'}}"
+						ng-click="redirect('/cp/experiences')"
+						i18n="{{'common.lto_link_experience'}}"
 					></li>
 					<!-- <li
 						class="cursor"
@@ -161,19 +161,26 @@
 							<div class="radio-custom">
 								<label> <input
 									type="radio"
-									name="radio"
+									name="gender"
 									value=""
 									ng-model="user.gender"
 									ng-value="'male'"
+									ng-required = "true"
 								> <span i18n="{{'common.lto_radio_text_male'}}"></span>
 								</label> <label> <input
 									type="radio"
-									name="radio"
+									name="gender"
 									ng-model="user.gender"
 									ng-value="'female'"
 									value=""
+									ng-required = "true"
 								> <span i18n="{{'common.lto_radio_text_female'}}"></span>
 								</label>
+								<span
+								class="error"
+								ng-show="submitted && personalInfo.gender.$error.required"
+								i18n="{{'common.lto_span_RequirFieldError'}}"
+							></span>
 							</div>
 						</div>
 					</div>
@@ -296,7 +303,7 @@
 					<div class="row">
 						<div class="col-xs-12 ">
 							<label
-								for="summary"
+								for="trade"
 								i18n="{{'common.lto_label_user_summary'}}"
 							></label>
 							<textarea
@@ -313,7 +320,18 @@
 								<a href="#" class="change-pwd-link"> Change Password</a>
 							</div> -->
 					</div>
-					<button
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-6">
+							<label
+								for="trade"
+								i18n="{{'common.lto_heading_best_describes'}}"
+							></label>
+							<select ng-model="userTypeTemplateSelected" data-ng-options="userTypeTemplate as userTypeTemplate.name for userTypeTemplate in userTypeMasterList track by userTypeTemplate.id" name="userType" id="userType" ng_change = 'changedValue()' ng-required="true">
+							</select>
+							<span class="error" ng-show="submitted && personalInfo.userType.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span>
+						</div>
+					</div>
+					<button style="margin-top:20px"
 						class="btn btn-primary btn--block-centered"
 						ng-click="submitted=true"
 						i18n="{{'common.lto_button_text_save'}}"
@@ -332,45 +350,6 @@
 					</div>
 				</div>
 			</form>
-			<div class="row no-margin row-space">
-				<div class="col-xs-12 col-sm-12">
-					<h2
-						class="lto-interest-header"
-						i18n="{{'common.lto_heading_best_describes'}}"
-					></h2>
-				</div>
-			</div>
-			<!-- Commitment details cpature -->
-			<div class="row no-margin row-space">
-				<div class="col-xs-12 col-sm-12">
-					<h2
-						class="lto-interest-header"
-						i18n="{{'common.lto_heading_personalInformation_commitment'}}"
-					></h2>
-				</div>
-			</div>
-			<div class="row-space commitment-tile">
-				<div class="row no-margin row-one">
-					<div
-						class="col-xs-6 col-sm-3 cursor {{userType.addClass}} lto-user-type"
-						id="{{userType.id}}"
-						ng-repeat="userType in userTypeMasterList"
-						ng-click="saveUserType(userType)"
-					>
-						<span class="glyphicon glyphicon-user"></span>
-						<div class="">
-							<h3
-								class=""
-								ng-model="userType.name"
-							>{{userType.name}}</h3>
-							<p
-								class=""
-								ng-model="userType.description"
-							>{{userType.description}}</p>
-						</div>
-					</div>
-				</div>
-			</div>
 			<!-- End of commitment details -->
 			<!-- Start of appending additional questions -->
 			<div ng-show="additionalAttributeQuestionList.length>0">
@@ -420,7 +399,7 @@
 		<div class="text-center">
 			<button
 				class="btn btn-primary btn--block-centered"
-				ng-click="redirect('/cp/experiences')"
+				ng-click="redirect('/cp/interests')"
 				i18n="{{'common.lto_button_text_next'}}"
 			></button>
 		</div>

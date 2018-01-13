@@ -38,6 +38,7 @@ public class OpportunityJobTypeModelConverter implements Converter<OpportunityJo
 		dest.setJobTypeBean(this.jobTypeConverter.convert(source.getJobTypeBean()));
 		dest.setSelectionCriteria(source.getSelectionCriteria());
 		dest.setNumberOfPositions(source.getNumberOfPositions());
+		dest.setHours(source.getHours());
 		dest.setStatus(source.getStatus());
 
 		return dest;

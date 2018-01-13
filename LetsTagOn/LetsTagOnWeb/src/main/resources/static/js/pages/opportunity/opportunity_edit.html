@@ -8,7 +8,7 @@
 				<div class="col-xs-12 col-sm-12 profile-form lto-cp-exp">
 					<header class="opportunity-header">
 						<div class="">
-							<h2 class="text-center">Edit Event</h2>
+							<h2 class="text-center">Edit Activity/Event</h2>
 						</div>
 					</header>
 					<div class="col-xs-12 col-sm-12">
@@ -19,25 +19,29 @@
 									<div class="col-md-12">
 										<div class="col-md-6">
 											<div>
-												<label for="eventName">Event Name</label> <input type="text" name="eventName" class="form-control" id="eventName" ng-minlength="3" placeholder="Enter Event Name" ng-model="event.name" ng-required="true"> <span class="glyphicon glyphicon-user"></span> <span class="error" ng-show="submitted && eventForm.eventName.$error.required">Mandatory Field</span> <span
+												<label for="eventName">Activity/Event Name</label> <input type="text" name="eventName" class="form-control" id="eventName" ng-minlength="3" placeholder="Enter Activity/Event Name" ng-model="event.name" ng-required="true"> <span class="glyphicon glyphicon-user"></span> <span class="error" ng-show="submitted && eventForm.eventName.$error.required">Mandatory Field</span> <span
 													class="help-block error" ng-show="((eventForm.eventName.$error.minlength) && eventForm.eventName.$dirty) "
 												> Minimun 3 Characters Required</span>
 											</div>
 										</div>
 										<div class="col-md-6">
-											<label for="description">Description</label>
-											<textarea type="text" name="description" ng-maxlength="1000" rows="1" class="form-control" id="description" placeholder="Some words about event" ng-model="event.description"></textarea>
+											<label for="description">Description (What is the work involved?)</label>
+											<textarea type="text" name="description" ng-maxlength="1000" rows="1" class="form-control" id="description" placeholder="Some words about activity/event" ng-model="event.description"></textarea>
 											<span class="help-block error" ng-show="((eventForm.description.$error.maxlength) && eventForm.description.$dirty) ">Maximum 1000 Characters Allowed</span>
 										</div>
 										<div class="col-md-6">
-											<label for="date">Date</label> <input type="text" name="eventStartDate" class="form-control" id="eventStartDate" placeholder="Enter Start Date of Event" ng-model="event.dateStart" ng-required="true" ng-focus="displayStartDate()"> <span class="glyphicon glyphicon-calendar"></span> <span class="error" ng-show="submitted && eventForm.eventStartDate.$error.required">Mandatory
+											<input type="text" name="eventStartDate" class="form-control" id="eventStartDate" placeholder="Enter Start Date of Activity/Event" ng-model="event.dateStart" ng-required="true" ng-focus="displayStartDate()"> <span class="glyphicon glyphicon-calendar"></span> <span class="error" ng-show="submitted && eventForm.eventStartDate.$error.required">Mandatory
 												Field</span>
 										</div>
 										<div class="col-md-6">
-											<label for="date"></label> <input type="text" name="eventEndDate" class="form-control" ng-focus="displayEndDate()" id="eventEndDate" placeholder="Enter End Date of Event" ng-model="event.dateEnd" ng-required="true"> <span class="glyphicon glyphicon-calendar"></span> <span class="error" ng-show="submitted && eventForm.eventEndDate.$error.required">Mandatory Field</span>
+											<input type="text" name="eventEndDate" class="form-control" ng-focus="displayEndDate()" id="eventEndDate" placeholder="Enter End Date of Activity/Event" ng-model="event.dateEnd" ng-required="true"> <span class="glyphicon glyphicon-calendar"></span> <span class="error" ng-show="submitted && eventForm.eventEndDate.$error.required">Mandatory Field</span>
 										</div>
 										<div class="col-md-6" ng-show="areaFound">
-											<label>Address</label> <input id="autocomplete" placeholder="Enter your address" name="formattedAddress" type="text" class="form-control" ng-model="event.addressBean.formattedAddress"></input>
+											<label>Address?
+            								On Field: <input type="radio" ng-model="address.name" value="onfield" ng-click="ShowAddress('Y')" />
+            								Virtual: <input type="radio" ng-model="address.name" value="virtual" ng-click="ShowAddress('N')" />
+        									</label> 
+											<input ng-show="IsVisible" id="autocomplete" placeholder="Enter your address" name="formattedAddress" type="text" class="form-control" ng-model="event.addressBean.formattedAddress"></input>
 										</div>
 										<div class="col-md-6" ng-hide="areaFound">
 											<label>Address</label> <input ng-model="event.street" type="text" name="street_number" class="form-control" placeholder="Enter street number" id="street_number"></input> <input class="form-control" name="locality" placeholder="Enter City" id="locality" ng-required="areaFound == false" ng-model="event.addressBean.city"></input> <span class="error"
@@ -49,7 +53,7 @@
 											<div class="hide" id="latitude"></div>
 											<div class="hide" id="longitude"></div>
 										</div>
-										<div class="col-md-6">
+										<div class="col-md-6" ng-show="IsVisible">
 											<label class="cursor lto-google-search-txt" ng-show="areaFound"><a ng-click="changeAreaFoundStatus()">No Relevant Matches Found Click to Add customised address?</a></label> <label class="cursor lto-address-txt" ng-hide="areaFound"><a ng-click="changeAreaFoundStatus()">Search Location using google api</a></label>
 										</div>
 									</div>
@@ -112,16 +116,16 @@
 							<div class="row no-margin row-space">
 								<div class="col-xs-12 col-sm-12 lto-complete-profile-causes">
 									<div class="lto-cp-cause-section-left">
-										<h2>Jobs you prefer</h2>
+										<h2>Task</h2>
 									</div>
 									<div class="lto-cp-cause-section-right">
-										<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click="createJobFromMasterJobType()">Add Job</button>
+										<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click="createJobFromMasterJobType()">Add Task</button>
 									</div>
 								</div>
 								<div class="col-xs-12 col-sm-12" ng-show="jobSectionDisplay">
 									<form name="jobSection" novalidate="novalidate" ng-submit="jobSection.$valid && jobOperation()">
 										<div class="col-md-6 col-xs-12">
-											<label for="programName">Select Job type </label> <select id="jobType" name="jobtype" class="form-control" ng-model="selectedJobType">
+											<label for="programName">Select Skill Area</label> <select id="jobType" name="jobtype" class="form-control" ng-model="selectedJobType">
 												<option ng:repeat="jobs in masterJobTypeList" value="{{jobs.id}}">{{jobs.name}}</option>
 											</select>
 										</div>
@@ -130,11 +134,16 @@
 												Field</span>
 										</div>
 										<div class="col-md-6 col-xs-12 ">
-											<label for="description">Selection criteria</label> <input type="text" name="selectionCriteria" class="form-control" id="selectionCriteria" placeholder="What is your criteria" ng-model="jobType.selectionCriteria" ng-required="true"></input> <span class="glyphicon glyphicon-user"></span> <span class="error" ng-show="submitted && jobSection.selectionCriteria.$error.required">Mandatory
+											<label for="description">Expected Deliverables</label> <input type="text" name="selectionCriteria" class="form-control" id="selectionCriteria" placeholder="What is your criteria" ng-model="jobType.selectionCriteria" ng-required="true"></input> <span class="glyphicon glyphicon-user"></span> <span class="error" ng-show="submitted && jobSection.selectionCriteria.$error.required">Mandatory
 												Field</span>
 										</div>
+										<div class="col-xs-12 col-sm-6 ">
+										<label for="trade" i18n="{{'common.lto_heading_hours'}}"></label> <input type="text" name="hours" class="form-control" id="hours" placeholder="{{'common.lto_heading_no_hours'|i18n}}" ng-model="jobType.hours" ng-required="true"><span class="error"
+											ng-show="submitted && jobSection.hours.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"
+											></span>
+										</div>
 										<div class="col-md-6 col-xs-12 ">
-											<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click="submitted=true">Save Job</button>
+											<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click="submitted=true">Save Task</button>
 											<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click="cancelJobOperation()" ng-show="editCancelFunction">Cancel</button>
 										</div>
 										<input type="hidden" ng-model="saveJobRole" /> <input type="hidden" ng-model="jobType.id" />
@@ -152,6 +161,7 @@
 												</div>
 												<p class="col-xs-6 ng-pristine ng-untouched ng-valid ng-binding">Position: {{jobbean.numberOfPositions}}</p>
 												<p class="col-xs-6 ng-pristine ng-untouched ng-valid ng-binding">Criteria: {{jobbean.selectionCriteria}}</p>
+												<p class="col-xs-6 ng-pristine ng-untouched ng-valid ng-binding">hours: {{jobbean.hours}}</p>
 											</div>
 										</div>
 									</div>

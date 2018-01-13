@@ -32,6 +32,7 @@ completeProfile.controller('PersonalInformationController', function($http, $sco
     });
     // ======================================== TO prepoulate user data in the page =============================
     $scope.user = {};
+    $scope.userTypeBean = {};
     $scope.attribute = {};
     $scope.userTypeMasterList = [];
     $scope.userTypeList = [];
@@ -71,7 +72,10 @@ completeProfile.controller('PersonalInformationController', function($http, $sco
             } else {
                 $scope.userTypeMasterList = response.data.userTypeMasterList;
             }
-
+            
+            $scope.userTypeTemplateSelected =	$scope.userTypeMasterList[$scope.user.userTypeBean.id-1];
+            
+            $scope.user.userType = value;
             //Additional Questions
             $scope.additionalAttributeQuestionList = [];
             $scope.additionalAttributeQuestionList = response.data.additionalAttribute;
@@ -109,36 +113,45 @@ completeProfile.controller('PersonalInformationController', function($http, $sco
     });
     
     //================================ capture usertype ===============================
-
+    $scope.$watch('userTypeTemplateSelected', function() {
+    	$scope.userTypeBean	= new Object();
+        $scope.userTypeBean	= $scope.userTypeTemplateSelected;
+    });
     $scope.saveUserType = function(userType) {
-        $scope.userTypeXref = new Object();
-        $scope.userTypeXref.userType = userType;
-        if (userType.addClass == "selected") {
-            $scope.userTypeXref.active = false;
-        } else {
-            $scope.userTypeXref.active = true;
-        }
-
-        $('#loading-indicator').show();
-        $http({
-            url: '/profile/user/save/userType/' + $rootScope.userId,
-            dataType: 'json',
-            method: 'POST',
-            data: $scope.userTypeXref,
-            headers: {
-                "Content-Type": "application/json"
-            }
-
-        }).success(function(response) {
-            $('#loading-indicator').hide();
-            $scope.updateUserTypeMasterList(response.data.userType);
-            $scope.additionalAttributeQuestionList = [];
-            $scope.additionalAttributeQuestionList = response.data.additionalAttribute;
-            $scope.prefillAdditionalAttributeValues(response.data.userAdditionalAttribute);
-        }).error(function(error) {
-            $('#loading-indicator').hide();
-            $scope.error = error;
-        });
+    	var type = $("#userType option:selected").html();
+    	$scope.userTypeBean	= new Object();
+    	$scope.userTypeBean.id =	userType.id;
+    	$scope.userTypeBean.name=	userType.name;
+    	$scope.userTypeBean.userTypeAttributeXrefs = "";
+    	$scope.userTypeBean.description=	userType.description;
+//        $scope.userTypeXref = new Object();
+//        $scope.userTypeXref.userType = userType;
+//        if (userType.addClass == "selected") {
+//            $scope.userTypeXref.active = false;
+//        } else {
+//            $scope.userTypeXref.active = true;
+//        }
+//
+//        $('#loading-indicator').show();
+//        $http({
+//            url: '/profile/user/save/userType/' + $rootScope.userId,
+//            dataType: 'json',
+//            method: 'POST',
+//            data: $scope.userTypeXref,
+//            headers: {
+//                "Content-Type": "application/json"
+//            }
+//
+//        }).success(function(response) {
+//            $('#loading-indicator').hide();
+//            $scope.updateUserTypeMasterList(response.data.userType);
+//            $scope.additionalAttributeQuestionList = [];
+//            $scope.additionalAttributeQuestionList = response.data.additionalAttribute;
+//            $scope.prefillAdditionalAttributeValues(response.data.userAdditionalAttribute);
+//        }).error(function(error) {
+//            $('#loading-indicator').hide();
+//            $scope.error = error;
+//        });
     };
 
     $scope.updateUserTypeMasterList = function(response) {
@@ -208,7 +221,11 @@ completeProfile.controller('PersonalInformationController', function($http, $sco
         todayHighlight: true,
         endDate: "today"
     });
-
+    
+    $scope.changedValue = function() {
+    	   console.log($scope.userTypeTemplateSelected);
+    	   $scope.userTypeBean	= $scope.userTypeTemplateSelected;
+    }
 
 
     // ================================= Save user personal Information =========================================
@@ -223,6 +240,7 @@ completeProfile.controller('PersonalInformationController', function($http, $sco
         address.street = $scope.user.addressBean.street;
         address.formattedAddress = address.street + " " + address.city + " " +address.state+" "+ address.country+" " +address.postalCode
         $scope.user.addressBean = address;
+        $scope.user.userTypeBean = $scope.userTypeBean;
         var parts = $("#userDateOfBirth").val().split("/");
         $scope.user.dateOfBirth = new Date(parts[2],parts[0]-1,parts[1]); 
         

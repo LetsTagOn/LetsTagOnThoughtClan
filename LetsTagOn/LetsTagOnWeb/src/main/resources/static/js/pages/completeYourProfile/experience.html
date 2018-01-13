@@ -1,4 +1,4 @@
-<div ng-include="'./js/pages/header/navigation-header.html'"> </div>
+<div ng-include="'./js/pages/header/navigation-header.html'"></div>
 <div class="container " ng-init="getUserExperienceDetailList()">
 	<div class="row lto-main-container lto-main-container-row">
 		<div class="row-space hidden-md hidden-sm"></div>
@@ -12,9 +12,12 @@
 			<div class="row-space progress-wrap hidden-xs">
 				<ul class="progress-bar">
 					<li class="cursor active" ng-click="redirect('/cp/personalInformation')" i18n="{{'common.lto_link_personalInfo'}}"></li>
+					<li class="cursor active" ng-click="redirect('/cp/interests')" i18n="{{'common.lto_link_interest'}}"></li>
 					<li class="cursor active" i18n="{{'common.lto_link_experience'}}"></li>
+
 					<li class="cursor" ng-click="redirect('/cp/interests')" i18n="{{'common.lto_link_interest'}}"></li>
 					<!-- <li class="cursor" ng-click="redirect('/cp/privacy')" i18n="{{'common.lto_link_privacySettings'}}"></li> -->
+
 				</ul>
 			</div>
 			<div class=" hidden-md hidden-sm hidden-lg row-space personal-info-progress-wrap">
@@ -48,13 +51,21 @@
 										></span>
 									</div>
 									<div class="col-xs-12 col-sm-6 ">
-										<label for="trade"></label><input type="text" name="title" class="form-control" id="title" placeholder="{{'common.lto_placeholder_volunteer_role'|i18n}}" ng-model="userVolunteerExperience.title" ng-required="true"> <span class="glyphicon glyphicon-user"></span> <span class="error" ng-show="submitted && volunteerExperience.title.$error.required"
+										<label for="trade" i18n="{{'common.lto_lable_organization_role'}}"></label><input type="text" name="title" class="form-control" id="title" placeholder="{{'common.lto_placeholder_volunteer_role'|i18n}}" ng-model="userVolunteerExperience.title" ng-required="true"> <span class="glyphicon glyphicon-user"></span> <span class="error" ng-show="submitted && volunteerExperience.title.$error.required"
 											i18n="{{'common.lto_span_RequirFieldError'}}"
 										></span>
 									</div>
 									<div class="col-xs-12 col-sm-6 ">
-										<label for="trade" i18n="{{'common.lto_lable_organization_cause'}}"></label> <input type="text" name="cause" class="form-control" id="cause" placeholder="{{'common.lto_placeholder_cause'|i18n}}" ng-model="userVolunteerExperience.cause" ng-required="true"> <span class="glyphicon glyphicon-tint"></span> <span class="error"
-											ng-show="submitted && volunteerExperience.cause.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"
+										<input type="hidden" name="cause" class="form-control" id="cause" placeholder="{{'common.lto_placeholder_cause'|i18n}}" ng-model="userVolunteerExperience.cause">
+										<label for="trade" i18n="{{'common.lto_lable_organization_cause'}}"></label> 
+										<select ng-model="userVolunteerExperience.causearea" name="causearea" id="causearea" ng-change="GetCause()" class="form-control" ng-required="true">
+  										<option ng:repeat="cause in masterCauseList" value="{{cause.name}}">{{cause.name}}</option>
+										</select> 
+										<span class="error"
+											ng-show="submitted && volunteerExperience.causearea.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"
+										></span> <input type="text" name="other" class="form-control" id="other" placeholder="{{'common.lto_placeholder_other'|i18n}}" ng-model="userVolunteerExperience.other" ng-required={{value}} readonly> <span class="glyphicon glyphicon-tint">
+										<span class="error" ng-show="submitted && volunteerExperience.other.$error.required"
+											i18n="{{'common.lto_span_RequirFieldError'}}"
 										></span>
 									</div>
 									<div class="col-xs-12 col-sm-6 ">
@@ -64,10 +75,31 @@
 											i18n="{{'common.lto_span_RequirFieldError'}}"
 										></span>
 									</div>
+									<div class="col-xs-12 col-sm-6 ">
+										<input type="hidden"  ng-model="userVolunteerExperience.skill" name="skill" class="form-control" id="skill">
+										<label for="trade" i18n="{{'common.lto_heading_interest_skill'}}"></label> 
+										<select ng-model="userVolunteerExperience.skillarea" name="skillarea" id="skillarea" ng-change="GetSkill()" class="form-control" ng-required="true">
+										<option ng:repeat="skill in masterSkills" value="{{skill.name}}">{{skill.name}}</option>
+										</select> 
+										<span class="error"
+											ng-show="submitted && volunteerExperience.skillarea.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"
+										></span> <input type="text" name="comment" class="form-control" id="comment" placeholder="{{'common.lto_placeholder_other'|i18n}}" ng-model="userVolunteerExperience.comment" ng-required={{isRequired}} readonly> <span class="glyphicon glyphicon-tint">
+										<span class="error" ng-show="submitted && volunteerExperience.comment.$error.required"
+											i18n="{{'common.lto_span_RequirFieldError'}}"
+										></span>
+									</div>
+									<div class="col-xs-12 col-sm-6 ">
+										<label for="trade" i18n="{{'common.lto_heading_hours'}}"></label> <input type="text" name="hours" class="form-control" id="hours" placeholder="{{'common.lto_heading_no_hours'|i18n}}" ng-model="userVolunteerExperience.hours" ng-required="true"><span class="error"
+											ng-show="submitted && volunteerExperience.hours.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"
+										></span>
+									</div>
 									<div class="col-xs-12 col-sm-12 ">
-										<label for="trade" i18n="{{'common.lto_lable_description'}}"></label>
+										<label for="trade" i18n="{{'common.lto_lable_vol_description'}}"></label>
 										<textarea type="text" name="description" class="form-control" id="description" placeholder="{{'common.lto_placeholder_volunteer_description'|i18n}}" ng-model="userVolunteerExperience.description"></textarea>
 										<span class="glyphicon glyphicon-list-alt"></span>
+									</div>
+									<div class="col-xs-12 col-sm-6">
+										
 									</div>
 								</div>
 								<div class="text-center">
@@ -88,6 +120,7 @@
 						<h2 class="lto-cp-exp-details-row">{{volunteerDetail.title}}</h2>
 						<h3 class="lto-cp-exp-details-row">{{volunteerDetail.organizationName}}</h3>
 						<h4 class="lto-cp-exp-details-row">{{volunteerDetail.cause}}</h4>
+						<h4 class="lto-cp-exp-details-row">{{volunteerDetail.skill}}</h4>
 						<h5 class="lto-cp-exp-details-row">
 							{{volunteerDetail.startDate | date:'MM-dd-yyyy'}} <span> to </span> <span ng-if="!!volunteerDetail.endDate">{{volunteerDetail.endDate | date:'MM-dd-yyyy'}}</span> <span ng-if="!volunteerDetail.endDate">present.</span>
 						</h5>
@@ -254,8 +287,8 @@
 			<!-------------------------------------------------------------------- End  ----------------------------------------------------------------->
 		</div>
 		<div class="text-center">
-			<button class="btn btn-primary btn--block-centered" ng-click="redirect('/cp/personalInformation')" i18n="{{'common.lto_button_text_back'}}"></button>
-			<button class="btn btn-primary btn--block-centered" ng-click="redirect('/cp/interests')" i18n="{{'common.lto_button_text_next'}}"></button>
+			<button class="btn btn-primary btn--block-centered" ng-click="redirect('/cp/interests')" i18n="{{'common.lto_button_text_back'}}"></button>
+			<button class="btn btn-primary btn--block-centered" ng-click="redirect('/cp/privacy')" i18n="{{'common.lto_button_text_next'}}"></button>
 		</div>
 		</main>
 		<!-- /main content area -->
