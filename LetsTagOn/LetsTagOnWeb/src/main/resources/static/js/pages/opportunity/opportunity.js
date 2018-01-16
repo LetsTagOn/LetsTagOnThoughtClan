@@ -345,12 +345,12 @@ opportunity.controller("OpportunityEditController", function(
     $scope.jobSectionDisplay = false;
     $scope.saveJobRole = "create";
     $scope.areaFound = true;
-    
+
     $scope.IsVisible = false;
-    $scope.ShowAddress = function (value) {
+    $scope.ShowAddress = function(value) {
         //If DIV is visible it will be hidden and vice versa.
         $scope.IsVisible = value == "Y";
-    }
+    };
 
     $scope.changeAreaFoundStatus = function() {
         $scope.areaFound = $scope.areaFound ? false : true;
@@ -496,7 +496,10 @@ opportunity.controller("OpportunityEditController", function(
                 }
             }
         }
-        if (!$scope.masterJobTypeList == undefined && $scope.masterJobTypeList.length > 0)
+        if (
+            !$scope.masterJobTypeList == undefined &&
+            $scope.masterJobTypeList.length > 0
+        )
             $scope.selectedJobType = $scope.masterJobTypeList[0].id;
     };
 
@@ -550,31 +553,33 @@ opportunity.controller("OpportunityEditController", function(
         event.dateEnd = new Date($("#eventEndDate").val());
         event.type = "EVENT";
         var address = new Object();
-        if($scope.IsVisible == true){
-        address.city = $("#locality").val();
-        address.country = $("#country").val();
-        address.postalCode = $("#postal_code").val();
-        address.state = $("#administrative_area_level_1").val();
-        address.street = $("#street_number").val();
-        address.formattedAddress = $("input[name='formattedAddress']").val();
-        event.addressBean = address;
-        var fullAddress;
-        if ($("input[name='formattedAddress']").val() == "") {
-            fullAddress =
-                address.street +
-                "," +
-                address.city +
-                "," +
-                address.postalCode +
-                "," +
-                address.state +
-                "," +
-                address.country;
-            address.formattedAddress = fullAddress;
-        } else {
-            fullAddress = $("input[name='formattedAddress']").val();
-        }
-        getLatitudeLongitude(fullAddress);
+        if ($scope.IsVisible == true) {
+            address.city = $("#locality").val();
+            address.country = $("#country").val();
+            address.postalCode = $("#postal_code").val();
+            address.state = $("#administrative_area_level_1").val();
+            address.street = $("#street_number").val();
+            address.formattedAddress = $(
+                "input[name='formattedAddress']"
+            ).val();
+            event.addressBean = address;
+            var fullAddress;
+            if ($("input[name='formattedAddress']").val() == "") {
+                fullAddress =
+                    address.street +
+                    "," +
+                    address.city +
+                    "," +
+                    address.postalCode +
+                    "," +
+                    address.state +
+                    "," +
+                    address.country;
+                address.formattedAddress = fullAddress;
+            } else {
+                fullAddress = $("input[name='formattedAddress']").val();
+            }
+            getLatitudeLongitude(fullAddress);
         }
         setTimeout(function() {
             event.latLong =
@@ -641,38 +646,56 @@ opportunity.controller("OpportunityEditController", function(
             cache: false
         })
             .success(function(response) {
-            $scope.event = response.data.opportunityDTO;
-            $scope.event.street = $scope.event.addressBean.street;
-            $scope.event.dateStart = $filter('date')($scope.event.dateStart, 'yyyy-MM-dd HH:mm:ss');
-            $scope.event.dateEnd = $filter('date')($scope.event.dateEnd, 'yyyy-MM-dd HH:mm:ss');
-            $scope.event.addressBean.postalCode = parseInt($scope.event.addressBean.postalCode);
-            if($scope.event.addressBean.country != null || $scope.event.addressBean.state != null || $scope.event.addressBean.city != null){
-            	$scope.address = {
-            	        name: 'onfield'
-            	};
-            	$scope.IsVisible = true;
-            }
-            if($scope.event.addressBean.country == null && $scope.event.addressBean.state == null && $scope.event.addressBean.state == null){
-            	$scope.address = {
-            	        name: 'virtual'
-            	};
-            	$scope.IsVisible = false;
-            }
-            $scope.masterCauseList = response.data.causeDTO;
-            console.info($scope.masterCauseList);
-            $scope.masterJobTypeList = response.data.jobTypeDTO;
+                $scope.event = response.data.opportunityDTO;
+                $scope.event.street = $scope.event.addressBean.street;
+                $scope.event.dateStart = $filter("date")(
+                    $scope.event.dateStart,
+                    "yyyy-MM-dd HH:mm:ss"
+                );
+                $scope.event.dateEnd = $filter("date")(
+                    $scope.event.dateEnd,
+                    "yyyy-MM-dd HH:mm:ss"
+                );
+                $scope.event.addressBean.postalCode = parseInt(
+                    $scope.event.addressBean.postalCode
+                );
+                if (
+                    $scope.event.addressBean.country != null ||
+                    $scope.event.addressBean.state != null ||
+                    $scope.event.addressBean.city != null
+                ) {
+                    $scope.address = {
+                        name: "onfield"
+                    };
+                    $scope.IsVisible = true;
+                }
+                if (
+                    $scope.event.addressBean.country == null &&
+                    $scope.event.addressBean.state == null &&
+                    $scope.event.addressBean.state == null
+                ) {
+                    $scope.address = {
+                        name: "virtual"
+                    };
+                    $scope.IsVisible = false;
+                }
+                $scope.masterCauseList = response.data.causeDTO;
+                console.info($scope.masterCauseList);
+                $scope.masterJobTypeList = response.data.jobTypeDTO;
 
-            response.data.opportunityDTO.opportunityCauseXrefs.forEach(function(userCause) {
-                $scope.masterCauseList.forEach(function(masterCause) {
-                    if (userCause.causeBean.id == masterCause.id) {
-                        masterCause.status = userCause.causeBean.active;
+                response.data.opportunityDTO.opportunityCauseXrefs.forEach(
+                    function(userCause) {
+                        $scope.masterCauseList.forEach(function(masterCause) {
+                            if (userCause.causeBean.id == masterCause.id) {
+                                masterCause.status = userCause.causeBean.active;
+                            }
+                        });
 
+                        $scope.opportunityJobTypes =
+                            response.data.opportunityDTO.opportunityJobTypes;
+                        $scope.removeJobFromMasterJobType();
                     }
-                });
-
-                $scope.opportunityJobTypes =
-                    response.data.opportunityDTO.opportunityJobTypes;
-                $scope.removeJobFromMasterJobType();
+                );
             })
             .error(function(error) {});
     };
@@ -893,7 +916,6 @@ opportunity.controller("OpportunityProgramEditController", function(
     $scope.displayEndDate = function() {
         $scope.event.dateEnd = $("#eventEndDate").val();
     };
-
 
     $scope.createEventUsingProgram = function() {
         console.info("create Event called");
