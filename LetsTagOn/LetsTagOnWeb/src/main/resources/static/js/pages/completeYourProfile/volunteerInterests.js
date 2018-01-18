@@ -2,7 +2,8 @@
  * Controller for complete profile step2 - Volunteering Histroy
  * 
  */
-completeProfile.controller('InterestsController', function($http, $scope, $document, $rootScope, $location, $timeout, $filter) {
+completeProfile.controller('InterestsController', function($http, $scope, $document, $rootScope, $location, $timeout, $filter, $anchorScroll) {
+   	$anchorScroll("top");
     $scope.availabiltyList = [];
     $scope.userType = {};
     $scope.volPreferredTimeList = [{

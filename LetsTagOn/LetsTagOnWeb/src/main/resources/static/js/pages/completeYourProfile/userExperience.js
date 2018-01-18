@@ -2,7 +2,8 @@
  * Controller for complete profile step2 - experiences
  * 
  */
-completeProfile.controller('ExperienceController', function($http, $scope, $rootScope, $location, $timeout, $filter) {
+completeProfile.controller('ExperienceController', function($http, $scope, $rootScope, $location, $timeout, $filter, $anchorScroll) {
+	$anchorScroll("top");
     $scope.userEducation = {};
     $scope.userExperience = {};
     $scope.userVolunteerExperience = {};
