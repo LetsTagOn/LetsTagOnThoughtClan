@@ -47,6 +47,20 @@
 					<span ng-model="locationErrorMessage">{{locationErrorMessage}}</span>
 				</div>
 			</form>
+			<!-------------------------------------------  Commitment details capture ----------------------------------->
+			<div class="row no-margin row-space">
+				<div class="col-xs-12 col-sm-12">
+					<h2 class="lto-interest-header" i18n="{{'common.lto_heading_personalInformation_commitment'}}"></h2>
+							</div>
+			</div>
+			<div class="lto-availabilty-cap-sec">
+			<div class="col-xs-12 col-sm-6 col-md-6">
+				<label> <input type="checkbox" name="contribute" value="" ng-model="inperson" ng-change="checkCom()" ng-required = "true"><span>In-person volunteering</span>
+							</label> 
+							<label> <input type="checkbox" name="contribute" ng-change="checkCom()" ng-model="remote"> <span>Remote volunteering</span>
+							</label>
+				</div>
+			</div>
 			<!-------------------------------------------  Availability details capture ----------------------------------->
 			<div class="row no-margin row-space">
 				<div class="col-xs-12 col-sm-12">

@@ -43,6 +43,9 @@ public class VolunteerPrefDTO implements Serializable {
 	
 	/** The is available. */
 	private Boolean isAvailable;
+	
+	/** The type. */
+	private String commitment;
 
 	/**
 	 * Gets the checks if is available.
@@ -208,6 +211,25 @@ public class VolunteerPrefDTO implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
+	
+	/**
+	 * Gets the commitment.
+	 *
+	 * @return the commitment
+	 */
+	public String getCommitment() {
+		return commitment;
+	}
+
+	/**
+	 * Sets the commitment.
+	 *
+	 * @param type the commitment
+	 */
+	public void setCommitment(String commitment) {
+		this.commitment = commitment;
+	}
+
 
 	/**
 	 * Gets the user.

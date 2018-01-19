@@ -234,6 +234,16 @@ completeProfile.controller('InterestsController', function($http, $scope, $docum
                             presentDayStatus.addClass = "";
                         }
                     }
+                    if (presentDayStatus.day == "com") {
+                        if (presentDayStatus.commitment == 2)
+                        	$scope.inperson = true;
+                        else if (presentDayStatus.commitment == 1) 
+                        	$scope.remote = true;
+                        else if (presentDayStatus.commitment == 3) {
+                        	$scope.inperson = true;
+                        	$scope.remote = true;
+                        }
+                    }
                 });
             });
         });
@@ -442,6 +452,41 @@ completeProfile.controller('InterestsController', function($http, $scope, $docum
             cause.active = !$scope.selectedALLCause;
         });
         $scope.selectedALLCause = !$scope.selectedALLCause;
+    };
+    
+    $scope.checkCom = function() {
+      var checked = 0;
+      if( $scope.inperson &&  $scope.remote)
+    	  checked = 3;
+      if( $scope.inperson &&  !$scope.remote)
+    	  checked = 2;
+      if( !$scope.inperson &&  $scope.remote)
+    	  checked = 1;
+      $scope.volAvail = new Object();
+      var user = new Object();
+      user.id = $rootScope.userId;
+      $scope.volAvail.user = user;
+      $scope.volAvail.day = "com";
+      $scope.volAvail.startTime = "10:00:00";
+      $scope.volAvail.endTime = "13:00:00";
+      $scope.volAvail.commitment = checked;
+
+      $('#loading-indicator').show();
+      $http({
+          url: '/profile/availability/user/' + $scope.volAvail.user.id + '/add',
+          dataType: 'json',
+          method: 'POST',
+          data: $scope.volAvail,
+          headers: {
+              "Content-Type": "application/json"
+          }
+
+      }).success(function(response) {
+          $('#loading-indicator').hide();
+      }).error(function(error) {
+          $('#loading-indicator').hide();
+          $scope.error = error;
+      });
     };
 
 
