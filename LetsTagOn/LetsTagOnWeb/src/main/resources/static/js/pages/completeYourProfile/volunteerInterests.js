@@ -234,12 +234,12 @@ completeProfile.controller('InterestsController', function($http, $scope, $docum
                             presentDayStatus.addClass = "";
                         }
                     }
-                    if (presentDayStatus.day == "com") {
-                        if (presentDayStatus.commitment == 2)
+                    if (response.day == "com") {
+                        if (response.commitment == 2)
                         	$scope.inperson = true;
-                        else if (presentDayStatus.commitment == 1) 
+                        else if (response.commitment == 1) 
                         	$scope.remote = true;
-                        else if (presentDayStatus.commitment == 3) {
+                        else if (response.commitment == 3) {
                         	$scope.inperson = true;
                         	$scope.remote = true;
                         }
