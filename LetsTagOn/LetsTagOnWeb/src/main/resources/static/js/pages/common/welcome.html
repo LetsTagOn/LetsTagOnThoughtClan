@@ -136,7 +136,7 @@
 								<li><span class="icon glyphicon glyphicon-calendar"></span>
 									<span class="icon-descriptor">{{event.dateEnd |
 										date:'dd-MMM-yyyy'}}</span></li>
-								<li><span class="icon glyphicon glyphicon-map-marker"></span>
+								<li ng-if="event.address_state || event.address_country"><span class="icon glyphicon glyphicon-map-marker"></span>
 									<span class="icon-descriptor">{{event.address_state}}<span>
 											, </span>{{event.address_country}}
 								</span></li>
