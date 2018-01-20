@@ -143,11 +143,11 @@
 							</ul>
 						</div>
 						<div
-							class="col-xs-12 col-sm-8 col-md-8 start-property-tile__title">
-							<h2 class="start-property-tile__heading">{{event.name}}</h2>
+							class="col-xs-12 col-sm-8 col-md-8 start-property-tile__title cursor">
+							<h2 class="start-property-tile__heading" ng-click="redirect('/view/opportunity/'+ event.id)">{{event.name}}</h2>
 							<hr class="start-property-tile__separator">
 							<p class="lto-welcome-page-txt">{{event.description}}</p>
-							<a class="lto-welcome-page-adj" href="#"
+							<a class="lto-welcome-page-adj cursor" ng-click="redirect('/view/opportunity/'+ event.id)" 
 								i18n="{{'common.lto_link_readMore'}}"></a>
 						</div>
 					</div>

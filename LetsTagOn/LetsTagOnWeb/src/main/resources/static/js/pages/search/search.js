@@ -267,6 +267,7 @@ searchModule.controller("SearchController", function(
     $scope.getUpcomingEvents = function() {
         $http.get($scope.generateUpcomingEventsQuery(1)).then(function(result) {
             $scope.upComingEvents = result.data.response.docs;
+            // console.log(result.data.response.docs);
         });
     };
 
@@ -277,7 +278,6 @@ searchModule.controller("SearchController", function(
         $http
             .get($scope.generateSolrSearchQuery(pageNumber))
             .then(function(result) {
-                console.log(result.data.response.docs);
                 $scope.results = [];
                 $scope.results = result.data.response.docs;
                 if (result.data.response.numFound > 0)
