@@ -89,7 +89,9 @@
 								<button class="btn disabled btn-grey">Event Expired</button>
 							</div>
 							<div ng-if="!eventComplete">
-								<button ng-show="!apply_btn_{{jobTypeDetail.jobTypeBean.id}} && authenticated" class="btn btn-primary" ng-click="applyForOpp(oppDetails,jobTypeDetail.jobTypeBean)">Apply</button>
+								<button ng-show="authenticated && !apply_btn_{{jobTypeDetail.jobTypeBean.id}}" class="btn btn-primary" ng-click="applyForOpp(oppDetails,jobTypeDetail.jobTypeBean)">Apply</button>
+								<button ng-hide="authenticated" class="btn btn-primary" ng-controller="BootstrapModalController as modal" data-toggle="modal" data-target="#modalLogin">Apply</button>
+								<div ng-include="'./js/pages/common/login.html'"></div>
 								<button ng-hide="true" ng-show="applied_btn_{{jobTypeDetail.jobTypeBean.id}}" class="btn  disabled btn-grey">Applied</button>
 								<span class="right-align text-highlight cursor" ng-show="authenticated" data-toggle="modal" data-target="#inviteOpportunityId">Tell/Tag On you friends</span>
 								<!-- Invite users for opportunity -->
