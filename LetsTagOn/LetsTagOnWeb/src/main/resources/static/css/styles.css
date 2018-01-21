@@ -174,9 +174,10 @@ span.vertical-separator {
 .lto-pre-login-search {
     background: #f1f1f1;
     height: 50px;
+    
 }
 .lto-search-container {
-    margin: 50px 0;
+    margin: 10px auto;
 }
 .lto-footer-container {
     line-height: 0;
@@ -489,6 +490,10 @@ span.lto-cp-skill-edit-label:hover {
     width: 400px;
     margin: 25px auto;
 }
+
+
+
+
 /* -----------------------------------------
         commonly used css added as class
 -------------------------------------------- */
