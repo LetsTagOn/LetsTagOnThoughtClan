@@ -36,6 +36,11 @@ bootstrapModal.controller("BootstrapModalController", function(
         $(".modal").modal("hide");
         $scope.showLtoErrorModal = !$rootScope.showLtoErrorModal;
     };
+
+    $scope.openRegistrationModal = function() {
+        $("#modalLogin").modal("hide");
+        $("#myModal").modal("show");
+    };
 });
 
 bootstrapModal.directive("success", function() {
