@@ -1203,8 +1203,15 @@ opportunity.controller("ViewOpportunityController", function(
         window.location = "#/opportunity/manageApplications/" + oppID;
     };
 
+    $scope.applyForOppOnLogin = function(opp, JobType) {
+        $rootScope.$on("ApplyForJob", function() {
+            $scope.applyForOpp(opp, JobType);
+        });
+    };
+
     $scope.applyForOpp = function(opp, jobType) {
-        console.log("Opp : " + opp.id + " , job type : " + jobType.id);
+        // console.log("Opp : " + opp.id + " , job type : " + jobType.id);
+        $("#loading-indicator").show();
         $http({
             url: "/opportunity/" + opp.id + "/party/0/jobType/" + jobType.id,
             dataType: "json",
@@ -1214,16 +1221,19 @@ opportunity.controller("ViewOpportunityController", function(
             }
         })
             .success(function(response) {
+                $("#loading-indicator").hide();
                 $scope["apply_btn_" + jobType.id] = true;
                 $scope["applied_btn_" + jobType.id] = true;
 
-                $rootScope.ltoSuccessMessage = "Application successfully sent.";
+                $rootScope.ltoSuccessMessage =
+                    "Job Application successfully sent.";
                 $rootScope.toggleLtoSuccessModal();
                 $(".lto-success-modal-dialog").css({
                     top: "200px"
                 });
             })
             .error(function(error) {
+                $("#loading-indicator").hide();
                 console.log(
                     "error while getting profile details of user with id:" +
                         $rootScope.userId

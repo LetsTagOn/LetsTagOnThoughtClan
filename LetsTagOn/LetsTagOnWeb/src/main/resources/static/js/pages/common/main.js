@@ -78,8 +78,12 @@ letsTagOn.controller("MainController", function(
                 authenticate(function() {
                     if ($rootScope.authenticated) {
                         if ($location.path() === "/welcome")
-                            $location.path("/"); // Sourabh: added to redirect to home page on successful login
-
+                            //redirection to / should happen provided login is happening from landing page
+                            $location.path("/");
+                        else {
+                            // Sourabh: added to redirect to home page on successful login
+                            $rootScope.$emit("ApplyForJob"); //ensure the application for the job is done on successful login
+                        }
                         $scope.error = false;
                         $scope.submitted = false;
                         $rootScope.showWallHeader = true;
