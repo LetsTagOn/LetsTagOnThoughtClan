@@ -19,7 +19,7 @@
 									<div class="col-md-12">
 										<div class="col-md-6">
 											<div>
-												<label for="eventName">Activity/Event Name</label> <input type="text" name="eventName" class="form-control" id="eventName" ng-minlength="3" placeholder="Enter Activity/Event Name" ng-model="event.name" ng-required="true"> <span class="glyphicon glyphicon-user"></span> <span class="error" ng-show="submitted && eventForm.eventName.$error.required">Mandatory Field</span> <span
+												<label for="eventName">Activity/Event Name</label> <input type="text" name="eventName" class="form-control" id="oppEventName" ng-minlength="3" placeholder="Enter Activity/Event Name" ng-model="event.name" ng-required="true"> <span class="glyphicon glyphicon-user"></span> <span class="error" ng-show="submitted && eventForm.eventName.$error.required">Mandatory Field</span> <span
 													class="help-block error" ng-show="((eventForm.eventName.$error.minlength) && eventForm.eventName.$dirty) "
 												> Minimun 3 Characters Required</span>
 											</div>
@@ -36,7 +36,7 @@
 										<div class="col-md-6">
 											<input type="text" name="eventEndDate" class="form-control" ng-focus="displayEndDate()" id="eventEndDate" placeholder="Enter End Date of Activity/Event" ng-model="event.dateEnd" ng-required="true"> <span class="glyphicon glyphicon-calendar"></span> <span class="error" ng-show="submitted && eventForm.eventEndDate.$error.required">Mandatory Field</span>
 										</div>
-										<div class="col-md-6" ng-show="areaFound">
+										<div class="col-md-6" ng-show="areaFound" >
 											<label>Address?
             								On Field: <input type="radio" ng-model="address.name" value="onfield" ng-click="ShowAddress('Y')" />
             								Virtual: <input type="radio" ng-model="address.name" value="virtual" ng-click="ShowAddress('N')" />

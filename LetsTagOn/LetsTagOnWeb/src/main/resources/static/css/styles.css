@@ -1757,3 +1757,17 @@ ul.rating {
     margin-right: 10px;
     margin-top: 4px;
 }
+
+/* -----------------------------------------------------
+        Styles for Program Edit Page
+--------------------------------------------------------- */
+#programName, #programEventName {
+    height: 53px;
+}
+
+/* -----------------------------------------------------
+        Styles for Opportunity Edit Page
+--------------------------------------------------------- */
+#oppEventName {
+    
+}

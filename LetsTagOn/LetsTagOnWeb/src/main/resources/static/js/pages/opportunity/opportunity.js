@@ -830,7 +830,7 @@ opportunity.controller("OpportunityProgramEditController", function(
     $location,
     $timeout
 ) {
-    console.info("here ------------");
+    // console.info("here ------------");
     $scope.areaFound = true;
 
     $scope.changeAreaFoundStatus = function() {
@@ -1000,7 +1000,7 @@ opportunity.controller("OpportunityProgramEditController", function(
                 $scope.program = response.data.opportunityDTO;
                 $scope.program.linkedEvents =
                     response.data.opportunityDTO.linkedEvents;
-                console.info($scope.program.linkedEvents);
+                // console.info($scope.program.linkedEvents);
             })
             .error(function(error) {});
     };
@@ -1078,7 +1078,7 @@ opportunity.controller("ViewOpportunityController", function(
     })
         .success(function(response) {
             if (response.error == null) {
-                console.log(response.data);
+                // console.log(response.data);
                 $scope.oppDetails = response.data;
                 $scope.compareDate(response.data.dateEnd);
                 $scope.checkIfEditToBeShown(oppID);
@@ -1108,7 +1108,7 @@ opportunity.controller("ViewOpportunityController", function(
         for (i in opportunityJobTypes) {
             listedJob.push(opportunityJobTypes[i].jobTypeBean.description);
         }
-        console.info(listedJob);
+        // console.info(listedJob);
         $http({
             url: "opportunity/" + oppID + "/participantsByStatus?status=true",
             dataType: "json",
