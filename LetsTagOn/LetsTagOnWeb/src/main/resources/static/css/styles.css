@@ -254,6 +254,8 @@ span.vertical-separator {
 }
 .lto-login-forget-pass-link {
     font-weight: normal !important;
+    display: inline-block;
+    width: 150px;
 }
 .lto-user-profile-header-RHS {
     width: 46% !important;

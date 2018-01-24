@@ -18,15 +18,15 @@
 						</div>
 					</div>
 					<div class="row row-space">
-						<div class="col-xs-4 user__thumbnail">
+						<div class="col-xs-4 col-xs-offset-4 user__thumbnail">
+							<img ng-src="{{getBannerImage(oppDetails.bannerImage)}}" ng-if="oppDetails.bannerImage != null"> <img src="../images/event.jpg" ng-if="oppDetails.bannerImage == null">
+						</div>
+						<!-- <div class="col-xs-4 user__thumbnail">
 							<img ng-src="{{getBannerImage(oppDetails.bannerImage)}}" ng-if="oppDetails.bannerImage != null"> <img src="../images/event.jpg" ng-if="oppDetails.bannerImage == null">
 						</div>
 						<div class="col-xs-4 user__thumbnail">
 							<img ng-src="{{getBannerImage(oppDetails.bannerImage)}}" ng-if="oppDetails.bannerImage != null"> <img src="../images/event.jpg" ng-if="oppDetails.bannerImage == null">
-						</div>
-						<div class="col-xs-4 user__thumbnail">
-							<img ng-src="{{getBannerImage(oppDetails.bannerImage)}}" ng-if="oppDetails.bannerImage != null"> <img src="../images/event.jpg" ng-if="oppDetails.bannerImage == null">
-						</div>
+						</div> -->
 					</div>
 					<div class="row no-margin row-space">
 						<div class="col-xs-12">
