@@ -78,8 +78,8 @@ letsTagOn.controller("MainController", function(
                 authenticate(function() {
                     if ($rootScope.authenticated) {
                         if ($location.path() === "/welcome")
-                            //redirection to / should happen provided login is happening from landing page
-                            $location.path("/");
+                            //redirection to search page should happen provided login is happening from landing page
+                            $location.path("/search/opportunity/");
                         else {
                             // Sourabh: added to redirect to home page on successful login
                             $rootScope.$emit("ApplyForJob"); //ensure the application for the job is done on successful login
