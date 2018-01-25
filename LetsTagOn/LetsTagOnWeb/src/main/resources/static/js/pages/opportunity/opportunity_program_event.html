@@ -91,7 +91,7 @@
 						<form name="eventForm" novalidate="novalidate" ng-submit="eventForm.$valid">
 							<div class="row">
 								<div class="col-xs-12 col-sm-6 col-md-6">
-									<label for="eventName">Event Activity/Event</label> <input type="text" name="eventName" ng-minlength="3" class="form-control" id="programEventName" autofocus="true" placeholder="Enter Activity/Event Name" ng-model="event.name" ng-required="true"><span class="error" ng-show="submitted && eventForm.eventName.$error.required">Mandatory Field</span> <span class="help-block error"
+									<label for="eventName">Activity/Event</label> <input type="text" name="eventName" ng-minlength="3" class="form-control" id="programEventName" autofocus="true" placeholder="Enter Activity/Event Name" ng-model="event.name" ng-required="true"><span class="error" ng-show="submitted && eventForm.eventName.$error.required">Mandatory Field</span> <span class="help-block error"
 										ng-show="((eventForm.eventName.$error.minlength) && eventForm.eventName.$dirty) "
 									> Minimun 3 Characters Required</span>
 								</div>
@@ -107,13 +107,13 @@
 									<label for="date">End Date</label> <input type="text" name="eventEndDate" class="form-control" ng-focus="displayEndDate()" id="eventEndDate" placeholder="Enter End Date of Activity/Event" ng-model="event.dateEnd" ng-required="true"> <span class="glyphicon glyphicon-calendar"></span> <span class="error" ng-show="submitted && eventForm.eventEndDate.$error.required">Mandatory Field</span>
 								</div>
 							</div>
-							<div class="col-md-6" ng-show="areaFound" ng-controller="OpportunityEditController">
+							<div class="col-md-6 nudge-down" ng-show="areaFound" ng-controller="OpportunityEditController">
 											<!-- <label>Address? -->
             								On Field: <input type="radio" ng-model="address.name" value="onfield" ng-click="ShowAddress('Y')" />
             								Virtual: <input type="radio" ng-model="address.name" value="virtual" ng-click="ShowAddress('N')" />
         									<!-- </label>  -->
 											<input ng-show="IsVisible" id="autocomplete" placeholder="Enter your address" name="formattedAddress" type="text" class="form-control" ng-model="event.addressBean.formattedAddress"></input>
-										</div>
+							</div>
 								<div class="col-xs-12 col-sm-6 col-md-6" ng-hide="areaFound">
 									<label>Address</label> <input ng-model="event.street" type="text" name="street_number" class="form-control" placeholder="Enter street number" id="street_number"></input> <input class="form-control" name="locality" placeholder="Enter City" id="locality" ng-required="areaFound == false" ng-model="event.addressBean.city"></input> <span class="error"
 										ng-show="!areaFound && submitted && eventForm.locality.$error.required"
@@ -179,7 +179,7 @@
 												ng-show="submitted && eventForm.Country.$error.required">Mandatory
 												Field</span>
 									</div> -->
-							</div>
+							<!-- </div> -->
 							<div class="text-center lto-opp-btn-container">
 								<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click="createEventUsingProgram()">Save</button>
 								<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" data-dismiss="modal" ng-click="hideEventForm()">Cancel</button>

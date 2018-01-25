@@ -1420,7 +1420,7 @@ ul.rating {
 ------------------------------------------------------ */
 
 .AboutUs-Container {
-    background-color: #ddd;
+    background-color: #f1f1f1;
     padding-top: 80px;
     padding-right: 60px;
     padding-left: 60px;
@@ -1771,8 +1771,28 @@ ul.rating {
 }
 
 /* -----------------------------------------------------
-        Styles for Opportunity Edit Page
+        Styles for Opportunity Program Event Edit Page
 --------------------------------------------------------- */
-#oppEventName {
-    
+.nudge-down {
+    margin-top: 15px;
 }
+
+/* -----------------------------------------------------
+        Styles for Right Side Bar
+--------------------------------------------------------- */
+.featuredNGO {
+     margin-bottom: 0;
+     margin-left: 10px;
+     width: 93%;
+}
+
+.featuredNGO .lto-user-vol-additional-section {
+    padding: 0;
+}
+
+.featuredNGO a {
+    display:inline-block; 
+    width:100%; 
+    height: 150px;
+}
+

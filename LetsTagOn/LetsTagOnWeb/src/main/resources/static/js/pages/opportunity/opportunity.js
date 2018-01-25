@@ -1134,7 +1134,7 @@ opportunity.controller("ViewOpportunityController", function(
                     }
                     job.appliedPosition = counter;
                     jACounter.push(job);
-                    console.info(jACounter);
+                    // console.info(jACounter);
                 }
                 $scope.jobAppliedCounter = jACounter;
             })
