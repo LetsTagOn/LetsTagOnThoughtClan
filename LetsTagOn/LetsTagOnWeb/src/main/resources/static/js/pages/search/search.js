@@ -315,6 +315,10 @@ searchModule.controller('SearchController',
 
                 });
         };
+        
+        $scope.getBannerImage = function(bannerImage) {
+            return "https://s3-us-west-2.amazonaws.com/ltoopporimages/" + bannerImage;
+        };
 
         // Function called to get facets 
         $scope.getFacets = function(pageNumber) {
@@ -368,6 +372,9 @@ searchModule.controller('SearchController',
             if ($scope.resultsPerPage == undefined) {
                 $scope.resultsPerPage = 10;
             }
+            console.log($scope.getFacetQuery($scope
+                    .getSimpleFacetFields()));
+            console.log($scope.getQueryString());
 
             return $scope.getBaseUrl() +
                 $scope.getCoreName() +

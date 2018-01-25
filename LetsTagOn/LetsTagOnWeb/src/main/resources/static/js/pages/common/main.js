@@ -98,7 +98,7 @@ letsTagOn.controller('MainController', function($rootScope, $http, $location, $r
     };
 
     $scope.getBannerImage = function(bannerImage) {
-        return $rootScope.baseUrl + "opportunity/getBannerImage?key=" + bannerImage;
+        return "https://s3-us-west-2.amazonaws.com/ltoopporimages/" + bannerImage;
     };
 
     $scope.showAllEvents = function() {
