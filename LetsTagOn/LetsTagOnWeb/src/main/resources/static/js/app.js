@@ -165,6 +165,11 @@ angular
                 controller: "contactuscontroller",
                 controllerAs: "controller"
             })
+            .when("/blog", {
+                templateUrl: "./js/pages/blog/home.html",
+                controller: "BlogController"
+                // controllerAs: "controller"
+            })
             .otherwise("/");
 
         $httpProvider.defaults.headers.common["X-Requested-With"] =

@@ -516,6 +516,10 @@ span.lto-cp-skill-edit-label:hover {
 .float-none {
     float: none;
 }
+
+.nudge-down {
+    margin-top: 15px;
+}
 .error {
     color: #900;
     padding: 0 10px;
@@ -1770,15 +1774,10 @@ ul.rating {
     height: 53px;
 }
 
-/* -----------------------------------------------------
-        Styles for Opportunity Program Event Edit Page
---------------------------------------------------------- */
-.nudge-down {
-    margin-top: 15px;
-}
+
 
 /* -----------------------------------------------------
-        Styles for Right Side Bar
+        Styles for featured NGO Right Side Bar
 --------------------------------------------------------- */
 .featuredNGO {
      margin-bottom: 0;
@@ -1796,3 +1795,26 @@ ul.rating {
     height: 150px;
 }
 
+/* -----------------------------------------------------
+        Styles for Blog Right Side Bar
+--------------------------------------------------------- */
+.Blog-Container {
+    background-color: #f1f1f1;
+    padding-top: 100px;
+    padding-right: 60px;
+    padding-left: 60px;
+    padding-bottom: 40px;
+    /*width: 80%;
+    margin-right: auto;
+    margin-left: auto;*/
+}
+    
+
+.blogs {
+    /*margin-right: 15px;*/
+    
+}
+
+.blog-links {
+
+}

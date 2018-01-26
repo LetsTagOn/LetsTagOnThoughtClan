@@ -81,6 +81,9 @@ letsTagOn.controller("MainController", function(
                             //redirection to search page should happen provided login is happening from landing page
                             $location.path("/search/opportunity/");
                         else {
+                            //need to reload the page so that features which were hidden when user was not authenticated
+                            //can be shown once the user is authenticated
+                            $route.reload();
                             // Sourabh: added to redirect to home page on successful login
                             $rootScope.$emit("ApplyForJob"); //ensure the application for the job is done on successful login
                         }
