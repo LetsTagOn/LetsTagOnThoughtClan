@@ -134,14 +134,14 @@ public class ConnectionAcceptedEventListener extends BaseNotificationEventListne
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-				message.setTo(event.getToParty().getUserBean().getEmailAddress());
+				message.setTo(event.getFromParty().getUserBean().getEmailAddress());
 				message.setFrom("info.letstagon@gmail.com");
 				message.setSubject(CommonConstants.EMAIL_SUBJECT);
 				message.setSentDate(new Date());
 				Map model = new HashMap();
 				model.put("regMessage",
-						CommonConstants.CONNECTION_ACCEPT_EVENT_MESSAGE + event.getFromParty().getUserBean().getName());
-				model.put("name", event.getToParty().getUserBean().getName());
+						CommonConstants.CONNECTION_ACCEPT_EVENT_MESSAGE + event.getToParty().getUserBean().getName());
+				model.put("name", event.getFromParty().getUserBean().getName());
 				String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
 						"velocity/connectionAcceptTemplate.vm", "UTF-8", model);
 				message.setText(text, true);

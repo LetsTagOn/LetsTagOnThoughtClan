@@ -62,8 +62,8 @@ letsTagOn.controller('RegisterController', function($http, $scope, $rootScope, $
                 $('.modal-backdrop').remove();
                 $rootScope.registrationSuccessHeader = "Registration successfully completed";
                 $rootScope.successMessageText1 = "You're almost there!";
-                $rootScope.successMessageText2 = "A registration confirmation mail has been sent to your specified email.";
-                $rootScope.successMessageText3 = "Kindly login with the registered emailId and password.";
+                $rootScope.successMessageText2 = "Kindly login with the registered email id and password.";
+                $rootScope.successMessageText3 = "A registration confirmation mail has been sent to your specified email id for your reference.";
                 $rootScope.toggleSuccessModal();
                 $('.registration-success-modal-dialog').css({
                     top: "200px",
