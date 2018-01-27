@@ -166,8 +166,13 @@ angular
                 controllerAs: "controller"
             })
             .when("/blog", {
-                templateUrl: "./js/pages/blog/home.html",
-                controller: "BlogController"
+                templateUrl: "./js/pages/blog/blogs.html"
+                // controller: "blogcontroller",
+                // controllerAs: "controller"
+            })
+            .when("/blog/:blogID", {
+                templateUrl: "./js/pages/blog/blog_detail.html"
+                // controller: "blogdatacontroller",
                 // controllerAs: "controller"
             })
             .otherwise("/");

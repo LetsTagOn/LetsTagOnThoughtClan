@@ -1024,12 +1024,12 @@ About Us Page Responsive Styles
 Responsive Styles for Blog
 -----------------------------------------------------------*/
 
-@media screen and (min-width: 750px) {
+/*@media screen and (min-width: 750px) {
     .blogs {
         margin-left: 50px;
         margin-right: 80px;
     }
-}
+}*/
 
 /*---------------------------------------------------------
 
