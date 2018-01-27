@@ -84,7 +84,7 @@ public class ConnectionAcceptedEventListener extends BaseNotificationEventListne
 		if (sendNotification) {
 			Notification notification = new Notification();
 			notification.setContent(NotificationTypeEnum.CONNECTION_ACCEPT.getMessage());
-			notification.setPartyBean(event.getToParty());
+			notification.setPartyBean(event.getFromParty());
 			notification.setType(NotificationTypeEnum.CONNECTION_ACCEPT.getEventType());
 			notification.setSentOn(new Date());
 			notification.setStatus(true);
@@ -135,7 +135,7 @@ public class ConnectionAcceptedEventListener extends BaseNotificationEventListne
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 				message.setTo(event.getFromParty().getUserBean().getEmailAddress());
-				message.setFrom("info.letstagon@gmail.com");
+				message.setFrom("letstagon@gmail.com");
 				message.setSubject(CommonConstants.EMAIL_SUBJECT);
 				message.setSentDate(new Date());
 				Map model = new HashMap();
