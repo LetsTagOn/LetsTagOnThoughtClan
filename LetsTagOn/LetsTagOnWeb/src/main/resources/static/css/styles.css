@@ -1795,6 +1795,8 @@ ul.rating {
     height: 150px;
 }
 
+
+
 /* -----------------------------------------------------
         Styles for Blog Right Side Bar
 --------------------------------------------------------- */
@@ -1808,14 +1810,37 @@ ul.rating {
 }
 
 
-.blog-link img {
+
+.lto-blog-container-adj .blog-link img {
     float:left;
     margin-right: 5px;
+    width: 100px;
+    height: 80px;
 }
 
-.blog-link > p:nth-of-type(1):hover {
+.blog-link>div {
+	height: 100px;
+}
+
+.blog-link > div p:nth-of-type(1):hover {
     text-decoration: underline;
     
+}
+
+/* -----------------------------------------------------
+        Styles for Blogs
+--------------------------------------------------------- */
+
+.lto-blog-container span {
+	display: inline-block;
+	margin-bottom: 20px;
+}
+
+.lto-blog-container img {
+	float: left;
+	width: 100px;
+	height: 100px;
+	margin-right: 10px;
 }
 
 /* -----------------------------------------------------
@@ -1830,7 +1855,7 @@ ul.rating {
 .blog-detail section {
 	margin-bottom: 20px;
 	border: 1p;
-	font-weight: bold;
+	/*font-weight: bold;*/
 }
 .blog-detail section:nth-of-type(1) img{
 	float: left;
