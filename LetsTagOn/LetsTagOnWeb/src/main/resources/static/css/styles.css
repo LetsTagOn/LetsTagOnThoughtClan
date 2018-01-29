@@ -1800,7 +1800,6 @@ ul.rating {
 --------------------------------------------------------- */
 .lto-blog-container {
 
-
     padding-top: 100px;
     padding-right: 60px;
     padding-left: 60px;
@@ -1817,4 +1816,36 @@ ul.rating {
 .blog-link > p:nth-of-type(1):hover {
     text-decoration: underline;
     
+}
+
+/* -----------------------------------------------------
+        Styles for Blog Details
+--------------------------------------------------------- */
+
+.blog-detail span {
+	display: inline-block;
+	margin-bottom: 20px ;
+}
+
+.blog-detail section {
+	margin-bottom: 20px;
+}
+.blog-detail section:nth-of-type(1) img{
+	float: left;
+	width: 125px;
+	height: 125px;
+	margin-right: 10px;
+}
+
+.blog-detail section:nth-of-type(2) img {
+	float: right;
+	width: 250px;
+	height: auto;
+	margin-left: 10px;
+}
+.blog-detail section:nth-of-type(3) img {
+	float: left;
+	width: 250px;
+	height: 170px;
+	margin-right: 10px;
 }

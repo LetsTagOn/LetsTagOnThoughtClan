@@ -199,7 +199,7 @@ angular
                 var isAuth = sessionStorage.authenticated;
                 $rootScope.ifConnections = false;
                 $rootScope.showProfileInfo = false;
-
+                $rootScope.location = $location;
                 // If user is not authenticated
                 // then redirect to home page
                 if (typeof isAuth == undefined || !isAuth) {
