@@ -34,48 +34,48 @@
 									   <any i18n="common.opportunity"></any>
 									   <br>
 								   </label>
-								   <label class="lto-search-label" ng-show="showOppDateRange"> 
+								   <!-- <label class="lto-search-label" ng-show="showOppDateRange"> 
                                     <input type="checkbox" name="searchModeOppsDate" class="float-left" ng-model="dateRange" id="searchModeOppsDate"> 
                                     <span class="checkboxText float-left lto-search-small-text" i18n="common.opportunity_By_date">
                                     </span>
-                                    </label>
-                                    <label class="lto-search-label" ng-show="searchByDateRange"> 
+                                    </label> -->
+                                   <!--  <label class="lto-search-label" ng-show="searchByDateRange"> 
 	                                    <input type="checkbox" name="searchModeOppsDateRange" class="float-left" ng-model="startEndDateRange" id="searchModeOppsDateRange" > 
 	                                    <span class="checkboxText float-left lto-search-small-text" i18n="common.opportunity_by_date_range">	                                        
 	                                    </span>
-                                    </label>
-                                    <div ng-show="startEndDateRange">                                           
+                                    </label> -->
+                                    <!-- <div ng-show="startEndDateRange">                                           
                                                 <input type="text" name="opportunityStartDate" class="form-control" id="opportunityStartDate" placeholder="{{'common.lto_placeholder_event_startDate'|i18n}}">                                                 
                                                 <br/>
                                                 <input type="text" name="opportunityEndDate" class="form-control" id="opportunityEndDate" placeholder="{{'common.lto_placeholder_volunteer_endDate'|i18n}}"> 
-                                     </div>
+                                     </div> -->
 								</div>
-								<label for="sel1" class="lto-advanced-search-option-header" i18n="{{'common.lto_lable_location'}}"></label>
-                                <div class="lto-advanced-search-option-conatiner">
+								<!-- <label for="sel1" class="lto-advanced-search-option-header" i18n="{{'common.lto_lable_location'}}"></label> -->
+                                <!-- <div class="lto-advanced-search-option-conatiner">
                                     <label class="lto-search-label" ng-show="location.count>0" ng-repeat="location in systemLocationData">
 	                                     <input type="checkbox" class="float-left" ng-model="location.selected" ng-change="getResultsPage(1)"> 
 	                                     <span class="checkboxText float-left lto-search-small-text">{{location.name}} 
 	                                        <span ng-show="location.count > 0" class="lto-search-small-text">({{location.count}})</span>
 	                                    </span>
                                     </label> <span ng-show="!locationFacetAvailable" i18n="{{'common.lto_span_location_noFilter'}}"></span> 
-                                </div>
-								<br> <label for="sel1" class="lto-advanced-search-option-header" i18n="{{'common.lto_heading_jobType'}}"></label>
-								<div class="lto-advanced-search-option-conatiner">
+                                </div> -->
+								<br> <!-- <label for="sel1" class="lto-advanced-search-option-header" i18n="{{'common.lto_heading_jobType'}}"></label> -->
+								<!-- <div class="lto-advanced-search-option-conatiner">
 									<label class="lto-search-label" ng-show="skill.count>0" ng-repeat="skill in masterSkillList" ng-if="skill.name.toLowerCase() != 'all' && skill.description.toLowerCase() != 'all'"> 
 									<input type="checkbox" class="float-left" ng-model="skill.selected" ng-change="getResultsPage(1)"> <span class="checkboxText float-left lto-search-small-text">{{skill.description}} <span
 											ng-show="skill.count>0" class="lto-search-small-text"
 										>({{skill.count}})</span>
 									</span>
 									</label> <span ng-show="!jobTypeFacetAvailable" i18n="{{'common.lto_span_skill_noFilter'}}"></span>
-								</div>
-								<br> <label for="sel1" class="lto-advanced-search-option-header" i18n="{{'common.lto_heading_cause'}}"></label>
-								<div class="lto-advanced-search-option-conatiner">
+								</div> -->
+								<br> <!-- <label for="sel1" class="lto-advanced-search-option-header" i18n="{{'common.lto_heading_cause'}}"></label> -->
+								<!-- <div class="lto-advanced-search-option-conatiner">
 									<label class="lto-search-label" ng-repeat="cause in masterCauseList" ng-show="cause.count>0" ng-if="cause.name.toLowerCase() != 'all' && cause.description.toLowerCase() != 'all'"> <input type="checkbox" class="float-left" ng-model="cause.selected" ng-change="getResultsPage(1)"> <span class="checkboxText float-left lto-search-small-text">{{cause.description}} <span
 											ng-show="cause.count>0" class="lto-search-small-text"
 										>({{cause.count}})</span>
 									</span>
 									</label> <span ng-show="!causeFacetAvailable" i18n="{{'common.lto_span_cause_noFilter'}}"></span>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</div>

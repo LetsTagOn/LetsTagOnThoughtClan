@@ -1829,6 +1829,8 @@ ul.rating {
 
 .blog-detail section {
 	margin-bottom: 20px;
+	border: 1p;
+	font-weight: bold;
 }
 .blog-detail section:nth-of-type(1) img{
 	float: left;
@@ -1846,6 +1848,6 @@ ul.rating {
 .blog-detail section:nth-of-type(3) img {
 	float: left;
 	width: 250px;
-	height: 170px;
+	height: auto;
 	margin-right: 10px;
 }
