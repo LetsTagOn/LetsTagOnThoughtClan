@@ -4,7 +4,7 @@
 	<document>
 		<entity name="opportunity"
 			query="select o.id,o.name,o.type,o.dateStart,o.dateEnd,
-o.description,o.latLong,a.street as 'address_street',a.city as 'address_city', 
+o.bannerImage,o.description,o.latLong,a.street as 'address_street',a.city as 'address_city', 
 a.state as 'address_state',a.country as 'address_country', 
 a.postalCode as 'address_postal_code',
 creator.name as 'creator_name', creator.emailAddress as 'creator_email_address' ,
@@ -13,7 +13,7 @@ creator.phoneNumber as 'creator_phone_number'
  Left Join Party p on o.createdByParty=p.id
 Inner Join User creator on creator.id=p.user"
 deltaImportQuery="select o.id,o.name,o.type,o.dateStart,o.dateEnd,
-o.description,o.latLong,a.street as 'address_street',a.city as 'address_city', 
+o.bannerImage,o.description,o.latLong,a.street as 'address_street',a.city as 'address_city', 
 a.state as 'address_state',a.country as 'address_country', 
 a.postalCode as 'address_postal_code',
 creator.name as 'creator_name', creator.emailAddress as 'creator_email_address' ,
@@ -28,6 +28,7 @@ deltaQuery="select id from Opportunity o where o.modifiedDate > '${dataimporter.
 			<field column="type" name="type" />
 			<field column="dateStart" name="dateStart" />
 			<field column="dateEnd" name="dateEnd" />
+			<field column="bannerImage" name="bannerImage" />
 			<field column="description" name="description" />
 			<field column="latLong" name="latLong" />
 
