@@ -10,6 +10,7 @@ bootstrapModal.controller("BootstrapModalController", function(
     $location,
     $timeout
 ) {
+    $('[data-toggle="tooltip"]').tooltip();
     $scope.showSuccessModal = false;
     $scope.showErrorModal = false;
     $scope.showSessionTimeout = false;

@@ -1,7 +1,7 @@
 ./* -----------------------------------------
         Lto application styles - Ranjitha
 -------------------------------------------- */
-::-webkit-scrollbar {
+    ::-webkit-scrollbar {
     width: 8px; /* for vertical scrollbars */
     height: 12px; /* for horizontal scrollbars */
 }
@@ -78,11 +78,11 @@ span.vertical-separator {
 }
 .lto-user-vol-additional-section {
     height: auto !important;
-} 
+}
 
 lto_heading_best_describes {
     margin-top: 30px;
-    margin-right: 20px
+    margin-right: 20px;
 }
 .header-separator {
     margin-top: 0;
@@ -179,7 +179,6 @@ lto_heading_best_describes {
 .lto-pre-login-search {
     background: #f1f1f1;
     height: 50px;
-    
 }
 .lto-search-container {
     margin: 10px auto;
@@ -497,9 +496,6 @@ span.lto-cp-skill-edit-label:hover {
     width: 400px;
     margin: 25px auto;
 }
-
-
-
 
 /* -----------------------------------------
         commonly used css added as class
@@ -1584,7 +1580,6 @@ ul.rating {
 #TheTeam .Profile-Card div h3 {
     /*padding-bottom: 2px;*/
     margin-bottom: 0;
-    margin-left
 }
 
 #TheTeam .Profile-Card div h4 {
@@ -1770,19 +1765,18 @@ ul.rating {
 /* -----------------------------------------------------
         Styles for Program Edit Page
 --------------------------------------------------------- */
-#programName, #programEventName {
+#programName,
+#programEventName {
     height: 53px;
 }
-
-
 
 /* -----------------------------------------------------
         Styles for featured NGO Right Side Bar
 --------------------------------------------------------- */
 .featuredNGO {
-     margin-bottom: 0;
-     margin-left: 10px;
-     width: 93%;
+    margin-bottom: 0;
+    margin-left: 10px;
+    width: 93%;
 }
 
 .featuredNGO .lto-user-vol-additional-section {
@@ -1790,41 +1784,34 @@ ul.rating {
 }
 
 .featuredNGO a {
-    display:inline-block; 
-    width:100%; 
+    display: inline-block;
+    width: 100%;
     height: 150px;
 }
-
-
 
 /* -----------------------------------------------------
         Styles for Blog Right Side Bar
 --------------------------------------------------------- */
 .lto-blog-container {
-
     padding-top: 100px;
     padding-right: 60px;
     padding-left: 60px;
     padding-bottom: 40px;
-    
 }
 
-
-
 .lto-blog-container-adj .blog-link img {
-    float:left;
+    float: left;
     margin-right: 5px;
     width: 100px;
     height: 80px;
 }
 
-.blog-link>div {
-	height: 100px;
+.blog-link > div {
+    height: 100px;
 }
 
 .blog-link > div p:nth-of-type(1):hover {
     text-decoration: underline;
-    
 }
 
 /* -----------------------------------------------------
@@ -1832,15 +1819,15 @@ ul.rating {
 --------------------------------------------------------- */
 
 .lto-blog-container span {
-	display: inline-block;
-	margin-bottom: 20px;
+    display: inline-block;
+    margin-bottom: 20px;
 }
 
 .lto-blog-container img {
-	float: left;
-	width: 100px;
-	height: 100px;
-	margin-right: 10px;
+    float: left;
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
 }
 
 /* -----------------------------------------------------
@@ -1848,31 +1835,32 @@ ul.rating {
 --------------------------------------------------------- */
 
 .blog-detail span {
-	display: inline-block;
-	margin-bottom: 20px ;
+    display: inline-block;
+    margin-bottom: 20px;
 }
 
 .blog-detail section {
-	margin-bottom: 20px;
-	border: 1p;
-	/*font-weight: bold;*/
+    margin-bottom: 20px;
+    border: 1p;
+    /*font-weight: bold;*/
 }
-.blog-detail section:nth-of-type(1) img{
-	float: left;
-	width: 125px;
-	height: 125px;
-	margin-right: 10px;
+.blog-detail section:nth-of-type(1) img {
+    float: left;
+    width: 125px;
+    height: 125px;
+    margin-right: 10px;
 }
 
 .blog-detail section:nth-of-type(2) img {
-	float: right;
-	width: 250px;
-	height: auto;
-	margin-left: 10px;
+    float: right;
+    width: 250px;
+    height: auto;
+    margin-left: 10px;
 }
 .blog-detail section:nth-of-type(3) img {
-	float: left;
-	width: 250px;
-	height: auto;
-	margin-right: 10px;
+    float: left;
+    width: 250px;
+    height: auto;
+    margin-right: 10px;
 }
+

@@ -1,4 +1,5 @@
 <header class="top-header" role="banner" ng-controller="BootstrapModalController as modal">
+
 	<nav class="navbar navbar-default">
 		<div class="container-fluid " ng-controller="ProfileController">
 			<div class="navbar-header">
@@ -15,10 +16,11 @@
 					<input type="text" name="trade" class="form-control lto-header-search-adj" id="headerSearch" placeholder="Search for Volunteers/ Events near your place" ng-keypress="($event.which === 13)?redirectToSearchPage():0"> <span class="glyphicon glyphicon-search cursor" ng-click="redirectToSearchPage()"> </span>
 				</div>
 				<ul class="pull-right utility-bar lto-profile-header-bar" >
-					<li class="no-focus-color" data-toggle="collapse" data-target=".nav-collapse.in"><span class="glyphicon glyphicon-map-marker "> </span>{{displayUserDetails.addressBean.city}}</li>
+					<!-- <li class="no-focus-color" data-toggle="collapse" data-target=".nav-collapse.in"><span class="glyphicon glyphicon-map-marker "> </span>{{displayUserDetails.addressBean.city}}</li> -->
 					<!--  Loding unread messages-->
 					<li ng-controller="LtoMessagesController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getUnreadMessages()">
-						<!-- Section one --> <a data-toggle="dropdown" role="button" aria-expanded="false"> <span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length > 0"></span> <span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length==0" ng-click="redirect('/view/myMessages')"></span> <span class="hidden-lg hidden-sm hidden-md">Messages</span>
+						<!-- Section one --> 
+						<a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Messages"> <span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length > 0"></span> <span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length==0" ng-click="redirect('/view/myMessages')" ></span> <span class="hidden-lg hidden-sm hidden-md">Messages</span>
 					</a> <!-- Section two -->
 						<ul ng-hide="unreadMessagelist.length==0" class="dropdown-menu lto-pending-notification-user-dropdownList lto-pending-message-user-dropdownList lto-notification-dropdown-header hidden-xs" role="menu">
 							<div class="lto-pending-section-header">
@@ -47,9 +49,9 @@
 						</ul> <span class="badge badge-notify" id="MessageLength" ng-if="unreadMessagelist.length > 0">{{unreadMessagelist.length}} </span>
 					</li>
 					<!-- End of message section -->
-					<li class="hidden-lg hidden-sm hidden-md" data-toggle="collapse" data-target=".nav-collapse.in"><a href=""> <span class="glyphicon glyphicon-search"></span><span ng-click="redirect('/search/user/')" i18n="{{'common.lto_button_text_search'}}"></span>
+					<li class="hidden-lg hidden-sm hidden-md" data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Search User"><a href=""> <span class="glyphicon glyphicon-search"></span><span ng-click="redirect('/search/user/')" i18n="{{'common.lto_button_text_search'}}"></span>
 					</a></li>
-					<li ng-controller="UserNotificationController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getAllUnreadNotifications()"><a data-toggle="dropdown" role="button" aria-expanded="false"> <span class="lto-sec-nav glyphicon glyphicon-flag" ng-if="unreadNotificationList.length > 0"></span> <span class="lto-sec-nav glyphicon glyphicon-flag"
+					<li ng-controller="UserNotificationController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getAllUnreadNotifications()"><a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Notifications"> <span class="lto-sec-nav glyphicon glyphicon-flag" ng-if="unreadNotificationList.length > 0"></span> <span class="lto-sec-nav glyphicon glyphicon-flag"
 							ng-if="unreadNotificationList.length==0" ng-click="viewAllNotificationOfUser()"
 						></span> <span class="hidden-lg hidden-sm hidden-md" i18n="{{'common.lto_heading_notification'}}"></span>
 					</a>
@@ -85,7 +87,7 @@
 						<span ng-click="" i18n="{{'common.lto_link_allNotification'}}"></span></span> <span class="badge badge-notify" id="notificationLength" ng-if="unreadNotificationList.length > 0">{{unreadNotificationList.length}} </span>
 						</li>
 					   <li class="dropdown" data-toggle="collapse" data-target=".nav-collapse.in" ng-controller="NotificationsController">
-						<a data-toggle="dropdown" role="button" aria-expanded="false">
+						<a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Connections">
 						 <span class="glyphicon glyphicon-user"></span>
 						 <span class="cursor hidden-lg hidden-sm hidden-md" ng-click="redirect('/view/connection/user/'+userId)" i18n="{{'common.lto_link_connections'}}"></span>
 						</a>
@@ -124,11 +126,11 @@
 							</li>
 						</ul> <span class="lto-sec-nav glyphicon glyphicon-chevron-right hidden-sm hidden-md hidden-lg"><span ng-click="showPendingConnections()" i18n="{{'common.lto_link_pendingConnection'}}"></span></span> <span class="badge badge-notify" ng-if="pendingConnections.length > 0">{{pendingConnections.length}} </span>
 						</li>
-					<li class="dropdown" data-toggle="collapse" data-target=".nav-collapse.in"><a ng-href="#/profile/user/{{userId}}"> <img ng-if="profilePicture != null" ng-src="{{getProfileImage(profilePicture)}}" style="width: 27px;"> <img ng-if="profilePicture == null" src="../images/UserImage.png" style="width: 27px;"> <span class="hidden-lg hidden-sm hidden-md"
+					<li class="dropdown" data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Profile"><a ng-href="#/profile/user/{{userId}}"> <img ng-if="profilePicture != null" ng-src="{{getProfileImage(profilePicture)}}" style="width: 27px;"> <img ng-if="profilePicture == null" src="../images/UserImage.png" style="width: 27px;"> <span class="hidden-lg hidden-sm hidden-md"
 							i18n="{{'common.lto_span_profile'}}"
 						></span>
 					</a></li>
-					<li class="" data-toggle="collapse" data-target=".nav-collapse.in"><a href="" ng-click="logout()"> <span class="glyphicon glyphicon-log-out"></span><span class="hidden-lg hidden-sm hidden-md" i18n="{{'common.lto_span_logOut'}}"></span>
+					<li class="" data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Logout"><a href="" ng-click="logout()"> <span class="glyphicon glyphicon-log-out"></span><span class="hidden-lg hidden-sm hidden-md" i18n="{{'common.lto_span_logOut'}}"></span>
 					</a></li>
 				</ul>
 			</div>
