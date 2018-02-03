@@ -93,10 +93,16 @@
                         <div class="row no-margin row-space checkbox-custom profile-form">
                             <div class="col-xs-12 col-sm-3" ng-repeat="cause in masterCauseList">
                                 <label ng-if="cause.name == 'ALL'">
-                                    <input type="checkbox" ng-model="selectedALLCause" ng-change="checkAllCauses()"> <span class="checkboxText">{{cause.description}}</span>
+                                    <input type="checkbox" 
+                                    ng-change="checkAllCauses()"
+                                    ng-model="cause.active"> 
+                                    <span class="checkboxText">{{cause.description}}</span>
                                 </label>
                                 <label ng-if="cause.name != 'ALL'">
-                                    <input type="checkbox" ng-model="cause.active" ng-change="changeCauseALLStatus()"> <span class="checkboxText">{{cause.description}}</span>
+                                    <input type="checkbox"  
+                                    ng-model="cause.active"
+                                    ng-change="changeCauseALLStatus()" > 
+                                    <span class="checkboxText">{{cause.description}}</span>
                                 </label>
                             </div>
                         </div>
@@ -124,7 +130,7 @@
                         <div class="row no-margin row-space checkbox-custom profile-form">
                             <div class="col-xs-12 col-sm-3" ng-repeat="skill in masterSkills">
                                 <label ng-if="skill.name == 'ALL'">
-                                    <input type="checkbox" ng-model="selectedAll" ng-change="checkAll()"> <span class="checkboxText">{{skill.description}}</span>
+                                    <input type="checkbox" ng-model="skill.status" ng-change="checkAll()"> <span class="checkboxText">{{skill.description}}</span>
                                 </label>
                                 <label ng-if="skill.name != 'ALL'">
                                     <input type="checkbox" ng-model="skill.status" value="skill.name" ng-change="changeJobTypeALLStatus()"> <span class="checkboxText">{{skill.description}}</span>

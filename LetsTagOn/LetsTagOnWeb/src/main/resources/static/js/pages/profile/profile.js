@@ -29,7 +29,7 @@ profileModal.controller("ProfileController", function(
     $scope.showPhoneNumber = true;
     $scope.showUserProfileDetails = true;
     $http({
-        url: "/profile/user/" + userId,
+        url: "/profile/user/info/" + userId,
         dataType: "json",
         method: "GET",
         headers: {

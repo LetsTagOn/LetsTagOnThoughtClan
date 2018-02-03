@@ -37,12 +37,12 @@
 							<div class="container row-space profile-form register-profile-form">
 								<div class="row">
 									<div class="col-xs-12 col-sm-6 register-row">
-										<label for="trade" i18n="{{'common.lto_label_user_firstName'}}"></label><input type="text" name="firstName" class="form-control" id="firstName" placeholder="{{'common.lto_placeholder_firstName' |i18n}}" no-special-char ng-model="customer.firstName" ng-required="true"><span class="glyphicon glyphicon-user"></span><span class="error"
+										<label for="trade" i18n="{{'common.lto_label_user_firstName'}}"></label><input type="text" name="firstName" class="form-control" id="firstName_register" placeholder="{{'common.lto_placeholder_firstName' |i18n}}" no-special-char ng-model="customer.firstName" ng-required="true"><span class="glyphicon glyphicon-user"></span><span class="error"
 											ng-show="submitted && register.firstName.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"
 										></span>
 									</div>
 									<div class="col-xs-12 col-sm-6 register-row">
-										<label for="trade" i18n="{{'common.lto_label_user_lastName'}}"></label><input type="text" name="lastName" class="form-control" id="lastName" placeholder="{{'common.lto_placeholder_lastname'|i18n}}" no-special-char ng-model="customer.lastName" ng-required="true"><span class="glyphicon glyphicon-user"></span><span class="error"
+										<label for="trade" i18n="{{'common.lto_label_user_lastName'}}"></label><input type="text" name="lastName" class="form-control" id="lastName_register" placeholder="{{'common.lto_placeholder_lastname'|i18n}}" no-special-char ng-model="customer.lastName" ng-required="true"><span class="glyphicon glyphicon-user"></span><span class="error"
 											ng-show="submitted && register.lastName.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"
 										></span>
 									</div>
@@ -56,7 +56,7 @@
 								</div>
 								<div class="row">
 									<div class="col-xs-12 col-sm-6 register-row">
-										<label for="trade" i18n="{{'common.lto_label_user_password'}}"></label><input type="password" name="password" class="form-control" id="password" placeholder="{{'common.lto_placeholder_password'|i18n}}" ng-model="customer.password" ng-required="true" ng-minlength="6" ng-maxlength="20"><span class="glyphicon glyphicon-eye-close"></span><span class="error"
+										<label for="trade" i18n="{{'common.lto_label_user_password'}}"></label><input type="password" name="password" class="form-control" id="password_register" placeholder="{{'common.lto_placeholder_password'|i18n}}" ng-model="customer.password" ng-required="true" ng-minlength="6" ng-maxlength="20"><span class="glyphicon glyphicon-eye-close"></span><span class="error"
 											ng-show="submitted && register.password.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"
 										></span><span class="help-block error" ng-show="((register.password.$error.minlength || register.password.$error.maxlength) && register.password.$dirty) ">Password should have atleast 6 characters</span>
 									</div>
