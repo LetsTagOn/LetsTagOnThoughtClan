@@ -347,6 +347,7 @@ opportunity.controller("OpportunityEditController", function(
     $scope.areaFound = true;
     $scope.manualAddress = false;
     $scope.IsVisible = false;
+    $scope.modeSelected = true;
     $scope.ShowAddress = function(value) {
         //If DIV is visible it will be hidden and vice versa.
         $scope.IsVisible = value == "Y";
@@ -358,6 +359,7 @@ opportunity.controller("OpportunityEditController", function(
         document.getElementById("longitude").value = "";
         $scope.manualAddress = true;
         $scope.isVisible = false;
+        $scope.modeSelected = true;
     };
 
     $scope.changeAreaFoundStatus2 = function() {
@@ -366,6 +368,7 @@ opportunity.controller("OpportunityEditController", function(
         document.getElementById("longitude").value = "";
         $scope.manualAddress = false;
         $scope.isVisible = true;
+        $scope.modeSelected = true;
     };
 
     $scope.addJobSectionDisplays = function() {
@@ -571,15 +574,22 @@ opportunity.controller("OpportunityEditController", function(
             address.street = $("#street_number").val();
             address.formattedAddress = null;
         } else {
-            address.formattedAddress = $(
-                "input[name='formattedAddress']"
-            ).val();
+            var fullAddress = $("input[name='formattedAddress']").val();
+            address.formattedAddress = fullAddress;
         }
         event.addressBean = address;
-        try {
-            getLatitudeLongitude(fullAddress);
 
-            setTimeout(function() {
+        // console.log("getting latlong from google api for: ", fullAddress);
+        getLatitudeLongitude(fullAddress);
+
+        setTimeout(function() {
+            if ($("#latitude").val() === "ZERO_RESULTS") {
+                document.getElementById("latitude").value = "";
+                $scope.areaFound = false;
+                $scope.isVisible = false;
+                $("#loading-indicator").hide();
+                $scope.modeSelected = false;
+            } else {
                 event.latLong =
                     $("#latitude")
                         .val()
@@ -620,15 +630,12 @@ opportunity.controller("OpportunityEditController", function(
                             $scope.eventError = false;
                         }, 2000);
                     });
-            }, 3000);
-        } catch (e) {
-            $("#loading-indicator").hide();
-            $scope.areaFound = false;
-        }
+            }
+        }, 3000);
     };
 
     $scope.editProgram = function() {
-        console.info("edit program");
+        // console.info("edit program");
         $("#opportunityCreateModal").modal("hide");
         $("body").removeClass("modal-open");
         $(".modal-backdrop").remove();

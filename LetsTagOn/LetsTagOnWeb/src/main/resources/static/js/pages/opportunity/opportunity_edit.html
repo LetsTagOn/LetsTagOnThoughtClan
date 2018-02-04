@@ -57,9 +57,9 @@
 											<div class="hide" id="latitude"></div>
 											<div class="hide" id="longitude"></div>
 										</div>
-										<div class="col-md-6" ng-hide="areaFound">
-											<label class="cursor lto-google-search-txt" ><a ng-click="changeAreaFoundStatus()" ng-show="!manualAddress">No Relevant Matches Found. Click to Add customised address?</a></label> 
-											<label class="cursor lto-address-txt"><a ng-click="changeAreaFoundStatus2()" ng-show="manualAddress">Search Location using google api</a></label>
+										<div class="col-md-6" ng-hide="areaFound || modeSelected">
+											<label class="cursor lto-google-search-txt" ><a ng-click="changeAreaFoundStatus()">No Relevant Matches Found. Click to Add customised address?</a></label> 
+											<label class="cursor lto-address-txt"><a ng-click="changeAreaFoundStatus2()">Search Location using google api</a></label>
 										</div>
 									</div>
 									<div class="text-center">
