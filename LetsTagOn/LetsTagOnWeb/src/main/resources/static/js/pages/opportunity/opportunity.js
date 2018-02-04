@@ -1080,6 +1080,7 @@ opportunity.controller("ViewOpportunityController", function(
         }
     })
         .success(function(response) {
+            console.log(response.data);
             if (response.error == null) {
                 // console.log(response.data);
                 $scope.oppDetails = response.data;
