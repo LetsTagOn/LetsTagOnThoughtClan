@@ -118,7 +118,7 @@ function initMap(latLng) {
 */
 function getLatitudeLongitude(address) {
     // If adress is not supplied, use default value 'Ferrol, Galicia, Spain'
-    address = address || "Ferrol, Galicia, Spain";
+    address = address;
     console.log("address in getLatLong", address);
     // Initialize the Geocoder
     geocoder = new google.maps.Geocoder();
@@ -141,7 +141,8 @@ function getLatitudeLongitude(address) {
                     console.log(
                         "longitude" + document.getElementById("longitude").value
                     );
-                }
+                    return;
+                } else throw new Error(status);
             }
         );
     }

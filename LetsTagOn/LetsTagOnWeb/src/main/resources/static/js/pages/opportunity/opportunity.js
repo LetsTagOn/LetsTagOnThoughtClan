@@ -345,7 +345,7 @@ opportunity.controller("OpportunityEditController", function(
     $scope.jobSectionDisplay = false;
     $scope.saveJobRole = "create";
     $scope.areaFound = true;
-
+    $scope.manualAddress = false;
     $scope.IsVisible = false;
     $scope.ShowAddress = function(value) {
         //If DIV is visible it will be hidden and vice versa.
@@ -353,9 +353,19 @@ opportunity.controller("OpportunityEditController", function(
     };
 
     $scope.changeAreaFoundStatus = function() {
-        $scope.areaFound = $scope.areaFound ? false : true;
+        $scope.areaFound = false;
         document.getElementById("latitude").value = "";
         document.getElementById("longitude").value = "";
+        $scope.manualAddress = true;
+        $scope.isVisible = false;
+    };
+
+    $scope.changeAreaFoundStatus2 = function() {
+        $scope.areaFound = true;
+        document.getElementById("latitude").value = "";
+        document.getElementById("longitude").value = "";
+        $scope.manualAddress = false;
+        $scope.isVisible = true;
     };
 
     $scope.addJobSectionDisplays = function() {
@@ -559,70 +569,62 @@ opportunity.controller("OpportunityEditController", function(
             address.postalCode = $("#postal_code").val();
             address.state = $("#administrative_area_level_1").val();
             address.street = $("#street_number").val();
-            // address.formattedAddress = $(
-            //     "input[name='formattedAddress']"
-            // ).val();
-            event.addressBean = address;
-            var fullAddress;
-            if ($("input[name='formattedAddress']").val() == "") {
-                fullAddress =
-                    address.street +
-                    "," +
-                    address.city +
-                    "," +
-                    address.postalCode +
-                    "," +
-                    address.state +
-                    "," +
-                    address.country;
-                address.formattedAddress = fullAddress;
-            } else {
-                fullAddress = $("input[name='formattedAddress']").val();
-            }
+            address.formattedAddress = null;
+        } else {
+            address.formattedAddress = $(
+                "input[name='formattedAddress']"
+            ).val();
         }
+        event.addressBean = address;
+        try {
+            getLatitudeLongitude(fullAddress);
 
-        getLatitudeLongitude(fullAddress);
-        setTimeout(function() {
-            event.latLong =
-                $("#latitude")
-                    .val()
-                    .toString() +
-                "," +
-                $("#longitude")
-                    .val()
-                    .toString();
-            $http({
-                url: "/opportunity",
-                dataType: "json",
-                method: "PUT",
-                data: event,
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                cache: false
-            })
-                .success(function(response) {
-                    $("#loading-indicator").hide();
-                    // console.info(response);
-                    $scope.eventActionSuccess = "Changes Successfully done!!";
-                    $scope.eventSuccess = true;
+            setTimeout(function() {
+                event.latLong =
+                    $("#latitude")
+                        .val()
+                        .toString() +
+                    "," +
+                    $("#longitude")
+                        .val()
+                        .toString();
+                $http({
+                    url: "/opportunity",
+                    dataType: "json",
+                    method: "PUT",
+                    data: event,
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    cache: false
                 })
-                .error(function(error) {
-                    $("#loading-indicator").hide();
-                    $scope.eventActionError =
-                        "Something went wrong!!Please refresh page";
-                    $scope.eventError = false;
-                    $scope.areaFound = false;
-                    $("input[name='formattedAddress']").value = "";
-                })
-                .finally(function() {
-                    $("#loading-indicator").hide();
-                    $timeout(function() {
-                        $scope.eventSuccess = false;
+                    .success(function(response) {
+                        $("#loading-indicator").hide();
+                        // console.info(response);
+                        $scope.eventActionSuccess =
+                            "Changes Successfully done!!";
+                        $scope.eventSuccess = true;
+                    })
+                    .error(function(error) {
+                        $("#loading-indicator").hide();
+                        $scope.eventActionError =
+                            "Something went wrong!!Please refresh page";
                         $scope.eventError = false;
-                    }, 2000);
-                });
-        }, 3000);
+                        $scope.areaFound = false;
+                        $("input[name='formattedAddress']").value = "";
+                    })
+                    .finally(function() {
+                        $("#loading-indicator").hide();
+                        $timeout(function() {
+                            $scope.eventSuccess = false;
+                            $scope.eventError = false;
+                        }, 2000);
+                    });
+            }, 3000);
+        } catch (e) {
+            $("#loading-indicator").hide();
+            $scope.areaFound = false;
+        }
     };
 
     $scope.editProgram = function() {
@@ -1080,7 +1082,7 @@ opportunity.controller("ViewOpportunityController", function(
         }
     })
         .success(function(response) {
-            console.log(response.data);
+            // console.log(response.data);
             if (response.error == null) {
                 // console.log(response.data);
                 $scope.oppDetails = response.data;
@@ -1497,4 +1499,5 @@ opportunity.controller("InviteVolunteerController", function(
             });
     };
 });
+
 //======================================================= End =====================================================================
