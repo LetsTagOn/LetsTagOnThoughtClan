@@ -26,7 +26,9 @@
 										</div>
 										<div class="col-md-6">
 											<label for="description">Description (What is the work involved?)</label>
-											<textarea type="text" name="description" ng-maxlength="1000" rows="1" class="form-control" id="description" placeholder="Some words about activity/event" ng-model="event.description"></textarea>
+											<textarea type="text" name="description" ng-maxlength="1000" rows="1" class="form-control" id="description" placeholder="Some words about activity/event" ng-model="event.description"
+											ng-required="true"></textarea>
+											<span class="error" ng-show="submitted && eventForm.eventName.$error.required">Mandatory Field</span> 
 											<span class="help-block error" ng-show="((eventForm.description.$error.maxlength) && eventForm.description.$dirty) ">Maximum 1000 Characters Allowed</span>
 										</div>
 										<div class="col-md-6">
