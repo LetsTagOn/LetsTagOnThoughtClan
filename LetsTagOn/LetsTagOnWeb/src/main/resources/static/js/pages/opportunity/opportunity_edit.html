@@ -8,7 +8,7 @@
 				<div class="col-xs-12 col-sm-12 profile-form lto-cp-exp">
 					<header class="opportunity-header">
 						<div class="">
-							<h2 class="text-center">Edit Activity/Event</h2>
+							<h2 class="text-center">{{event.name}}</h2>
 						</div>
 					</header>
 					<div class="col-xs-12 col-sm-12">
@@ -53,8 +53,8 @@
 											<div class="hide" id="latitude"></div>
 											<div class="hide" id="longitude"></div>
 										</div>
-										<div class="col-md-6" ng-show="IsVisible">
-											<label class="cursor lto-google-search-txt" ng-show="areaFound"><a ng-click="changeAreaFoundStatus()">No Relevant Matches Found Click to Add customised address?</a></label> <label class="cursor lto-address-txt" ng-hide="areaFound"><a ng-click="changeAreaFoundStatus()">Search Location using google api</a></label>
+										<div class="col-md-6" ng-show="!areaFound">
+											<label class="cursor lto-google-search-txt" ng-show="!areaFound"><a ng-click="changeAreaFoundStatus()">No Relevant Matches Found Click to Add customised address?</a></label> <label class="cursor lto-address-txt" ng-hide="areaFound"><a ng-click="changeAreaFoundStatus()">Search Location using google api</a></label>
 										</div>
 									</div>
 									<div class="text-center">

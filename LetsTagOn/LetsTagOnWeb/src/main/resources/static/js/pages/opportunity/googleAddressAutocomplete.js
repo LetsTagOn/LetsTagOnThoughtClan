@@ -1,34 +1,38 @@
 //JS FILE  -  Google address autocomplete and cordinates calc using address and google map display
 var placeSearch, autocomplete;
 var componentForm = {
-    street_number: 'long_name',
+    street_number: "long_name",
     /*  route: 'long_name', */
-    locality: 'long_name',
-    administrative_area_level_1: 'long_name',
-    country: 'long_name',
-    postal_code: 'long_name'
+    locality: "long_name",
+    administrative_area_level_1: "long_name",
+    country: "long_name",
+    postal_code: "long_name"
 };
 
 function initAutocomplete() {
     // Create the autocomplete object, restricting the search to geographical
     // location types.
-    autocomplete = new google.maps.places.Autocomplete(
+    autocomplete = new google.maps.places
+        .Autocomplete(
         /** @type {!HTMLInputElement} */
-        (document.getElementById('autocomplete')), {
-            types: ['geocode']
-        });
+        (document.getElementById("autocomplete")),
+        {
+            types: ["geocode"]
+        }
+    );
 
     // When the user selects an address from the dropdown, populate the address
     // fields in the form.
-    autocomplete.addListener('place_changed', fillInAddress);
+    autocomplete.addListener("place_changed", fillInAddress);
 }
 
 function fillInAddress() {
     // Get the place details from the autocomplete object.
     var place = autocomplete.getPlace();
-    document.getElementsByName("formattedAddress").value = place.formatted_address;
+    document.getElementsByName("formattedAddress").value =
+        place.formatted_address;
     for (var component in componentForm) {
-        document.getElementById(component).value = '';
+        document.getElementById(component).value = "";
         document.getElementById(component).disabled = false;
     }
 
@@ -85,7 +89,7 @@ function initMap(latLng) {
             lng: 150.644
         };
     }
-    var map = new google.maps.Map(document.getElementById('map'), {
+    var map = new google.maps.Map(document.getElementById("map"), {
         zoom: 15,
         center: myLatLng
     });
@@ -93,13 +97,12 @@ function initMap(latLng) {
     var marker = new google.maps.Marker({
         position: myLatLng,
         map: map,
-        title: 'Hello World!'
+        title: "Hello World!"
     });
-
 }
 
 /*function initMap(latLng) {
-	 var myLatLng = {lat: -25.363, lng: 131.044};
+     var myLatLng = {lat: -25.363, lng: 131.044};
 
      var map = new google.maps.Map(document.getElementById('map'), {
        zoom: 4,
@@ -115,20 +118,31 @@ function initMap(latLng) {
 */
 function getLatitudeLongitude(address) {
     // If adress is not supplied, use default value 'Ferrol, Galicia, Spain'
-    address = address || 'Ferrol, Galicia, Spain';
+    address = address || "Ferrol, Galicia, Spain";
+    console.log("address in getLatLong", address);
     // Initialize the Geocoder
     geocoder = new google.maps.Geocoder();
     if (geocoder) {
-        geocoder.geocode({
-            'address': address
-        }, function(results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                document.getElementById("latitude").value = results[0].geometry.location.lat();
-                document.getElementById("longitude").value = results[0].geometry.location.lng();
-                console.log("latitude" + document.getElementById("latitude").value);
-                console.log("longitude" + document.getElementById("longitude").value);
-
+        geocoder.geocode(
+            {
+                address: address
+            },
+            function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    document.getElementById(
+                        "latitude"
+                    ).value = results[0].geometry.location.lat();
+                    document.getElementById(
+                        "longitude"
+                    ).value = results[0].geometry.location.lng();
+                    console.log(
+                        "latitude" + document.getElementById("latitude").value
+                    );
+                    console.log(
+                        "longitude" + document.getElementById("longitude").value
+                    );
+                }
             }
-        });
+        );
     }
 }

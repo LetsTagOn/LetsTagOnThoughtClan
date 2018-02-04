@@ -483,14 +483,14 @@ opportunity.controller("OpportunityEditController", function(
                     $scope.masterJobTypeList[j].id ==
                     $scope.opportunityJobTypes[i].jobTypeBean.id
                 ) {
-                    console.info(
-                        "comparing : " +
-                            $scope.masterJobTypeList[j].name +
-                            " --- > " +
-                            $scope.opportunityJobTypes[i].jobTypeBean.name
-                    );
+                    // console.info(
+                    //     "comparing : " +
+                    //         $scope.masterJobTypeList[j].name +
+                    //         " --- > " +
+                    //         $scope.opportunityJobTypes[i].jobTypeBean.name
+                    // );
                     if ($scope.opportunityJobTypes[i].status) {
-                        console.info("index -- > " + j);
+                        // console.info("index -- > " + j);
                         $scope.masterJobTypeList.splice(j, 1);
                     }
                 }
@@ -543,7 +543,7 @@ opportunity.controller("OpportunityEditController", function(
     };
 
     $scope.saveEditEvent = function() {
-        console.info("click saveEditEvent");
+        // console.info("click saveEditEvent");
         $("#loading-indicator").show();
         var event = new Object();
         event.id = oppID;
@@ -553,15 +553,15 @@ opportunity.controller("OpportunityEditController", function(
         event.dateEnd = new Date($("#eventEndDate").val());
         event.type = "EVENT";
         var address = new Object();
-        if ($scope.IsVisible == true) {
+        if (!$scope.areaFound) {
             address.city = $("#locality").val();
             address.country = $("#country").val();
             address.postalCode = $("#postal_code").val();
             address.state = $("#administrative_area_level_1").val();
             address.street = $("#street_number").val();
-            address.formattedAddress = $(
-                "input[name='formattedAddress']"
-            ).val();
+            // address.formattedAddress = $(
+            //     "input[name='formattedAddress']"
+            // ).val();
             event.addressBean = address;
             var fullAddress;
             if ($("input[name='formattedAddress']").val() == "") {
@@ -579,8 +579,9 @@ opportunity.controller("OpportunityEditController", function(
             } else {
                 fullAddress = $("input[name='formattedAddress']").val();
             }
-            getLatitudeLongitude(fullAddress);
         }
+
+        getLatitudeLongitude(fullAddress);
         setTimeout(function() {
             event.latLong =
                 $("#latitude")
@@ -602,7 +603,7 @@ opportunity.controller("OpportunityEditController", function(
             })
                 .success(function(response) {
                     $("#loading-indicator").hide();
-                    console.info(response);
+                    // console.info(response);
                     $scope.eventActionSuccess = "Changes Successfully done!!";
                     $scope.eventSuccess = true;
                 })
@@ -611,6 +612,8 @@ opportunity.controller("OpportunityEditController", function(
                     $scope.eventActionError =
                         "Something went wrong!!Please refresh page";
                     $scope.eventError = false;
+                    $scope.areaFound = false;
+                    $("input[name='formattedAddress']").value = "";
                 })
                 .finally(function() {
                     $("#loading-indicator").hide();
@@ -680,7 +683,7 @@ opportunity.controller("OpportunityEditController", function(
                     $scope.IsVisible = false;
                 }
                 $scope.masterCauseList = response.data.causeDTO;
-                console.info($scope.masterCauseList);
+                // console.info($scope.masterCauseList);
                 $scope.masterJobTypeList = response.data.jobTypeDTO;
 
                 response.data.opportunityDTO.opportunityCauseXrefs.forEach(
@@ -976,7 +979,7 @@ opportunity.controller("OpportunityProgramEditController", function(
                         $location.path(
                             "/view/opportunity/edit/" + response.data.id
                         );
-                    else console.info("somthing went wrong");
+                    else console.info("something went wrong");
                 })
                 .error(function() {
                     console.info("somthing went wrong");
