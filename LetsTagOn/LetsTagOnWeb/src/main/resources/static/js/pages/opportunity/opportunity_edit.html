@@ -130,17 +130,20 @@
 											</select>
 										</div>
 										<div class="col-md-6 col-xs-12">
-											<label for="programName">Number Of positions </label> <input type="number" name="numberOfPositions" class="form-control" id="numberOfPositions" placeholder="Number Of positions" ng-model="jobType.numberOfPositions" ng-required="true"> <span class="glyphicon glyphicon-user"></span> <span class="error" ng-show="submitted && jobSection.numberOfPositions.$error.required">Mandatory
+											<label for="programName">Number Of positions </label> <input type="number" name="numberOfPositions" class="form-control" id="numberOfPositions" placeholder="Number Of positions" ng-model="jobType.numberOfPositions" ng-required="true" min=1> <span class="glyphicon glyphicon-user" ></span> <span class="error" ng-show="submitted && jobSection.numberOfPositions.$error.required">Mandatory
 												Field</span>
+												<span class="error" ng-show="submitted && jobSection.numberOfPositions.$error.min">Min value should be 1</span>
+
 										</div>
 										<div class="col-md-6 col-xs-12 ">
 											<label for="description">Expected Deliverables</label> <input type="text" name="selectionCriteria" class="form-control" id="selectionCriteria" placeholder="What is your criteria" ng-model="jobType.selectionCriteria" ng-required="true"></input> <span class="glyphicon glyphicon-user"></span> <span class="error" ng-show="submitted && jobSection.selectionCriteria.$error.required">Mandatory
 												Field</span>
 										</div>
 										<div class="col-xs-12 col-sm-6 ">
-										<label for="trade" i18n="{{'common.lto_heading_hours'}}"></label> <input type="text" name="hours" class="form-control" id="hours" placeholder="{{'common.lto_heading_no_hours'|i18n}}" ng-model="jobType.hours" ng-required="true"><span class="error"
+										<label for="trade" i18n="{{'common.lto_heading_hours'}}"></label> <input type="number" name="hours" class="form-control" id="hours" placeholder="{{'common.lto_heading_no_hours'|i18n}}" ng-model="jobType.hours" ng-required="true" min="1"><span class="error"
 											ng-show="submitted && jobSection.hours.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"
-											></span>
+											></span><span class="error" ng-show="submitted && jobSection.hours.$error.min">Min value should be 1</span>
+
 										</div>
 										<div class="col-md-6 col-xs-12 ">
 											<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click="submitted=true">Save Task</button>
