@@ -618,7 +618,7 @@ span.lto-cp-skill-edit-label:hover {
 }
 
 #custom-search-input #lto-search-btn-clear {
-	 height: 40px;
+    height: 40px;
     padding: 0;
     color: #000;
 }
@@ -1812,12 +1812,22 @@ ul.rating {
     height: 80px;
 }
 
-.blog-link > div {
-    height: 100px;
+.lto-blog-container-adj {
+    padding: 0;
 }
 
-.blog-link > div p:nth-of-type(1):hover {
+.blog-link > div {
+    height: 100px;
+    padding-top: 20px;
+}
+
+.blog-link div > p:hover {
+    /*:nth-of-type(1)*/
     text-decoration: underline;
+}
+
+.blog-link > p {
+    margin-top: 10px;
 }
 
 /* -----------------------------------------------------
@@ -1869,4 +1879,3 @@ ul.rating {
     height: auto;
     margin-right: 10px;
 }
-
