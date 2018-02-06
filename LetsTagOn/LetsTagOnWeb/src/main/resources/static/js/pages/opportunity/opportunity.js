@@ -145,7 +145,6 @@ opportunity.controller("UpcomingOpportunityController", function(
     $timeout,
     $filter
 ) {
-    
     $scope.listOpportunity = {};
     $scope.getAllOpportunity = function() {
         $http({
@@ -346,29 +345,29 @@ opportunity.controller("OpportunityEditController", function(
     $scope.saveJobRole = "create";
     $scope.areaFound = true;
     $scope.manualAddress = false;
-    $scope.IsVisible = false;
-    $scope.modeSelected = true;
+    $scope.IsField = false;
+    $scope.modeSelected = false;
     $scope.ShowAddress = function(value) {
         //If DIV is visible it will be hidden and vice versa.
-        $scope.IsVisible = value == "Y";
+        $scope.IsField = value == "Y";
     };
 
-    $scope.changeAreaFoundStatus = function() {
+    $scope.EnterManualAddress = function() {
         $scope.areaFound = false;
         document.getElementById("latitude").value = "";
         document.getElementById("longitude").value = "";
         $scope.manualAddress = true;
-        $scope.isVisible = false;
-        $scope.modeSelected = true;
+        $scope.isField = false;
+        $scope.areaFound = true;
     };
 
-    $scope.changeAreaFoundStatus2 = function() {
+    $scope.GetAddressFromGoogleApi = function() {
         $scope.areaFound = true;
         document.getElementById("latitude").value = "";
         document.getElementById("longitude").value = "";
         $scope.manualAddress = false;
-        $scope.isVisible = true;
-        $scope.modeSelected = true;
+        $scope.isField = true;
+        $scope.areaFound = true;
     };
 
     $scope.addJobSectionDisplays = function() {
@@ -580,24 +579,11 @@ opportunity.controller("OpportunityEditController", function(
         event.addressBean = address;
 
         // console.log("getting latlong from google api for: ", fullAddress);
-        getLatitudeLongitude(fullAddress);
-
-        setTimeout(function() {
-            if ($("#latitude").val() === "ZERO_RESULTS") {
-                document.getElementById("latitude").value = "";
-                $scope.areaFound = false;
-                $scope.isVisible = false;
-                $("#loading-indicator").hide();
-                $scope.modeSelected = false;
-            } else {
-                event.latLong =
-                    $("#latitude")
-                        .val()
-                        .toString() +
-                    "," +
-                    $("#longitude")
-                        .val()
-                        .toString();
+        getLatitudeLongitude(fullAddress)
+            .then(function(latlng) {
+                // console.log("found a match");
+                event.latLong = latlng.lat + "," + latlng.lng;
+                $scope.areaFound = true;
                 $http({
                     url: "/opportunity",
                     dataType: "json",
@@ -630,8 +616,65 @@ opportunity.controller("OpportunityEditController", function(
                             $scope.eventError = false;
                         }, 2000);
                     });
-            }
-        }, 3000);
+            })
+            .catch(function(err) {
+                // console.log("no match found");
+                document.getElementById("latitude").value = "";
+                $scope.areaFound = false;
+                $scope.isField = false;
+                $("#loading-indicator").hide();
+            });
+
+        // setTimeout(function() {
+        //     if ($("#latitude").val() === "ZERO_RESULTS") {
+        //         document.getElementById("latitude").value = "";
+        //         $scope.areaFound = false;
+        //         $scope.isVisible = false;
+        //         $("#loading-indicator").hide();
+        //         $scope.modeSelected = false;
+        //     } else {
+        //         event.latLong =
+        //             $("#latitude")
+        //                 .val()
+        //                 .toString() +
+        //             "," +
+        //             $("#longitude")
+        //                 .val()
+        //                 .toString();
+        //         $http({
+        //             url: "/opportunity",
+        //             dataType: "json",
+        //             method: "PUT",
+        //             data: event,
+        //             headers: {
+        //                 "Content-Type": "application/json"
+        //             },
+        //             cache: false
+        //         })
+        //             .success(function(response) {
+        //                 $("#loading-indicator").hide();
+        //                 // console.info(response);
+        //                 $scope.eventActionSuccess =
+        //                     "Changes Successfully done!!";
+        //                 $scope.eventSuccess = true;
+        //             })
+        //             .error(function(error) {
+        //                 $("#loading-indicator").hide();
+        //                 $scope.eventActionError =
+        //                     "Something went wrong!!Please refresh page";
+        //                 $scope.eventError = false;
+        //                 $scope.areaFound = false;
+        //                 $("input[name='formattedAddress']").value = "";
+        //             })
+        //             .finally(function() {
+        //                 $("#loading-indicator").hide();
+        //                 $timeout(function() {
+        //                     $scope.eventSuccess = false;
+        //                     $scope.eventError = false;
+        //                 }, 2000);
+        //             });
+        //     }
+        // }, 3000);
     };
 
     $scope.editProgram = function() {

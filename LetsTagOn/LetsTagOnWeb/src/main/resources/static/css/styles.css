@@ -1879,3 +1879,17 @@ ul.rating {
     height: auto;
     margin-right: 10px;
 }
+
+/* -----------------------------------------------------
+        Styles for Page Not Found
+--------------------------------------------------------- */
+.not-found {
+    background-color: #f1f1f1;
+    height: 90vh;
+    padding-top: 100px;
+}
+
+.not-found img {
+    display: block;
+    margin: 0 auto;
+}

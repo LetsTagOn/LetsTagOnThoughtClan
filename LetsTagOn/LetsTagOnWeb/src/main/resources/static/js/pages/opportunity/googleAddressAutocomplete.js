@@ -118,34 +118,43 @@ function initMap(latLng) {
 */
 function getLatitudeLongitude(address) {
     // If adress is not supplied, use default value 'Ferrol, Galicia, Spain'
-    address = address;
-    // console.log("address in getLatLong", address);
-    // Initialize the Geocoder
-    geocoder = new google.maps.Geocoder();
-    if (geocoder) {
-        geocoder.geocode(
-            {
-                address: address
-            },
-            function(results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    document.getElementById(
-                        "latitude"
-                    ).value = results[0].geometry.location.lat();
-                    document.getElementById(
-                        "longitude"
-                    ).value = results[0].geometry.location.lng();
-                    console.log(
-                        "latitude" + document.getElementById("latitude").value
-                    );
-                    console.log(
-                        "longitude" + document.getElementById("longitude").value
-                    );
-                } else {
-                    // throw new Error("no matching lat long found");
-                    document.getElementById("latitude").value = status;
+
+    return new Promise(function(resolve, reject) {
+        address = address;
+        // console.log("address in getLatLong", address);
+        // Initialize the Geocoder
+        geocoder = new google.maps.Geocoder();
+        if (geocoder) {
+            geocoder.geocode(
+                {
+                    address: address
+                },
+                function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        var latlng = {
+                            lat: results[0].geometry.location.lat(),
+                            lng: results[0].geometry.location.lng()
+                        };
+                        resolve(latlng);
+                        // document.getElementById(
+                        //     "latitude"
+                        // ).value = results[0].geometry.location.lat();
+                        // document.getElementById(
+                        //     "longitude"
+                        // ).value = results[0].geometry.location.lng();
+                        // console.log(
+                        //     "latitude" + document.getElementById("latitude").value
+                        // );
+                        // console.log(
+                        //     "longitude" + document.getElementById("longitude").value
+                        // );
+                    } else {
+                        reject("no match");
+                        // throw new Error("no matching lat long found");
+                        // document.getElementById("latitude").value = status;
+                    }
                 }
-            }
-        );
-    }
+            );
+        }
+    });
 }

@@ -43,7 +43,7 @@
             								 <input type="radio" ng-model="address.name" value="onfield" ng-click="ShowAddress('Y')" /> On Field
             								 <input type="radio" ng-model="address.name" value="virtual" ng-click="ShowAddress('N')" /> Virtual
         									</label> 
-											<input ng-show="IsVisible" id="autocomplete" placeholder="Enter your address" name="formattedAddress" type="text" class="form-control" ng-model="event.addressBean.formattedAddress" required></input>
+											<input ng-show="IsField" id="autocomplete" placeholder="Enter your address" name="formattedAddress" type="text" class="form-control" ng-model="event.addressBean.formattedAddress" required></input>
 											<span class="error" ng-show="submitted && eventForm.formattedAddress.$error.required">Mandatory
 												Field</span>
 										</div>
@@ -57,9 +57,9 @@
 											<div class="hide" id="latitude"></div>
 											<div class="hide" id="longitude"></div>
 										</div>
-										<div class="col-md-6" ng-hide="areaFound || modeSelected">
-											<label class="cursor lto-google-search-txt" ><a ng-click="changeAreaFoundStatus()">No Relevant Matches Found. Click to Add customised address?</a></label> 
-											<label class="cursor lto-address-txt"><a ng-click="changeAreaFoundStatus2()">Search Location using google api</a></label>
+										<div class="col-md-6" ng-hide="areaFound">
+											<label class="cursor lto-google-search-txt" ><a ng-click="EnterManualAddress()">No Relevant Matches Found. Click to Add customised address?</a></label> 
+											<label class="cursor lto-address-txt"><a ng-click="GetAddressFromGoogleApi()">Search Location using google api</a></label>
 										</div>
 									</div>
 									<div class="text-center">
