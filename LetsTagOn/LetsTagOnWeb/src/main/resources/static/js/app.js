@@ -175,7 +175,10 @@ angular
                 // controller: "blogdatacontroller",
                 // controllerAs: "controller"
             })
-            .otherwise("/");
+            .when("/error", {
+                templateUrl: "./js/pages/common/pageNotFound.html"
+            })
+            .otherwise("/error");
 
         $httpProvider.defaults.headers.common["X-Requested-With"] =
             "XMLHttpRequest";
@@ -218,20 +221,20 @@ angular
             });
         }
     ])
-    .service('searchSvc', ["$rootScope", function($rootScope){
-	
-		$rootScope.searchResults = [];
-		this.saveSearch = function(searchResults) {
-			
-			$rootScope.searchResults = searchResults;
-		}
+    .service("searchSvc", [
+        "$rootScope",
+        function($rootScope) {
+            $rootScope.searchResults = [];
+            this.saveSearch = function(searchResults) {
+                $rootScope.searchResults = searchResults;
+            };
 
-		this.getSearchResults = function() {
-			
-			return $rootScope.searchResults;
-		}
+            this.getSearchResults = function() {
+                return $rootScope.searchResults;
+            };
 
-		this.clearResults = function() {
-			$rootScope.searchResults=[];
-		}
-	}]);
+            this.clearResults = function() {
+                $rootScope.searchResults = [];
+            };
+        }
+    ]);
