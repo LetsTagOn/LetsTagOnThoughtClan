@@ -222,12 +222,16 @@ angular
 	
 		$rootScope.searchResults = [];
 		this.saveSearch = function(searchResults) {
-			console.log('received search results in searchsvc: ', searchResults)
+			
 			$rootScope.searchResults = searchResults;
 		}
 
 		this.getSearchResults = function() {
-			console.log('getting searchResults from searchSvc: ', $rootScope.searchResults);
+			
 			return $rootScope.searchResults;
+		}
+
+		this.clearResults = function() {
+			$rootScope.searchResults=[];
 		}
 	}]);

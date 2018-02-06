@@ -617,6 +617,12 @@ span.lto-cp-skill-edit-label:hover {
     padding: 0;
 }
 
+#custom-search-input #lto-search-btn-clear {
+	 height: 40px;
+    padding: 0;
+    color: #000;
+}
+
 .lto-search-vr-line {
     border-right: 1px solid #aba9a9;
     margin-top: 0;

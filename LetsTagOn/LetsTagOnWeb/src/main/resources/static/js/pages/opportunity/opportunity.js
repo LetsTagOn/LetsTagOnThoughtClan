@@ -145,7 +145,7 @@ opportunity.controller("UpcomingOpportunityController", function(
     $timeout,
     $filter
 ) {
-    console.info("OpportunityController called");
+    
     $scope.listOpportunity = {};
     $scope.getAllOpportunity = function() {
         $http({

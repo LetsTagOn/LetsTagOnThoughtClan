@@ -6,7 +6,11 @@
 			<div class="input-group col-xs-12 col-sm-12 col-md-12  float-left lto-user-search-main-container">
 				<img class="search-usr-icon" src="./images/find_user.png" alt="..."> <input type="text" class=" search-query form-control" ng-model="searchString" id="searchByName" placeholder="{{'common.lto_placeholder_search'|i18n}}" ng-keypress="($event.which === 13)?getResultsPage(1):0" />
 				<button class="btn btn-primary btn--block-centered lto-search-btn" ng-click="getResultsPage(1)" id="searchPgBtnPrimary">
+
 					<span class="no-focus-color" i18n="common.lto_button_text_search"></span>
+				</button>
+				<button id="lto-search-btn-clear" ng-click="ClearResults()"> 
+					<span i18n="common.lto_button_text_clear_search"></span>
 				</button>
 			</div>
 		</div>

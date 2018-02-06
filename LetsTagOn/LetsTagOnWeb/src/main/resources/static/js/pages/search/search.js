@@ -13,6 +13,7 @@ searchModule
         $rootScope,
         $location,
         $timeout,
+        $route,
         searchSvc
     ) {
         $scope.searchList = [];
@@ -56,6 +57,11 @@ searchModule
                 $scope.pageChanged(1);
             });
 
+        $scope.ClearResults = function() {
+        	 searchSvc.clearResults();
+        	
+        	 $route.reload();
+        }
         //  init method called on page load to load master data
         $scope.getMasterData = function() {
             var keyword = $scope.getSearchKeyWordFromUrl();
@@ -285,7 +291,7 @@ searchModule
             // be in a service
             //get results from DB only if there is no previous search result or there is the default search result from initial page load
             if ($scope.results.length === 0 || $scope.results.length===$scope.resultsPerPage) {
-            	console.log('getting results from DB');
+            	
             	$http
                 .get($scope.generateSolrSearchQuery(pageNumber))
                 .then(function(result) {
