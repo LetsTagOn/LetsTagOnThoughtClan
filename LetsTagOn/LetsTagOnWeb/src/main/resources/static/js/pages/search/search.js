@@ -1,5 +1,7 @@
 var searchModule = angular.module("search", []);
 
+
+
 /*
  * Controller for Search Functionality
  * 
@@ -10,7 +12,8 @@ searchModule
         $scope,
         $rootScope,
         $location,
-        $timeout
+        $timeout,
+        searchSvc
     ) {
         $scope.searchList = [];
         $scope.masterCauseList = [];
@@ -20,7 +23,7 @@ searchModule
         $scope.isSearchBoxVisible = true;
         $scope.showOppDateRange = false;
         $rootScope.dateRange = false;
-        $scope.results = [];
+        $scope.results = searchSvc.getSearchResults();
         $scope.totalResults = -1; // Sourabh: made -1 from 0 to fix search issue. Code is checking if totalResults = 0
         // Function to set the maximum resilt size
         $scope.getResultsPerPage = function() {
@@ -280,11 +283,15 @@ searchModule
         $scope.getResultsPage = function(pageNumber) {
             // this is just an example, in reality this stuff should
             // be in a service
-            $http
+            //get results from DB only if there is no previous search result or there is the default search result from initial page load
+            if ($scope.results.length === 0 || $scope.results.length===$scope.resultsPerPage) {
+            	console.log('getting results from DB');
+            	$http
                 .get($scope.generateSolrSearchQuery(pageNumber))
                 .then(function(result) {
                     $scope.results = [];
                     $scope.results = result.data.response.docs;
+                    searchSvc.saveSearch($scope.results);
                     if (result.data.response.numFound > 0)
                         // Sourabh: added this code to set searchresults
 
@@ -300,6 +307,8 @@ searchModule
                         $scope.showConnectionStatus($scope.results);
                     }
                 });
+            }
+            
         };
         
         $scope.getBannerImage = function(bannerImage) {
