@@ -345,11 +345,21 @@ opportunity.controller("OpportunityEditController", function(
     $scope.saveJobRole = "create";
     $scope.areaFound = true;
     $scope.manualAddress = false;
-    $scope.IsField = false;
+    $scope.isField = true;
     $scope.modeSelected = false;
+    $scope.address = new Object();
+
     $scope.ShowAddress = function(value) {
         //If DIV is visible it will be hidden and vice versa.
-        $scope.IsField = value == "Y";
+        $scope.isField = value == "Y";
+
+        $scope.isField
+            ? ($scope.address = {
+                  name: "onfield"
+              })
+            : ($scope.address = {
+                  name: "virtual"
+              });
     };
 
     $scope.EnterManualAddress = function() {
@@ -358,7 +368,7 @@ opportunity.controller("OpportunityEditController", function(
         document.getElementById("longitude").value = "";
         $scope.manualAddress = true;
         $scope.isField = false;
-        $scope.areaFound = true;
+        // $scope.areaFound = true;
     };
 
     $scope.GetAddressFromGoogleApi = function() {
@@ -367,7 +377,6 @@ opportunity.controller("OpportunityEditController", function(
         document.getElementById("longitude").value = "";
         $scope.manualAddress = false;
         $scope.isField = true;
-        $scope.areaFound = true;
     };
 
     $scope.addJobSectionDisplays = function() {
@@ -565,65 +574,44 @@ opportunity.controller("OpportunityEditController", function(
         event.dateEnd = new Date($("#eventEndDate").val());
         event.type = "EVENT";
         var address = new Object();
-        if (!$scope.areaFound) {
-            address.city = $("#locality").val();
-            address.country = $("#country").val();
-            address.postalCode = $("#postal_code").val();
-            address.state = $("#administrative_area_level_1").val();
-            address.street = $("#street_number").val();
-            address.formattedAddress = null;
-        } else {
-            var fullAddress = $("input[name='formattedAddress']").val();
-            address.formattedAddress = fullAddress;
+        if ($scope.isField || $scope.manualAddress) {
+            if ($scope.manualAddress) {
+                address.city = $("#locality").val();
+                address.country = $("#country").val();
+                address.postalCode = $("#postal_code").val();
+                address.state = $("#administrative_area_level_1").val();
+                address.street = $("#street_number").val();
+                address.formattedAddress = null;
+            } else {
+                var fullAddress = $("input[name='formattedAddress']").val();
+                address.formattedAddress = fullAddress;
+            }
         }
+
         event.addressBean = address;
 
         // console.log("getting latlong from google api for: ", fullAddress);
-        getLatitudeLongitude(fullAddress)
-            .then(function(latlng) {
-                // console.log("found a match");
-                event.latLong = latlng.lat + "," + latlng.lng;
-                $scope.areaFound = true;
-                $http({
-                    url: "/opportunity",
-                    dataType: "json",
-                    method: "PUT",
-                    data: event,
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    cache: false
+        $scope.isField &&
+            getLatitudeLongitude(fullAddress)
+                .then(function(latlng) {
+                    // console.log("found a match");
+                    event.latLong = latlng.lat + "," + latlng.lng;
+                    $scope.areaFound = true;
+                    console.log("saveEdit isField: ", $scope.isField);
+                    console.log("saveEdit areaFound: ", $scope.areaFound);
+                    $scope.saveEventInDB(event);
                 })
-                    .success(function(response) {
-                        $("#loading-indicator").hide();
-                        // console.info(response);
-                        $scope.eventActionSuccess =
-                            "Changes Successfully done!!";
-                        $scope.eventSuccess = true;
-                    })
-                    .error(function(error) {
-                        $("#loading-indicator").hide();
-                        $scope.eventActionError =
-                            "Something went wrong!!Please refresh page";
-                        $scope.eventError = false;
-                        $scope.areaFound = false;
-                        $("input[name='formattedAddress']").value = "";
-                    })
-                    .finally(function() {
-                        $("#loading-indicator").hide();
-                        $timeout(function() {
-                            $scope.eventSuccess = false;
-                            $scope.eventError = false;
-                        }, 2000);
-                    });
-            })
-            .catch(function(err) {
-                // console.log("no match found");
-                document.getElementById("latitude").value = "";
-                $scope.areaFound = false;
-                $scope.isField = false;
-                $("#loading-indicator").hide();
-            });
+                .catch(function(err) {
+                    // console.log("no match found");
+                    document.getElementById("latitude").value = "";
+                    $scope.areaFound = false;
+                    // $scope.isField = false;
+                    $("#loading-indicator").hide();
+                    console.log("saveEdit isField: ", $scope.isField);
+                    console.log("saveEdit areaFound: ", $scope.areaFound);
+                });
+
+        !$scope.isField && $scope.saveEventInDB(event);
 
         // setTimeout(function() {
         //     if ($("#latitude").val() === "ZERO_RESULTS") {
@@ -677,6 +665,40 @@ opportunity.controller("OpportunityEditController", function(
         // }, 3000);
     };
 
+    $scope.saveEventInDB = function(event) {
+        $http({
+            url: "/opportunity",
+            dataType: "json",
+            method: "PUT",
+            data: event,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            cache: false
+        })
+            .success(function(response) {
+                $("#loading-indicator").hide();
+                // console.info(response);
+                $scope.eventActionSuccess = "Changes Successfully done!!";
+                $scope.eventSuccess = true;
+            })
+            .error(function(error) {
+                $("#loading-indicator").hide();
+                $scope.eventActionError =
+                    "Something went wrong!!Please refresh page";
+                $scope.eventError = false;
+                $scope.areaFound = false;
+                $("input[name='formattedAddress']").value = "";
+            })
+            .finally(function() {
+                $("#loading-indicator").hide();
+                $timeout(function() {
+                    $scope.eventSuccess = false;
+                    $scope.eventError = false;
+                }, 2000);
+            });
+    };
+
     $scope.editProgram = function() {
         // console.info("edit program");
         $("#opportunityCreateModal").modal("hide");
@@ -687,7 +709,6 @@ opportunity.controller("OpportunityEditController", function(
         $scope.masterCauseList = [];
         $scope.userCauses = [];
         $scope.jobType = {};
-        $scope.IsVisible = false;
 
         // ======================================causes====================================================
 
@@ -705,11 +726,11 @@ opportunity.controller("OpportunityEditController", function(
                 $scope.event.street = $scope.event.addressBean.street;
                 $scope.event.dateStart = $filter("date")(
                     $scope.event.dateStart,
-                    "yyyy-MM-dd HH:mm:ss"
+                    "yyyy-MM-dd"
                 );
                 $scope.event.dateEnd = $filter("date")(
                     $scope.event.dateEnd,
-                    "yyyy-MM-dd HH:mm:ss"
+                    "yyyy-MM-dd"
                 );
                 $scope.event.addressBean.postalCode = parseInt(
                     $scope.event.addressBean.postalCode
@@ -722,7 +743,7 @@ opportunity.controller("OpportunityEditController", function(
                     $scope.address = {
                         name: "onfield"
                     };
-                    $scope.IsVisible = true;
+                    $scope.isField = true;
                 }
                 if (
                     $scope.event.addressBean.country == null &&
@@ -732,7 +753,7 @@ opportunity.controller("OpportunityEditController", function(
                     $scope.address = {
                         name: "virtual"
                     };
-                    $scope.IsVisible = false;
+                    $scope.isField = false;
                 }
                 $scope.masterCauseList = response.data.causeDTO;
                 // console.info($scope.masterCauseList);
@@ -751,6 +772,8 @@ opportunity.controller("OpportunityEditController", function(
                         $scope.removeJobFromMasterJobType();
                     }
                 );
+                console.log("inital load isField: ", $scope.isField);
+                console.log("initial load areaFound: ", $scope.areaFound);
             })
             .error(function(error) {});
     };

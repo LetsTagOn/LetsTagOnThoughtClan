@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="./css/vendor/ng-img-crop.css" />
 <link rel="stylesheet" href="./css/vendor/autocomplete.css" />
 <!-- Custom styles for this template -->
+
 <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
 
 <link href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic" rel="stylesheet">
@@ -32,6 +33,7 @@
 }
 </style>
 <!-- Placed at the end of the document so the pages load faster -->
+<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBE1dO3LakO7hlALLPmkxwbiHbDmYZzKWQ&libraries=places" async defer></script>
 <script type="text/javascript">
@@ -53,6 +55,9 @@
 					<li ng-controller="aboutcontroller"><a class="cursor autoscroll" ng-click="getAboutUsPage()">About us</a></li>
 					<li ng-controller="contactuscontroller"><a class="cursor" ng-click="getContactUsPage()">Contact us</a></li>
 					<li ><a class="cursor" ng-click="redirect('/blog')">Get Inspired</a></li>
+					<li><a href="https://www.facebook.com/letstagon/"><i class="fab fa-facebook-f"></i></a></li>
+					<li><a href="https://www.linkedin.com/company/letstagon/"><i class="fab fa-linkedin-in"></i></a></li>
+					<li><a href="https://www.instagram.com/letstagon/"><i class="fab fa-instagram"></i></a></li>
 					<li ng-controller="BootstrapModalController as modal"><a class = "cursor" data-target="#myTermsofUse" data-toggle="modal">Terms of use</a></li>
 					<li ng-controller="BootstrapModalController as modal"><a class = "cursor" data-target="#myPolicy" data-toggle="modal">Privacy policy</a></li>
 				</ul>
