@@ -1,5 +1,8 @@
 package com.letstagon.web.controller.rest;
 
+import java.util.Random;
+import java.util.UUID;
+
 import javax.persistence.NonUniqueResultException;
 
 import org.slf4j.Logger;
@@ -10,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.letstagon.dao.model.User;
+import com.letstagon.dao.repository.UserRepository;
 import com.letstagon.facade.UserFacade;
 import com.letstagon.facade.dto.AjaxErrorDTO;
 import com.letstagon.facade.dto.AjaxResponseDTO;
@@ -32,6 +37,10 @@ public class RegistrationRestController {
 	@Autowired
 	private EmailFacade emailFacade;
 	
+	/** The user repository. */
+	@Autowired
+	private UserRepository userRepository;
+	
 	/** The Constant LOG. */
 	private static final Logger LOG = LoggerFactory.getLogger(RegistrationRestController.class);
 
@@ -48,10 +57,12 @@ public class RegistrationRestController {
 				+ user.getEmailAddress());
 		AjaxResponseDTO responseDTO = new AjaxResponseDTO();
 		try {
+			user.setAccountVerified(null);
+			user.setToken(this.getToken());
 			UserDTO response = userFacade.create(user);
 			responseDTO.setData(response);
 			// to send email to user after registration
-			emailFacade.sendLTONotification(response.getName(), response.getEmailAddress());
+			emailFacade.sendLTONotificationEmailVerfication(response.getName(), response.getEmailAddress(), response.getToken());
 			LOG.info("Registration Email sent successfully to the user with email: " + user.getEmailAddress());
 
 			LOG.info("Registartion process completed for a customer name:" + user.getName() + " and with email:"
@@ -68,6 +79,61 @@ public class RegistrationRestController {
 
 	}
 	
+	/**
+	 * Register customer verification.
+	 *
+	 * @param user the user
+	 * @return the ajax response DTO
+	 * @throws Exception the exception
+	 */
+	@RequestMapping(value = "/register/verifyOtp", method = RequestMethod.POST)
+	public AjaxResponseDTO registerCustomerVerification(@RequestBody UserDTO user) throws Exception {
+		LOG.info("User Account Activation for" + user.getName());
+		AjaxResponseDTO responseDTO = new AjaxResponseDTO();
+		User userVerify = userRepository.findOneByUserName(user.getUserName());
+		try {
+			if(user.getToken().equals(userVerify.getToken())){
+				userVerify.setAccountVerified("1");
+				userVerify.setToken("");
+				userRepository.save(userVerify);
+				// to send email to user after registration
+				emailFacade.sendLTONotification(userVerify.getName(), userVerify.getEmailAddress());
+				LOG.info("Registration Email sent successfully to the user with email: " + user.getEmailAddress());
+			
+				responseDTO.setData(ControllerConstants.StatusCodes.SUCCESS);
+			}
+			else{
+				AjaxErrorDTO errorDTO = new AjaxErrorDTO();
+				errorDTO.setErrorCode(ControllerConstants.ErrorCodes.BAD_REQUEST);
+				errorDTO.setErrorMessage(ControllerConstants.ErrorMessages.INVALID_OTP);
+				responseDTO.setError(errorDTO);
+			}
+				
+		} catch (Exception nue) {
+			LOG.info("INVALID" + user.getUserName());
+			AjaxErrorDTO errorDTO = new AjaxErrorDTO();
+			errorDTO.setErrorCode(ControllerConstants.ErrorCodes.BAD_REQUEST);
+			errorDTO.setErrorMessage(ControllerConstants.ErrorMessages.INVALID_OTP);
+			responseDTO.setError(errorDTO);
+		}
+
+		return responseDTO;
+
+	}
+	
+	private String getToken() {
+		// TODO Auto-generated method stub
+		String numbers = "0123456789";
+		Random rndm_method = new Random();
+        String OTP = "";
+        for (int i = 0; i < 4; i++)
+        {
+        	OTP = OTP+numbers.charAt(rndm_method.nextInt(numbers.length()));
+ 
+        }
+        return OTP;
+	}
+
 	/**
 	 * Customer contact message mail service.
 	 *

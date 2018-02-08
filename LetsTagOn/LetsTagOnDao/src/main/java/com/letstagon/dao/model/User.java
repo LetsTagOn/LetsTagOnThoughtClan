@@ -99,8 +99,11 @@ public class User implements Serializable {
 	private List<VolunteerPref> volunteerPrefs;
 	
 	/** The account verified. */
-	private boolean accountVerified;
+	private String accountVerified;
 	
+	/** The otp for verification. */
+	private String token;
+
 	/** The reset password expiry. */
 	private Date resetPasswordExpiry;
 	
@@ -469,7 +472,7 @@ public class User implements Serializable {
 	 *
 	 * @return the account verified
 	 */
-	public Boolean getAccountVerified() {
+	public String getAccountVerified() {
 		return accountVerified;
 	}
 
@@ -478,8 +481,28 @@ public class User implements Serializable {
 	 *
 	 * @param accountVerified the new account verified
 	 */
-	public void setAccountVerified(Boolean accountVerified) {
+	public void setAccountVerified(String accountVerified) {
 		this.accountVerified = accountVerified;
+	}
+	
+
+	/**
+	 * Gets the otp for verification.
+	 *
+	 * @returns the otp
+	 */
+	public String getToken() {
+		return token;
+	}
+
+
+	/**
+	 * Sets the otp for verification.
+	 *
+	 * @param token the new otp token
+	 */
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	/**

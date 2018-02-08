@@ -23,6 +23,14 @@ public interface EmailService {
 	public void sendLTONotification(String name, String email);
 	
 	/**
+	 * Send LTO notification.
+	 *
+	 * @param name the name
+	 * @param email the email
+	 */
+	public void sendLTONotificationEmailVerfication(String name, String email, String token);
+	
+	/**
 	 * Send Contact Us mail notification.
 	 *
 	 * @param name the name

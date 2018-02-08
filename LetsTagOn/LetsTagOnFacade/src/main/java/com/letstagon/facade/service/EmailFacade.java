@@ -21,6 +21,16 @@ public interface EmailFacade {
 	public void sendLTONotification(String name, String email) throws Exception;
 	
 	/**
+	 * Send LTO notification.
+	 *
+	 * @param name the name
+	 * @param email the email
+	 * @param token the OTP
+	 * @throws Exception the exception
+	 */
+	public void sendLTONotificationEmailVerfication(String name, String email, String token) throws Exception;
+	
+	/**
 	 * Send Contact Us notification.
 	 *
 	 * @param name the name

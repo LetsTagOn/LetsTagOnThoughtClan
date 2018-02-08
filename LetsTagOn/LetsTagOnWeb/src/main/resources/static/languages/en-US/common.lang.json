@@ -4,6 +4,8 @@
   "opportunity_By_date": "Include Past events in results?",
   "opportunity_by_date_range":"Search By Date Range",
   "lto_heading_changePassword" : "Change Password",
+  "lto_heading_otp_heading" : "Account Acctivation",
+  "lto_heading_otp" : "Enter OTP",
   "lto_heading_sessionExpire" : "Your Session has been expired and you have been logged out",
   "lto_heading_infoEvent" : "Information about the event",
   "lto_heading_error" : "Error",

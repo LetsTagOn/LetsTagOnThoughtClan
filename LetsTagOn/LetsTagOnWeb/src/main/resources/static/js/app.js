@@ -131,7 +131,11 @@ angular
                     templateUrl: './js/pages/About Us/about_us.html',
                     controller: 'aboutcontroller',
                     controllerAs: 'controller'
-                }) .when('/contact us',{
+                })	.when('/verifyToken',{
+                	templateUrl: './otp.html',
+                	controller: 'MainController',
+                	controllerAs: 'controller'
+                })	.when('/contact us',{
                 	templateUrl: './js/pages/Contact Us/contact_us.html',
                 	controller: 'contactuscontroller',
                 	controllerAs: 'controller'

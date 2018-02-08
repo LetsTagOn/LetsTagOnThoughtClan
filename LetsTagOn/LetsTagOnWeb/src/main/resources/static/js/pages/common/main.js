@@ -11,7 +11,7 @@ letsTagOn.controller('MainController', function($rootScope, $http, $location, $r
     var arr = url.split("#");
     $rootScope.baseUrl = arr[0];
 
-    $rootScope.unrestrictedUrls = ["/resetPassword", "/search", ];
+    $rootScope.unrestrictedUrls = ["/resetPassword", "/search", "/verifyToken" ];
 
     var authenticate = function(callback) {
         $http.get('user').success(function(data) {

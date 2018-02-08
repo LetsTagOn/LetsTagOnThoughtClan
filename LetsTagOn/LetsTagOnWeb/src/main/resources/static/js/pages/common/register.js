@@ -6,6 +6,7 @@ letsTagOn.controller('RegisterController', function($http, $scope, $rootScope, $
     //User Registration
     $scope.customer = {};
     $scope.flag	=	0;
+    $scope.user = {};
 
     //Common on registartion and complete profile step_1
     $('#myTermsofUse').on('hidden.bs.modal', function() {
@@ -61,6 +62,51 @@ letsTagOn.controller('RegisterController', function($http, $scope, $rootScope, $
         $(this).removeClass("focus-effect-input");
         $(this).next().removeClass("focus-effect");
     });
+    $scope.otpValidation = function(submitted) {
+        $('#loading-indicator').show();
+        var url = window.location.href.split("?name=");
+        var userName = url[1];
+        $scope.user.userName = userName;
+        $scope.user.token = $scope.user.token;
+        $http({
+            url: 'register/verifyOtp',
+            dataType: 'json',
+            method: 'POST',
+            data: $scope.user,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).success(function(response) {
+            $('#loading-indicator').hide();
+            if (response.error == null) {
+                $scope.user = '';
+                $scope.redirect("/");
+                $rootScope.successMessageText1 = "Account Verified successfully.";
+                $rootScope.successMessageText2 = "Kindly login with the registered emailId and password.";
+                $rootScope.toggleSuccessModal();
+                $('.registration-success-modal-dialog').css({
+                    top: "200px",
+                });
+            } else {
+                $scope.showErrorModal = false;
+                $rootScope.authenticationError = response.error.errorMessage;
+                $rootScope.toggleErrorModal();
+                $('.registration-error-modal-dialog').css({
+                    top: "200px"
+                });
+                $("#modal-error").addClass("registration-error-modal");
+            }
+        }).error(function(error) {
+            $('#loading-indicator').hide();
+            $scope.showErrorModal = false;
+            $rootScope.authenticationError = response.error.errorMessage;
+            $rootScope.toggleErrorModal();
+            $('.registration-error-modal-dialog').css({
+                top: "200px"
+            });
+            $("#modal-error").addClass("registration-error-modal");
+        });
+    };
     //save call on registration
     $scope.registerForm = function(submitted) {
         $scope.customer.name = $scope.customer.firstName + " " + $scope.customer.lastName;

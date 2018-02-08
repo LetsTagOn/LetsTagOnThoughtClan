@@ -51,6 +51,16 @@ public class TemplateController {
 	}
 	
 	/**
+	 * Reset password.
+	 *
+	 * @return the string
+	 */
+	@RequestMapping("/verifyToken")
+	public String verifyToken() {
+		return UrlConstants.REDIRECT_URL + "otp.html";
+	}
+	
+	/**
 	 * User.
 	 *
 	 * @param user the user

@@ -1,0 +1,24 @@
+<html>
+	<body>
+		<h3>Dear ${name},</h3>
+		<h3>
+			Congratulations! You are now a member of LetsTagOn
+		</h3>
+		<p>
+			Letstagon is a platform that connects volunteers and enables opportunity creators and volunteers to interact on the volunteering opportunity matching mutual interest.
+		</p>
+		<p>
+		Your one time password(OTP) is : ${token} 
+		<p>
+			${regMessage}
+		</p>
+		<p>
+			${appUrl}/#/verifyToken?name=${name}
+		</p>
+		<p>
+			Warm Regards,<br>
+			LetsTagOn
+		</p>
+	</body>
+
+</html>
