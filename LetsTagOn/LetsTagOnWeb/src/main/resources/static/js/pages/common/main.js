@@ -36,6 +36,15 @@ letsTagOn.controller('MainController', function($rootScope, $http, $location, $r
                 for (i in $rootScope.unrestrictedUrls) {
                     var url = $rootScope.unrestrictedUrls[i];
                     if ($location.absUrl().indexOf(url) >= 0) {
+                    	if ($location.absUrl().indexOf("/verify") >=0 || $location.absUrl().indexOf("/reset") >=0){
+                    		if($rootScope.$$listenerCount.$locationChangeStart == 1){
+                        	    $rootScope.$$listenerCount.$locationChangeStart = 2;
+                        		$route.reload();
+                        	}
+                    		else{
+                    			$rootScope.$$listenerCount.$locationChangeStart = 1;
+                    		}
+                    	}
                         allowed = true;
                         break;
                     }
@@ -44,7 +53,6 @@ letsTagOn.controller('MainController', function($rootScope, $http, $location, $r
                 if (!allowed)
                     $location.path("/welcome");
             }
-            callback && callback();
         }).error(function() {
             $rootScope.authenticated = false;
             sessionStorage.authenticated = false;
