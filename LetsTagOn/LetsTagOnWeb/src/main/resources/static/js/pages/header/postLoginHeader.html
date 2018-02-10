@@ -20,7 +20,7 @@
 					<!--  Loding unread messages-->
 					<li ng-controller="LtoMessagesController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getUnreadMessages()">
 						<!-- Section one --> 
-						<a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Messages"> <span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length > 0"></span> <span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length==0" ng-click="redirect('/view/myMessages')" ></span> <span class="hidden-lg hidden-sm hidden-md">Messages</span>
+						<a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Messages"> <span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length > 0" ng-click="redirect('/view/myMessages')"></span> <span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length==0" ng-click="redirect('/view/myMessages')" ></span> <span class="hidden-lg hidden-sm hidden-md">Messages</span>
 					</a> <!-- Section two -->
 						<ul ng-hide="unreadMessagelist.length==0" class="dropdown-menu lto-pending-notification-user-dropdownList lto-pending-message-user-dropdownList lto-notification-dropdown-header hidden-xs" role="menu">
 							<div class="lto-pending-section-header">
@@ -51,9 +51,12 @@
 					<!-- End of message section -->
 					<li class="hidden-lg hidden-sm hidden-md" data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Search User"><a href=""> <span class="glyphicon glyphicon-search"></span><span ng-click="redirect('/search/user/')" i18n="{{'common.lto_button_text_search'}}"></span>
 					</a></li>
-					<li ng-controller="UserNotificationController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getAllUnreadNotifications()"><a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Notifications"> <span class="lto-sec-nav glyphicon glyphicon-flag" ng-if="unreadNotificationList.length > 0"></span> <span class="lto-sec-nav glyphicon glyphicon-flag"
+					<li ng-controller="UserNotificationController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getAllUnreadNotifications()"><a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Notifications"> 
+						<span class="lto-sec-nav glyphicon glyphicon-flag" ng-if="unreadNotificationList.length > 0" ng-click="viewAllNotificationOfUser()"></span> 
+						<span class="lto-sec-nav glyphicon glyphicon-flag"
 							ng-if="unreadNotificationList.length==0" ng-click="viewAllNotificationOfUser()"
-						></span> <span class="hidden-lg hidden-sm hidden-md" i18n="{{'common.lto_heading_notification'}}"></span>
+						></span> 
+						<span class="hidden-lg hidden-sm hidden-md" i18n="{{'common.lto_heading_notification'}}"></span>
 					</a>
 						<ul ng-hide="unreadNotificationList.length==0" class="dropdown-menu lto-pending-notification-user-dropdownList lto-notification-dropdown-header hidden-xs" role="menu" >
 							<div class="lto-pending-section-header">
@@ -88,8 +91,8 @@
 						</li>
 					   <li class="dropdown" data-toggle="collapse" data-target=".nav-collapse.in" ng-controller="NotificationsController">
 						<a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Connections">
-						 <span class="glyphicon glyphicon-user"></span>
-						 <span class="cursor hidden-lg hidden-sm hidden-md" ng-click="redirect('/view/connection/user/'+userId)" i18n="{{'common.lto_link_connections'}}"></span>
+						 <span class="glyphicon glyphicon-user" ng-click="redirect('/view/connection/user/'+userId)"></span>
+						 <span class="cursor hidden-lg hidden-sm hidden-md"  i18n="{{'common.lto_link_connections'}}"></span>
 						</a>
 						<ul class="dropdown-menu lto-pending-connection-user-dropdownList lto-connection-dropdown-header hidden-xs" role="menu" ng-init="getPendingConnections()">
 							<div class="lto-pending-section-header">
