@@ -138,7 +138,7 @@ public class OpportunityApplicationSentEventListener extends BaseNotificationEve
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
 				message.setTo(event.getParty().getUserBean().getEmailAddress());
 				message.setFrom("no-reply@letstagon.com");
-				message.setSubject(CommonConstants.EMAIL_SUBJECT);
+				message.setSubject(CommonConstants.EMAIL_SUBJECT + " - " +event.getOpportunity().getName());
 				message.setSentDate(new Date());
 				Map model = new HashMap();
 				model.put("regMessage", CommonConstants.APPLICATION_SENT_EVENT_MESSAGE);

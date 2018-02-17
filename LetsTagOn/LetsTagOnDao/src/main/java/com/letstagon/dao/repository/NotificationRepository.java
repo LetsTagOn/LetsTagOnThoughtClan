@@ -56,6 +56,6 @@ public interface NotificationRepository extends PagingAndSortingRepository<Notif
 	 */
 	@Transactional
 	@Modifying(clearAutomatically = true)
-	@Query("update Notification notification set notification.isRead =:isRead where notification.partyBean=:partyBean")
-	public void markAllNotificationAsReadForUser (@Param("partyBean") Party partyBean,  @Param("isRead") Boolean isRead);
+	@Query("update Notification notification set notification.isRead =:isRead, notification.status =:status where notification.partyBean=:partyBean")
+	public void markAllNotificationAsReadForUser (@Param("partyBean") Party partyBean,  @Param("isRead") Boolean isRead, @Param("status") Boolean status);
 }

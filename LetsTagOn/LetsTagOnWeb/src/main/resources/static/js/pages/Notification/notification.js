@@ -80,14 +80,15 @@ notification.controller('UserNotificationController', function($http, $scope, $r
                             if (notification.id == response.data.id) {
                                 var index = $scope.unreadNotificationList.indexOf(notification);
                                 if (index > -1) {
-                                    $scope.notificationLength = $scope.notificationLength - 1;
+                                	$scope.unreadNotificationList.splice(index, 1);
+                                	$("#notification" + response.data.id).addClass("ng-hide");
+                                	$scope.notificationLength = $scope.unreadNotificationList.length - 1;
                                     if ($scope.notificationLength == 0) {
                                         $("#notificationLength").hide();
                                     }
                                 }
                             }
                         });
-                        $("#notification" + response.data.id).addClass("lto-pending-notification-drop-row-read");
                     }
                 }).error(function(error) {
                     console.log("error while getting profile details of user with id:" + $rootScope.userId);

@@ -58,6 +58,7 @@ public class NotificationServiceImpl implements NotificationService {
 		// TODO Auto-generated method stub
 		Notification notification = notificationRepository.findOne(notificationID);
 		notification.setIsRead(true);
+		notification.setStatus(false);
 		return this.notificationRepository.save(notification);
 	}
 
@@ -78,7 +79,7 @@ public class NotificationServiceImpl implements NotificationService {
 	@Override
 	public void markAllNotificationAsReadForUser(Party partyBean, Boolean isRead) {
 		
-	 notificationRepository.markAllNotificationAsReadForUser(partyBean, isRead);
+	 notificationRepository.markAllNotificationAsReadForUser(partyBean, isRead, false);
 
 	}
 
@@ -119,7 +120,7 @@ public class NotificationServiceImpl implements NotificationService {
 		if(party == null){
 			throw new InvalidPreferenceException("Required party details not found");
 		}
-		notificationRepository.markAllNotificationAsReadForUser(party, true);
+		notificationRepository.markAllNotificationAsReadForUser(party, true, false);
 		
 	}
 

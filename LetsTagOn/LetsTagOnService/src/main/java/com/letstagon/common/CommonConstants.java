@@ -34,7 +34,7 @@ public class CommonConstants {
 	public static final String FEEDBACK_EVENT_MESSAGE = "You have been given feedback on the resent event you attended. Please Login at LetsTagOn portal to view more.";
 	
 	/** The Constant APPLICATION_SENT_EVENT_MESSAGE. */
-	public static final String APPLICATION_SENT_EVENT_MESSAGE = "Your application request has been sent. You will be updated from LetsTagOn team.";
+	public static final String APPLICATION_SENT_EVENT_MESSAGE = "Your application request has been sent. You will be updated from LetsTagOn team";
 	
 	/** The Constant PASSWORD_RESET_EVENT_MESSAGE. */
 	public static final String PASSWORD_RESET_EVENT_MESSAGE = "Congratulations, your password has been updated successfully";
