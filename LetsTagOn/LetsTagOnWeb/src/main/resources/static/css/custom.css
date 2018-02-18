@@ -262,9 +262,15 @@ main {
 }
 .top-header ul {
   position: relative;
-  margin-top: 20px;
-  width: 40%;
-  text-align: right;
+  top: -25px;
+  left: calc(100vw - 15%);
+ 
+  text-align: left;
+  /*margin-right: 15%;*/
+}
+
+#bs-example-navbar-collapse-1 {
+  height: 70px !important;
 }
 .well {
   background-color: #ffffff;
@@ -730,24 +736,7 @@ a.selected {
   background-color: #fe982a;
 }
 
-@media (min-width: 401px) and (max-width: 1024px) {
-  .top-header ul {
-    width: 35%;
-    text-align: right;
-  }
-  .top-header ul li {
-    margin-right: 1%;
-  }
-}
-@media (max-width: 768px) {
-  .top-header ul {
-    width: 35%;
-    text-align: left;
-  }
-  .top-header ul li {
-    display: block;
-  }
-}
+
 
 /* Custom Progress Bar */
 

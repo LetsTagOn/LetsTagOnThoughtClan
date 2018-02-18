@@ -20,10 +20,23 @@
 
 /* iPad in portrait & landscape */
 
+
+
+
+@media (min-width: 1125px) {
+  .top-header ul {
+    left: calc(100vw - 22%);
+   
+  }
+  /*.top-header ul li {
+    display: block;
+  }*/
+}
+
 @media only screen and (max-device-width: 1024px) and (min-device-width: 768px) {
     .top-header ul {
         width: 45%;
-        text-align: right;
+        text-align:center;
     }
     .top-header ul li {
         display: inline;
@@ -1079,3 +1092,130 @@ Responsive Styles for Carousel
     }
 }
 */
+
+/*Responsive styles for footer*/
+@media screen and (max-width: 900px) and (min-width: 520px) {
+    .lto-footer-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .lto-footer-container ul:nth-of-type(1) {
+        /*border:1px solid red;*/
+        order:1;
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+
+    }
+    .lto-footer-container ul:nth-of-type(2) {
+        /*border: 1px solid red;*/
+        order:3;
+        width: 100px;
+        
+        margin-right: 0;
+        text-align: right;
+        
+    }
+    .lto-footer-container span {    
+        
+        /*border: 1px solid red;*/
+        width: 250px;
+        order:2;
+        padding-left: 7px;
+    }
+
+.foot-note {
+        height: 150px;
+    }
+
+    
+}
+
+@media screen and (max-width: 520px) {
+    .lto-footer-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .lto-footer-container ul:nth-of-type(1) {
+        /*border:1px solid red;*/
+       
+        width: 100%;
+        margin: 0 auto;
+        display: flex;
+        flex-wrap: wrap;
+        
+        justify-content: : center;
+        height: auto;
+        order:1;
+        padding-bottom: 0;
+    }
+     .lto-footer-container ul:nth-of-type(1) li {
+       height: 30px;
+       width: 45%;
+    }
+   
+    .lto-footer-container ul:nth-of-type(2) {
+        /*border: 1px solid red;*/
+        width: 100px;
+        display: flex;
+        justify-content: space-between;
+        width: 70%;        
+        margin: 0 auto;
+        order:2;
+    }
+    .lto-footer-container span {    
+        
+        /*border: 1px solid red;*/
+        width: 100%;
+        text-align:center;
+        order:3;
+    }
+
+    .foot-note {
+        height: 350px;
+    }
+       
+}
+ 
+/*Responsive Styles for body of welcome page: Upcoming events and blog list*/
+@media screen and (max-width:770px) and (min-width:500px) {
+    .lto-post-event-container {
+        width: 100%;
+    }
+    .lto-post-event-container > div:first-child {
+        text-align:center;
+    }
+    .lto-post-event-container > div:nth-of-type(2) {
+        display:flex;
+        justify-content:space-between;
+        flex-wrap: wrap;
+        padding-top: 10px;
+
+    }
+
+    .lto-blog-container-adj {
+        width: 45%;
+    }
+    
+}
+
+@media screen and (max-width:500px)  {
+    .lto-post-event-container {
+        width: 100%;
+    }
+    .lto-post-event-container > div:first-child {
+        text-align:center;
+    }
+    .lto-post-event-container > div:nth-of-type(2) {
+        display:flex;
+        flex-wrap: wrap;
+           
+    }
+
+    .lto-blog-container-adj {
+        width: 100%;
+    }
+    
+}
+

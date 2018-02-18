@@ -129,10 +129,10 @@
 							<ul class="start-list--icons">
 								<li><span class="icon glyphicon glyphicon-user"></span> <span
 									class="icon-descriptor">{{event.creator_name}}</span></li>
-								<li><span class="icon glyphicon glyphicon-calendar"></span>
+								<li ng-if="event.dateStart!=null"><span class="icon glyphicon glyphicon-calendar"></span>
 									<span class="icon-descriptor">{{event.dateStart |
 										date:'dd-MMM-yyyy'}}</span></li>
-								<li><span class="icon glyphicon glyphicon-calendar"></span>
+								<li ng-if="event.dateEnd!=null"><span class="icon glyphicon glyphicon-calendar"></span>
 									<span class="icon-descriptor">{{event.dateEnd |
 										date:'dd-MMM-yyyy'}}</span></li>
 								<li ng-if="event.address_state || event.address_country"><span class="icon glyphicon glyphicon-map-marker"></span>
