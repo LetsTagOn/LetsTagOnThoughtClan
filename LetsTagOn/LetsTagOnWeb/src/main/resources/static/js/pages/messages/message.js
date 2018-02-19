@@ -246,7 +246,7 @@ ltoMessagesModule.controller('LtoMessagesController', function($http, $scope,
             });
             ready = true;
         }).error(function() {
-            console.log("Something went wronf while fetching conversation for the logged in user id:" + $rootScope.userId);
+            console.log("Something went wrong while fetching conversation for the logged in user id:" + $rootScope.userId);
         });
 
     };

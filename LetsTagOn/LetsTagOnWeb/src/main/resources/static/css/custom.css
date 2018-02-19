@@ -116,7 +116,9 @@ body {
   width: 100%;
   height: 100%;
   min-height: 100%;
+
 }
+
 
 img {
   max-width: 100%;
@@ -400,7 +402,7 @@ a.selected {
   border-radius: 0px;
 }
 .top-header .navbar-default {
-  background-color: #424242;
+  background-color: #5DBCD2;
   border-color: transparent;
 }
 .navbar-toggle {
@@ -1203,13 +1205,14 @@ ul.progress-bar a {
 }
 /* Copyright */
 .foot-note {
+  margin-top: 10px;
   font-family: Verdana;
   font-size: 10px;
   padding: 10px 0px;
   color: #fff;
   bottom: 0;
   position: relative;
-  background-color: #424242;
+  background-color: #5DBCD2;
   border-color: transparent;
   height: 65px;
 }

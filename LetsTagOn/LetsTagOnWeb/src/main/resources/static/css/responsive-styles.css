@@ -22,7 +22,6 @@
 
 
 
-
 @media (min-width: 1125px) {
   .top-header ul {
     left: calc(100vw - 22%);
@@ -1219,3 +1218,18 @@ Responsive Styles for Carousel
     
 }
 
+/*responsive styles for blogs page*/
+@media screen and (max-width: 990px) and (min-width: 770px) {
+    .lto-blog-container {
+        padding-left: 0;
+        padding-right:0;
+    }
+}
+
+
+/*responsive styles for opp edit page*/
+@media screen and (max-width:500px) {
+	.opportunity-banner-upload-LHS > h2 {
+		font-size: 1.2em;
+	}
+}

@@ -109,7 +109,7 @@ completeProfile.controller("PersonalInformationController", function(
                 $scope.userTypeTemplateSelected =
                     $scope.userTypeMasterList[$scope.user.userTypeBean.id - 1];
 
-                $scope.user.userType = value;
+                //$scope.user.userType = value;
                 //Additional Questions
                 $scope.additionalAttributeQuestionList = [];
                 $scope.additionalAttributeQuestionList =

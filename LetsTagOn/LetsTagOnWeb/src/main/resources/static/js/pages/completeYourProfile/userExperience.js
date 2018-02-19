@@ -29,6 +29,7 @@ completeProfile.controller("ExperienceController", function(
         cache: false
     })
         .success(function(response) {
+        	console.log('in user experience: ', response);
             if (response.error == null) {
                 //skills
                 $scope.masterSkills = response.data.skills.masterSkills;

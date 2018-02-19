@@ -42,16 +42,17 @@
                 <div class="row-space" ng-controller="UploadProfilePicController">
                     <div class="update-picture">
                         <div class="profile-image">
-                            <img class="user-pic" ng-src="{{getProfileImage(user.profilePicture)}}" ng-if="user.profilePicture != null"> <img class="user-pic" src="../images/UserImage.png" ng-if="user.profilePicture == null"> <span class="screen-reader-text">Customer Image</span> <span class="label"><span
-							class="glyphicon glyphicon-cloud-upload"
-							style="font-size: 20px;"
-						><span
-								class="upload-profile-txt"
-								i18n="{{'common.lto_link_updateProfilePic'}}"
-							></span>
-                            <input class="upload-profile-input" type="file" id="profilePic" value="{{myCroppedImage}}" />
-                            </span>
-                            </span>
+                            <img class="user-pic" ng-src="{{getProfileImage(user.profilePicture)}}" ng-if="user.profilePicture != null"> <img class="user-pic" src="../images/UserImage.png" ng-if="user.profilePicture == null"> 
+                            <span class="screen-reader-text">Customer Image</span> 
+                            <span class="label" onclick = "document.getElementById('profilePic').click()"> 
+                            	<span
+									class="cursor glyphicon glyphicon-edit"
+									style="font-size: 20px;">                            	
+                            		</span>
+	                            	<input class="upload-profile-input" type="file" id="profilePic" value="{{myCroppedImage}}">
+
+                        	</span>
+                            
                         </div>
                     </div>
                     <imagecrop visible="showCropContainer"></imagecrop>

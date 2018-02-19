@@ -9,9 +9,11 @@
 						<div class="col-xs-12 col-sm-4 col-md-4">
 							<ul class="start-list--icons">
 								<li><span class="icon glyphicon glyphicon-user"></span> <span class="icon-descriptor">{{opportunity.type}}</span></li>
-								<li><span class="icon glyphicon glyphicon-calendar"></span> <span class="icon-descriptor">{{opportunity.dateEnd | date:'yyyy-MM-dd'}}</span></li>
-								<li><span class="icon glyphicon glyphicon-calendar"></span> <span class="icon-descriptor">{{opportunity.dateStart | date:'yyyy-MM-dd'}}</span></li>
+								<li ng-if="opportunity.dateEnd!==null"><span class="icon glyphicon glyphicon-calendar"></span> <span class="icon-descriptor">{{opportunity.dateEnd | date:'yyyy-MM-dd'}}</span></li>
+								<li ng-if="opportunity.dateStart!==null"><span class="icon glyphicon glyphicon-calendar"></span> <span class="icon-descriptor">{{opportunity.dateStart | date:'yyyy-MM-dd'}}</span></li>
+								<!--
 								<li><span class="icon glyphicon glyphicon-map-marker"></span> <span class="icon-descriptor">{{opportunity.addressBean.city}}</span></li>
+								-->
 							</ul>
 						</div>
 						<div class="col-xs-12 col-sm-8 col-md-8 start-property-tile__title">

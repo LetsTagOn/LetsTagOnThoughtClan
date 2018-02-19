@@ -3,82 +3,119 @@
 	<nav class="navbar navbar-default">
 		<div class="container-fluid " ng-controller="ProfileController">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" asria-expanded="false">
-					<span class="sr-only">Toggle navigation </span> <span class="icon-bar"> </span> <span class="icon-bar"> </span> <span class="icon-bar"> </span>
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation </span> 
+					<span class="icon-bar"> </span> 
+					<span class="icon-bar"> </span>
+					<span class="icon-bar"> </span>
 				</button>
-				<a ng-href="{{authenticated? '#/search/opportunity/' : '/#/'}}" class="start-header__logo visible-xs text-center"> <span class="logo-header">LetsTagOn </span>
+				<a ng-href="{{authenticated? '#/search/opportunity/' : '/#/'}}" class="start-header__logo visible-xs text-center"> 
+					<span class="logo-header">LetsTagOn </span>
 				</a>
 			</div>
 			<div class="collapse navbar-collapse nav-collapse lto-header-container" id="bs-example-navbar-collapse-1">
-				<a data-toggle="collapse" data-target=".nav-collapse.in" ng-href = "{{authenticated? '#/search/opportunity/' : '/#/'}}" class="start-header__logo hidden-xs"> <img class="cursor" src="./images/logo1.png" height="45" width="100" alt="...">
+				<a data-toggle="collapse" data-target=".nav-collapse.in" ng-href = "{{authenticated? '#/search/opportunity/' : '/#/'}}" class="start-header__logo hidden-xs"> 
+					<img class="cursor" src="./images/logo1.png" height="45" width="100" alt="...">
 				</a>
-				<div class="hidden-xs search-field hidden-xs" ng-controller="SearchController">
-					<input type="text" name="trade" class="form-control lto-header-search-adj" id="headerSearch" placeholder="Search for Volunteers/ Events near your place" ng-keypress="($event.which === 13)?redirectToSearchPage():0"> <span class="glyphicon glyphicon-search cursor" ng-click="redirectToSearchPage()"> </span>
+				<div class="hidden-xs search-field" ng-controller="SearchController">
+					<input type="text" name="trade" class="form-control lto-header-search-adj" id="headerSearch" placeholder="Search for Volunteers/ Events near your place" ng-keypress="($event.which === 13)?redirectToSearchPage():0"> 
+					<span class="glyphicon glyphicon-search cursor" ng-click="redirectToSearchPage()"> 
+					</span>
 				</div>
-				<ul class="pull-right utility-bar lto-profile-header-bar" >
+				<ul class="dropdown utility-bar lto-profile-header-bar" >
 					<!-- <li class="no-focus-color" data-toggle="collapse" data-target=".nav-collapse.in"><span class="glyphicon glyphicon-map-marker "> </span>{{displayUserDetails.addressBean.city}}</li> -->
 					<!--  Loding unread messages-->
 					<li ng-controller="LtoMessagesController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getUnreadMessages()">
 						<!-- Section one --> 
-						<a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Messages"> <span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length > 0" ng-click="redirect('/view/myMessages')"></span> <span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length==0" ng-click="redirect('/view/myMessages')" ></span> <span class="hidden-lg hidden-sm hidden-md">Messages</span>
-					</a> <!-- Section two -->
+						<a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Messages"> 
+							<span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length > 0"></span> 
+							<span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length==0" ng-click="redirect('/view/myMessages')" > </span> 
+							<span class="hidden-lg hidden-sm hidden-md">Messages</span>
+						</a> <!-- Section two -->
 						<ul ng-hide="unreadMessagelist.length==0" class="dropdown-menu lto-pending-notification-user-dropdownList lto-pending-message-user-dropdownList lto-notification-dropdown-header hidden-xs" role="menu">
 							<div class="lto-pending-section-header">
-								<span class="float-left lto-pending-notification-label">Unread Messages</span>
+								<span class="float-left lto-pending-notification-label">Unread Messages
+								</span>
 							</div>
 							<hr class="header-separator" ng-hide="unreadMessagelist.length==0">
 							<div class="notification-scroll-container" id="message-scroll-container">
-								<li class="lto-pending-notification-drop-row lto-pending-message-drop-row " id="message{{message.id}}" ng-repeat="message in unreadMessagelist">
+								<li class="lto-pending-notification-drop-row lto-pending-message-drop-row" id="message{{message.id}}" ng-repeat="message in unreadMessagelist">
 									<div ng-click="markMessageAsRead(message)">
 										<div class="float-left ">
-											<img class="profile-img lto-pending-notification-image lto-pending-message-image" ng-src="{{getProfileImage(message.toParty.userBean.senderProfilePicture)}}" ng-if="message.toParty.userBean.senderProfilePicture != null"> <img class="profile-img lto-pending-notification-image lto-pending-message-image" src="../images/UserImage.png" ng-if="message.toParty.userBean.senderProfilePicture == null">
+											<img class="profile-img lto-pending-notification-image lto-pending-message-image" ng-src="{{getProfileImage(message.toParty.userBean.senderProfilePicture)}}" ng-if="message.toParty.userBean.senderProfilePicture != null"> 
+											<img class="profile-img lto-pending-notification-image lto-pending-message-image" src="../images/UserImage.png" ng-if="message.toParty.userBean.senderProfilePicture == null">
 										</div>
 										<div class="float-left lto-notification-RHS">
 											<div class="">
-												<a class="lto-notification-pending-user" ng-model="message.toParty.id">From: {{message.fromParty.userBean.name}}</a>
+												<a class="lto-notification-pending-user" ng-model="message.toParty.id">From: {{message.fromParty.userBean.name}}
+												</a>
 											</div>
-											<div class="lto-notification-RHS-message">{{message.messageText}}</div>
+											<div class="lto-notification-RHS-message"> {{message.messageText}}
+											</div>
 											<div class="lto-notification-action-container">
-                                <span class="glyphicon glyphicon-time" ></span><span><time class="font-size-12 " am-time-ago="message.sentTime"></time></span>
-                            </div> 
+                                				<span class="glyphicon glyphicon-time" ></span>
+                                				<span>
+                                					<time class="font-size-12 " am-time-ago="message.sentTime"></time> 
+                                				</span>
+                            				</div> 
 										</div>
 									</div>  
 								</li>
 							</div>
 							<!-- <div class="hidden-xs more-results focus-effect cursor" ng-click="viewAllNotificationOfUser()" i18n = "{{'common.lto_link_viewAll'}}"><b class="caret"></b></div> -->
-						</ul> <span class="badge badge-notify" id="MessageLength" ng-if="unreadMessagelist.length > 0">{{unreadMessagelist.length}} </span>
+						</ul>
+
+						<span 	class="badge badge-notify" id="MessageLength" 
+								ng-if="unreadMessagelist.length > 0">{{unreadMessagelist.length}} 
+						</span>
 					</li>
 					<!-- End of message section -->
-					<li class="hidden-lg hidden-sm hidden-md" data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Search User"><a href=""> <span class="glyphicon glyphicon-search"></span><span ng-click="redirect('/search/user/')" i18n="{{'common.lto_button_text_search'}}"></span>
-					</a></li>
-					<li ng-controller="UserNotificationController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getAllUnreadNotifications()"><a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Notifications"> 
-						<span class="lto-sec-nav glyphicon glyphicon-flag" ng-if="unreadNotificationList.length > 0" ng-click="viewAllNotificationOfUser()"></span> 
-						<span class="lto-sec-nav glyphicon glyphicon-flag"
-							ng-if="unreadNotificationList.length==0" ng-click="viewAllNotificationOfUser()"
-						></span> 
-						<span class="hidden-lg hidden-sm hidden-md" i18n="{{'common.lto_heading_notification'}}"></span>
-					</a>
+					<!-- Search User Icon-->
+					<li class="hidden-lg hidden-sm hidden-md" data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Search User"> 
+						<a href=""> 
+							<span class="glyphicon glyphicon-search"></span>
+							<span 	ng-click="redirect('/search/user/')" 
+									i18n="{{'common.lto_button_text_search'}}"> 
+							</span>
+						</a> 
+					</li>
+					<!-- Notifications section-->
+					<li  ng-controller="UserNotificationController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getAllUnreadNotifications()"> 
+						<a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Notifications"> 
+							<span class="lto-sec-nav glyphicon glyphicon-flag" ng-if="unreadNotificationList.length > 0" ng-click="viewAllNotificationOfUser()"> 
+							</span> 
+							<span class="lto-sec-nav glyphicon glyphicon-flag"
+							ng-if="unreadNotificationList.length==0" ng-click="viewAllNotificationOfUser()">
+							</span> 
+							<span class="hidden-lg hidden-sm hidden-md" i18n="{{'common.lto_heading_notification'}}"> 
+							</span>
+						</a>
 						<ul ng-hide="unreadNotificationList.length==0" class="dropdown-menu lto-pending-notification-user-dropdownList lto-notification-dropdown-header hidden-xs" role="menu" >
 							<div class="lto-pending-section-header">
-								<span class="float-left lto-pending-notification-label" i18n="{{'common.lto_heading_notification'}}"></span>
-								<a class="float-right lto-pending-notification-label focus-effect cursor" i18n="{{'common.lto_mark_as_read'}}" ng-click="markAllNotificationAsRead()"></a>
+								<span class="float-left lto-pending-notification-label" i18n="{{'common.lto_heading_notification'}}"> 
+								</span>
+								<a class="float-right lto-pending-notification-label focus-effect cursor" i18n="{{'common.lto_mark_as_read'}}" ng-click="markAllNotificationAsRead()"> 
+								</a>
 							</div>
 							<hr class="header-separator" ng-hide="unreadNotificationList.length==0">
 							<div class="notification-scroll-container" id="notification-scroll-container">
 								<li class="lto-pending-notification-drop-row" id="notification{{notification.id}}" ng-repeat="notification in unreadNotificationList">
 									<div ng-click="actionOnNotification(notification)">
 										<div class="float-left ">
-											<img class="profile-img lto-pending-notification-image" ng-src="{{getProfileImage(notification.params.senderProfilePicture)}}" ng-if="notification.params.senderProfilePicture != null"> <img class="profile-img lto-pending-notification-image" src="../images/UserImage.png" ng-if="notification.params.senderProfilePicture == null">
+											<img class="profile-img lto-pending-notification-image" ng-src="{{getProfileImage(notification.params.senderProfilePicture)}}" ng-if="notification.params.senderProfilePicture != null">
+											 <img class="profile-img lto-pending-notification-image" src="../images/UserImage.png" ng-if="notification.params.senderProfilePicture == null">
 										</div>
 										<div class="float-left lto-notification-RHS">
 											<div class="">
 												<a class="lto-notification-pending-user" ng-model="notification.params.senderUserId">From: {{notification.params.senderName}}</a>
 											</div>
-											<div class="lto-notification-RHS-message">{{notification.content}}</div>
+											<div class="lto-notification-RHS-message">	{{notification.content}} 
+											</div>
 										</div>
 									</div>
 									<div class="float-right lto-notification-action-container">
-										<span class="glyphicon glyphicon-bell lto-notifaication-mark-read-btn" ng-click="markNotificationAsRead(notification)"></span>
+										<span class="glyphicon glyphicon-bell lto-notifaication-mark-read-btn" ng-click="markNotificationAsRead(notification)"> 
+										</span>
 									</div>
 								</li>
 							</div>
@@ -86,27 +123,36 @@
 								<b class="caret"></b>
 							</div>
 						</ul> 
-						<span class=" hidden-sm hidden-md hidden-lg lto-sec-nav glyphicon glyphicon glyphicon-chevron-right">
-						<span ng-click="" i18n="{{'common.lto_link_allNotification'}}"></span></span> <span class="badge badge-notify" id="notificationLength" ng-if="unreadNotificationList.length > 0">{{unreadNotificationList.length}} </span>
+						<span class=" hidden-sm hidden-md hidden-lg lto-sec-nav glyphicon glyphicon glyphicon-chevron-right"></span>
+						<!--
+						<span ng-click="redirect('/view/notifications')" class="glyphicon glyphicon-notify" ng-if="unreadNotificationList.length == 0"></span> -->
+						<span class="badge badge-notify" id="notificationLength" ng-if="unreadNotificationList.length > 0">{{unreadNotificationList.length}} </span>
 						</li>
-					   <li class="dropdown" data-toggle="collapse" data-target=".nav-collapse.in" ng-controller="NotificationsController">
+						<!--end of notification section -->
+						<!--start of connections section -->
+					   <li  data-toggle="collapse" data-target=".nav-collapse.in" ng-controller="NotificationsController">
 						<a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Connections">
-						 <span class="glyphicon glyphicon-user" ng-click="redirect('/view/connection/user/'+userId)"></span>
-						 <span class="cursor hidden-lg hidden-sm hidden-md"  i18n="{{'common.lto_link_connections'}}"></span>
+						 <span class="glyphicon glyphicon-user" ng-click="redirect('/view/connection/user/'+userId)"> 
+						 </span>
+						 <span class="cursor hidden-lg hidden-sm hidden-md"  i18n="{{'common.lto_link_connections'}}"> 
+						 </span>
 						</a>
 						<ul class="dropdown-menu lto-pending-connection-user-dropdownList lto-connection-dropdown-header hidden-xs" role="menu" ng-init="getPendingConnections()">
 							<div class="lto-pending-section-header">
-								<span ng-show="pendingConnections.length>0" class="float-left lto-pending-connection-label" i18n="{{'common.lto_link_pendingConnection'}}"></span>
+								<span ng-show="pendingConnections.length>0" class="float-left lto-pending-connection-label" i18n="{{'common.lto_link_pendingConnection'}}">
+								</span>
 								<div ng-show="pendingConnections.length==0" class="float-left lto-pending-connection-label" i18n="{{'common.lto_span_noPendingRequest'}}"></div>
 								<span ng-show="pendingConnections.length>0">
-								    <a class="lto-pending-connection-all pull-right lto-pending-action-conatiner cursor" ng-click="showPendingConnections()" i18n="{{'common.lto_link_viewAll'}}"></a>
+								    <a class="lto-pending-connection-all pull-right lto-pending-action-conatiner cursor" ng-click="showPendingConnections()" i18n="{{'common.lto_link_viewAll'}}"> 
+								    </a>
 								</span>
 							</div>
 							<hr class="header-separator">
 							<div class="notification-scroll-container" id="connection-scroll-container">
 								<li class="lto-pending-connection-drop-row" ng-repeat="connection in pendingConnections">
 									<div class="float-left ">
-										<img class="profile-img lto-pending-connection-image" ng-src="{{getProfileImage(connection.party1.userBean.profilePicture)}}" ng-if="connection.party1.userBean.profilePicture != null"> <img class="profile-img lto-pending-connection-image" src="../images/UserImage.png" ng-if="connection.party1.userBean.profilePicture == null">
+										<img class="profile-img lto-pending-connection-image" ng-src="{{getProfileImage(connection.party1.userBean.profilePicture)}}" ng-if="connection.party1.userBean.profilePicture != null">
+										<img class="profile-img lto-pending-connection-image" src="../images/UserImage.png" ng-if="connection.party1.userBean.profilePicture == null">
 									</div>
 									<div class="float-left ">
 										<div class="">
@@ -127,14 +173,30 @@
 									</div>
 								</div>
 							</li>
-						</ul> <span class="lto-sec-nav glyphicon glyphicon-chevron-right hidden-sm hidden-md hidden-lg"><span ng-click="showPendingConnections()" i18n="{{'common.lto_link_pendingConnection'}}"></span></span> <span class="badge badge-notify" ng-if="pendingConnections.length > 0">{{pendingConnections.length}} </span>
+						</ul> 
+							<!--
+							<span class="lto-sec-nav glyphicon glyphicon-chevron-right hidden-sm hidden-md hidden-lg">
+								<span ng-click="showPendingConnections()" i18n="{{'common.lto_link_pendingConnection'}}"> 
+								</span> 
+							</span>-->
+							<span class="badge badge-notify" ng-if="pendingConnections.length > 0">{{pendingConnections.length}} 
+							</span>
 						</li>
-					<li class="dropdown" data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Profile"><a ng-href="#/profile/user/{{userId}}"> <img ng-if="profilePicture != null" ng-src="{{getProfileImage(profilePicture)}}" style="width: 27px;"> <img ng-if="profilePicture == null" src="../images/UserImage.png" style="width: 27px;"> <span class="hidden-lg hidden-sm hidden-md"
+					<li  data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Profile"> 
+						<a ng-href="#/profile/user/{{userId}}"> 
+							<img ng-if="profilePicture != null" ng-src="{{getProfileImage(profilePicture)}}" style="width: 27px;"> 
+							<img ng-if="profilePicture == null" src="../images/UserImage.png" style="width: 27px;"> 
+							<span class="hidden-lg hidden-sm hidden-md"
 							i18n="{{'common.lto_span_profile'}}"
-						></span>
-					</a></li>
-					<li class="" data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Logout"><a href="" ng-click="logout()"> <span class="glyphicon glyphicon-log-out"></span><span class="hidden-lg hidden-sm hidden-md" i18n="{{'common.lto_span_logOut'}}"></span>
-					</a></li>
+							></span>
+						</a> 
+					</li>
+					<li class="" data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Logout"> 
+						<a href="" ng-click="logout()"> 
+							<span class="glyphicon glyphicon-log-out"></span>
+							<span class="hidden-lg hidden-sm hidden-md" i18n="{{'common.lto_span_logOut'}}"></span>
+						</a> 
+					</li>
 				</ul>
 			</div>
 		</div>

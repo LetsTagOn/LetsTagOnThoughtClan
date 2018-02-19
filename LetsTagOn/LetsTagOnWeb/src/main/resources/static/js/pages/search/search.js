@@ -281,7 +281,7 @@ searchModule
                 .get($scope.generateUpcomingEventsQuery(1))
                 .then(function(result) {
                     $scope.upComingEvents = result.data.response.docs;
-                    // console.log(result.data.response.docs);
+                     console.log(result.data.response.docs);
                 });
         };
 
