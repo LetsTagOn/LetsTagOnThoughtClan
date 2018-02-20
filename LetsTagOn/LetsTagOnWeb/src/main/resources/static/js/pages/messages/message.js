@@ -1,11 +1,17 @@
-var ltoMessagesModule = angular.module('messageModule', []);
+var ltoMessagesModule = angular.module("messageModule", []);
 
 /*
  * Controller for Messages
  * 
  */
-ltoMessagesModule.controller('LtoMessagesController', function($http, $scope,
-    $rootScope, $location, $timeout, $anchorScroll) {
+ltoMessagesModule.controller("LtoMessagesController", function(
+    $http,
+    $scope,
+    $rootScope,
+    $location,
+    $timeout,
+    $anchorScroll
+) {
     $scope.conversationsSize = 5;
     $scope.pageNumber = 0;
     var ready = true;
@@ -13,92 +19,108 @@ ltoMessagesModule.controller('LtoMessagesController', function($http, $scope,
     $scope.contactList = [];
     $scope.getContactList = function() {
         $http({
-            url: '/conversationContactsList',
-            dataType: 'json',
-            method: 'GET',
+            url: "/conversationContactsList",
+            dataType: "json",
+            method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
-        }).success(function(response) {
-            $scope.contactList = [];
-            $scope.contactList = response.searchResult;
-            $scope.getConversation($scope.contactList[0]);
-
-        }).error(function() {
-            console.log("Something went wronf while fetching conversation for the logged in user id:" + $rootScope.userId);
-        });
-
+        })
+            .success(function(response) {
+                $scope.contactList = [];
+                $scope.contactList = response.searchResult;
+                $scope.getConversation($scope.contactList[0]);
+            })
+            .error(function() {
+                console.log(
+                    "Something went wronf while fetching conversation for the logged in user id:" +
+                        $rootScope.userId
+                );
+            });
     };
 
     $scope.addClassSelected = function(contact) {
         $(".lto-msg-contact-list").removeClass("lto-mess-usr-selected");
         $(".lto-msg-usr-name").removeClass("lto-mess-usr-label");
         $("#contact" + contact.id).addClass("lto-mess-usr-selected");
-        $("#contact" + contact.userBean.firstName).addClass("lto-mess-usr-label");
+        $("#contact" + contact.userBean.firstName).addClass(
+            "lto-mess-usr-label"
+        );
         $("#contactM" + contact.id).addClass("lto-mess-usr-selected");
-        $("#contactM" + contact.userBean.firstName).addClass("lto-mess-usr-label");
+        $("#contactM" + contact.userBean.firstName).addClass(
+            "lto-mess-usr-label"
+        );
     };
 
     $scope.goDown = function() {
         $anchorScroll();
     };
-    // ================================================ End ======================================================	
-    // ================================================ Method to fetch conversations with particular party ======================================================	
+    // ================================================ End ======================================================
+    // ================================================ Method to fetch conversations with particular party ======================================================
     $scope.conversationList = [];
     $scope.currentConversationPartyId = "";
     $scope.getConversation = function(party) {
         $http({
-            url: '/conversations/' + party.id,
-            dataType: 'json',
-            method: 'GET',
+            url: "/conversations/" + party.id,
+            dataType: "json",
+            method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
-        }).success(function(response) {
-            $scope.conversationList = [];
-            $scope.conversationList = response.searchResult.reverse();
-            $scope.currentConversationPartyId = party.id;
-            $scope.addClassSelected(party);
-            $scope.conversationsSize = 5;
-            $scope.pageNumber = 0;
-            ready = true;
-
-        }).error(function() {
-            console.log("Something went wronf while fetching conversation for the logged in user id:" + $rootScope.userId);
-        });
-
+        })
+            .success(function(response) {
+                $scope.conversationList = [];
+                $scope.conversationList = response.searchResult.reverse();
+                $scope.currentConversationPartyId = party.id;
+                $scope.addClassSelected(party);
+                $scope.conversationsSize = 5;
+                $scope.pageNumber = 0;
+                ready = true;
+            })
+            .error(function() {
+                console.log(
+                    "Something went wronf while fetching conversation for the logged in user id:" +
+                        $rootScope.userId
+                );
+            });
     };
 
     $scope.loadConversationsOnScroll = function(currentConversationPartyId) {
-        if (currentConversationPartyId != undefined || currentConversationPartyId != "") {
+        if (
+            currentConversationPartyId != undefined ||
+            currentConversationPartyId != ""
+        ) {
             $scope.pageNumber = $scope.pageNumber + 1;
             $http({
-                url: '/conversations/' + currentConversationPartyId,
-                dataType: 'json',
-                method: 'GET',
+                url: "/conversations/" + currentConversationPartyId,
+                dataType: "json",
+                method: "GET",
                 params: {
-                    "page": $scope.pageNumber,
-                    "size": $scope.conversationsSize
+                    page: $scope.pageNumber,
+                    size: $scope.conversationsSize
                 },
                 headers: {
                     "Content-Type": "application/json"
                 }
-            }).success(function(response) {
-                if (response.searchResult.length > 0) {
-                    response.searchResult.forEach(function(response) {
-                        $scope.conversationList.unshift(response);
-                    });
-                    $scope.currentConversationPartyId = currentConversationPartyId;
-                    $('.lto-message-cont-section').scrollTop(0);
-                }
-                ready = true;
-                //$scope.addClassSelected(party);
-            }).error(function() {
-                console.log("Something went wrong while fetching conversation for the logged in user id:" + $rootScope.userId);
-            });
+            })
+                .success(function(response) {
+                    if (response.searchResult.length > 0) {
+                        response.searchResult.forEach(function(response) {
+                            $scope.conversationList.unshift(response);
+                        });
+                        $scope.currentConversationPartyId = currentConversationPartyId;
+                        $(".lto-message-cont-section").scrollTop(0);
+                    }
+                    ready = true;
+                    //$scope.addClassSelected(party);
+                })
+                .error(function() {
+                    console.log(
+                        "Something went wrong while fetching conversation for the logged in user id:" +
+                            $rootScope.userId
+                    );
+                });
         }
-
-
     };
 
     $(".lto-message-cont-section").on("scroll", function(e) {
@@ -109,7 +131,7 @@ ltoMessagesModule.controller('LtoMessagesController', function($http, $scope,
         }
     });
 
-    // ================================================ End ======================================================	
+    // ================================================ End ======================================================
 
     // =============================================== Function to get contact suggestion list ===================
     $scope.isAddContacts = true;
@@ -125,26 +147,30 @@ ltoMessagesModule.controller('LtoMessagesController', function($http, $scope,
             name = $scope.search.name;
         }
         $http({
-            url: '/conversation/contactsListSearch',
-            dataType: 'json',
-            method: 'GET',
+            url: "/conversation/contactsListSearch",
+            dataType: "json",
+            method: "GET",
             headers: {
                 "Content-Type": "application/json"
             },
             params: {
-                "name": name
+                name: name
             }
-        }).success(function(response) {
-            $scope.suggestionListOfUserByNames = [];
-            $scope.suggestionListOfUserByNames = response.data.searchResult;
-        }).error(function() {
-            console.log("Something went wronf while fetching conversation for the logged in user id:" + $rootScope.userId);
-        });
-
+        })
+            .success(function(response) {
+                $scope.suggestionListOfUserByNames = [];
+                $scope.suggestionListOfUserByNames = response.data.searchResult;
+            })
+            .error(function() {
+                console.log(
+                    "Something went wronf while fetching conversation for the logged in user id:" +
+                        $rootScope.userId
+                );
+            });
     };
 
     $scope.startConversationWithUser = function(party) {
-        //To add the contact to contact list and 
+        //To add the contact to contact list and
         //open conversation container with him
         $scope.contactList.forEach(function(contact) {
             if (party.id == contact.id) {
@@ -154,7 +180,6 @@ ltoMessagesModule.controller('LtoMessagesController', function($http, $scope,
         });
         $scope.contactList.unshift(party);
         $scope.getConversation(party);
-
     };
     // =========================================== End ====================================================================================
 
@@ -168,87 +193,97 @@ ltoMessagesModule.controller('LtoMessagesController', function($http, $scope,
         party.id = $scope.currentConversationPartyId;
         message.toParty = party;
         $http({
-            url: '/message',
-            dataType: 'json',
-            method: 'POST',
+            url: "/message",
+            dataType: "json",
+            method: "POST",
             data: message,
             headers: {
                 "Content-Type": "application/json"
-            },
-
-        }).success(function(response) {
-            if (response.error == null) {
-
-                $scope.message.messageText = "";
-                $scope.conversationList.push(response.data);
-                $(".lto-message-cont-section").scrollTop($(".lto-message-cont-section")[0].scrollHeight);
             }
-
-        }).error(function() {
-            console.log("Something went wronf while fetching conversation for the logged in user id:" + $rootScope.userId);
-        });
+        })
+            .success(function(response) {
+                if (response.error == null) {
+                    $scope.message.messageText = "";
+                    $scope.conversationList.push(response.data);
+                    $(".lto-message-cont-section").scrollTop(
+                        $(".lto-message-cont-section")[0].scrollHeight
+                    );
+                }
+            })
+            .error(function() {
+                console.log(
+                    "Something went wronf while fetching conversation for the logged in user id:" +
+                        $rootScope.userId
+                );
+            });
     };
     // ======================================= End =============================================================================================
-
 
     // ================================================== Function to delete conversation between parties ======================================
 
     $scope.deleteConversation = function(toPartyId) {
         $http({
-            url: '/deleteConversation/withParty/' + toPartyId,
-            dataType: 'json',
-            method: 'POST',
+            url: "/deleteConversation/withParty/" + toPartyId,
+            dataType: "json",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
-            },
-
-        }).success(function(response) {
-            //TO remove contact and conversation from the list respectively
-            $scope.contactList.forEach(function(contact) {
-                if (contact.id == toPartyId) {
-                    var index = $scope.contactList.indexOf(contact);
-                    $scope.contactList.splice(index, 1);
-                }
+            }
+        })
+            .success(function(response) {
+                //TO remove contact and conversation from the list respectively
+                $scope.contactList.forEach(function(contact) {
+                    if (contact.id == toPartyId) {
+                        var index = $scope.contactList.indexOf(contact);
+                        $scope.contactList.splice(index, 1);
+                    }
+                });
+                $scope.conversationList = [];
+                $scope.getConversation($scope.contactList[0]);
+            })
+            .error(function() {
+                console.log(
+                    "Something went wronf while fetching conversation for the logged in user id:" +
+                        $rootScope.userId
+                );
             });
-            $scope.conversationList = [];
-            $scope.getConversation($scope.contactList[0]);
-        }).error(function() {
-            console.log("Something went wronf while fetching conversation for the logged in user id:" + $rootScope.userId);
-        });
     };
     //======================================= End =============================================================================================
 
     //======================================= Function to getUnread Messages =============================================================================================
     $scope.unreadMessagelist = [];
-    setInterval(function() {
-        $scope.getUnreadMessages();
-    }, 600 * 1000);
+
+    // $scope.getUnreadMessages();
+
     $scope.totalUnreadMessagesPerPage = 10;
     $scope.PageNumberForUm = 0;
     var ready = true;
     $scope.getUnreadMessages = function() {
-
         $http({
-            url: '/getUnreadMessages',
-            dataType: 'json',
-            method: 'GET',
+            url: "/getUnreadMessages",
+            dataType: "json",
+            method: "GET",
             headers: {
                 "Content-Type": "application/json"
             },
             params: {
-                "page": $scope.PageNumberForUm,
-                "size": $scope.totalUnreadMessagesPerPage
-
+                page: $scope.PageNumberForUm,
+                size: $scope.totalUnreadMessagesPerPage
             }
-        }).success(function(response) {
-            response.searchResult.forEach(function(response) {
-                $scope.unreadMessagelist.push(response);
+        })
+            .success(function(response) {
+                console.log("got unread messages: ", response);
+                response.searchResult.forEach(function(response) {
+                    $scope.unreadMessagelist.push(response);
+                });
+                ready = true;
+            })
+            .error(function() {
+                console.log(
+                    "Something went wrong while fetching conversation for the logged in user id:" +
+                        $rootScope.userId
+                );
             });
-            ready = true;
-        }).error(function() {
-            console.log("Something went wrong while fetching conversation for the logged in user id:" + $rootScope.userId);
-        });
-
     };
 
     $("#message-scroll-container").on("scroll", function(e) {
@@ -266,29 +301,31 @@ ltoMessagesModule.controller('LtoMessagesController', function($http, $scope,
     $scope.markMessageAsRead = function(message) {
         $location.path("/view/myMessages");
         $http({
-            url: '/mark/message/read/' + message.id,
-            dataType: 'json',
-            method: 'POST',
+            url: "/mark/message/read/" + message.id,
+            dataType: "json",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
-            },
-
-        }).success(function(response) {
-            $scope.unreadMessagelist.forEach(function(contact) {
-                if (contact.id == response.data.id) {
-                    var index = $scope.unreadMessagelist.indexOf(contact);
-                    $scope.unreadMessagelist.splice(index, 1);
-                }
-            });
-            $scope.startConversationWithUser(response.data.fromParty);
-            $timeout(function() {
+            }
+        })
+            .success(function(response) {
+                $scope.unreadMessagelist.forEach(function(contact) {
+                    if (contact.id == response.data.id) {
+                        var index = $scope.unreadMessagelist.indexOf(contact);
+                        $scope.unreadMessagelist.splice(index, 1);
+                    }
+                });
                 $scope.startConversationWithUser(response.data.fromParty);
-            }, 1000);
-
-
-        }).error(function() {
-            console.log("Something went wronf while fetching conversation for the logged in user id:" + $rootScope.userId);
-        });
+                $timeout(function() {
+                    $scope.startConversationWithUser(response.data.fromParty);
+                }, 1000);
+            })
+            .error(function() {
+                console.log(
+                    "Something went wrong while fetching conversation for the logged in user id:" +
+                        $rootScope.userId
+                );
+            });
     };
 
     //======================================= End =============================================================================================
