@@ -2,7 +2,7 @@
  * JS File which inclused controllers for Opportunity - create,edit,view,upload banner image
  */
 var opportunity = angular.module('opportunityModule', []);
-opportunity.controller("UploadOportunityImageController", function($http, $scope, $rootScope, $location, $timeout) {
+opportunity.controller("UploadOportunityImageController", function($http, $scope, $route, $rootScope, $location, $timeout) {
 
     $scope.myImage = '';
     $scope.myCroppedImage = '';
@@ -1045,6 +1045,7 @@ opportunity.controller('ViewOpportunityController', function($http, $scope, $roo
 
                     $rootScope.ltoSuccessMessage = "Application successfully sent.";
                     $rootScope.toggleLtoSuccessModal();
+                    $rootScope.getAllUnreadNotifications();
                     $('.lto-success-modal-dialog').css({
                         top: "200px",
                     });
