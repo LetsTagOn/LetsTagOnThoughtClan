@@ -232,9 +232,6 @@ public class UserFacadeImpl implements UserFacade {
 		party.setAttendance(true);
 		List<PartyParticipation> userOpportunityList = participationService.findOpportunitiesListOfParty(party);
 		userProfileDetailsMap.put("volunteerOpportunityCount", userOpportunityList.size());
-		
-		//User PartyParticipation
-		party = participationService.findByPartyBean(partyService.findByUserBean(userDetails));
 		userProfileDetailsMap.put("partyParticipation",partyParticipationConverter.convert(party));
 		
 		//Knowing his privacy settings
