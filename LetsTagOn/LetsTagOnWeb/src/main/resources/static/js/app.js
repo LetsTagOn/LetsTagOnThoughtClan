@@ -160,6 +160,11 @@ angular
                 controller: "aboutcontroller",
                 controllerAs: "controller"
             })
+            .when("/verifyToken", {
+                templateUrl: "./otp.html",
+                controller: "MainController",
+                controllerAs: "controller"
+            })
             .when("/contact us", {
                 templateUrl: "./js/pages/Contact Us/contact_us.html",
                 controller: "contactuscontroller",

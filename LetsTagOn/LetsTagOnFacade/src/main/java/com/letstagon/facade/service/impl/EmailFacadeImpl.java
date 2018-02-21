@@ -68,4 +68,10 @@ public class EmailFacadeImpl implements EmailFacade {
 		resetPwdService.resetPassword(user, token, password);
 	}
 
+	@Override
+	public void sendLTONotificationEmailVerfication(String name, String email, String token) throws Exception {
+		// calling email service to send email for user after registration
+				emailService.sendLTONotificationEmailVerfication(name, email, token);
+	}
+
 }

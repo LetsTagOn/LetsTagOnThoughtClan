@@ -8,6 +8,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -31,6 +32,10 @@ public class EmailServiceImpl implements EmailService {
 	@Autowired
 	private VelocityEngine velocityEngine;
 	
+	/** The app url. */
+	@Value("${letsTagon.appUrl}")
+	private String appUrl;
+	
 	/* (non-Javadoc)
 	 * @see com.letstagon.service.EmailService#sendLTONotification(java.lang.String, java.lang.String)
 	 */
@@ -50,6 +55,31 @@ public class EmailServiceImpl implements EmailService {
 				model.put("name", name);
 				String text = VelocityEngineUtils.mergeTemplateIntoString(
 						velocityEngine, "velocity/emailtemplate.vm", "UTF-8",
+						model);
+				message.setText(text, true);
+			}
+		};
+		mailSender.send(preparator);
+	}
+	
+	
+	public void sendLTONotificationEmailVerfication(final String name,final String email,final String token) {
+		MimeMessagePreparator preparator = new MimeMessagePreparator() {
+			@SuppressWarnings({ "rawtypes", "unchecked" })
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+				message.setTo(email);
+				message.setFrom("no-reply@letstagon.com");
+				message.setSubject("Email Account Verification-LetsTagOn");
+				message.setSentDate(new Date());
+				Map model = new HashMap();
+				model.put("regMessage",
+						"Click on the link below and enter your OTP to activate your profile!");
+				model.put("name", email);
+				model.put("token", token);
+				model.put("appUrl", appUrl);
+				String text = VelocityEngineUtils.mergeTemplateIntoString(
+						velocityEngine, "velocity/emailtemplate2.vm", "UTF-8",
 						model);
 				message.setText(text, true);
 			}

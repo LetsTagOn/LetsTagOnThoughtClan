@@ -1,6 +1,7 @@
 /* 
  * JS File which inclused controllers for Opportunity - create,edit,view,upload banner image
  */
+
 var opportunity = angular.module("opportunityModule", []);
 opportunity.controller("UploadOportunityImageController", function(
     $http,

@@ -42,6 +42,9 @@ public interface ControllerConstants {
 		/** The invalid token. */
 		String INVALID_TOKEN = "The token is invalid. Please send a valid token.";
 		
+		/** The invalid OTP. */
+		String INVALID_OTP = "The OTP is invalid. Please enter a valid OTP.";
+		
 		/** The user not found. */
 		String USER_NOT_FOUND = "The user name is not available in database.";
 		

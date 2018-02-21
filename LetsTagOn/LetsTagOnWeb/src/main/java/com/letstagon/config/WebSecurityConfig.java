@@ -50,8 +50,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 		http.formLogin().usernameParameter("userName").passwordParameter("password").and().logout().permitAll().and()
 				.authorizeRequests().antMatchers("/css/**", "/js/**", "/images/**", "/fonts/**").permitAll()
-				.antMatchers("/index.html", "/welcome.html", "/change_password.html", "/linkedin/auth",
-						"/linkedin/signin", "/", "/resetPassword", "/lto/resetPassword", "/register/customer",
+				.antMatchers("/index.html", "/welcome.html", "/change_password.html", "/otp.html", "/linkedin/auth",
+						"/linkedin/signin", "/", "/resetPassword", "/lto/resetPassword", "/register/customer", "/register/verifyOtp",
 						"/password/forgotPassword", "/password/resetPassword", "/fileDl/**", "/fileRd/**",
 						"/uploadFile", "/opportunity/*/userDetails", "/contact/us" ,"/opportunity/**	")
 				.permitAll().antMatchers(permittedUrls).permitAll().anyRequest().authenticated().and().csrf()

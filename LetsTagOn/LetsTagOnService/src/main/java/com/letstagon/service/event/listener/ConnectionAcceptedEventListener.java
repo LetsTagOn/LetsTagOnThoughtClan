@@ -84,7 +84,7 @@ public class ConnectionAcceptedEventListener extends BaseNotificationEventListne
 		if (sendNotification) {
 			Notification notification = new Notification();
 			notification.setContent(NotificationTypeEnum.CONNECTION_ACCEPT.getMessage());
-			notification.setPartyBean(event.getToParty());
+			notification.setPartyBean(event.getFromParty());
 			notification.setType(NotificationTypeEnum.CONNECTION_ACCEPT.getEventType());
 			notification.setSentOn(new Date());
 			notification.setStatus(true);
@@ -134,14 +134,14 @@ public class ConnectionAcceptedEventListener extends BaseNotificationEventListne
 			@SuppressWarnings({ "rawtypes", "unchecked" })
 			public void prepare(MimeMessage mimeMessage) throws Exception {
 				MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-				message.setTo(event.getToParty().getUserBean().getEmailAddress());
+				message.setTo(event.getFromParty().getUserBean().getEmailAddress());
 				message.setFrom("no-reply@letstagon.com");
 				message.setSubject(CommonConstants.EMAIL_SUBJECT);
 				message.setSentDate(new Date());
 				Map model = new HashMap();
 				model.put("regMessage",
-						CommonConstants.CONNECTION_ACCEPT_EVENT_MESSAGE + event.getFromParty().getUserBean().getName());
-				model.put("name", event.getToParty().getUserBean().getName());
+						CommonConstants.CONNECTION_ACCEPT_EVENT_MESSAGE + event.getToParty().getUserBean().getName());
+				model.put("name", event.getFromParty().getUserBean().getName());
 				String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
 						"velocity/connectionAcceptTemplate.vm", "UTF-8", model);
 				message.setText(text, true);

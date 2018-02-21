@@ -1,7 +1,3 @@
-/*
- * JS File to register user 
- * 
- */
 letsTagOn
     .controller("RegisterController", function(
         $http,
@@ -13,6 +9,7 @@ letsTagOn
         //User Registration
         $scope.customer = {};
         $scope.flag = 0;
+        $scope.user = {};
 
         //Common on registartion and complete profile step_1
         $("#myTermsofUse").on("hidden.bs.modal", function() {
@@ -78,6 +75,57 @@ letsTagOn
                 .next()
                 .removeClass("focus-effect");
         });
+        $scope.otpValidation = function(submitted) {
+            $("#loading-indicator").show();
+            var url = window.location.href.split("?name=");
+            var userName = url[1];
+            $scope.user.userName = userName;
+            $scope.user.token = $scope.user.token;
+            $http({
+                url: "register/verifyOtp",
+                dataType: "json",
+                method: "POST",
+                data: $scope.user,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .success(function(response) {
+                    $("#loading-indicator").hide();
+                    if (response.error == null) {
+                        $scope.user = "";
+                        $scope.redirect("/");
+                        $rootScope.successMessageText1 =
+                            "Account Verified successfully.";
+                        $rootScope.successMessageText2 =
+                            "Kindly login with the registered emailId and password.";
+                        $rootScope.toggleSuccessModal();
+                        $(".registration-success-modal-dialog").css({
+                            top: "200px"
+                        });
+                    } else {
+                        $scope.showErrorModal = false;
+                        $rootScope.authenticationError =
+                            response.error.errorMessage;
+                        $rootScope.toggleErrorModal();
+                        $(".registration-error-modal-dialog").css({
+                            top: "200px"
+                        });
+                        $("#modal-error").addClass("registration-error-modal");
+                    }
+                })
+                .error(function(error) {
+                    $("#loading-indicator").hide();
+                    $scope.showErrorModal = false;
+                    $rootScope.authenticationError =
+                        response.error.errorMessage;
+                    $rootScope.toggleErrorModal();
+                    $(".registration-error-modal-dialog").css({
+                        top: "200px"
+                    });
+                    $("#modal-error").addClass("registration-error-modal");
+                });
+        };
         //save call on registration
         $scope.registerForm = function(submitted) {
             $scope.customer.name =
@@ -115,9 +163,10 @@ letsTagOn
                         $rootScope.registrationSuccessHeader =
                             "Registration successfully completed";
                         $rootScope.successMessageText1 = "You're almost there!";
-                        // $rootScope.successMessageText2 = "A registration confirmation mail has been sent to your specified email.";
+                        $rootScope.successMessageText2 =
+                            "Kindly login with the registered email id and password.";
                         $rootScope.successMessageText3 =
-                            "Kindly login with the registered emailId and password.";
+                            "A registration confirmation mail has been sent to your specified email id for your reference.";
                         $rootScope.toggleSuccessModal();
                         $(".registration-success-modal-dialog").css({
                             top: "200px"

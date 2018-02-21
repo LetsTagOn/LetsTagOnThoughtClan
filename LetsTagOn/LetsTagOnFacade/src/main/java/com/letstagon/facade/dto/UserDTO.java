@@ -91,7 +91,10 @@ public class UserDTO implements Serializable {
 	private String gender;
 	
 	/** The account verified. */
-	private boolean accountVerified;
+	private String accountVerified;
+	
+	/** The otp for verification */
+	private String token;
 	
 	/** The reset password expiry. */
 	private Date resetPasswordExpiry;
@@ -159,7 +162,7 @@ public class UserDTO implements Serializable {
 	 *
 	 * @return the account verified
 	 */
-	public boolean getAccountVerified() {
+	public String getAccountVerified() {
 		return accountVerified;
 	}
 
@@ -168,7 +171,7 @@ public class UserDTO implements Serializable {
 	 *
 	 * @param accountVerified the new account verified
 	 */
-	public void setAccountVerified(boolean accountVerified) {
+	public void setAccountVerified(String accountVerified) {
 		this.accountVerified = accountVerified;
 	}
 
@@ -858,6 +861,25 @@ public class UserDTO implements Serializable {
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+	/**
+	 * Gets the otp for verification.
+	 *
+	 * @returns the otp
+	 */
+	public String getToken() {
+		return token;
+	}
+
+
+	/**
+	 * Sets the otp for verification.
+	 *
+	 * @param token the new otp token
+	 */
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	/**

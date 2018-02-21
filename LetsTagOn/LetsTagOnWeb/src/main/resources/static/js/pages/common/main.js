@@ -22,7 +22,7 @@ letsTagOn.controller("MainController", function(
     var arr = url.split("#");
     $rootScope.baseUrl = arr[0];
 
-    $rootScope.unrestrictedUrls = ["/resetPassword", "/search"];
+    $rootScope.unrestrictedUrls = ["/resetPassword", "/search", "/verifyToken"];
 
     var authenticate = function(callback) {
         $http
@@ -50,14 +50,27 @@ letsTagOn.controller("MainController", function(
                     for (i in $rootScope.unrestrictedUrls) {
                         var url = $rootScope.unrestrictedUrls[i];
                         if ($location.absUrl().indexOf(url) >= 0) {
+                            if (
+                                $location.absUrl().indexOf("/verify") >= 0 ||
+                                $location.absUrl().indexOf("/reset") >= 0
+                            ) {
+                                if (
+                                    $rootScope.$$listenerCount
+                                        .$locationChangeStart == 1
+                                ) {
+                                    $rootScope.$$listenerCount.$locationChangeStart = 2;
+                                    $route.reload();
+                                } else {
+                                    $rootScope.$$listenerCount.$locationChangeStart = 1;
+                                }
+                            }
                             allowed = true;
                             break;
                         }
-                    }
 
-                    if (!allowed) $location.path("/welcome");
+                        if (!allowed) $location.path("/welcome");
+                    }
                 }
-                callback && callback();
             })
             .error(function() {
                 $rootScope.authenticated = false;

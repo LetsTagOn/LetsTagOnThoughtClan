@@ -5,17 +5,17 @@
 var notification = angular.module("notificationModule", ['infinite-scroll']);
 notification.controller('UserNotificationController', function($http, $scope, $rootScope, $location, $timeout) {
     if ($rootScope.authenticated) {
-        $scope.unreadNotificationList = [];
+    	$rootScope.unreadNotificationList = [];
         $rootScope.listSize = 10;
-        $scope.notificationLength = "";
+        $rootScope.notificationLength = "";
 
         // ================================== Code to get all unread notifications ================================================
         var ready = true;
         setInterval(function() {
-            $scope.getAllUnreadNotifications();
+        	$rootScope.getAllUnreadNotifications();
         }, 600 * 1000);
-        $scope.pageSize = 0;
-        $scope.getAllUnreadNotifications = function() {
+        $rootScope.pageSize = 0;
+        $rootScope.getAllUnreadNotifications = function() {
 
             $http({
                 url: '/notification/party/' + $rootScope.userId + '/isRead',
@@ -26,18 +26,19 @@ notification.controller('UserNotificationController', function($http, $scope, $r
                 },
                 params: {
                     "size": $rootScope.listSize,
-                    "page": $scope.pageSize
+                    "page": $rootScope.pageSize
                 }
             }).success(function(response) {
+            	$rootScope.unreadNotificationList = [];
                 response.searchResult.forEach(function(response) {
                     try {
                         response.params = JSON.parse(response.params);
-                        $scope.unreadNotificationList.push(response);
+                        $rootScope.unreadNotificationList.push(response);
                     } catch (e) {
 
                     }
                 });
-                $scope.notificationLength = $scope.unreadNotificationList.length;
+                $rootScope.notificationLength = $rootScope.unreadNotificationList.length;
                 ready = true;
             }).error(function(error) {
 
@@ -55,8 +56,8 @@ notification.controller('UserNotificationController', function($http, $scope, $r
         });
 
         $scope.getNextNotificationList = function() {
-            $scope.pageSize = $scope.pageSize + 1;
-            $scope.getAllUnreadNotifications();
+        	$rootScope.pageSize = $rootScope.pageSize + 1;
+            $rootScope.getAllUnreadNotifications();
 
         };
 
@@ -76,18 +77,19 @@ notification.controller('UserNotificationController', function($http, $scope, $r
                             $(".lto-pending-notification-user-dropdownList").addClass("block");
                         }
 
-                        $scope.unreadNotificationList.forEach(function(notification) {
+                        $rootScope.unreadNotificationList.forEach(function(notification) {
                             if (notification.id == response.data.id) {
-                                var index = $scope.unreadNotificationList.indexOf(notification);
+                                var index = $rootScope.unreadNotificationList.indexOf(notification);
                                 if (index > -1) {
-                                    $scope.notificationLength = $scope.notificationLength - 1;
-                                    if ($scope.notificationLength == 0) {
+                                	$rootScope.unreadNotificationList.splice(index, 1);
+                                	$("#notification" + response.data.id).addClass("ng-hide");
+                                	$rootScope.notificationLength = $rootScope.unreadNotificationList.length;
+                                    if ($rootScope.notificationLength == 0) {
                                         $("#notificationLength").hide();
                                     }
                                 }
                             }
                         });
-                        $("#notification" + response.data.id).addClass("lto-pending-notification-drop-row-read");
                     }
                 }).error(function(error) {
                     console.log("error while getting profile details of user with id:" + $rootScope.userId);
@@ -190,7 +192,7 @@ notification.controller('UserNotificationController', function($http, $scope, $r
             }
         }).success(function(response) {
             if (response.error == null) {
-                $scope.unreadNotificationList = [];
+            	$rootScope.unreadNotificationList = [];
             }
         }).error(function(error) {
             console.log("error while getting notification list for the userID" + $rootScope.userId);
