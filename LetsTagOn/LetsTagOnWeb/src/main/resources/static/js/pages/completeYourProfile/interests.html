@@ -11,7 +11,7 @@
                 </div>
             </header>
             <div class="content-area">
-                <div class="row-space progress-wrap hidden-xs">
+                <div class="row-space progress-wrap">
                     <ul class="progress-bar">
                         <li class="cursor active" ng-click="redirect('/cp/personalInformation')" i18n="{{'common.lto_link_personalInfo'}}"></li>
                         <li class="cursor active" i18n="{{'common.lto_link_interest'}}"></li>
@@ -28,8 +28,8 @@
                     </ul>
                     <div class="row-space hidden-md hidden-sm"></div>
                 </div>
-                <!-- ----------------------------------  Location preferences capture ---------------------------------------------> -->
-               <!--  <form name="locationPref" ng-submit="locationPref.$valid && saveLocationPrefDetails()" novalidate="novalidate">
+                
+                 <form name="locationPref" ng-submit="locationPref.$valid && saveLocationPrefDetails()" novalidate="novalidate">
                     <div class="row no-margin row-space checkbox-custom profile-form">
                         <div class="col-xs-12 col-sm-6">
                             <label for="trade" i18n="{{'common.lto_label_postCode'}}"></label>
@@ -48,7 +48,7 @@
                     <div class="error-toast-message" ng-show="locationError">
                         <span ng-model="locationErrorMessage">{{locationErrorMessage}}</span>
                     </div>
-                </form> -->
+                </form> 
                 <!-------------------------------------------  Availability details capture ----------------------------------->
                 <div class="row no-margin row-space">
                     <div class="col-xs-12 col-sm-12">
@@ -81,7 +81,7 @@
                 <div class="error-toast-message" ng-show="availableError">
                     <span ng-model="availabilityErrorMessage">{{availabilityErrorMessage}}</span>
                 </div>
-                <!----------------------------------------------- causes in which the user is interersed in ------------------------------------
+                <!----------------------------------------------- causes in which the user is interersed in ------------------------------------>
                 <div class="row no-margin row-space">
                     <div class="col-xs-12 col-sm-12 lto-complete-profile-causes">
                         <div class="lto-cp-cause-section-left">

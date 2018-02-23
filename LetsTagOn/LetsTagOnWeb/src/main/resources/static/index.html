@@ -48,14 +48,14 @@
 	<div ng-controller="MainController">
 		<div ng-if=" authenticated" ng-include="'./js/pages/header/postLoginHeader.html'"></div>
 		<div ng-if="!authenticated" ng-include="'./js/pages/header/preLoginHeader.html'"></div>
-		<div ng-view></div>
+		<div ng-view autoscroll></div>
 		<footer class="footer foot-note">
 			<div class="container lto-footer-container">
 				
 				<ul>
 					<li ng-controller="aboutcontroller"><a class="cursor autoscroll" ng-click="getAboutUsPage()">About us</a></li>
 					<li ng-controller="contactuscontroller"><a class="cursor" ng-click="getContactUsPage()">Contact us</a></li>
-					<li ><a class="cursor" ng-click="redirect('/blog')">Get Inspired</a></li>
+					<li ><a class="cursor" ng-click="redirect('/blog')" >Get Inspired</a></li>
 
 					<li ng-controller="BootstrapModalController as modal"><a class = "cursor" data-target="#myTermsofUse" data-toggle="modal">Terms of use</a></li>
 					<li ng-controller="BootstrapModalController as modal"><a class = "cursor" data-target="#myPolicy" data-toggle="modal">Privacy policy</a></li>
@@ -115,6 +115,7 @@
 	<script src="js/pages/localization/localization.js"></script>
 	<script src="js/pages/fragments/pagination/dirPagination.js"></script>
 	<script src="js/pages/wall/lto-wall.js"></script>
+	<script src="js/pages/blog/blog.js"></script>
 	<script src="js/pages/About Us/about_us.js"></script>
 	<script src="js/pages/Contact Us/contact_us.js"></script>
 </body>
