@@ -28,12 +28,13 @@ letsTagOn.controller("MainController", function(
         $http
             .get("user")
             .success(function(data) {
+                // console.log("data in authenticate: ", data.name);
                 if (data.name) {
                     $rootScope.authenticated = true;
                     $("#modalLogin").modal("hide");
                     $("body").removeClass("modal-open");
                     $(".modal-backdrop").remove();
-                    $rootScope.authenticated = true;
+
                     sessionStorage.authenticated = true;
                     $rootScope.logout = true;
                     $scope.error = false;
@@ -71,6 +72,7 @@ letsTagOn.controller("MainController", function(
                         if (!allowed) $location.path("/welcome");
                     }
                 }
+                callback && callback();
             })
             .error(function() {
                 $rootScope.authenticated = false;
@@ -89,6 +91,7 @@ letsTagOn.controller("MainController", function(
             })
             .success(function(data) {
                 authenticate(function() {
+                    // console.log("authenticated: ?", $rootScope.authenticated);
                     if ($rootScope.authenticated) {
                         if ($location.path() === "/welcome")
                             //redirection to search page should happen provided login is happening from landing page
