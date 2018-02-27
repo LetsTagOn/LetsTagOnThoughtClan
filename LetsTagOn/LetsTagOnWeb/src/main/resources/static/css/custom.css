@@ -404,7 +404,7 @@ a.selected {
   border-radius: 0px;
 }
 .top-header .navbar-default {
-  background-color: #5dbcd2;
+  background-color: #555;
   border-color: transparent;
 }
 .navbar-toggle {
@@ -1208,7 +1208,7 @@ ul.progress-bar a {
   color: #fff;
   bottom: 0;
   position: relative;
-  background-color: #5dbcd2;
+  background-color: #555;
   border-color: transparent;
   height: 65px;
 }
