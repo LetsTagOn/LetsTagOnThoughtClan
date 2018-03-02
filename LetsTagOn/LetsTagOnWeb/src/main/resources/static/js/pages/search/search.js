@@ -1,7 +1,5 @@
 var searchModule = angular.module("search", []);
 
-
-
 /*
  * Controller for Search Functionality
  * 
@@ -58,10 +56,10 @@ searchModule
             });
 
         $scope.ClearResults = function() {
-        	 searchSvc.clearResults();
-        	
-        	 $route.reload();
-        }
+            searchSvc.clearResults();
+
+            $route.reload();
+        };
         //  init method called on page load to load master data
         $scope.getMasterData = function() {
             var keyword = $scope.getSearchKeyWordFromUrl();
@@ -281,7 +279,7 @@ searchModule
                 .get($scope.generateUpcomingEventsQuery(1))
                 .then(function(result) {
                     $scope.upComingEvents = result.data.response.docs;
-                     console.log(result.data.response.docs);
+                    console.log(result.data.response.docs);
                 });
         };
 
@@ -290,35 +288,39 @@ searchModule
             // this is just an example, in reality this stuff should
             // be in a service
             //get results from DB only if there is no previous search result or there is the default search result from initial page load
-            if ($scope.results.length === 0 || $scope.results.length===$scope.resultsPerPage) {
-            	
-            	$http
-                .get($scope.generateSolrSearchQuery(pageNumber))
-                .then(function(result) {
-                    $scope.results = [];
-                    $scope.results = result.data.response.docs;
-                    searchSvc.saveSearch($scope.results);
-                    if (result.data.response.numFound > 0)
-                        // Sourabh: added this code to set searchresults
+            if (
+                $scope.results.length === 0 ||
+                $scope.results.length === $scope.resultsPerPage
+            ) {
+                $http
+                    .get($scope.generateSolrSearchQuery(pageNumber))
+                    .then(function(result) {
+                        $scope.results = [];
+                        $scope.results = result.data.response.docs;
+                        searchSvc.saveSearch($scope.results);
+                        if (result.data.response.numFound > 0)
+                            // Sourabh: added this code to set searchresults
 
-                        $scope.totalResults = result.data.response.numFound;
-                    else $scope.totalResults = 0;
-                    if (result.data.facet_counts) {
-                        // set facet counts
+                            $scope.totalResults = result.data.response.numFound;
+                        else $scope.totalResults = 0;
+                        if (result.data.facet_counts) {
+                            // set facet counts
 
-                        $scope.setFacetCounts(result.data.facet_counts);
-                    }
+                            $scope.setFacetCounts(result.data.facet_counts);
+                        }
 
-                    if ($scope.getCoreName() === "users") {
-                        $scope.showConnectionStatus($scope.results);
-                    }
-                });
+                        if ($scope.getCoreName() === "users") {
+                            $scope.showConnectionStatus($scope.results);
+                        }
+                    });
             }
-            
         };
-        
+
         $scope.getBannerImage = function(bannerImage) {
-            return "https://s3-us-west-2.amazonaws.com/ltoopporimages/" + bannerImage;
+            return (
+                "https://s3-us-west-2.amazonaws.com/ltoopporimages/" +
+                bannerImage
+            );
         };
 
         // Function called to get facets
@@ -366,8 +368,7 @@ searchModule
             if ($scope.resultsPerPage == undefined) {
                 $scope.resultsPerPage = 10;
             }
-            console.log($scope.getFacetQuery($scope
-                    .getSimpleFacetFields()));
+            console.log($scope.getFacetQuery($scope.getSimpleFacetFields()));
             console.log($scope.getQueryString());
 
             return (
@@ -901,7 +902,7 @@ searchModule
                 '<div class="lto-search-container" ng-show="!authenticated"' +
                 'ng-controller="SearchController">' +
                 '<input type="text" name="trade"' +
-                'class="form-control lto-pre-login-search" id="headerSearch"' +
+                'class="form-control lto-pre-login-search"' +
                 'placeholder="Search for volunteers/events"' +
                 'ng-keypress="($event.which === 13)?redirectToSearchPage():0"><span' +
                 'class="glyphicon glyphicon-search cursor"' +

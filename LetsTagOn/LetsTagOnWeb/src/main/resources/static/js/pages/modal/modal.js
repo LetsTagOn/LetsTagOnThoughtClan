@@ -11,31 +11,36 @@ bootstrapModal.controller("BootstrapModalController", function(
     $timeout
 ) {
     $('[data-toggle="tooltip"]').tooltip();
-    $scope.showSuccessModal = false;
-    $scope.showErrorModal = false;
-    $scope.showSessionTimeout = false;
-    $scope.showLtoSuccessModal = false;
-    $scope.showLtoErrorModal = false;
+    // $scope.showSuccessModal = false;
+    // $scope.showErrorModal = false;
+    // $scope.showSessionTimeout = false;
+    // $scope.showLtoSuccessModal = false;
+    // $scope.showLtoErrorModal = false;
 
     $rootScope.toggleSuccessModal = function() {
         $(".modal").modal("hide");
-        $scope.showSuccessModal = !$scope.showSuccessModal;
+        // $scope.showSuccessModal = !$scope.showSuccessModal;
+        $("#modal-success").modal("show");
     };
     $rootScope.toggleErrorModal = function() {
         $(".modal").modal("hide");
-        $scope.showErrorModal = !$scope.showErrorModal;
+        // $scope.showErrorModal = !$scope.showErrorModal;
+        $("#modal-error").modal("show");
     };
     $rootScope.toggleSessionTimeoutPopup = function() {
         $(".modal").modal("hide");
-        $scope.showSessionTimeout = !$scope.showSessionTimeout;
+        // $scope.showSessionTimeout = !$scope.showSessionTimeout;
+        $("#modal-session").modal("show");
     };
     $rootScope.toggleLtoSuccessModal = function() {
         $(".modal").modal("hide");
-        $scope.showLtoSuccessModal = !$rootScope.showLtoSuccessModal;
+        // $scope.showLtoSuccessModal = !$rootScope.showLtoSuccessModal;
+        $("#lto-modal-success").modal("show");
     };
     $rootScope.toggleLtoErrorModal = function() {
         $(".modal").modal("hide");
-        $scope.showLtoErrorModal = !$rootScope.showLtoErrorModal;
+        // $scope.showLtoErrorModal = !$rootScope.showLtoErrorModal;
+        $("#lto-modal-error").modal("show");
     };
 
     $scope.openRegistrationModal = function() {
@@ -66,25 +71,25 @@ bootstrapModal.directive("success", function() {
         restrict: "E",
         transclude: true,
         replace: true,
-        scope: true,
-        link: function postLink(scope, element, attrs) {
-            scope.$watch(attrs.visible, function(value) {
-                if (value == true) $(element).modal("show");
-                else $(element).modal("hide");
-            });
+        scope: true
+        // link: function postLink(scope, element, attrs) {
+        //     scope.$watch(attrs.visible, function(value) {
+        //         if (value == true) $(element).modal("show");
+        //         else $(element).modal("hide");
+        //     });
 
-            $(element).on("shown.bs.modal", function() {
-                scope.$apply(function() {
-                    scope.$parent[attrs.visible] = true;
-                });
-            });
+        //     $(element).on("shown.bs.modal", function() {
+        //         scope.$apply(function() {
+        //             scope.$parent[attrs.visible] = true;
+        //         });
+        //     });
 
-            $(element).on("hidden.bs.modal", function() {
-                scope.$apply(function() {
-                    scope.$parent[attrs.visible] = false;
-                });
-            });
-        }
+        //     $(element).on("hidden.bs.modal", function() {
+        //         scope.$apply(function() {
+        //             scope.$parent[attrs.visible] = false;
+        //         });
+        //     });
+        // }
     };
 });
 
@@ -104,27 +109,27 @@ bootstrapModal.directive("actionsuccess", function() {
         restrict: "E",
         transclude: true,
         replace: true,
-        scope: true,
-        link: function postLink(scope, element, attrs) {
-            scope.$watch(attrs.visible, function(value) {
-                if (value == true) $(element).modal("show");
-                else $(element).modal("hide");
-            });
+        scope: true
+        // link: function postLink(scope, element, attrs) {
+        //     scope.$watch(attrs.visible, function(value) {
+        //         if (value == true) $(element).modal("show");
+        //         else $(element).modal("hide");
+        //     });
 
-            $(element).on("shown.bs.modal", function() {
-                if (!scope.$$phase) {
-                    scope.$apply(function() {
-                        scope.$parent[attrs.visible] = true;
-                    });
-                }
-            });
+        //     $(element).on("shown.bs.modal", function() {
+        //         if (!scope.$$phase) {
+        //             scope.$apply(function() {
+        //                 scope.$parent[attrs.visible] = true;
+        //             });
+        //         }
+        //     });
 
-            $(element).on("hidden.bs.modal", function() {
-                scope.$apply(function() {
-                    scope.$parent[attrs.visible] = false;
-                });
-            });
-        }
+        //     $(element).on("hidden.bs.modal", function() {
+        //         scope.$apply(function() {
+        //             scope.$parent[attrs.visible] = false;
+        //         });
+        //     });
+        // }
     };
 });
 bootstrapModal.directive("actionerror", function() {
@@ -143,25 +148,25 @@ bootstrapModal.directive("actionerror", function() {
         restrict: "E",
         transclude: true,
         replace: true,
-        scope: true,
-        link: function postLink(scope, element, attrs) {
-            scope.$watch(attrs.visible, function(value) {
-                if (value == true) $(element).modal("show");
-                else $(element).modal("hide");
-            });
+        scope: true
+        // link: function postLink(scope, element, attrs) {
+        //     scope.$watch(attrs.visible, function(value) {
+        //         if (value == true) $(element).modal("show");
+        //         else $(element).modal("hide");
+        //     });
 
-            $(element).on("shown.bs.modal", function() {
-                scope.$apply(function() {
-                    scope.$parent[attrs.visible] = true;
-                });
-            });
+        //     $(element).on("shown.bs.modal", function() {
+        //         scope.$apply(function() {
+        //             scope.$parent[attrs.visible] = true;
+        //         });
+        //     });
 
-            $(element).on("hidden.bs.modal", function() {
-                scope.$apply(function() {
-                    scope.$parent[attrs.visible] = false;
-                });
-            });
-        }
+        //     $(element).on("hidden.bs.modal", function() {
+        //         scope.$apply(function() {
+        //             scope.$parent[attrs.visible] = false;
+        //         });
+        //     });
+        // }
     };
 });
 
@@ -184,25 +189,25 @@ bootstrapModal.directive("error", function() {
         restrict: "E",
         transclude: true,
         replace: true,
-        scope: true,
-        link: function postLink(scope, element, attrs) {
-            scope.$watch(attrs.visible, function(value) {
-                if (value == true) $(element).modal("show");
-                else $(element).modal("hide");
-            });
+        scope: true
+        // link: function postLink(scope, element, attrs) {
+        //     scope.$watch(attrs.visible, function(value) {
+        //         if (value == true) $(element).modal("show");
+        //         else $(element).modal("hide");
+        //     });
 
-            $(element).on("shown.bs.modal", function() {
-                scope.$apply(function() {
-                    scope.$parent[attrs.visible] = true;
-                });
-            });
+        //     $(element).on("shown.bs.modal", function() {
+        //         scope.$apply(function() {
+        //             scope.$parent[attrs.visible] = true;
+        //         });
+        //     });
 
-            $(element).on("hidden.bs.modal", function() {
-                scope.$apply(function() {
-                    scope.$parent[attrs.visible] = false;
-                });
-            });
-        }
+        //     $(element).on("hidden.bs.modal", function() {
+        //         scope.$apply(function() {
+        //             scope.$parent[attrs.visible] = false;
+        //         });
+        //     });
+        // }
     };
 });
 bootstrapModal.directive("session", function() {
@@ -226,24 +231,24 @@ bootstrapModal.directive("session", function() {
         restrict: "E",
         transclude: true,
         replace: true,
-        scope: true,
-        link: function postLink(scope, element, attrs) {
-            scope.$watch(attrs.visible, function(value) {
-                if (value == true) $(element).modal("show");
-                else $(element).modal("hide");
-            });
+        scope: true
+        // link: function postLink(scope, element, attrs) {
+        //     scope.$watch(attrs.visible, function(value) {
+        //         if (value == true) $(element).modal("show");
+        //         else $(element).modal("hide");
+        //     });
 
-            $(element).on("shown.bs.modal", function() {
-                scope.$apply(function() {
-                    scope.$parent[attrs.visible] = true;
-                });
-            });
+        //     $(element).on("shown.bs.modal", function() {
+        //         scope.$apply(function() {
+        //             scope.$parent[attrs.visible] = true;
+        //         });
+        //     });
 
-            $(element).on("hidden.bs.modal", function() {
-                scope.$apply(function() {
-                    scope.$parent[attrs.visible] = false;
-                });
-            });
-        }
+        //     $(element).on("hidden.bs.modal", function() {
+        //         scope.$apply(function() {
+        //             scope.$parent[attrs.visible] = false;
+        //         });
+        //     });
+        // }
     };
 });
