@@ -46,31 +46,45 @@ letsTagOn.controller("MainController", function(
                     $rootScope.authenticated = false;
                     sessionStorage.authenticated = false;
                     //check if url allowed though not authenticated
-
+                    // console.log("checking if url allowed");
                     var allowed = false;
                     for (i in $rootScope.unrestrictedUrls) {
                         var url = $rootScope.unrestrictedUrls[i];
+                        // console.log("URL TO CHECK: ", url);
+                        // console.log("ABSURL: ", $location.absUrl());
                         if ($location.absUrl().indexOf(url) >= 0) {
+                            // console.log("URL FOUND IN ABSURL");
                             if (
                                 $location.absUrl().indexOf("/verify") >= 0 ||
                                 $location.absUrl().indexOf("/reset") >= 0
                             ) {
+                                // console.log("FOUND VERIFY IN URL");
                                 if (
                                     $rootScope.$$listenerCount
                                         .$locationChangeStart == 1
                                 ) {
+                                    // console.log("locationChangeStart IS 1 ");
+                                    // console.log(
+                                    //     "LISTERNERCOUNT",
+                                    //     $rootScope.$$listenerCount
+                                    // );
                                     $rootScope.$$listenerCount.$locationChangeStart = 2;
                                     $route.reload();
                                 } else {
+                                    // console.log("locationChangeStart IS NOT 1");
+                                    // console.log(
+                                    //     "LISTERNERCOUNT",
+                                    //     $rootScope.$$listenerCount
+                                    // );
                                     $rootScope.$$listenerCount.$locationChangeStart = 1;
                                 }
                             }
                             allowed = true;
                             break;
                         }
-
-                        if (!allowed) $location.path("/welcome");
                     }
+
+                    if (!allowed) $location.path("/welcome");
                 }
                 callback && callback();
             })
