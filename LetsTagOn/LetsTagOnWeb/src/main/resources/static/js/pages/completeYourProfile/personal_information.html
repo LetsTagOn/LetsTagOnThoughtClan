@@ -10,7 +10,7 @@
                 </div>
             </header>
             <div class="content-area">
-                <div class="row-space progress-wrap hidden-xs">
+                <div class="row-space progress-wrap">
                     <ul class="progress-bar">
                         <li class="cursor active" i18n="{{'common.lto_link_personalInfo'}}"></li>
                         <li class="cursor" ng-click="redirect('/cp/interests')" i18n="{{'common.lto_link_interest'}}"></li>
@@ -22,23 +22,23 @@
 					></li> -->
                     </ul>
                 </div>
-                <div class=" hidden-md hidden-sm hidden-lg row-space personal-info-progress-wrap">
+               <!--  <div class=" hidden-md hidden-sm hidden-lg row-space personal-info-progress-wrap">
                     <ul class="list-no-style">
                         <li class="cursor active col-xs-6" i18n="{{'common.lto_link_personalInfo'}}"></li>
                         <li class="cursor  col-xs-6" ng-click="redirect('/cp/experiences')" i18n="{{'common.lto_link_experience'}}"></li>
-                        <li class="cursor  col-xs-6" ng-click="redirect('/cp/interests')" i18n="{{'common.lto_link_interest'}}"></li>
+                        <li class="cursor  col-xs-6" ng-click="redirect('/cp/interests')" i18n="{{'common.lto_link_interest'}}"></li> -->
                         <!--<li
 						class="cursor  col-xs-6"
 						ng-click="redirect('/cp/privacy')"
 						i18n="{{'common.lto_link_privacySettings'}}"
 					></li> -->
-                    </ul>
+                    <!-- </ul>
                     <div class="row-space hidden-md hidden-sm">
                         <br>
                         <br>
                         <br>
                     </div>
-                </div>
+                </div> -->
                 <div class="row-space" ng-controller="UploadProfilePicController">
                     <div class="update-picture">
                         <div class="profile-image">
@@ -100,7 +100,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 ">
                                 <label for="trade" i18n="{{'common.lto_label_street'}}"></label>
-                                <input type="text" name="city" class="form-control" id="street" placeholder="{{'common.lto_placeholder_street'|i18n}}" ng-model="user.addressBean.street" > <span class="glyphicon "></span> 
+                                <input type="text" name="street" class="form-control" id="street" placeholder="{{'common.lto_placeholder_street'|i18n}}" ng-model="user.addressBean.street" > <span class="glyphicon "></span> 
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 ">
                                 <label for="trade" i18n="{{'common.lto_label_postCode'}}"></label>

@@ -313,3 +313,17 @@ Responsive Styles for Carousel
 		font-size: 1.2em;
 	}
 }
+
+/*responsive styles for edit profile page*/
+/*@media screen and (min-width:300px) {
+  .progress-bar li.active:after {
+    content: "";
+    height: 1px;
+    width: 100%;
+    left: 50%;
+    position: absolute;
+    top: -42px;
+    z-index: 0;
+    display: flex;
+    justify-content: space-between;
+  }*/

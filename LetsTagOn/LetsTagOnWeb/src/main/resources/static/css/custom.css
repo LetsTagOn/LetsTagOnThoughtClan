@@ -415,6 +415,7 @@ a.selected {
   list-style: none;
   text-align: center;
   margin-bottom: 0px;
+  width:100%;
 }
 .navigation-bar ul li {
   display: inline-block;
@@ -489,17 +490,18 @@ a.selected {
   margin-bottom: 20px;
 }
 .update-picture {
-  background-image: url("../images/profile-section.jpg");
-  background-repeat: no-repeat;
-  height: 180px;
-  background-size: 100%;
+  /*background-image: url("../images/profile-section.jpg");*/
+  /*background-repeat: no-repeat;*/
+  height: 140px;
+  /*background-size: 100%;*/
   opacity: 0.8;
   position: relative;
+  background: linear-gradient(to bottom, #606c88 0%, #3f4c6b 100%);
 }
 .update-picture .label {
-  color: white;
+  /*color: white;*/
   bottom: -52%;
-  left: -35%;
+  left: 35%;
   position: absolute;
 }
 .update-picture .label .glyphicon {
@@ -523,8 +525,9 @@ a.selected {
   background-color: #ffffff;
   background-repeat: no-repeat;
   background-size: 100%;
-  left: 45%;
-  bottom: 60%;
+  left: 50%;
+  margin: 0 -60px;
+  bottom: 40%;
   position: absolute;
 }
 .user-pic {
@@ -755,7 +758,7 @@ a.selected {
   color: #444;
   max-width: 1200px;
   min-height: 70px;
-  width: 900px;
+  width: 100%;
   text-align: center;
   margin: 20px auto 35px auto;
 }
@@ -805,16 +808,7 @@ ul.progress-bar a {
   text-decoration: none;
 }
 
-@media all and (min-width: 800px) {
-  .progress-bar li.active:after {
-    content: "";
-    height: 1px;
-    width: 100%;
-    left: 50%;
-    position: absolute;
-    top: -42px;
-    z-index: 0;
-  }
+
 
   ul.progress-bar {
     background-color: #ececec;
@@ -822,6 +816,8 @@ ul.progress-bar a {
     padding: 0;
     width: 100%;
     border: 1px solid #fe982a;
+    display: flex;
+    justify-content: space-between;
   }
   ul.progress-bar:before {
     background-color: #57aed1;
