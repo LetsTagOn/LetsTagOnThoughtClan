@@ -429,6 +429,10 @@ a.selected {
   color: rgba(0, 0, 0, 0.7);
   font-size: 16px;
 }
+
+.navigation-bar>ul>li>ul {
+  width: 200px;
+}
 .navigation-bar .glyphicon {
   vertical-align: middle;
   margin-right: 10px;
@@ -602,7 +606,7 @@ a.selected {
   border-color: #fe982a;
   color: white;
   display: block;
-  width: 100%;
+  width: auto;
   max-width: 260px;
   margin-left: 10px;
   margin-right: 10px;
@@ -891,7 +895,7 @@ ul.progress-bar a {
 
 .carousel-indicators {
   position: absolute;
-  bottom: 5%;
+  bottom: 3%;
   left: 45%;
 }
 
@@ -1400,4 +1404,9 @@ ul {
   display: none;
 }
 
+.input[type=file] {
+  width: 100%;
+  max-width:200px;
+  font-size: 0.7em;
+}
 /*Messages styles end*/

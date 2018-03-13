@@ -310,9 +310,26 @@ Responsive Styles for Carousel
 /*responsive styles for opp edit page*/
 @media screen and (max-width:500px) {
 	.opportunity-banner-upload-LHS > h2 {
-		font-size: 1.2em;
+		font-size: 1em;
+        overflow-wrap: break-word;
 	}
 }
+
+/*responsive styles for right suggestions*/
+@media screen and (max-width:768px) {
+    .featuredNGO {
+        margin-bottom: 10px;
+        width: 45%;
+    }
+}
+
+@media screen and (max-width:370px) {
+    .featuredNGO {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}
+
 
 /*responsive styles for edit profile page*/
 /*@media screen and (min-width:300px) {

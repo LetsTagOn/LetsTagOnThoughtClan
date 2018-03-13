@@ -109,10 +109,10 @@
 							</div>
 							<div class="col-md-6 nudge-down" ng-show="areaFound" ng-controller="OpportunityEditController">
 											<!-- <label>Address? -->
-            								On Field: <input type="radio" ng-model="address.name" value="onfield" ng-click="ShowAddress('Y')" />
+            								On Field: <input type="radio" ng-model="address.name" value="onfield" ng-click="ShowAddress('Y')" checked />
             								Virtual: <input type="radio" ng-model="address.name" value="virtual" ng-click="ShowAddress('N')" />
         									<!-- </label>  -->
-											<input ng-show="IsVisible" id="autocomplete" placeholder="Enter your address" name="formattedAddress" type="text" class="form-control" ng-model="event.addressBean.formattedAddress"></input>
+											<input ng-show="isField" id="autocomplete" placeholder="Enter your address" name="formattedAddress" type="text" class="form-control" ng-model="event.addressBean.formattedAddress"></input>
 							</div>
 								<div class="col-xs-12 col-sm-6 col-md-6" ng-hide="areaFound">
 									<label>Address</label> <input ng-model="event.street" type="text" name="street_number" class="form-control" placeholder="Enter street number" id="street_number"></input> <input class="form-control" name="locality" placeholder="Enter City" id="locality" ng-required="areaFound == false" ng-model="event.addressBean.city"></input> <span class="error"
@@ -126,7 +126,7 @@
 									<div class="hide" id="longitude"></div>
 								</div>
 								<div class="col-xs-12 col-sm-6 col-md-6">
-									<label class="cursor lto-google-search-txt" ng-show="areaFound"><a ng-click="changeAreaFoundStatus()">No Relevant Matches Found Click to Add customised address?</a></label> <label class="cursor lto-address-txt" ng-hide="areaFound"><a ng-click="changeAreaFoundStatus()">Search Location using google api</a></label>
+									<label class="cursor lto-google-search-txt" ng-show="!areaFound"><a ng-click="changeAreaFoundStatus()">No Relevant Matches Found Click to Add customised address?</a></label> <label class="cursor lto-address-txt" ng-hide="areaFound"><a ng-click="changeAreaFoundStatus()">Search Location using google api</a></label>
 								</div>
 								<!-- <div class="col-xs-12 col-sm-6 col-md-6">
 										<label for="city">Address</label>

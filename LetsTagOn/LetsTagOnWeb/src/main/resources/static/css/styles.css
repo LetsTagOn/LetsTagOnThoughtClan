@@ -1225,11 +1225,14 @@ ul.rating {
     background: rgba(245, 245, 245, 0.35);
     height: inherit;
 }
+.opportunity-banner-upload-LHS > h2 {
+    font-size: 1.2em;
+}
 
 .cropArea.opp-image-croparea {
     width: 100%;
     margin: 10px auto;
-    width: 400px;
+
     height: 235px;
     background: #fff;
     border: 1px dashed #ccc;
@@ -1241,16 +1244,20 @@ ul.rating {
     border-left: 1px solid #ccc;
 }
 .lto-opp-banner-img {
-    margin: 111px 30px 0;
-    width: 150px;
-    height: 150px;
+    margin-top: 111px;
+    width: 100%;
+    max-height: 120px;
+    object-fit: fill;
 }
 .upload-opportunity-image {
     width: 200px;
     margin: 0 auto;
 }
 .opp-banner-img-btn-container {
-    margin: 25px 50px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 .lto-opp-address-list {
     width: 35%;
