@@ -118,9 +118,10 @@ opportunity.controller("OpportunityController", function(
             }
         })
             .success(function(response) {
+                console.log("listing opportunities: ", response.data);
                 $scope.listOpportunity = response.data;
             })
-            .error(function() {
+            .error(function(error) {
                 console.info("-- " + error);
             });
     };
@@ -725,6 +726,7 @@ opportunity.controller("OpportunityEditController", function(
             .success(function(response) {
                 $scope.event = response.data.opportunityDTO;
                 $scope.event.street = $scope.event.addressBean.street;
+                console.log($scope.event);
                 $scope.event.dateStart = $filter("date")(
                     $scope.event.dateStart,
                     "yyyy-MM-dd"
@@ -737,20 +739,16 @@ opportunity.controller("OpportunityEditController", function(
                     $scope.event.addressBean.postalCode
                 );
                 if (
-                    $scope.event.addressBean.country != null ||
-                    $scope.event.addressBean.state != null ||
-                    $scope.event.addressBean.city != null
+                    $scope.event.addressBean.country ||
+                    $scope.event.addressBean.state ||
+                    $scope.event.addressBean.city ||
+                    $scope.event.addressBean.formattedAddress
                 ) {
                     $scope.address = {
                         name: "onfield"
                     };
                     $scope.isField = true;
-                }
-                if (
-                    $scope.event.addressBean.country == null &&
-                    $scope.event.addressBean.state == null &&
-                    $scope.event.addressBean.state == null
-                ) {
+                } else {
                     $scope.address = {
                         name: "virtual"
                     };

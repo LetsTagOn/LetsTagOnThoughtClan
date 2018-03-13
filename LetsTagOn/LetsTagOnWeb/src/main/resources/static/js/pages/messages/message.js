@@ -29,7 +29,8 @@ ltoMessagesModule.controller("LtoMessagesController", function(
             .success(function(response) {
                 $scope.contactList = [];
                 $scope.contactList = response.searchResult;
-                $scope.getConversation($scope.contactList[0]);
+                $scope.contactList &&
+                    $scope.getConversation($scope.contactList[0]);
             })
             .error(function() {
                 console.log(
@@ -273,9 +274,10 @@ ltoMessagesModule.controller("LtoMessagesController", function(
         })
             .success(function(response) {
                 console.log("got unread messages: ", response);
-                response.searchResult.forEach(function(response) {
-                    $scope.unreadMessagelist.push(response);
-                });
+                response.searchResult &&
+                    response.searchResult.forEach(function(response) {
+                        $scope.unreadMessagelist.push(response);
+                    });
                 ready = true;
             })
             .error(function() {

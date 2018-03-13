@@ -6,7 +6,7 @@
 			<!-- Add volunteering Experience -->
 			<div class="col-sm-8 row no-margin row-space">
 				<div class="col-xs-12 col-sm-12 profile-form lto-cp-exp">
-					<h2 class="text-center">Edit Project</h2>
+					<h2 class="text-center">{{program.name}}</h2>
 					<div id="program" class="program">
 						<form name="editProgram" novalidate="novalidate" ng-submit="editProgram.$valid && editProgramWithEvent()">
 							<div class="row lto-cp-exp-form">
@@ -17,7 +17,7 @@
 								</div>
 								<div class="col-xs-12 col-sm-12 col-md-6">
 									<label for="description">Description (What is the work involved?)</label>
-									<textarea name="description" class="form-control" id="description" ng-model="program.description" placeholder="Some words about Project"></textarea>
+									<textarea name="description" class="form-control" id="prog_description" ng-model="program.description" placeholder="Some words about Project"></textarea>
 									<span class="error" ng-show="submitted && editProgram.description.$error.required">Mandatory Field</span>
 								</div>
 								<div class="text-center">
@@ -41,7 +41,7 @@
 										<div ng-if="!event.description">No description!!</div>
 										<div ng-if="event.description">
 											<p>{{event.description}}</p>
-											<a href="#">Read More</a>
+											<a ng-click = "redirect('/view/opportunity/edit/'+ event.id + ')">Read More</a>
 										</div>
 									</div>
 								</div>
@@ -97,7 +97,7 @@
 								</div>
 								<div class="col-xs-12 col-sm-6 col-md-6 ">
 									<label for="description">Description</label>
-									<textarea type="text" name="description" class="form-control" id="description" placeholder="Some words about activity/event" ng-model="event.description"></textarea>
+									<textarea type="text" name="description" class="form-control" id="event_description" placeholder="Some words about activity/event" ng-model="event.description"></textarea>
 								</div>
 								<div class="col-xs-12 col-sm-6 col-md-6 ">
 									<label for="date">Start Date</label> <input type="text" name="eventStartDate" class="form-control" id="eventStartDate" placeholder="Enter Start Date of Activity/Event" ng-model="event.dateStart" ng-required="true" ng-focus="displayStartDate()"> <span class="glyphicon glyphicon-calendar"></span> <span class="error" ng-show="submitted && eventForm.eventStartDate.$error.required">Mandatory

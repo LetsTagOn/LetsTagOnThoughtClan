@@ -24,12 +24,12 @@
 					</span>
 
 				</div>
-				<ul class="dropdown utility-bar lto-profile-header-bar" >
+				<ul class="utility-bar lto-profile-header-bar" >
 					<!-- <li class="no-focus-color" data-toggle="collapse" data-target=".nav-collapse.in"><span class="glyphicon glyphicon-map-marker "> </span>{{displayUserDetails.addressBean.city}}</li> -->
 					<!--  Loding unread messages-->
 					<li ng-controller="LtoMessagesController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getUnreadMessages()">
 						<!-- Section one --> 
-						<a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Messages"> 
+						<a class="dropdown-toggle" data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Messages"> 
 							<span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length > 0"></span> 
 							<span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length==0" ng-click="redirect('/view/myMessages')" > </span> 
 							<span class="hidden-lg hidden-sm hidden-md">Messages</span>
@@ -73,18 +73,18 @@
 					</li>
 					<!-- End of message section -->
 					<!-- Search User Icon-->
-					<li class="hidden-lg hidden-sm hidden-md" data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Search User"> 
+					<!-- <li class="hidden-lg hidden-sm hidden-md" data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Search User"> 
 						<a href=""> 
 							<span class="glyphicon glyphicon-search"></span>
 							<span 	ng-click="redirect('/search/user/')" 
 									i18n="{{'common.lto_button_text_search'}}"> 
 							</span>
 						</a> 
-					</li>
+					</li> -->
 					<!-- Notifications section-->
-					<li  ng-controller="UserNotificationController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getAllUnreadNotifications()"> 
-						<a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Notifications"> 
-							<span class="lto-sec-nav glyphicon glyphicon-flag" ng-if="unreadNotificationList.length > 0" ng-click="viewAllNotificationOfUser()"> 
+					<li  class="dropdown" ng-controller="UserNotificationController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getAllUnreadNotifications()"> 
+						<a   role="button" aria-expanded="false" title="Notifications" > 
+							<span class="lto-sec-nav glyphicon glyphicon-flag dropdown-toggle" ng-if="unreadNotificationList.length > 0" data-toggle="dropdown"> 
 							</span> 
 							<span class="lto-sec-nav glyphicon glyphicon-flag"
 							ng-if="unreadNotificationList.length==0" ng-click="viewAllNotificationOfUser()">
@@ -203,6 +203,7 @@
 			</div>
 		</div>
 	</nav>
+{{unreadNotificationList.length}}
 	<actionsuccess visible="showLtoSuccessModal"></actionsuccess>
 	<actionerror visible="showLtoErrorModal"></actionerror>
 </header>

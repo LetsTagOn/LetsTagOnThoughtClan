@@ -1256,7 +1256,7 @@ ul.rating {
 .opp-banner-img-btn-container {
     margin-top: 10px;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     flex-wrap: wrap;
 }
 .lto-opp-address-list {
