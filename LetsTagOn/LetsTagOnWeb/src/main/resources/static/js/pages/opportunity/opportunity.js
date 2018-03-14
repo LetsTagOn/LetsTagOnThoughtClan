@@ -1154,14 +1154,14 @@ opportunity.controller("ViewOpportunityController", function(
         }
     })
         .success(function(response) {
-            // console.log(response.data);
+            console.log('oppDetails: ', response.data);
             if (response.error == null) {
                 // console.log(response.data);
                 $scope.oppDetails = response.data;
                 $scope.compareDate(response.data.dateEnd);
                 $scope.checkIfEditToBeShown(oppID);
                 $scope.alreadyAppliedJobs(response.data.opportunityJobTypes);
-                initMap($scope.oppDetails.latLong);
+                $scope.oppDetails.latLong && initMap($scope.oppDetails.latLong);
             }
         })
         .error(function(error) {

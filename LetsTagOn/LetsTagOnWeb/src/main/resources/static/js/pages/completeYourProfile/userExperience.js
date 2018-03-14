@@ -30,7 +30,7 @@ completeProfile.controller("ExperienceController", function(
     })
         .success(function(response) {
         	console.log('in user experience: ', response);
-            if (response.error == null) {
+            if (!response.error && response.data) {
                 //skills
                 $scope.masterSkills = response.data.skills.masterSkills;
 
@@ -194,7 +194,7 @@ completeProfile.controller("ExperienceController", function(
             }
         })
             .success(function(response) {
-                if (response.error == null) {
+                if (!response.error && response.data) {
                     $scope.educationDetailsList =
                         response.data.educationDetails;
                     $scope.professionalDetailsList =

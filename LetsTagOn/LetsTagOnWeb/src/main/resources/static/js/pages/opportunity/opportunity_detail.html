@@ -48,15 +48,15 @@
 								<li class="vertical-separator enddate" ng-if="oppDetails.dateEnd"></li>
 								<li ng-if="oppDetails.dateStart && oppDetails.dateEnd" class="opp-Detail-List"><span class=" glyphicon glyphicon-time "></span>{{oppDetails.dateStart | date: 'HH:MM'}}-{{oppDetails.dateEnd | date: 'HH:MM'}}</li>
 								<li class="vertical-separator" ng-if="oppDetails.addressBean"></li>
-								<li ng-if="oppDetails.addressBean && oppDetails.addressBean.formattedAddress == null" class="opp-Detail-List"><span class=" glyphicon glyphicon-map-marker"></span> <span><span ng-if="oppDetails.addressBean.street">{{oppDetails.addressBean.street}}</br></span> <span class="right-align">{{oppDetails.addressBean.city}}<span ng-if="oppDetails.addressBean.country">,
+								<li ng-if="oppDetails.addressBean && oppDetails.addressBean.formattedAddress" class="opp-Detail-List"><span class=" glyphicon glyphicon-map-marker"></span> <span><span ng-if="oppDetails.addressBean.street">{{oppDetails.addressBean.street}}</br></span> <span class="right-align">{{oppDetails.addressBean.city}}<span ng-if="oppDetails.addressBean.country">,
 												{{oppDetails.addressBean.country}}</span>
 									</span> </span></li>
-								<li class="lto-opp-address-list" ng-if="oppDetails.addressBean && oppDetails.addressBean.formattedAddress != null"><span class=" glyphicon glyphicon-map-marker"></span> <span><span>{{oppDetails.addressBean.formattedAddress}}</span> </span> </span></li>
+								<li class="lto-opp-address-list" ng-if="oppDetails.addressBean && oppDetails.addressBean.formattedAddress"><span class=" glyphicon glyphicon-map-marker"></span> <span><span>{{oppDetails.addressBean.formattedAddress}}</span> </span> </span></li>
 							</ul>
 							<div class="hide" id="latLng">{{oppDetails.latLong}}</div>
 						</div>
 					</div>
-					<div class="row no-margin row-space">
+					<div class="row no-margin row-space" ng-if="oppDetails.latLong">
 						<div class="col-xs-12 navigation-map">
 							<div id="map" style="height: 100%"></div>
 						</div>
