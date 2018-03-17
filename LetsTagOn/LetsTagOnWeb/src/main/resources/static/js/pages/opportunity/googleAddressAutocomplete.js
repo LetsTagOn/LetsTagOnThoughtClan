@@ -77,25 +77,31 @@ function initMap(latLng) {
     console.log("Maps initialised");
     var directions;
     var myLatLng;
-    if (latLng != "" && latLng != undefined) {
+    if (latLng) {
         directions = latLng.split(",");
+        console.log("directions", directions);
         myLatLng = {
             lat: Number(directions[0]),
             lng: Number(directions[1])
         };
+        console.log("myLatLng: ", myLatLng);
     } else {
         myLatLng = {
             lat: -34.397,
             lng: 150.644
         };
     }
+
+    console.log("typeof lat :", typeof myLatLng.lat);
+
+    var latlngOption = new google.maps.LatLng(myLatLng.lat, myLatLng.lng);
     var map = new google.maps.Map(document.getElementById("map"), {
-        zoom: 15,
-        center: myLatLng
+        center: latlngOption,
+        zoom: 15
     });
 
     var marker = new google.maps.Marker({
-        position: myLatLng,
+        position: latlngOption,
         map: map,
         title: "Hello World!"
     });

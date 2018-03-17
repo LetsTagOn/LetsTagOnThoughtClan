@@ -1218,7 +1218,12 @@ opportunity.controller("ViewOpportunityController", function(
                 $scope.compareDate(response.data.dateEnd);
                 $scope.checkIfEditToBeShown(oppID);
                 $scope.alreadyAppliedJobs(response.data.opportunityJobTypes);
-                $scope.oppDetails.latLong && initMap($scope.oppDetails.latLong);
+                $scope.oppDetails.latLong &&
+                    google.maps.event.addDomListener(
+                        window,
+                        "load",
+                        initMap($scope.oppDetails.latLong)
+                    );
             }
         })
         .error(function(error) {
