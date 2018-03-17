@@ -12,7 +12,7 @@
 							<div class="row lto-cp-exp-form">
 								<div class="col-xs-12 col-sm-12 col-md-6">
 									<label for="programName">Project Name</label> <input type="text" ng-minlength="3" name="programName" class="form-control" id="programName" placeholder="Enter project Name" ng-model="program.name" ng-required="true"><span class="error" ng-show="submitted && editProgram.programName.$error.required">Mandatory Field</span> <span class="help-block error"
-										ng-show="((editProgram.programName.$error.minlength) && editProgram.programName.$dirty) "
+										ng-show="(editProgram.programName.$error.minlength && editProgram.programName.$dirty) "
 									> Minimun 3 Characters Required</span>
 								</div>
 								<div class="col-xs-12 col-sm-12 col-md-6">
@@ -38,10 +38,11 @@
 									<div class="col-xs-12 col-sm-12 col-md-8 start-property-tile__title">
 										<h3 class="start-property-tile__heading cursor" ng-click="editOpp(event)">{{event.name}}</h3>
 										<hr class="start-property-tile__separator opportunity-list-separator">
-										<div ng-if="!event.description">No description!!</div>
+										<div ng-if="!event.description">No description!!
+										</div>
 										<div ng-if="event.description">
 											<p>{{event.description}}</p>
-											<a ng-click = "redirect('/view/opportunity/edit/'+ event.id + ')">Read More</a>
+											<!-- <a ng-click = "redirect(`/view/opportunity/edit/${event.id}`)">Read More</a> -->
 										</div>
 									</div>
 								</div>
@@ -59,7 +60,7 @@
 						<div class="row-space" ng-controller="UploadOportunityImageController">
 							<div class="opportunity-banner-upload-conatiner">
 								<div class="pull-left opportunity-banner-upload-LHS">
-									<img class="lto-opp-banner-img" ng-src="{{getBannerImage(program.bannerImage)}}" ng-if="program.bannerImage != null"> <img src="../images/letstagonbanner.png" style="width: 280px"class="lto-opp-banner-img" ng-if="program.bannerImage == null"> <br /> <br />
+									<img class="lto-opp-banner-img" ng-src="{{getBannerImage(program.bannerImage)}}" ng-if="program.bannerImage != null"> <img src="../images/letstagonbanner.png" style="width: 280px" class="lto-opp-banner-img" ng-if="program.bannerImage == null"> <br /> <br />
 									<h2 class="text-center">{{program.name}}</h2>
 								</div>
 								<div class="pull-left opportunity-banner-upload-RHS">
@@ -87,8 +88,10 @@
 							<span class="glyphicon glyphicon-plus cursor" ng-click="showEvent()"><span>Add Activity/Event</span></span>
 						</div>
 					</div>
-					<div ng-show="eventShow">
-						<form name="eventForm" novalidate="novalidate" ng-submit="eventForm.$valid">
+					<div ng-show="eventShow" >
+						<form name="eventForm" novalidate="novalidate"  
+							ng-submit="eventForm.$valid && saveEditEvent()" 
+							ng-controller="OpportunityEditController">
 							<div class="row">
 								<div class="col-xs-12 col-sm-6 col-md-6">
 									<label for="eventName">Activity/Event</label> <input type="text" name="eventName" ng-minlength="3" class="form-control" id="programEventName" autofocus="true" placeholder="Enter Activity/Event Name" ng-model="event.name" ng-required="true"><span class="error" ng-show="submitted && eventForm.eventName.$error.required">Mandatory Field</span> <span class="help-block error"
@@ -107,82 +110,43 @@
 									<label for="date">End Date</label> <input type="text" name="eventEndDate" class="form-control" ng-focus="displayEndDate()" id="eventEndDate" placeholder="Enter End Date of Activity/Event" ng-model="event.dateEnd" ng-required="true"> <span class="glyphicon glyphicon-calendar"></span> <span class="error" ng-show="submitted && eventForm.eventEndDate.$error.required">Mandatory Field</span>
 								</div>
 							</div>
-							<div class="col-md-6 nudge-down" ng-show="areaFound" ng-controller="OpportunityEditController">
-											<!-- <label>Address? -->
-            								On Field: <input type="radio" ng-model="address.name" value="onfield" ng-click="ShowAddress('Y')" checked />
-            								Virtual: <input type="radio" ng-model="address.name" value="virtual" ng-click="ShowAddress('N')" />
-        									<!-- </label>  -->
-											<input ng-show="isField" id="autocomplete" placeholder="Enter your address" name="formattedAddress" type="text" class="form-control" ng-model="event.addressBean.formattedAddress"></input>
+							<div class="col-md-6 nudge-down" ng-show="areaFound" >
+											<label>Address?
+            								<input type="radio" ng-model="address.name" value="onfield" ng-click="ShowAddress('Y')" checked />On Field 
+            								<input type="radio" ng-model="address.name" value="virtual" ng-click="ShowAddress('N')" />
+        									Virtual
+        									</label> 
+											<input ng-show="isField" id="autocomplete" placeholder="Enter your address" name="formattedAddress" type="text" class="form-control" ng-model="event.addressBean.formattedAddress" ng-required="isField"></input>
+											<span class="error" ng-show="submitted && isField && eventForm.formattedAddress.$error.required">Mandatory Field</span>
 							</div>
-								<div class="col-xs-12 col-sm-6 col-md-6" ng-hide="areaFound">
-									<label>Address</label> <input ng-model="event.street" type="text" name="street_number" class="form-control" placeholder="Enter street number" id="street_number"></input> <input class="form-control" name="locality" placeholder="Enter City" id="locality" ng-required="areaFound == false" ng-model="event.addressBean.city"></input> <span class="error"
-										ng-show="!areaFound && submitted && eventForm.locality.$error.required"
-									>Mandatory Field</span> <input type="number" name="postal_code" class="form-control" id="postal_code" placeholder="Enter zipCode" ng-required="areaFound == false" ng-model="event.addressBean.postalCode"></input> <span class="error" ng-show="submitted && eventForm.postal_code.$error.required">Mandatory Field</span> <input type="text" name="administrative_area_level_1" class="form-control"
-										id="administrative_area_level_1" placeholder="State" ng-required="areaFound == false" ng-model="event.addressBean.state"
-									></input> <span class="error" ng-show="!areaFound && submitted && eventForm.administrative_area_level_1.$error.required">Mandatory Field</span> <input type="text" name="country" class="form-control" id="country" placeholder="Country" ng-required="areaFound == false" ng-model="event.addressBean.country"> <span class="error"
-										ng-show="!areaFound && submitted && eventForm.country.$error.required"
+							<div class="col-xs-12 col-sm-6 col-md-6" ng-show="!areaFound && manualAddress">
+									<label>Address</label> <input ng-model="event.street" type="text" name="street_number" class="form-control" placeholder="Enter street number" id="street_number"></input> <input class="form-control" name="locality" placeholder="Enter City" id="locality" ng-required="!areaFound" ng-model="event.addressBean.city"></input> <span class="error"
+										ng-show="submitted && eventForm.locality.$error.required"
+									>Mandatory Field</span> <input type="number" name="postal_code" class="form-control" id="postal_code" placeholder="Enter zipCode" ng-required="!areaFound" ng-model="event.addressBean.postalCode"></input> <span class="error" ng-show="submitted && eventForm.postal_code.$error.required">Mandatory Field</span> <input type="text" name="administrative_area_level_1" class="form-control"
+										id="administrative_area_level_1" 
+										placeholder="State" ng-required="!areaFound" ng-model="event.addressBean.state"
+									></input> <span class="error" ng-show="submitted && eventForm.administrative_area_level_1.$error.required">Mandatory Field</span> <input type="text" 
+									name="country" class="form-control" id="country" placeholder="Country" ng-required="!areaFound" 
+									ng-model="event.addressBean.country"> 
+									<span class="error"
+										ng-show="submitted && eventForm.country.$error.required"
 									>Mandatory Field</span>
 									<div class="hide" id="latitude"></div>
 									<div class="hide" id="longitude"></div>
-								</div>
-								<div class="col-xs-12 col-sm-6 col-md-6">
-									<label class="cursor lto-google-search-txt" ng-show="!areaFound"><a ng-click="changeAreaFoundStatus()">No Relevant Matches Found Click to Add customised address?</a></label> <label class="cursor lto-address-txt" ng-hide="areaFound"><a ng-click="changeAreaFoundStatus()">Search Location using google api</a></label>
-								</div>
-								<!-- <div class="col-xs-12 col-sm-6 col-md-6">
-										<label for="city">Address</label>
-										<input type="text" name="search" class="form-control hide"
-											id="searchAddress" placeholder="Search Address" googleplace>
-											<input type="text" name="street" class="form-control"
-												id="street" placeholder="Enter street"
-												ng-model="event.addressBean.street" ng-required="true">
-											<span class="error"
-												ng-show="submitted && eventForm.street.$error.required">Mandatory
-												Field</span>
-									</div>
-									<div class="col-xs-12 col-sm-6 col-md-6">
-											<label for=""></label>
-											<input type="text" name="city" class="form-control" id="city"
-												placeholder="Enter City" ng-model="event.addressBean.city"
-												ng-required="true"> </span> <span class="error"
-												ng-show="submitted && eventForm.city.$error.required">Mandatory
-												Field</span>
-									</div>
-									<div class="col-xs-12 col-sm-6 col-md-6">
-											<label for=""></label>
-											<input type="number" ng-minlength="6" ng-maxlength="6"
-												name="zipCode" class="form-control" id="zipCode"
-												placeholder="Enter zipCode"
-												ng-model="event.addressBean.postalCode" ng-required="true">
-											<span class="error"
-												ng-show="submitted && eventForm.zipCode.$error.required">Mandatory
-												Field</span> <span class="help-block error"
-												ng-show="((eventForm.zipCode.$error.minlength || eventForm.zipCode.$error.maxlength) && eventForm.zipCode.$dirty) ">Invalid
-												Postal Code</span> <span class="help-block error"
-												ng-show="eventForm.zipCode.$error.number">Invalid
-												Postal Code</span>
-									</div>
-									<div class="col-xs-12 col-sm-6 col-md-6">
-											<label for=""></label>
-											<input type="text" name="state" class="form-control"
-												id="state" placeholder="State"
-												ng-model="event.addressBean.state" ng-required="true">
-											<span class="error"
-												ng-show="submitted && eventForm.state.$error.required">Mandatory
-												Field</span>
-									</div>
-									<div class="col-xs-12 col-sm-6 col-md-6">
-											<label for=""></label>
-											<input type="text" name="Country" class="form-control"
-												id="country" placeholder="Country"
-												ng-model="event.addressBean.country" ng-required="true">
-											<span class="error"
-												ng-show="submitted && eventForm.Country.$error.required">Mandatory
-												Field</span>
-									</div> -->
-							<!-- </div> -->
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-6" 
+									ng-hide="!isField || areaFound">
+									<label class="cursor lto-google-search-txt">
+										<a ng-click="EnterManualAddress()">No Relevant Matches Found Click to Add customised address?</a>
+									</label> 
+									<label class="cursor lto-address-txt">
+										<a ng-click="GetAddressFromGoogleApi()">Search Location using google api</a>
+									</label>
+							</div>
 							<div class="text-center lto-opp-btn-container">
-								<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click="createEventUsingProgram()">Save</button>
-								<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" data-dismiss="modal" ng-click="hideEventForm()">Cancel</button>
+								<button type="submit" class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click="submitted=true">Save</button>
+								<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" data-dismiss="modal" 
+								ng-click="hideEventForm()">Cancel</button>
 								<div class="success-toast-message" ng-show="eventSuccess">
 									<span ng-model="eventActionSuccess">{{eventActionSuccess}}</span>
 								</div>

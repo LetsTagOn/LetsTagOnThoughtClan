@@ -257,7 +257,7 @@ opportunity.controller("CreateOpportunityController", function(
     $scope.program = {};
     $scope.createProgram = function() {
         console.info("create Program called");
-        console.info($scope.program.name + " = " + $scope.program.description);
+        // console.info($scope.program.name + " = " + $scope.program.description);
         var program = new Object();
         program.name = $scope.program.name;
         program.description = $scope.program.description;
@@ -273,7 +273,10 @@ opportunity.controller("CreateOpportunityController", function(
             }
         })
             .success(function(response) {
-                if (response != undefined && response.data.id != undefined) {
+                console.log("successfully created program...");
+                console.log("received response...", response);
+                if (response && response.data.id) {
+                    console.log("redirecting to program edit page");
                     $location.path(
                         "/view/opportunity/program/edit/" + response.data.id
                     );
@@ -282,7 +285,7 @@ opportunity.controller("CreateOpportunityController", function(
                     $scope.programError = true;
                 }
             })
-            .error(function() {
+            .error(function(error) {
                 console.info("-- " + error);
             })
             .finally(function() {
@@ -342,6 +345,11 @@ opportunity.controller("OpportunityEditController", function(
 ) {
     var url = window.location.href.split("/view/opportunity/edit/");
     var oppID = url[1];
+
+    var urlProg = window.location.href.split("/view/opportunity/program/edit/");
+    var programID = urlProg[1] ? urlProg[1] : "";
+    $scope.eventShow = false;
+
     $scope.opportunityJobTypes = [];
     $scope.jobSectionDisplay = false;
     $scope.saveJobRole = "create";
@@ -566,7 +574,7 @@ opportunity.controller("OpportunityEditController", function(
     };
 
     $scope.saveEditEvent = function() {
-        // console.info("click saveEditEvent");
+        console.info("in saveEditEvent");
         $("#loading-indicator").show();
         var event = new Object();
         event.id = oppID;
@@ -575,6 +583,7 @@ opportunity.controller("OpportunityEditController", function(
         event.dateStart = new Date($("#eventStartDate").val());
         event.dateEnd = new Date($("#eventEndDate").val());
         event.type = "EVENT";
+
         var address = new Object();
         if ($scope.isField || $scope.manualAddress) {
             if ($scope.manualAddress) {
@@ -591,12 +600,18 @@ opportunity.controller("OpportunityEditController", function(
         }
 
         event.addressBean = address;
-
-        // console.log("getting latlong from google api for: ", fullAddress);
+        if (programID) {
+            var programId = new Object();
+            programId.id = programID;
+            event.parentProgram = programId;
+            event.createdBy = $rootScope.userId;
+        }
+        console.log("event obj before getting lat long is: ", event);
+        console.log("getting latlong from google api for: ", fullAddress);
         $scope.isField &&
             getLatitudeLongitude(fullAddress)
                 .then(function(latlng) {
-                    // console.log("found a match");
+                    console.log("found matching lat long");
                     event.latLong = latlng.lat + "," + latlng.lng;
                     $scope.areaFound = true;
                     console.log("saveEdit isField: ", $scope.isField);
@@ -604,7 +619,7 @@ opportunity.controller("OpportunityEditController", function(
                     $scope.saveEventInDB(event);
                 })
                 .catch(function(err) {
-                    // console.log("no match found");
+                    console.log("no matching lat long found");
                     document.getElementById("latitude").value = "";
                     $scope.areaFound = false;
                     // $scope.isField = false;
@@ -683,6 +698,10 @@ opportunity.controller("OpportunityEditController", function(
                 // console.info(response);
                 $scope.eventActionSuccess = "Changes Successfully done!!";
                 $scope.eventSuccess = true;
+                if (response && programID)
+                    $location.path(
+                        "/view/opportunity/edit/" + response.data.id
+                    );
             })
             .error(function(error) {
                 $("#loading-indicator").hide();
@@ -724,6 +743,7 @@ opportunity.controller("OpportunityEditController", function(
             cache: false
         })
             .success(function(response) {
+                console.log("editing event...", response.data.opportunityDTO);
                 $scope.event = response.data.opportunityDTO;
                 $scope.event.street = $scope.event.addressBean.street;
                 console.log($scope.event);
@@ -897,6 +917,20 @@ opportunity.controller("OpportunityEditController", function(
         console.info(id);
         $location.path("/view/opportunity/" + id);
     };
+
+    $scope.hideEventForm = function() {
+        $scope.eventShow = false;
+        $scope.event.name = "";
+        $scope.event.description;
+        $("#eventStartDate").val("");
+        $("#eventEndDate").val("");
+        $scope.event.addressBean.city = "";
+        $scope.event.addressBean.country = "";
+        $scope.event.addressBean.postalCode = "";
+        $scope.event.addressBean.state = "";
+        $scope.event.addressBean.street = "";
+        $scope.eventSuccess = false;
+    };
 });
 //======================================================= End =====================================================================
 //======================================================= Controller for edit functionality on program =====================================================================
@@ -909,7 +943,22 @@ opportunity.controller("OpportunityProgramEditController", function(
 ) {
     // console.info("here ------------");
     $scope.areaFound = true;
+    $scope.isField = true;
+    $scope.manualAddress = false;
+    $scope.address = new Object();
 
+    $scope.ShowAddress = function(value) {
+        //If DIV is visible it will be hidden and vice versa.
+        $scope.isField = value == "Y";
+
+        $scope.isField
+            ? ($scope.address = {
+                  name: "onfield"
+              })
+            : ($scope.address = {
+                  name: "virtual"
+              });
+    };
     $scope.changeAreaFoundStatus = function() {
         $scope.areaFound = $scope.areaFound ? false : true;
         document.getElementById("latitude").value = "";
@@ -957,6 +1006,7 @@ opportunity.controller("OpportunityProgramEditController", function(
 
     var url = window.location.href.split("/view/opportunity/program/edit/");
     var programID = url[1];
+    console.log("initializing view for programID: ", programID);
     $scope.eventShow = false;
 
     $scope.editOpp = function(opp) {
@@ -969,7 +1019,7 @@ opportunity.controller("OpportunityProgramEditController", function(
     };
 
     $scope.showEvent = function() {
-        $scope.eventShow = $scope.eventShow ? false : true;
+        $scope.eventShow = !$scope.eventShow;
     };
 
     $scope.hideEventForm = function() {
@@ -1014,6 +1064,7 @@ opportunity.controller("OpportunityProgramEditController", function(
         address.formattedAddress = $("input[name='formattedAddress']").val();
         event.addressBean = address;
         var fullAddress;
+
         if ($("input[name='formattedAddress']").val() == "") {
             fullAddress =
                 address.street +
@@ -1049,7 +1100,7 @@ opportunity.controller("OpportunityProgramEditController", function(
                 }
             })
                 .success(function(response) {
-                    if (response.data.id != undefined)
+                    if (response.data.id)
                         $location.path(
                             "/view/opportunity/edit/" + response.data.id
                         );
@@ -1074,12 +1125,18 @@ opportunity.controller("OpportunityProgramEditController", function(
             cache: false
         })
             .success(function(response) {
+                console.log(
+                    "successfully received linkedEvents..",
+                    response.data
+                );
                 $scope.program = response.data.opportunityDTO;
                 $scope.program.linkedEvents =
                     response.data.opportunityDTO.linkedEvents;
                 // console.info($scope.program.linkedEvents);
             })
-            .error(function(error) {});
+            .error(function(error) {
+                console.log("unable to get program details: ", error);
+            });
     };
 
     $scope.editProgramWithEvent = function() {
@@ -1154,9 +1211,9 @@ opportunity.controller("ViewOpportunityController", function(
         }
     })
         .success(function(response) {
-            console.log('oppDetails: ', response.data);
+            console.log("oppDetails: ", response.data);
             if (response.error == null) {
-                // console.log(response.data);
+                console.log("got event details:...", response.data);
                 $scope.oppDetails = response.data;
                 $scope.compareDate(response.data.dateEnd);
                 $scope.checkIfEditToBeShown(oppID);
