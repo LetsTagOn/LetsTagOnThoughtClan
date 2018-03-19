@@ -48,7 +48,7 @@
 								<!-- <li class="vertical-separator enddate" ng-if="oppDetails.dateEnd"></li>
 								<li ng-if="oppDetails.dateStart && oppDetails.dateEnd" class="opp-Detail-List"><span class=" glyphicon glyphicon-time "></span>{{oppDetails.dateStart | date: 'HH:MM'}}-{{oppDetails.dateEnd | date: 'HH:MM'}}</li> -->
 								<li class="vertical-separator" ng-if="oppDetails.addressBean"></li>
-								<li ng-if="oppDetails.addressBean && !oppDetails.addressBean.formattedAddress" class="opp-Detail-List"><span class=" glyphicon glyphicon-map-marker"></span> 
+								<li ng-if="oppDetails.addressBean && !oppDetails.addressBean.formattedAddress" class="opp-Detail-List"></span> 
 									<span><span ng-if="oppDetails.addressBean.street">{{oppDetails.addressBean.street}}</br></span> 
 									<span class="right-align">{{oppDetails.addressBean.city}}
 										<span ng-if="oppDetails.addressBean.country">,
@@ -62,7 +62,7 @@
 						</div>
 					</div>
 					<div class="row no-margin row-space">
-						<div class="col-xs-12 navigation-map">
+						<div class="col-xs-12 navigation-map" ng-hide="!oppDetails.latLong">
 							<div id="map" style="height: 100%" ></div>
 						</div>
 					</div>
