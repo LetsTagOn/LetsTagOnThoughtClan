@@ -30,15 +30,17 @@
 
 					<li class="dropdown" ng-controller="LtoMessagesController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getUnreadMessages()">
 						<!-- Section one --> 
-						<a class="dropdown-toggle" type="button" data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Messages"> 
+						<a class="dropdown-toggle" type="button" data-toggle="dropdown" role="button" aria-expanded="false" title="Messages" aria-expanded="false"> 
 							<span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length > 0"></span> 
 							<span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length==0" ng-click="redirect('/view/myMessages')" > </span> 
 							<span class="hidden-lg hidden-sm hidden-md">Messages</span>
 						</a> <!-- Section two -->
-						<ul ng-hide="unreadMessagelist.length==0" class="dropdown-menu lto-pending-notification-user-dropdownList lto-pending-message-user-dropdownList lto-notification-dropdown-header hidden-xs" role="menu">
+						<ul class="dropdown-menu lto-pending-notification-user-dropdownList lto-pending-message-user-dropdownList lto-notification-dropdown-header hidden-xs" role="menu" ng-hide="unreadMessagelist.length==0">
 							<div class="lto-pending-section-header">
 								<span class="float-left lto-pending-notification-label">Unread Messages
 								</span>
+								<a class="float-right lto-pending-notification-label focus-effect cursor" i18n="{{'common.lto_mark_as_read'}}" ng-click="markMessageAsRead()"> 
+								</a>
 							</div>
 							<hr class="header-separator" ng-hide="unreadMessagelist.length==0">
 							<div class="notification-scroll-container" id="message-scroll-container">
@@ -65,7 +67,7 @@
 									</div>  
 								</li>
 							</div>
-							<!-- <div class="hidden-xs more-results focus-effect cursor" ng-click="viewAllNotificationOfUser()" i18n = "{{'common.lto_link_viewAll'}}"><b class="caret"></b></div> -->
+							<div class="hidden-xs more-results focus-effect cursor" ng-click="redirect('/view/myMessages')" i18n = "{{'common.lto_link_viewAll'}}"><b class="caret"></b></div>
 						</ul>
 
 						<span 	class="badge badge-notify" id="MessageLength" 
@@ -94,14 +96,14 @@
 							<span class="hidden-lg hidden-sm hidden-md" i18n="{{'common.lto_heading_notification'}}"> 
 							</span>
 						</a>
-						<ul class="dropdown-menu lto-pending-notification-user-dropdownList lto-notification-dropdown-header hidden-xs" role="menu" >
+						<ul class="dropdown-menu lto-pending-notification-user-dropdownList lto-notification-dropdown-header hidden-xs" role="menu" ng-hide="unreadNotificationList.length===0">
 							<div class="lto-pending-section-header">
 								<span class="float-left lto-pending-notification-label" i18n="{{'common.lto_heading_notification'}}"> 
 								</span>
 								<a class="float-right lto-pending-notification-label focus-effect cursor" i18n="{{'common.lto_mark_as_read'}}" ng-click="markAllNotificationAsRead()"> 
 								</a>
 							</div>
-							<hr class="header-separator" ng-hide="unreadNotificationList.length==0">
+							<hr class="header-separator" >
 							<div class="notification-scroll-container" id="notification-scroll-container">
 								<li class="lto-pending-notification-drop-row" id="notification{{notification.id}}" ng-repeat="notification in unreadNotificationList">
 									<div ng-click="actionOnNotification(notification)">
@@ -135,8 +137,9 @@
 					
 						<!--end of notification section -->
 						<!--start of connections section -->
-					   <li  class="dropdown" data-toggle="collapse" data-target=".nav-collapse.in" ng-controller="NotificationsController" ng-init="getPendingConnections()">
-						<a href="#" type="button" class="dropdown-toggle" data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Notifications">
+					   <li  class="dropdown" data-toggle="collapse" data-target=".nav-collapse.in" ng-controller="NotificationsController" 
+					   	ng-init="getPendingConnections()">
+						<a href="#" type="button" class="dropdown-toggle" data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Connections">
 						 <span class="glyphicon glyphicon-user" ng-show="pendingConnections.length==0" ng-click="redirect('/view/connection/user/'+userId)"> 
 						 </span>
 						 <span class="glyphicon glyphicon-user" ng-show="pendingConnections.length > 0"> 
@@ -144,11 +147,11 @@
 						 <span class="cursor hidden-lg hidden-sm hidden-md"  i18n="{{'common.lto_link_connections'}}"> 
 						 </span>
 						</a>
-						<ul class="dropdown-menu lto-pending-connection-user-dropdownList lto-connection-dropdown-header hidden-xs" role="menu" >
+						<ul class="dropdown-menu lto-pending-connection-user-dropdownList lto-connection-dropdown-header hidden-xs" role="menu" ng-hide="pendingConnections.length===0">
 							<div class="lto-pending-section-header">
 								<span ng-show="pendingConnections.length>0" class="float-left lto-pending-connection-label" i18n="{{'common.lto_link_pendingConnection'}}">
 								</span>
-								<div ng-show="pendingConnections.length==0" class="float-left lto-pending-connection-label" i18n="{{'common.lto_span_noPendingRequest'}}"></div>
+								<div ng-show="pendingConnections.length==0" class="float-left lto-pending-connection-label" i18n="{{'common.lto_span_noPendingRequest'}}" ng-click="showPendingConnections()"></div>
 								<span ng-show="pendingConnections.length>0">
 								    <a class="lto-pending-connection-all pull-right lto-pending-action-conatiner cursor" ng-click="showPendingConnections()" i18n="{{'common.lto_link_viewAll'}}"> 
 								    </a>

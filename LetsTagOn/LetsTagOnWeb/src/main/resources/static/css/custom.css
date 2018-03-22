@@ -270,7 +270,7 @@ main {
   right: 10px;
   text-align: right;
 
-  width: 200px;
+  width: 220px;
 }
 
 #bs-example-navbar-collapse-1 {
@@ -524,8 +524,8 @@ a.selected {
 .profile-image {
   border: 5px solid #dbdbdb;
   border-radius: 130px;
-  height: 120px;
-  width: 120px;
+  height: 100px;
+  width: 100px;
   background-color: #ffffff;
   background-repeat: no-repeat;
   background-size: 100%;
@@ -548,6 +548,9 @@ a.selected {
   margin: 10px 0px;
   color: #fff;
   font-weight: bold;
+  font-size: 18px;
+  position: relative;
+  bottom:-30px;
 }
 .update-picture .profile-info p {
   margin-bottom: 10px;

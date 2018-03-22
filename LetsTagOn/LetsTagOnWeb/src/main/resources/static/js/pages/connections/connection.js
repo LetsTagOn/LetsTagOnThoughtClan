@@ -191,6 +191,7 @@ letsTagOn.controller("NotificationsController", function(
     });
 
     $scope.getPendingConnections = function() {
+        console.log("getting pending connections");
         getPendingConnectionsPerPage($scope.pendingConnectionsPageNo);
         $scope.pendingConnectionsPageNo = $scope.pendingConnectionsPageNo + 1;
     };
@@ -198,6 +199,7 @@ letsTagOn.controller("NotificationsController", function(
     function getPendingConnectionsPerPage(pageNumber) {
         // this is just an example, in reality this stuff should
         // be in a service
+        console.log("making call to /connection/userID/openRequests...");
         $http
             .get(
                 "/connection/" +
@@ -208,11 +210,15 @@ letsTagOn.controller("NotificationsController", function(
                     (pageNumber - 1)
             )
             .then(function(result) {
+                console.log("got pending connections: ", result.data);
                 result.data.searchResult &&
                     result.data.searchResult.forEach(function(response) {
                         $scope.pendingConnections.push(response);
                     });
                 ready = true;
+            })
+            .catch(err => {
+                console.log("unable to get pending conns: ", err);
             });
     }
 

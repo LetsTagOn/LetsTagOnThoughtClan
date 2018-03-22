@@ -108,7 +108,9 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 ">
                                 <label for="trade" i18n="{{'common.lto_label_user_phoneNumber'}}"></label>
-                                <input type="text" name="phoneNumber" class="form-control" id="phoneNumber" placeholder="{{'common.lto_placeholder_phoneNumber'|i18n}}" ng-model="user.phoneNumber" requiredng-minlength="10" ng-maxlength="10"><span class="glyphicon glyphicon-phone"></span> <span class="error" ng-show="personalInfo.$submitted && personalInfo.phoneNumber.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span> <span class="help-block error" ng-show="((personalInfo.phoneNumber.$error.minlength || personalInfo.phoneNumber.$error.maxlength) && personalInfo.phoneNumber.$dirty) " i18n="{{'common.lto_span_validPhonno'}}"></span>
+                                <input type="text" name="phoneNumber" class="form-control" id="phoneNumber" placeholder="{{'common.lto_placeholder_phoneNumber'|i18n}}" ng-model="user.phoneNumber" requiredng-minlength="10" ng-maxlength="10" required><span class="glyphicon glyphicon-phone"></span> 
+                                <span class="error" ng-show="personalInfo.$submitted && personalInfo.phoneNumber.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span> 
+                                <span class="help-block error" ng-show="((personalInfo.phoneNumber.$error.minlength || personalInfo.phoneNumber.$error.maxlength) && personalInfo.phoneNumber.$dirty) " i18n="{{'common.lto_span_validPhonno'}}"></span>
                             </div>
                         </div>
                         <div class="row">

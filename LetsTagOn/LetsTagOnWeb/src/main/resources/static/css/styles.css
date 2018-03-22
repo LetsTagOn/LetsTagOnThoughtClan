@@ -978,12 +978,12 @@ ul.dropdown-menu.lto-pending-connection-user-dropdownList:before {
 }
 .lto-pending-notification-user-dropdownList {
     width: 311px !important;
-    left: -2% !important;
+    left: -100px !important;
     margin-top: 10px !important;
-    position: absolute !important;
+    position: relative !important;
 }
 .lto-pending-message-user-dropdownList {
-    left: -16% !important;
+    left: -100px !important;
 }
 ul.dropdown-menu.lto-pending-notification-user-dropdownList:before {
     content: "";

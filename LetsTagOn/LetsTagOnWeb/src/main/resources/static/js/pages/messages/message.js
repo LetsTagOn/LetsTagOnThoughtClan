@@ -34,7 +34,7 @@ ltoMessagesModule.controller("LtoMessagesController", function(
             })
             .error(function() {
                 console.log(
-                    "Something went wronf while fetching conversation for the logged in user id:" +
+                    "Something went wrong while fetching conversation for the logged in user id:" +
                         $rootScope.userId
                 );
             });
@@ -329,6 +329,29 @@ ltoMessagesModule.controller("LtoMessagesController", function(
                 );
             });
     };
-
-    //======================================= End =============================================================================================
+    //===================Function to mark all messages as Read =================================
+    $scope.markAllMessagesAsRead = function() {
+        //need to get the correct api end point for this
+        $http({
+            url: "/message/markAll/read/party/" + 0,
+            dataType: "json",
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .success(function(response) {
+                if (response.error == null) {
+                    $rootScope.unreadMessagelist = [];
+                }
+            })
+            .error(function(error) {
+                console.log(
+                    "error while getting message list for the userID" +
+                        $rootScope.userId
+                );
+            });
+    };
 });
+
+//======================================= End =============================================================================================

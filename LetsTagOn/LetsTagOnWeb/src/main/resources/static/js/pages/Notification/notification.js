@@ -72,6 +72,7 @@ notification.controller("UserNotificationController", function(
 
         // ================================================ Function to mark one notification as read ==============================================================
         $scope.markNotificationAsRead = function(notification) {
+            console.log("marking clicked notification as read: ");
             if (
                 !$("#notification" + notification.id).hasClass(
                     "lto-pending-notification-drop-row-read"
@@ -138,6 +139,7 @@ notification.controller("UserNotificationController", function(
         // ================================================ End =============================================================================
         //To be cleanedup
         $scope.actionOnNotification = function(notification) {
+            $scope.markNotificationAsRead(notification);
             if (
                 notification.type == "ConnectionRequestEvent" ||
                 notification.type == "ConnectionAcceptEvent"
@@ -188,6 +190,7 @@ notification.controller("UserNotificationController", function(
                             $rootScope.userId
                     );
                 });
+            $scope.markAllNotificationAsRead();
         };
 
         // ============================================ Pagination for View all notifications ================================
