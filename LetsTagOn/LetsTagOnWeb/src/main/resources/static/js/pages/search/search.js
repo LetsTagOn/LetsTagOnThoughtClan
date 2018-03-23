@@ -34,8 +34,10 @@ searchModule
         $scope.showOppResultSet = false;
         $rootScope.startEndDateRange = false;
         $scope.pagination = {
-            current: 1
+            current: searchSvc.getCurrentPageNumber()
         };
+        $;
+
         $("#opportunityStartDate")
             .datepicker({
                 format: "yyyy/mm/dd",
@@ -43,7 +45,7 @@ searchModule
             })
             .on("changeDate", function(e) {
                 $(this).datepicker("hide");
-                $scope.pageChanged(1);
+                // $scope.pageChanged(1);
             });
         $("#opportunityEndDate")
             .datepicker({
@@ -52,7 +54,7 @@ searchModule
             })
             .on("changeDate", function(e) {
                 $(this).datepicker("hide");
-                $scope.pageChanged(1);
+                // $scope.pageChanged(1);
             });
 
         $scope.ClearResults = function() {
@@ -60,9 +62,14 @@ searchModule
 
             $route.reload();
         };
+
+        $scope.$watch("pagination.current", function(val) {
+            $scope.pageChanged(val);
+        });
         //  init method called on page load to load master data
         $scope.getMasterData = function() {
             var keyword = $scope.getSearchKeyWordFromUrl();
+            // $scope.pageChanged($scope.pagination.current);
 
             if (typeof keyword != "undefined" || keyword != "") {
                 $scope.searchString = keyword;
@@ -182,6 +189,7 @@ searchModule
         };
         // Pagination Function called to get the search results from solr
         $scope.pageChanged = function(newPage) {
+            searchSvc.saveCurrentPageNumber(newPage);
             $scope.getResultsPage(newPage);
         };
         // Function called to set the facets counts to the search master data
@@ -285,6 +293,7 @@ searchModule
 
         // Function called to get Search results from solr
         $scope.getResultsPage = function(pageNumber) {
+            console.log("getting results from page: ", pageNumber);
             // this is just an example, in reality this stuff should
             // be in a service
             //get results from DB only if there is no previous search result or there is the default search result from initial page load
