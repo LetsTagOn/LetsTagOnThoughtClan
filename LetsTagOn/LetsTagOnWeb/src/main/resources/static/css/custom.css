@@ -524,14 +524,14 @@ a.selected {
 .profile-image {
   border: 5px solid #dbdbdb;
   border-radius: 130px;
-  height: 100px;
-  width: 100px;
+  height: 80px;
+  width: 80px;
   background-color: #ffffff;
   background-repeat: no-repeat;
   background-size: 100%;
-  left: 50%;
+  left: calc(50% + 20px);
   margin: 0 -60px;
-  bottom: 40%;
+  bottom: 55%;
   position: absolute;
 }
 .user-pic {
@@ -545,15 +545,16 @@ a.selected {
 }
 .update-picture .profile-info h2 {
   text-align: center;
-  margin: 10px 0px;
+  margin: 20px auto 0 auto;
   color: #fff;
   font-weight: bold;
   font-size: 18px;
   position: relative;
-  bottom:-30px;
+  bottom:5px;
+  line-height: 20px;
 }
 .update-picture .profile-info p {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 .update-picture .profile-info p span {
   margin-right: 10px;

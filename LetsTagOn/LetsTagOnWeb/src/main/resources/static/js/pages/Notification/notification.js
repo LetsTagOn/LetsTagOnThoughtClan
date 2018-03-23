@@ -174,6 +174,10 @@ notification.controller("UserNotificationController", function(
                 }
             })
                 .success(function(response) {
+                    console.log(
+                        "received notification of user: ",
+                        response.searchResult
+                    );
                     $location.path("/view/notifications");
                     response.searchResult.forEach(function(response) {
                         try {
