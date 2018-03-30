@@ -137,10 +137,10 @@
 					
 						<!--end of notification section -->
 						<!--start of connections section -->
-					   <li  class="dropdown" data-toggle="collapse" data-target=".nav-collapse.in" ng-controller="NotificationsController" 
+					   <li  class="dropdown" data-toggle="collapse" data-target=".nav-collapse.in" ng-controller="ConnectionController" 
 					   	ng-init="getPendingConnections()">
-						<a href="#" type="button" class="dropdown-toggle" data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Connections">
-						 <span class="glyphicon glyphicon-user" ng-show="pendingConnections.length==0" ng-click="redirect('/view/connection/user/'+userId)"> 
+						<a type="button" class="dropdown-toggle" data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Connections">
+						 <span class="glyphicon glyphicon-user" ng-show="pendingConnections.length==0" ng-click="redirectToUserConnections()"> 
 						 </span>
 						 <span class="glyphicon glyphicon-user" ng-show="pendingConnections.length > 0"> 
 						 </span>

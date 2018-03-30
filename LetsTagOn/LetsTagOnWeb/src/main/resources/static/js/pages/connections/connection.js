@@ -11,6 +11,13 @@ connection.controller("ConnectionController", function(
     var userId = url[1];
     $scope.userList = [];
     $scope.viewUserDetails = false;
+    $scope.pendingConnectionsPageNo = 1;
+    $scope.pendingConnections = [];
+
+    $scope.connects = [];
+    $scope.totalConnects = 0;
+    $scope.connectsPerPage = 10;
+    console.log("making call to: ", "/connection/" + userId + "/list");
     $http({
         url: "/connection/" + userId + "/list",
         dataType: "json",
@@ -20,6 +27,7 @@ connection.controller("ConnectionController", function(
         }
     })
         .success(function(response) {
+            console.log("received user connections: ", response);
             if (response.error == null) {
                 $scope.userList = response.searchResult;
             }
@@ -30,10 +38,7 @@ connection.controller("ConnectionController", function(
                     $rootScope.userId
             );
         });
-
-    $scope.connects = [];
-    $scope.totalConnects = 0;
-    $scope.connectsPerPage = 10; // this should match
+    // this should match
     // however
     // many results your API puts on
     // one page
@@ -42,7 +47,49 @@ connection.controller("ConnectionController", function(
     $scope.pagination = {
         current: 1
     };
+    $scope.getPendingConnections = function() {
+        console.log("getting pending connections");
+        getPendingConnectionsPerPage($scope.pendingConnectionsPageNo);
+        $scope.pendingConnectionsPageNo = $scope.pendingConnectionsPageNo + 1;
+    };
 
+    function getPendingConnectionsPerPage(pageNumber) {
+        // this is just an example, in reality this stuff should
+        // be in a service
+        console.log("making call to /connection/userID/openRequests...");
+        $http
+            .get(
+                "/connection/" +
+                    $rootScope.userId +
+                    "/openRequests?size=" +
+                    $scope.pendingConnectionsPerPage +
+                    "&page=" +
+                    (pageNumber - 1)
+            )
+            .then(function(result) {
+                console.log("got pending connections: ", result.data);
+                result.data.searchResult &&
+                    result.data.searchResult.forEach(function(response) {
+                        $scope.pendingConnections.push(response);
+                    });
+                ready = true;
+            })
+            .catch(err => {
+                console.log("unable to get pending conns: ", err);
+            });
+    }
+    $scope.redirectToUserConnections = function() {
+        console.log(
+            "redirecting to user connections: ",
+            "/view/connection/user/" + $rootScope.userId
+        );
+
+        $location.path("/view/connection/user/" + $rootScope.userId);
+        // $location.path("/cp/personalInformation");
+        // console.log($location.path());
+
+        // if (!$scope.$$phase) $scope.$apply();
+    };
     $scope.pageChanged = function(newPage) {
         getResultsPage(newPage);
     };
@@ -67,6 +114,84 @@ connection.controller("ConnectionController", function(
 
     $scope.pagination = {
         current: 1
+    };
+    $scope.showPendingConnections = function() {
+        $location.path("/pending/connection/user/" + $rootScope.userId);
+    };
+
+    $scope.connectionAcceptence = function(connection) {
+        $http({
+            url:
+                "/party/" +
+                connection.party1.id +
+                "/connection/accept/" +
+                connection.party2.id,
+            dataType: "json",
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .success(function(response) {
+                $rootScope.pendingConnectionList.forEach(function(
+                    currentConnention
+                ) {
+                    if (currentConnention.party2.id == connection.party2.id) {
+                        var index = $rootScope.pendingConnectionList.indexOf(
+                            currentConnention
+                        );
+                        $rootScope.pendingConnectionList.splice(index, 1);
+                    }
+                });
+                $rootScope.ltoSuccessMessage =
+                    "You are successfully connected to " +
+                    connection.party1.userBean.name +
+                    ".";
+
+                $rootScope.toggleLtoSuccessModal();
+                $(".lto-success-modal-dialog").css({
+                    top: "200px"
+                });
+            })
+            .error(function(error) {
+                console.log(
+                    "error while getting profile details of user with id:" +
+                        $rootScope.userId
+                );
+            });
+    };
+
+    $scope.connectionReject = function(connection) {
+        $http({
+            url:
+                "/party/" +
+                connection.party1.id +
+                "/connection/reject/" +
+                connection.party2.id,
+            dataType: "json",
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .success(function(response) {
+                $rootScope.pendingConnectionList.forEach(function(
+                    currentConnention
+                ) {
+                    if (currentConnention.party2.id == connection.party2.id) {
+                        var index = $rootScope.pendingConnectionList.indexOf(
+                            currentConnention
+                        );
+                        $rootScope.pendingConnectionList.splice(index, 1);
+                    }
+                });
+            })
+            .error(function(error) {
+                console.log(
+                    "error while getting profile details of user with id:" +
+                        $rootScope.userId
+                );
+            });
     };
 
     $scope.showUserProfile = function(user) {
@@ -171,7 +296,8 @@ letsTagOn.controller("NotificationsController", function(
     $scope,
     $rootScope,
     $location,
-    $timeout
+    $timeout,
+    $window
 ) {
     $scope.connects = [];
     $scope.pendingConnections = [];
@@ -196,6 +322,18 @@ letsTagOn.controller("NotificationsController", function(
         $scope.pendingConnectionsPageNo = $scope.pendingConnectionsPageNo + 1;
     };
 
+    $scope.redirectToUserConnections = function() {
+        console.log(
+            "redirecting to user connections: ",
+            "/view/connection/user/" + $rootScope.userId
+        );
+
+        $location.path("/view/connection/user/" + $rootScope.userId);
+        // $location.path("/cp/personalInformation");
+        // console.log($location.path());
+
+        // if (!$scope.$$phase) $scope.$apply();
+    };
     function getPendingConnectionsPerPage(pageNumber) {
         // this is just an example, in reality this stuff should
         // be in a service

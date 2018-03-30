@@ -3,7 +3,7 @@
 	<div class="content-area">
 		<div class="row">
 			<div class="col-sm-8">
-				<div class="row no-margin" ng-if="userList.length >= 0">
+				<div class="row no-margin" ng-if="userList.length > 0">
 					<div dir-paginate="user in connects | itemsPerPage: 10 | filter:q " total-items="totalConnects" current-page="pagination.current" current-page="pagination.current" class="">
 						<div class="col-xs-6 col-sm-3 lto-current-user-connection">
 							<div class="user__thumbnail cursor" ng-click="showUserProfile(user)">
@@ -18,7 +18,7 @@
 									<span class="glyphicon glyphicon-bookmark"></span> <span i18n="{{'common.lto_span_tagged'}}"></span>
 									<!-- <span class="pull-right glyphicon glyphicon-cog"></span> -->
 								</div>
-							</div>
+							</div> 
 						</div>
 					</div>
 				</div>

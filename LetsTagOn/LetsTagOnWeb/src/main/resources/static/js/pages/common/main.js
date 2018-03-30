@@ -111,6 +111,7 @@ letsTagOn.controller("MainController", function(
                             // console.log("user data received on login: ", user);
                             //redirection to search page should happen provided login is happening from landing page
                             $location.path("/search/opportunity/");
+                            // $location.path("/view/connection/user/167");
                         } else {
                             //need to reload the page so that features which were hidden when user was not authenticated
                             //can be shown once the user is authenticated
