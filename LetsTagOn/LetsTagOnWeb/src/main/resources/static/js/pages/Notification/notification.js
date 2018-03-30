@@ -2,49 +2,59 @@
  * JS File For managing Notification
  * UserNotificationController - To get Unread notifications
  */
-var notification = angular.module("notificationModule", ['infinite-scroll']);
-notification.controller('UserNotificationController', function($http, $scope, $rootScope, $location, $timeout) {
+var notification = angular.module("notificationModule", ["infinite-scroll"]);
+notification.controller("UserNotificationController", function(
+    $http,
+    $scope,
+    $rootScope,
+    $location,
+    $timeout
+) {
     if ($rootScope.authenticated) {
-    	$rootScope.unreadNotificationList = [];
+        $rootScope.unreadNotificationList = [];
         $rootScope.listSize = 10;
         $rootScope.notificationLength = "";
 
         // ================================== Code to get all unread notifications ================================================
         var ready = true;
         setInterval(function() {
-        	$rootScope.getAllUnreadNotifications();
+            $rootScope.getAllUnreadNotifications();
         }, 600 * 1000);
         $rootScope.pageSize = 0;
         $rootScope.getAllUnreadNotifications = function() {
-
             $http({
-                url: '/notification/party/' + $rootScope.userId + '/isRead',
-                dataType: 'json',
-                method: 'GET',
+                url: "/notification/party/" + $rootScope.userId + "/isRead",
+                dataType: "json",
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 params: {
-                    "size": $rootScope.listSize,
-                    "page": $rootScope.pageSize
+                    size: $rootScope.listSize,
+                    page: $rootScope.pageSize
                 }
-            }).success(function(response) {
-            	$rootScope.unreadNotificationList = [];
-                response.searchResult.forEach(function(response) {
-                    try {
-                        response.params = JSON.parse(response.params);
-                        $rootScope.unreadNotificationList.push(response);
-                    } catch (e) {
-
-                    }
+            })
+                .success(function(response) {
+                    $rootScope.unreadNotificationList = [];
+                    response.searchResult &&
+                        response.searchResult.forEach(function(response) {
+                            try {
+                                response.params = JSON.parse(response.params);
+                                $rootScope.unreadNotificationList.push(
+                                    response
+                                );
+                            } catch (e) {}
+                        });
+                    $rootScope.notificationLength =
+                        $rootScope.unreadNotificationList.length;
+                    ready = true;
+                })
+                .error(function(error) {
+                    console.log(
+                        "error while getting profile details of user with id:" +
+                            $rootScope.userId
+                    );
                 });
-                $rootScope.notificationLength = $rootScope.unreadNotificationList.length;
-                ready = true;
-            }).error(function(error) {
-
-                console.log("error while getting profile details of user with id:" + $rootScope.userId);
-            });
-
         };
 
         $("#notification-scroll-container").on("scroll", function(e) {
@@ -56,54 +66,97 @@ notification.controller('UserNotificationController', function($http, $scope, $r
         });
 
         $scope.getNextNotificationList = function() {
-        	$rootScope.pageSize = $rootScope.pageSize + 1;
+            $rootScope.pageSize = $rootScope.pageSize + 1;
             $rootScope.getAllUnreadNotifications();
-
         };
 
         // ================================================ Function to mark one notification as read ==============================================================
         $scope.markNotificationAsRead = function(notification) {
-            if (!$("#notification" + notification.id).hasClass("lto-pending-notification-drop-row-read")) {
+            console.log("marking clicked notification as read: ");
+            if (
+                !$("#notification" + notification.id).hasClass(
+                    "lto-pending-notification-drop-row-read"
+                )
+            ) {
                 $http({
-                    url: '/notification/notificationId/' + notification.id + '/markNotification',
-                    dataType: 'json',
-                    method: 'PUT',
+                    url:
+                        "/notification/notificationId/" +
+                        notification.id +
+                        "/markNotification",
+                    dataType: "json",
+                    method: "PUT",
                     headers: {
                         "Content-Type": "application/json"
                     }
-                }).success(function(response) {
-                    if (response.error == null) {
-                        if (!$(".lto-pending-notification-user-dropdownList").hasClass("hide")) {
-                            $(".lto-pending-notification-user-dropdownList").addClass("block");
-                        }
+                })
+                    .success(function(response) {
+                        if (response.error == null) {
+                            if (
+                                !$(
+                                    ".lto-pending-notification-user-dropdownList"
+                                ).hasClass("hide")
+                            ) {
+                                $(
+                                    ".lto-pending-notification-user-dropdownList"
+                                ).addClass("block");
+                            }
 
-                        $rootScope.unreadNotificationList.forEach(function(notification) {
-                            if (notification.id == response.data.id) {
-                                var index = $rootScope.unreadNotificationList.indexOf(notification);
-                                if (index > -1) {
-                                	$rootScope.unreadNotificationList.splice(index, 1);
-                                	$("#notification" + response.data.id).addClass("ng-hide");
-                                	$rootScope.notificationLength = $rootScope.unreadNotificationList.length;
-                                    if ($rootScope.notificationLength == 0) {
-                                        $("#notificationLength").hide();
+                            $rootScope.unreadNotificationList.forEach(function(
+                                notification
+                            ) {
+                                if (notification.id == response.data.id) {
+                                    var index = $rootScope.unreadNotificationList.indexOf(
+                                        notification
+                                    );
+                                    if (index > -1) {
+                                        $rootScope.unreadNotificationList.splice(
+                                            index,
+                                            1
+                                        );
+                                        $(
+                                            "#notification" + response.data.id
+                                        ).addClass("ng-hide");
+                                        $rootScope.notificationLength =
+                                            $rootScope.unreadNotificationList.length;
+                                        if (
+                                            $rootScope.notificationLength == 0
+                                        ) {
+                                            $("#notificationLength").hide();
+                                        }
                                     }
                                 }
-                            }
-                        });
-                    }
-                }).error(function(error) {
-                    console.log("error while getting profile details of user with id:" + $rootScope.userId);
-                });
+                            });
+                        }
+                    })
+                    .error(function(error) {
+                        console.log(
+                            "error while getting profile details of user with id:" +
+                                $rootScope.userId
+                        );
+                    });
             }
-
         };
         // ================================================ End =============================================================================
         //To be cleanedup
         $scope.actionOnNotification = function(notification) {
-            if (notification.type == "ConnectionRequestEvent" || notification.type == "ConnectionAcceptEvent") {
-                $location.path("/profile/user/" + notification.params.senderUserId);
-            } else if (notification.type == "OpportunityInviteEvent" || notification.type == "OppAppStatusChangeEvent" || notification.type == "OppAttChangeEvent" || notification.type == "OppFeedBackEvent" || notification.type == "OppAppSentEvent") {
-                $location.path("/view/opportunity/" + notification.params.opportunityId);
+            $scope.markNotificationAsRead(notification);
+            if (
+                notification.type == "ConnectionRequestEvent" ||
+                notification.type == "ConnectionAcceptEvent"
+            ) {
+                $location.path(
+                    "/profile/user/" + notification.params.senderUserId
+                );
+            } else if (
+                notification.type == "OpportunityInviteEvent" ||
+                notification.type == "OppAppStatusChangeEvent" ||
+                notification.type == "OppAttChangeEvent" ||
+                notification.type == "OppFeedBackEvent" ||
+                notification.type == "OppAppSentEvent"
+            ) {
+                $location.path(
+                    "/view/opportunity/" + notification.params.opportunityId
+                );
             } else {
                 $location.path("/view/notifications");
             }
@@ -112,28 +165,36 @@ notification.controller('UserNotificationController', function($http, $scope, $r
         //============================= Get All Notifications ==============================
         $scope.allNotificationList = [];
         $scope.viewAllNotificationOfUser = function() {
-
             $http({
-                url: '/notification/party/' + $rootScope.userId,
-                dataType: 'json',
-                method: 'GET',
+                url: "/notification/party/" + $rootScope.userId,
+                dataType: "json",
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json"
                 }
-            }).success(function(response) {
-                $location.path("/view/notifications");
-                response.searchResult.forEach(function(response) {
-                    try {
-                        response.params = JSON.parse(response.searchResult.params);
-                    } catch (e) {
-
-                    }
+            })
+                .success(function(response) {
+                    console.log(
+                        "received notification of user: ",
+                        response.searchResult
+                    );
+                    $location.path("/view/notifications");
+                    response.searchResult.forEach(function(response) {
+                        try {
+                            response.params = JSON.parse(
+                                response.searchResult.params
+                            );
+                        } catch (e) {}
+                    });
+                    $scope.allNotificationList = response.searchResult;
+                })
+                .error(function(error) {
+                    console.log(
+                        "error while getting notification list for the userID" +
+                            $rootScope.userId
+                    );
                 });
-                $scope.allNotificationList = response.searchResult;
-            }).error(function(error) {
-                console.log("error while getting notification list for the userID" + $rootScope.userId);
-            });
-
+            $scope.markAllNotificationAsRead();
         };
 
         // ============================================ Pagination for View all notifications ================================
@@ -158,21 +219,22 @@ notification.controller('UserNotificationController', function($http, $scope, $r
             // be in a service
             $http
                 .get(
-                    '/notification/party/' + $rootScope.userId + '?size=' +
-                    $scope.notificationsPerPage +
-                    '&page=' + (pageNumber - 1))
-                .then(
-                    function(result) {
-                        result.data.searchResult.forEach(function(response) {
-                            try {
-                                response.params = JSON.parse(response.params);
-                            } catch (e) {
-
-                            }
-                        });
-                        $scope.notifications = result.data.searchResult;
-                        $scope.totalNotifications = result.data.totalCount;
+                    "/notification/party/" +
+                        $rootScope.userId +
+                        "?size=" +
+                        $scope.notificationsPerPage +
+                        "&page=" +
+                        (pageNumber - 1)
+                )
+                .then(function(result) {
+                    result.data.searchResult.forEach(function(response) {
+                        try {
+                            response.params = JSON.parse(response.params);
+                        } catch (e) {}
                     });
+                    $scope.notifications = result.data.searchResult;
+                    $scope.totalNotifications = result.data.totalCount;
+                });
         }
 
         $scope.pagination = {
@@ -184,19 +246,24 @@ notification.controller('UserNotificationController', function($http, $scope, $r
 
     $scope.markAllNotificationAsRead = function() {
         $http({
-            url: '/notification/markAll/read/party/' + 0,
-            dataType: 'json',
-            method: 'POST',
+            url: "/notification/markAll/read/party/" + 0,
+            dataType: "json",
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
             }
-        }).success(function(response) {
-            if (response.error == null) {
-            	$rootScope.unreadNotificationList = [];
-            }
-        }).error(function(error) {
-            console.log("error while getting notification list for the userID" + $rootScope.userId);
-        });
+        })
+            .success(function(response) {
+                if (response.error == null) {
+                    $rootScope.unreadNotificationList = [];
+                }
+            })
+            .error(function(error) {
+                console.log(
+                    "error while getting notification list for the userID" +
+                        $rootScope.userId
+                );
+            });
     };
 
     // =========================================== End ===================================================================================

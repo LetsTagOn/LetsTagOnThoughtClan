@@ -24,20 +24,23 @@
 					</span>
 
 				</div>
-				<ul class="dropdown utility-bar lto-profile-header-bar" >
+				<ul class="utility-bar lto-profile-header-bar" >
 					<!-- <li class="no-focus-color" data-toggle="collapse" data-target=".nav-collapse.in"><span class="glyphicon glyphicon-map-marker "> </span>{{displayUserDetails.addressBean.city}}</li> -->
 					<!--  Loding unread messages-->
-					<li ng-controller="LtoMessagesController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getUnreadMessages()">
+
+					<li class="dropdown" ng-controller="LtoMessagesController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getUnreadMessages()">
 						<!-- Section one --> 
-						<a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Messages"> 
+						<a class="dropdown-toggle" type="button" data-toggle="dropdown" role="button" aria-expanded="false" title="Messages" aria-expanded="false"> 
 							<span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length > 0"></span> 
 							<span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length==0" ng-click="redirect('/view/myMessages')" > </span> 
 							<span class="hidden-lg hidden-sm hidden-md">Messages</span>
 						</a> <!-- Section two -->
-						<ul ng-hide="unreadMessagelist.length==0" class="dropdown-menu lto-pending-notification-user-dropdownList lto-pending-message-user-dropdownList lto-notification-dropdown-header hidden-xs" role="menu">
+						<ul class="dropdown-menu lto-pending-notification-user-dropdownList lto-pending-message-user-dropdownList lto-notification-dropdown-header hidden-xs" role="menu" ng-hide="unreadMessagelist.length==0">
 							<div class="lto-pending-section-header">
 								<span class="float-left lto-pending-notification-label">Unread Messages
 								</span>
+								<a class="float-right lto-pending-notification-label focus-effect cursor" i18n="{{'common.lto_mark_as_read'}}" ng-click="markMessageAsRead()"> 
+								</a>
 							</div>
 							<hr class="header-separator" ng-hide="unreadMessagelist.length==0">
 							<div class="notification-scroll-container" id="message-scroll-container">
@@ -64,7 +67,7 @@
 									</div>  
 								</li>
 							</div>
-							<!-- <div class="hidden-xs more-results focus-effect cursor" ng-click="viewAllNotificationOfUser()" i18n = "{{'common.lto_link_viewAll'}}"><b class="caret"></b></div> -->
+							<div class="hidden-xs more-results focus-effect cursor" ng-click="redirect('/view/myMessages')" i18n = "{{'common.lto_link_viewAll'}}"><b class="caret"></b></div>
 						</ul>
 
 						<span 	class="badge badge-notify" id="MessageLength" 
@@ -73,18 +76,19 @@
 					</li>
 					<!-- End of message section -->
 					<!-- Search User Icon-->
-					<li class="hidden-lg hidden-sm hidden-md" data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Search User"> 
+					<!-- <li class="hidden-lg hidden-sm hidden-md" data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Search User"> 
 						<a href=""> 
 							<span class="glyphicon glyphicon-search"></span>
 							<span 	ng-click="redirect('/search/user/')" 
 									i18n="{{'common.lto_button_text_search'}}"> 
 							</span>
 						</a> 
-					</li>
+					</li> -->
 					<!-- Notifications section-->
-					<li  ng-controller="UserNotificationController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getAllUnreadNotifications()"> 
-						<a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Notifications"> 
-							<span class="lto-sec-nav glyphicon glyphicon-flag" ng-if="unreadNotificationList.length > 0" ng-click="viewAllNotificationOfUser()"> 
+					
+					<li  class = "dropdown" ng-controller="UserNotificationController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getAllUnreadNotifications()"> 
+						<a role="button" type="button" aria-expanded="false" title="Notifications" class="dropdown-toggle" data-toggle="dropdown"> 
+							<span class="lto-sec-nav glyphicon glyphicon-flag" ng-if="unreadNotificationList.length > 0" > 
 							</span> 
 							<span class="lto-sec-nav glyphicon glyphicon-flag"
 							ng-if="unreadNotificationList.length==0" ng-click="viewAllNotificationOfUser()">
@@ -92,14 +96,14 @@
 							<span class="hidden-lg hidden-sm hidden-md" i18n="{{'common.lto_heading_notification'}}"> 
 							</span>
 						</a>
-						<ul ng-hide="unreadNotificationList.length==0" class="dropdown-menu lto-pending-notification-user-dropdownList lto-notification-dropdown-header hidden-xs" role="menu" >
+						<ul class="dropdown-menu lto-pending-notification-user-dropdownList lto-notification-dropdown-header hidden-xs" role="menu" ng-hide="unreadNotificationList.length===0">
 							<div class="lto-pending-section-header">
 								<span class="float-left lto-pending-notification-label" i18n="{{'common.lto_heading_notification'}}"> 
 								</span>
 								<a class="float-right lto-pending-notification-label focus-effect cursor" i18n="{{'common.lto_mark_as_read'}}" ng-click="markAllNotificationAsRead()"> 
 								</a>
 							</div>
-							<hr class="header-separator" ng-hide="unreadNotificationList.length==0">
+							<hr class="header-separator" >
 							<div class="notification-scroll-container" id="notification-scroll-container">
 								<li class="lto-pending-notification-drop-row" id="notification{{notification.id}}" ng-repeat="notification in unreadNotificationList">
 									<div ng-click="actionOnNotification(notification)">
@@ -130,20 +134,24 @@
 						<span ng-click="redirect('/view/notifications')" class="glyphicon glyphicon-notify" ng-if="unreadNotificationList.length == 0"></span> -->
 						<span class="badge badge-notify" id="notificationLength" ng-if="unreadNotificationList.length > 0">{{unreadNotificationList.length}} </span>
 						</li>
+					
 						<!--end of notification section -->
 						<!--start of connections section -->
-					   <li  data-toggle="collapse" data-target=".nav-collapse.in" ng-controller="NotificationsController">
-						<a data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Connections">
-						 <span class="glyphicon glyphicon-user" ng-click="redirect('/view/connection/user/'+userId)"> 
+					   <li  class="dropdown" data-toggle="collapse" data-target=".nav-collapse.in" ng-controller="NotificationsController" 
+					   	ng-init="getPendingConnections()">
+						<a href="#" type="button" class="dropdown-toggle" data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Connections">
+						 <span class="glyphicon glyphicon-user" ng-show="pendingConnections.length==0" ng-click="redirect('/view/connection/user/'+userId)"> 
+						 </span>
+						 <span class="glyphicon glyphicon-user" ng-show="pendingConnections.length > 0"> 
 						 </span>
 						 <span class="cursor hidden-lg hidden-sm hidden-md"  i18n="{{'common.lto_link_connections'}}"> 
 						 </span>
 						</a>
-						<ul class="dropdown-menu lto-pending-connection-user-dropdownList lto-connection-dropdown-header hidden-xs" role="menu" ng-init="getPendingConnections()">
+						<ul class="dropdown-menu lto-pending-connection-user-dropdownList lto-connection-dropdown-header hidden-xs" role="menu" ng-hide="pendingConnections.length===0">
 							<div class="lto-pending-section-header">
 								<span ng-show="pendingConnections.length>0" class="float-left lto-pending-connection-label" i18n="{{'common.lto_link_pendingConnection'}}">
 								</span>
-								<div ng-show="pendingConnections.length==0" class="float-left lto-pending-connection-label" i18n="{{'common.lto_span_noPendingRequest'}}"></div>
+								<div ng-show="pendingConnections.length==0" class="float-left lto-pending-connection-label" i18n="{{'common.lto_span_noPendingRequest'}}" ng-click="showPendingConnections()"></div>
 								<span ng-show="pendingConnections.length>0">
 								    <a class="lto-pending-connection-all pull-right lto-pending-action-conatiner cursor" ng-click="showPendingConnections()" i18n="{{'common.lto_link_viewAll'}}"> 
 								    </a>
@@ -203,6 +211,7 @@
 			</div>
 		</div>
 	</nav>
+
 	<actionsuccess visible="showLtoSuccessModal"></actionsuccess>
 	<actionerror visible="showLtoErrorModal"></actionerror>
 </header>

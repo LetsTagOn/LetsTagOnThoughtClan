@@ -95,7 +95,7 @@
 									</div>
 									<div class="col-xs-12 col-sm-12 ">
 										<label for="trade" i18n="{{'common.lto_lable_vol_description'}}"></label>
-										<textarea type="text" name="description" class="form-control" id="description" placeholder="{{'common.lto_placeholder_volunteer_description'|i18n}}" ng-model="userVolunteerExperience.description"></textarea>
+										<textarea type="text" name="description" class="form-control" id="vol_description" placeholder="{{'common.lto_placeholder_volunteer_description'|i18n}}" ng-model="userVolunteerExperience.description"></textarea>
 										<span class="glyphicon glyphicon-list-alt"></span>
 									</div>
 									<div class="col-xs-12 col-sm-6">
@@ -144,13 +144,13 @@
 						  <button class="btn btn-primary btn--block-centered" ng-click="showHiddenContainer()" i18n="{{'common.lto_button_text_addExperience'}}"></button>
 					    </span>
 					</div>
-					<div class="lto-cp-exp-section-right">
+					<!-- <div class="lto-cp-exp-section-right"> -->
 					   <!-- Link to import professional details -->
-                       <span class="lto-prof-import-txt">
+                      <!--  <span class="lto-prof-import-txt">
                            <a class="lto-login-forget-pass-link linkedin_Professional_Details" href="/linkedin/professionalDetail" i18n = "{{'common.lto_link_linkedinProfessionalDetails'}}"></a>
-                        </span>
+                        </span> -->
                         <!-- End of link -->
-					</div>
+					<!-- </div> -->
 				</div>
 				<div class="col-xs-12 col-sm-12  lto-cp-exp">
 					<div id="ExpForm" ng-show="isExpVisible" class="profile-form">
@@ -182,7 +182,7 @@
 									</div>
 									<div class="col-xs-12 ">
 										<label for="trade" i18n="{{'common.lto_lable_description'}}"></label>
-										<textarea type="text" name="description" class="form-control" id="description" placeholder="{{'common.lto_placeholder_professional_description'|i18n}}" ng-model="userExperience.description"></textarea>
+										<textarea type="text" name="description" class="form-control" id="prof_description" placeholder="{{'common.lto_placeholder_professional_description'|i18n}}" ng-model="userExperience.description"></textarea>
 										<span class="glyphicon glyphicon-list-alt"></span>
 									</div>
 								</div>
@@ -253,7 +253,7 @@
 									</div>
 									<div class="col-xs-12 col-sm-12 ">
 										<label for="trade" i18n="{{'common.lto_lable_description'}}"></label>
-										<textarea type="text" name="description" class="form-control" id="description" ng-model="userEducation.description" placeholder="{{'common.lto_placeholder_eduDescription'|i18n}}"></textarea>
+										<textarea type="text" name="description" class="form-control" id="edu_description" ng-model="userEducation.description" placeholder="{{'common.lto_placeholder_eduDescription'|i18n}}"></textarea>
 									</div>
 								</div>
 								<div class="text-center">

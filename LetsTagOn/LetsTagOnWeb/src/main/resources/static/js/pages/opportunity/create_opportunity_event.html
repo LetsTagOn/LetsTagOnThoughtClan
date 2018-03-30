@@ -30,7 +30,7 @@
                                                     </div>
                                                     <div class="col-xs-12">
                                                         <label for="description">Description</label>
-                                                        <textarea type="text" name="description" class="form-control" id="description" ng-model="program.description" placeholder="{{'common.lto_placeholder_program_description'|i18n}}"></textarea>
+                                                        <textarea type="text" name="description" class="form-control" id="program_description" ng-model="program.description" placeholder="{{'common.lto_placeholder_program_description'|i18n}}"></textarea>
                                                     </div>
                                                     <div class="text-center">
                                                         <button class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click="submitted=true" i18n="{{'common.lto_button_text_save'}}"></button>
@@ -43,10 +43,11 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                
                                             </form>
                                         </div>
                                         <div ng-show="eventClick ==  'event'">
-                                            <form name="eventForm" novalidate="novalidate" ng-submit="eventForm.$valid && createEvent()">
+                                           <!--  <form name="eventForm" novalidate="novalidate" ng-submit="eventForm.$valid && createEvent()">
                                                 <div class="row lto-cp-exp-form">
                                                     <div class="col-xs-12 col-sm-6">
                                                         <label for="eventName" i18n="{{'common.lto_lable_event_evantName'}}"></label>
@@ -54,7 +55,7 @@
                                                     </div>
                                                     <div class="col-xs-12 col-sm-6 ">
                                                         <label for="description" i18n="{{'common.lto_lable_description'}}"></label>
-                                                        <textarea type="text" name="description" class="form-control" id="description" placeholder="{{'common.lto_placeholder_eventDescription'|i18n}}" ng-model="event.description"></textarea>
+                                                        <textarea type="text" name="description" class="form-control" id="event_description" placeholder="{{'common.lto_placeholder_eventDescription'|i18n}}" ng-model="event.description"></textarea>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-6 ">
                                                         <label for="date" i18n="{{'common.lto_lable_date'}}"></label>
@@ -83,7 +84,7 @@
                                                         <span ng-model="eventActionError">{{eventActionError}}</span>
                                                     </div>
                                                 </div>
-                                            </form>
+                                            </form> -->
                                         </div>
                                     </div>
                                 </div>

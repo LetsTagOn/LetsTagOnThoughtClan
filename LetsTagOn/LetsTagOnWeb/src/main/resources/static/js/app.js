@@ -230,10 +230,18 @@ angular
         "$rootScope",
         function($rootScope) {
             $rootScope.searchResults = [];
+            $rootScope.currentSearchPageNum = 1;
+
             this.saveSearch = function(searchResults) {
                 $rootScope.searchResults = searchResults;
             };
+            this.saveCurrentPageNumber = function(pgNum) {
+                $rootScope.currentSearchPageNum = pgNum;
+            };
 
+            this.getCurrentPageNumber = function() {
+                return $rootScope.currentSearchPageNum;
+            };
             this.getSearchResults = function() {
                 return $rootScope.searchResults;
             };

@@ -270,7 +270,7 @@ main {
   right: 10px;
   text-align: right;
 
-  width: 200px;
+  width: 620px;
 }
 
 #bs-example-navbar-collapse-1 {
@@ -415,6 +415,7 @@ a.selected {
   list-style: none;
   text-align: center;
   margin-bottom: 0px;
+  width:100%;
 }
 .navigation-bar ul li {
   display: inline-block;
@@ -427,6 +428,10 @@ a.selected {
 .navigation-bar ul li a {
   color: rgba(0, 0, 0, 0.7);
   font-size: 16px;
+}
+
+.navigation-bar>ul>li>ul {
+  width: 200px;
 }
 .navigation-bar .glyphicon {
   vertical-align: middle;
@@ -489,17 +494,18 @@ a.selected {
   margin-bottom: 20px;
 }
 .update-picture {
-  background-image: url("../images/profile-section.jpg");
-  background-repeat: no-repeat;
-  height: 180px;
-  background-size: 100%;
+  /*background-image: url("../images/profile-section.jpg");*/
+  /*background-repeat: no-repeat;*/
+  height: 140px;
+  /*background-size: 100%;*/
   opacity: 0.8;
   position: relative;
+  background: linear-gradient(to bottom, #606c88 0%, #3f4c6b 100%);
 }
 .update-picture .label {
-  color: white;
+  /*color: white;*/
   bottom: -52%;
-  left: -35%;
+  left: 35%;
   position: absolute;
 }
 .update-picture .label .glyphicon {
@@ -518,13 +524,14 @@ a.selected {
 .profile-image {
   border: 5px solid #dbdbdb;
   border-radius: 130px;
-  height: 120px;
-  width: 120px;
+  height: 80px;
+  width: 80px;
   background-color: #ffffff;
   background-repeat: no-repeat;
   background-size: 100%;
-  left: 45%;
-  bottom: 60%;
+  left: calc(50% + 20px);
+  margin: 0 -60px;
+  bottom: 55%;
   position: absolute;
 }
 .user-pic {
@@ -538,12 +545,16 @@ a.selected {
 }
 .update-picture .profile-info h2 {
   text-align: center;
-  margin: 10px 0px;
+  margin: 20px auto 0 auto;
   color: #fff;
   font-weight: bold;
+  font-size: 18px;
+  position: relative;
+  bottom:5px;
+  line-height: 20px;
 }
 .update-picture .profile-info p {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 .update-picture .profile-info p span {
   margin-right: 10px;
@@ -599,7 +610,7 @@ a.selected {
   border-color: #fe982a;
   color: white;
   display: block;
-  width: 100%;
+  width: auto;
   max-width: 260px;
   margin-left: 10px;
   margin-right: 10px;
@@ -755,7 +766,7 @@ a.selected {
   color: #444;
   max-width: 1200px;
   min-height: 70px;
-  width: 900px;
+  width: 100%;
   text-align: center;
   margin: 20px auto 35px auto;
 }
@@ -805,16 +816,7 @@ ul.progress-bar a {
   text-decoration: none;
 }
 
-@media all and (min-width: 800px) {
-  .progress-bar li.active:after {
-    content: "";
-    height: 1px;
-    width: 100%;
-    left: 50%;
-    position: absolute;
-    top: -42px;
-    z-index: 0;
-  }
+
 
   ul.progress-bar {
     background-color: #ececec;
@@ -822,6 +824,8 @@ ul.progress-bar a {
     padding: 0;
     width: 100%;
     border: 1px solid #fe982a;
+    display: flex;
+    justify-content: space-between;
   }
   ul.progress-bar:before {
     background-color: #57aed1;
@@ -895,7 +899,7 @@ ul.progress-bar a {
 
 .carousel-indicators {
   position: absolute;
-  bottom: 5%;
+  bottom: 3%;
   left: 45%;
 }
 
@@ -1404,4 +1408,9 @@ ul {
   display: none;
 }
 
+.input[type=file] {
+  width: 100%;
+  max-width:200px;
+  font-size: 0.7em;
+}
 /*Messages styles end*/

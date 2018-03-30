@@ -97,7 +97,7 @@
   "lto_span_RequirFieldError": "Mandatory Field",
   "lto_span_welcome_addVolOpportunity": "Add Volunteering Opportunities",
   "lto_link_welcome_about": "LetsTagOne Focus with Launch of New Application",
-  "lto_link_viewAll": "view All",
+  "lto_link_viewAll": "View All",
   "lto_link_allNotification": "All Notifications",
   "lto_link_pendingConnection": "Pending Connections",
   "lto_link_connectedList": "View Connected List",
@@ -117,7 +117,7 @@
   "lto_label_user_firstName": "First name",
   "lto_label_user_lastName": "Last Name",
 
-  "lto_heading_otp_heading": "Account Acctivation",
+  "lto_heading_otp_heading": "Account Activation",
   "lto_heading_otp": "Enter OTP",
 
   "lto_label_user_emailAddress": "Email Address",

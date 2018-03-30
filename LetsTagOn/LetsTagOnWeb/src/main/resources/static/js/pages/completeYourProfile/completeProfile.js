@@ -68,7 +68,7 @@ completeProfile.controller("PersonalInformationController", function(
         }
     })
         .success(function(response) {
-            if (response.error == null) {
+            if (response.error == null && response.data) {
                 console.log(response);
                 $scope.user = response.data.user;
                 var name = $scope.user.name.split(" ");

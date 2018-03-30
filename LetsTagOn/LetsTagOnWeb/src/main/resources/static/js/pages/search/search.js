@@ -1,7 +1,5 @@
 var searchModule = angular.module("search", []);
 
-
-
 /*
  * Controller for Search Functionality
  * 
@@ -36,8 +34,10 @@ searchModule
         $scope.showOppResultSet = false;
         $rootScope.startEndDateRange = false;
         $scope.pagination = {
-            current: 1
+            current: searchSvc.getCurrentPageNumber()
         };
+        $;
+
         $("#opportunityStartDate")
             .datepicker({
                 format: "yyyy/mm/dd",
@@ -45,7 +45,7 @@ searchModule
             })
             .on("changeDate", function(e) {
                 $(this).datepicker("hide");
-                $scope.pageChanged(1);
+                // $scope.pageChanged(1);
             });
         $("#opportunityEndDate")
             .datepicker({
@@ -54,17 +54,22 @@ searchModule
             })
             .on("changeDate", function(e) {
                 $(this).datepicker("hide");
-                $scope.pageChanged(1);
+                // $scope.pageChanged(1);
             });
 
         $scope.ClearResults = function() {
-        	 searchSvc.clearResults();
-        	
-        	 $route.reload();
-        }
+            searchSvc.clearResults();
+
+            $route.reload();
+        };
+
+        $scope.$watch("pagination.current", function(val) {
+            $scope.pageChanged(val);
+        });
         //  init method called on page load to load master data
         $scope.getMasterData = function() {
             var keyword = $scope.getSearchKeyWordFromUrl();
+            // $scope.pageChanged($scope.pagination.current);
 
             if (typeof keyword != "undefined" || keyword != "") {
                 $scope.searchString = keyword;
@@ -180,10 +185,11 @@ searchModule
         $scope.redirectToSearchPage = function() {
             var keyword = $("#headerSearch").val();
 
-            $location.path("/search/user/" + keyword);
+            $location.path("/search/opportunity/" + keyword);
         };
         // Pagination Function called to get the search results from solr
         $scope.pageChanged = function(newPage) {
+            searchSvc.saveCurrentPageNumber(newPage);
             $scope.getResultsPage(newPage);
         };
         // Function called to set the facets counts to the search master data
@@ -281,44 +287,55 @@ searchModule
                 .get($scope.generateUpcomingEventsQuery(1))
                 .then(function(result) {
                     $scope.upComingEvents = result.data.response.docs;
-                     console.log(result.data.response.docs);
+                    console.log(result.data.response.docs);
                 });
         };
 
         // Function called to get Search results from solr
         $scope.getResultsPage = function(pageNumber) {
+            console.log("getting results from page: ", pageNumber);
             // this is just an example, in reality this stuff should
             // be in a service
             //get results from DB only if there is no previous search result or there is the default search result from initial page load
-            if ($scope.results.length === 0 || $scope.results.length===$scope.resultsPerPage) {
-            	
-            	$http
-                .get($scope.generateSolrSearchQuery(pageNumber))
-                .then(function(result) {
-                    $scope.results = [];
-                    $scope.results = result.data.response.docs;
-                    searchSvc.saveSearch($scope.results);
-                    if (result.data.response.numFound > 0)
-                        // Sourabh: added this code to set searchresults
+            console.log("scope results length is: ", $scope.results.length);
+            if (
+                $scope.results.length === 0 ||
+                $scope.results.length <= $scope.resultsPerPage
+            ) {
+                console.log(
+                    "query string is: ",
+                    $scope.generateSolrSearchQuery(pageNumber)
+                );
+                $http
+                    .get($scope.generateSolrSearchQuery(pageNumber))
+                    .then(function(result) {
+                        $scope.results = [];
+                        $scope.results = result.data.response.docs;
+                        console.log("results received: ", $scope.results);
+                        searchSvc.saveSearch($scope.results);
+                        if (result.data.response.numFound > 0)
+                            // Sourabh: added this code to set searchresults
 
-                        $scope.totalResults = result.data.response.numFound;
-                    else $scope.totalResults = 0;
-                    if (result.data.facet_counts) {
-                        // set facet counts
+                            $scope.totalResults = result.data.response.numFound;
+                        else $scope.totalResults = 0;
+                        if (result.data.facet_counts) {
+                            // set facet counts
 
-                        $scope.setFacetCounts(result.data.facet_counts);
-                    }
+                            $scope.setFacetCounts(result.data.facet_counts);
+                        }
 
-                    if ($scope.getCoreName() === "users") {
-                        $scope.showConnectionStatus($scope.results);
-                    }
-                });
+                        if ($scope.getCoreName() === "users") {
+                            $scope.showConnectionStatus($scope.results);
+                        }
+                    });
             }
-            
         };
-        
+
         $scope.getBannerImage = function(bannerImage) {
-            return "https://s3-us-west-2.amazonaws.com/ltoopporimages/" + bannerImage;
+            return (
+                "https://s3-us-west-2.amazonaws.com/ltoopporimages/" +
+                bannerImage
+            );
         };
 
         // Function called to get facets
@@ -366,20 +383,34 @@ searchModule
             if ($scope.resultsPerPage == undefined) {
                 $scope.resultsPerPage = 10;
             }
-            console.log($scope.getFacetQuery($scope
-                    .getSimpleFacetFields()));
-            console.log($scope.getQueryString());
-
+            //=====================search query without filters===========
+            let name = "";
+            // console.log($scope.getFacetQuery($scope.getSimpleFacetFields()));
+            // console.log($scope.getQueryString());
+            if ($("#searchByName").val()) {
+                name = "*" + $("#searchByName").val() + "*";
+            } else {
+                name = "*";
+            }
             return (
                 $scope.getBaseUrl() +
                 $scope.getCoreName() +
-                "/select?wt=json&rows=" +
+                "/select?q=" +
+                name +
+                "&rows=" +
                 $scope.resultsPerPage +
                 "&start=" +
-                $scope.resultsPerPage * (pageNumber - 1) +
-                "&" +
-                $scope.getFacetQuery($scope.getSimpleFacetFields()) +
-                $scope.getQueryString()
+                $scope.resultsPerPage * (pageNumber - 1)
+                //==============search query with filters=====================
+                // $scope.getBaseUrl() +
+                // $scope.getCoreName() +
+                // "/select?wt=json&rows=" +
+                // $scope.resultsPerPage +
+                // "&start=" +
+                // $scope.resultsPerPage * (pageNumber - 1) +
+                // "&" +
+                // $scope.getFacetQuery($scope.getSimpleFacetFields()) +
+                // $scope.getQueryString()
             );
             //   Modified by Ravi
             //   $scope.getFilterQueryString();
@@ -901,8 +932,8 @@ searchModule
                 '<div class="lto-search-container" ng-show="!authenticated"' +
                 'ng-controller="SearchController">' +
                 '<input type="text" name="trade"' +
-                'class="form-control lto-pre-login-search" id="headerSearch"' +
-                'placeholder="Search for volunteers/events"' +
+                'class="form-control lto-pre-login-search"' +
+                'placeholder="Search for volunteering opportunities"' +
                 'ng-keypress="($event.which === 13)?redirectToSearchPage():0"><span' +
                 'class="glyphicon glyphicon-search cursor"' +
                 'ng-click="redirectToSearchPage()"></span>' +

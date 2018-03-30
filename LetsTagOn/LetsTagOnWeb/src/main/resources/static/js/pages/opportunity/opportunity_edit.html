@@ -16,6 +16,7 @@
 							<!--  causes in which the user is interersed in-->
 							<div class="row no-margin row-space">
 								<form name="eventForm" novalidate="novalidate" ng-submit="eventForm.$valid && saveEditEvent()">
+									
 									<div class="col-md-12">
 										<div class="col-md-6">
 											<div>
@@ -25,32 +26,34 @@
 											</div>
 										</div>
 										<div class="col-md-6">
+
 											<label for="description">Description (What is the work involved?)</label>
 											<textarea type="text" name="description" ng-maxlength="1000" rows="1" class="form-control" id="description" placeholder="Some words about activity/event" ng-model="event.description"
 											ng-required="true"></textarea>
 											<span class="error" ng-show="submitted && eventForm.eventName.$error.required">Mandatory Field</span> 
-											<span class="help-block error" ng-show="((eventForm.description.$error.maxlength) && eventForm.description.$dirty) ">Maximum 1000 Characters Allowed</span>
+											<span class="help-block error" ng-show="(eventForm.description.$error.maxlength && eventForm.description.$dirty) ">Maximum 1000 Characters Allowed</span>
 										</div>
 										<div class="col-md-6">
 											<input type="text" name="eventStartDate" class="form-control" id="eventStartDate" placeholder="Enter Start Date of Activity/Event" ng-model="event.dateStart" ng-required="true" ng-focus="displayStartDate()"> <span class="glyphicon glyphicon-calendar"></span> <span class="error" ng-show="submitted && eventForm.eventStartDate.$error.required">Mandatory
 												Field</span>
 										</div>
 										<div class="col-md-6">
-											<input type="text" name="eventEndDate" class="form-control" ng-focus="displayEndDate()" id="eventEndDate" placeholder="Enter End Date of Activity/Event" ng-model="event.dateEnd" ng-required="true"> <span class="glyphicon glyphicon-calendar"></span> <span class="error" ng-show="submitted && eventForm.eventEndDate.$error.required">Mandatory Field</span>
+											<input type="text" name="eventEndDate" class="form-control" ng-focus="displayEndDate()" id="eventEndDate" placeholder="Enter End Date of Activity/Event" ng-model="event.dateEnd" ng-required="true"> 
+											<span class="glyphicon glyphicon-calendar"></span> <span class="error" ng-show="submitted && eventForm.eventEndDate.$error.required">Mandatory Field</span>
 										</div>
 										<div class="col-md-6" ng-show="areaFound" >
 											<label>Address?
             								 <input type="radio" ng-model="address.name" value="onfield" ng-click="ShowAddress('Y')" /> On Field
             								 <input type="radio" ng-model="address.name" value="virtual" ng-click="ShowAddress('N')" /> Virtual
         									</label> 
-											<input ng-show="isField" id="autocomplete" placeholder="Enter your address" name="formattedAddress" type="text" class="form-control" ng-model="event.addressBean.formattedAddress" required></input>
-											<span class="error" ng-show="submitted && eventForm.formattedAddress.$error.required">Mandatory
-												Field</span>
+											<input ng-show="isField" id="autocomplete" placeholder="Enter your address" name="formattedAddress" type="text" class="form-control" ng-model="event.addressBean.formattedAddress" ng-required="isField"></input>
+											<span class="error" ng-show="submitted && isField && eventForm.formattedAddress.$error.required">Mandatory Field
+											</span>
 										</div>
 										<div class="col-md-6" ng-show="!areaFound && manualAddress">
-											<label>Address</label> <input ng-model="event.street" type="text" name="street_number" class="form-control" placeholder="Enter street number" id="street_number"></input> <input class="form-control" name="locality" placeholder="Enter City" id="locality" ng-required="areaFound == false" ng-model="event.addressBean.city"></input> <span class="error"
+											<label>Address</label> <input ng-model="event.street" type="text" name="street_number" class="form-control" placeholder="Enter street number" id="street_number"></input> <input class="form-control" name="locality" placeholder="Enter City" id="locality" ng-required="!areaFound" ng-model="event.addressBean.city"></input> <span class="error"
 												ng-show="submitted && eventForm.locality.$error.required"
-											>Mandatory Field</span> <input type="number" name="postal_code" class="form-control" id="postal_code" placeholder="Enter zipCode" ng-required="areaFound == false" ng-model="event.addressBean.postalCode"></input> <span class="error" ng-show="submitted && eventForm.postal_code.$error.required">Mandatory Field</span> <input type="text" name="administrative_area_level_1" class="form-control"
+											>Mandatory Field</span> <input type="number" name="postal_code" class="form-control" id="postal_code" placeholder="Enter zipCode" ng-required="!areaFound" ng-model="event.addressBean.postalCode"></input> <span class="error" ng-show="submitted && eventForm.postal_code.$error.required">Mandatory Field</span> <input type="text" name="administrative_area_level_1" class="form-control"
 												id="administrative_area_level_1" placeholder="State" ng-required="areaFound == false" ng-model="event.addressBean.state"
 											></input> <span class="error" ng-show="submitted && eventForm.administrative_area_level_1.$error.required">Mandatory Field</span> <input type="text" name="country" class="form-control" id="country" placeholder="Country" ng-required="areaFound == false" ng-model="event.addressBean.country"> <span class="error" ng-show="submitted && eventForm.country.$error.required">Mandatory
 												Field</span>
@@ -63,8 +66,8 @@
 										</div>
 									</div>
 									<div class="text-center">
-										<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click="submitted=true">Save</button>
-										<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click=showDetailPage(event.id)>cancel</button>
+										<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" type="submit" ng-click="submitted=true">Save</button>
+										<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click=showDetailPage(event.id)>Cancel</button>
 										<div class="success-toast-message col-xs-3 col-sm-3" ng-show="eventSuccess">
 											<span ng-model="eventActionSuccess">{{eventActionSuccess}}</span>
 										</div>

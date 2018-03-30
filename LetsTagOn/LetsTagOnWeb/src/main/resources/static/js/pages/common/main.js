@@ -28,7 +28,7 @@ letsTagOn.controller("MainController", function(
         $http
             .get("user")
             .success(function(data) {
-                // console.log("data in authenticate: ", data.name);
+                console.log("user data received: ", data);
                 if (data.name) {
                     $rootScope.authenticated = true;
                     $("#modalLogin").modal("hide");
@@ -46,31 +46,45 @@ letsTagOn.controller("MainController", function(
                     $rootScope.authenticated = false;
                     sessionStorage.authenticated = false;
                     //check if url allowed though not authenticated
-
+                    // console.log("checking if url allowed");
                     var allowed = false;
                     for (i in $rootScope.unrestrictedUrls) {
                         var url = $rootScope.unrestrictedUrls[i];
+                        // console.log("URL TO CHECK: ", url);
+                        // console.log("ABSURL: ", $location.absUrl());
                         if ($location.absUrl().indexOf(url) >= 0) {
+                            // console.log("URL FOUND IN ABSURL");
                             if (
                                 $location.absUrl().indexOf("/verify") >= 0 ||
                                 $location.absUrl().indexOf("/reset") >= 0
                             ) {
+                                // console.log("FOUND VERIFY IN URL");
                                 if (
                                     $rootScope.$$listenerCount
                                         .$locationChangeStart == 1
                                 ) {
+                                    // console.log("locationChangeStart IS 1 ");
+                                    // console.log(
+                                    //     "LISTERNERCOUNT",
+                                    //     $rootScope.$$listenerCount
+                                    // );
                                     $rootScope.$$listenerCount.$locationChangeStart = 2;
                                     $route.reload();
                                 } else {
+                                    // console.log("locationChangeStart IS NOT 1");
+                                    // console.log(
+                                    //     "LISTERNERCOUNT",
+                                    //     $rootScope.$$listenerCount
+                                    // );
                                     $rootScope.$$listenerCount.$locationChangeStart = 1;
                                 }
                             }
                             allowed = true;
                             break;
                         }
-
-                        if (!allowed) $location.path("/welcome");
                     }
+
+                    if (!allowed) $location.path("/welcome");
                 }
                 callback && callback();
             })
@@ -93,10 +107,11 @@ letsTagOn.controller("MainController", function(
                 authenticate(function() {
                     // console.log("authenticated: ?", $rootScope.authenticated);
                     if ($rootScope.authenticated) {
-                        if ($location.path() === "/welcome")
+                        if ($location.path() === "/welcome") {
+                            // console.log("user data received on login: ", user);
                             //redirection to search page should happen provided login is happening from landing page
                             $location.path("/search/opportunity/");
-                        else {
+                        } else {
                             //need to reload the page so that features which were hidden when user was not authenticated
                             //can be shown once the user is authenticated
                             $route.reload();
