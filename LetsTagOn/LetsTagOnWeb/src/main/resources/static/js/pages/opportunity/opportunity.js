@@ -627,7 +627,7 @@ opportunity.controller("OpportunityEditController", function(
                     console.log("saveEdit isField: ", $scope.isField);
                     console.log("saveEdit areaFound: ", $scope.areaFound);
                 });
-
+        console.log("event data to be saved in db: ", event);
         !$scope.isField && $scope.saveEventInDB(event);
 
         // setTimeout(function() {

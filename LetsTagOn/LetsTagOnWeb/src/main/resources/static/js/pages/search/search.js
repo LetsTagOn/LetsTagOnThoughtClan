@@ -185,7 +185,7 @@ searchModule
         $scope.redirectToSearchPage = function() {
             var keyword = $("#headerSearch").val();
 
-            $location.path("/search/user/" + keyword);
+            $location.path("/search/opportunity/" + keyword);
         };
         // Pagination Function called to get the search results from solr
         $scope.pageChanged = function(newPage) {
@@ -297,15 +297,21 @@ searchModule
             // this is just an example, in reality this stuff should
             // be in a service
             //get results from DB only if there is no previous search result or there is the default search result from initial page load
+            console.log("scope results length is: ", $scope.results.length);
             if (
                 $scope.results.length === 0 ||
-                $scope.results.length === $scope.resultsPerPage
+                $scope.results.length <= $scope.resultsPerPage
             ) {
+                console.log(
+                    "query string is: ",
+                    $scope.generateSolrSearchQuery(pageNumber)
+                );
                 $http
                     .get($scope.generateSolrSearchQuery(pageNumber))
                     .then(function(result) {
                         $scope.results = [];
                         $scope.results = result.data.response.docs;
+                        console.log("results received: ", $scope.results);
                         searchSvc.saveSearch($scope.results);
                         if (result.data.response.numFound > 0)
                             // Sourabh: added this code to set searchresults
@@ -377,19 +383,34 @@ searchModule
             if ($scope.resultsPerPage == undefined) {
                 $scope.resultsPerPage = 10;
             }
-            console.log($scope.getFacetQuery($scope.getSimpleFacetFields()));
-            console.log($scope.getQueryString());
-
+            //=====================search query without filters===========
+            let name = "";
+            // console.log($scope.getFacetQuery($scope.getSimpleFacetFields()));
+            // console.log($scope.getQueryString());
+            if ($("#searchByName").val()) {
+                name = "*" + $("#searchByName").val() + "*";
+            } else {
+                name = "*";
+            }
             return (
                 $scope.getBaseUrl() +
                 $scope.getCoreName() +
-                "/select?wt=json&rows=" +
+                "/select?q=" +
+                name +
+                "&rows=" +
                 $scope.resultsPerPage +
                 "&start=" +
-                $scope.resultsPerPage * (pageNumber - 1) +
-                "&" +
-                $scope.getFacetQuery($scope.getSimpleFacetFields()) +
-                $scope.getQueryString()
+                $scope.resultsPerPage * (pageNumber - 1)
+                //==============search query with filters=====================
+                // $scope.getBaseUrl() +
+                // $scope.getCoreName() +
+                // "/select?wt=json&rows=" +
+                // $scope.resultsPerPage +
+                // "&start=" +
+                // $scope.resultsPerPage * (pageNumber - 1) +
+                // "&" +
+                // $scope.getFacetQuery($scope.getSimpleFacetFields()) +
+                // $scope.getQueryString()
             );
             //   Modified by Ravi
             //   $scope.getFilterQueryString();
@@ -912,7 +933,7 @@ searchModule
                 'ng-controller="SearchController">' +
                 '<input type="text" name="trade"' +
                 'class="form-control lto-pre-login-search"' +
-                'placeholder="Search for volunteers/events"' +
+                'placeholder="Search for volunteering opportunities"' +
                 'ng-keypress="($event.which === 13)?redirectToSearchPage():0"><span' +
                 'class="glyphicon glyphicon-search cursor"' +
                 'ng-click="redirectToSearchPage()"></span>' +

@@ -28,7 +28,7 @@ letsTagOn.controller("MainController", function(
         $http
             .get("user")
             .success(function(data) {
-                // console.log("data in authenticate: ", data.name);
+                console.log("user data received: ", data);
                 if (data.name) {
                     $rootScope.authenticated = true;
                     $("#modalLogin").modal("hide");
@@ -107,10 +107,11 @@ letsTagOn.controller("MainController", function(
                 authenticate(function() {
                     // console.log("authenticated: ?", $rootScope.authenticated);
                     if ($rootScope.authenticated) {
-                        if ($location.path() === "/welcome")
+                        if ($location.path() === "/welcome") {
+                            // console.log("user data received on login: ", user);
                             //redirection to search page should happen provided login is happening from landing page
                             $location.path("/search/opportunity/");
-                        else {
+                        } else {
                             //need to reload the page so that features which were hidden when user was not authenticated
                             //can be shown once the user is authenticated
                             $route.reload();
