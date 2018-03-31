@@ -73,6 +73,11 @@ angular
                 controller: "SearchController",
                 controllerAs: "controller"
             })
+            .when("/search/opportunity/:keyword", {
+                templateUrl: "./js/pages/search/search.html",
+                controller: "SearchController",
+                controllerAs: "controller"
+            })
             .when("/search/user/", {
                 templateUrl: "./js/pages/search/search.html",
                 controller: "SearchController",

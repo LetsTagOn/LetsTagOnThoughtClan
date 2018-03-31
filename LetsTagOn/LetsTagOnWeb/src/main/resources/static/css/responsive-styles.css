@@ -32,7 +32,11 @@
   }
 }*/
 
-
+@media screen and (max-width: 767px) {
+    .top-header ul.utility-bar {
+        top:80px;
+    }    
+}
 
 
 /************

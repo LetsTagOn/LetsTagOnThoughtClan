@@ -25,6 +25,9 @@ searchModule
         $scope.results = searchSvc.getSearchResults();
         $scope.totalResults = -1; // Sourabh: made -1 from 0 to fix search issue. Code is checking if totalResults = 0
         // Function to set the maximum resilt size
+        $scope.searchString;
+        console.log("search string is: ", $scope.searchString);
+        // if (url[1])
         $scope.getResultsPerPage = function() {
             return 10;
         };
@@ -70,8 +73,9 @@ searchModule
         $scope.getMasterData = function() {
             var keyword = $scope.getSearchKeyWordFromUrl();
             // $scope.pageChanged($scope.pagination.current);
+            console.log("got keyword from url: ", keyword);
 
-            if (typeof keyword != "undefined" || keyword != "") {
+            if (keyword) {
                 $scope.searchString = keyword;
                 $scope.getResultsPage(1); // Sourabh: uncommented this line to fix search issue
             }
@@ -183,9 +187,12 @@ searchModule
 
         // Function called to redirect to search page from anywhere in the application
         $scope.redirectToSearchPage = function() {
-            var keyword = $("#headerSearch").val();
-
+            var keyword =
+                $(".lto-pre-login-search").val() ||
+                $(".lto-header-search-adj").val();
+            console.log("value in headerSearch: ", keyword);
             $location.path("/search/opportunity/" + keyword);
+            // debugger;
         };
         // Pagination Function called to get the search results from solr
         $scope.pageChanged = function(newPage) {
@@ -384,7 +391,7 @@ searchModule
                 $scope.resultsPerPage = 10;
             }
             //=====================search query without filters===========
-            let name = "";
+            let name = $scope.searchString;
             // console.log($scope.getFacetQuery($scope.getSimpleFacetFields()));
             // console.log($scope.getQueryString());
             if ($("#searchByName").val()) {
@@ -931,11 +938,12 @@ searchModule
             template:
                 '<div class="lto-search-container" ng-show="!authenticated"' +
                 'ng-controller="SearchController">' +
-                '<input type="text" name="trade"' +
-                'class="form-control lto-pre-login-search"' +
-                'placeholder="Search for volunteering opportunities"' +
-                'ng-keypress="($event.which === 13)?redirectToSearchPage():0"><span' +
-                'class="glyphicon glyphicon-search cursor"' +
+                '<input type="text" name="trade" ' +
+                'class="form-control lto-pre-login-search" ' +
+                'ng-model="searchString" ' +
+                'placeholder="Search for volunteering opportunities" ' +
+                'ng-keypress="($event.which === 13)?redirectToSearchPage():0"><span ' +
+                'class="glyphicon glyphicon-search cursor" ' +
                 'ng-click="redirectToSearchPage()"></span>' +
                 "</div>"
         };

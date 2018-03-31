@@ -19,12 +19,12 @@
 				</a>
 
 				<div class="hidden-xs search-field" ng-controller="SearchController">
-					<input type="text" name="trade" class="form-control lto-header-search-adj" id="headerSearch" placeholder="Search for Volunteers/ Events near your place" ng-keypress="($event.which === 13)?redirectToSearchPage():0"> 
+					<input type="text" name="trade" class="form-control lto-header-search-adj" id="headerSearch" placeholder="Search for Volunteers/ Events near your place" ng-keypress="($event.which === 13)?redirectToSearchPage():0" ng-model="searchString"> 
 					<span class="glyphicon glyphicon-search cursor" ng-click="redirectToSearchPage()"> 
 					</span>
 
 				</div>
-				<ul class="utility-bar lto-profile-header-bar" >
+				<ul class="utility-bar lto-profile-header-bar" data-toggle="collapse" data-target=".nav-collapse.in" >
 					<!-- <li class="no-focus-color" data-toggle="collapse" data-target=".nav-collapse.in"><span class="glyphicon glyphicon-map-marker "> </span>{{displayUserDetails.addressBean.city}}</li> -->
 					<!--  Loding unread messages-->
 
