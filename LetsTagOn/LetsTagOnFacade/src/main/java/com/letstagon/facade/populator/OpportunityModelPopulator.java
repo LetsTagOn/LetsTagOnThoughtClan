@@ -6,8 +6,9 @@ import org.springframework.stereotype.Component;
 
 import com.letstagon.dao.model.Address;
 import com.letstagon.dao.model.Opportunity;
-import com.letstagon.dao.model.Party;
+import com.letstagon.dao.model.User;
 import com.letstagon.facade.dto.OpportunityDTO;
+import com.letstagon.service.PartyService;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -19,6 +20,9 @@ public class OpportunityModelPopulator implements LtoPopulator<OpportunityDTO, O
 	/** The mapper. */
 	@Autowired
 	private DozerBeanMapper mapper;
+
+	@Autowired
+	private PartyService partyService;
 
 	/* (non-Javadoc)
 	 * @see com.letstagon.facade.populator.LtoPopulator#populate(java.lang.Object, java.lang.Object)
@@ -46,7 +50,8 @@ public class OpportunityModelPopulator implements LtoPopulator<OpportunityDTO, O
 		}
 
 		if (source.getCreatedBy() != null) {
-			dest.setCreatedByParty(this.mapper.map(source.getCreatedBy(), Party.class));
+			User user = this.mapper.map(source.getCreatedBy(), User.class);
+			dest.setCreatedByParty(partyService.findByUserBean(user));
 		}
 
 		if (source.getParentProgram() != null) {
