@@ -7,8 +7,9 @@ import org.springframework.stereotype.Component;
 
 import com.letstagon.dao.model.Address;
 import com.letstagon.dao.model.Opportunity;
-import com.letstagon.dao.model.Party;
+import com.letstagon.dao.model.User;
 import com.letstagon.facade.dto.OpportunityDTO;
+import com.letstagon.service.PartyService;
 
 // TODO: Auto-generated Javadoc
 /**
@@ -20,6 +21,9 @@ public class OpportunityDTOConverter implements Converter<OpportunityDTO, Opport
 	/** The mapper. */
 	@Autowired
 	private DozerBeanMapper mapper;
+
+	@Autowired
+	private PartyService partyService;
 
 	/* (non-Javadoc)
 	 * @see org.springframework.core.convert.converter.Converter#convert(java.lang.Object)
@@ -44,7 +48,8 @@ public class OpportunityDTOConverter implements Converter<OpportunityDTO, Opport
 		}
 
 		if (source.getCreatedBy() != null) {
-			dest.setCreatedByParty(this.mapper.map(source.getCreatedBy(), Party.class));
+			User user = this.mapper.map(source.getCreatedBy(), User.class);
+			dest.setCreatedByParty(partyService.findByUserBean(user));
 		}
 
 		dest.setParentProgram(this.convert(source.getParentProgram()));

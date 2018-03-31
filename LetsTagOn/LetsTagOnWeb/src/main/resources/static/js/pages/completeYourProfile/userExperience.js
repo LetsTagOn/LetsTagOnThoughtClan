@@ -29,7 +29,7 @@ completeProfile.controller("ExperienceController", function(
         cache: false
     })
         .success(function(response) {
-        	console.log('in user experience: ', response);
+            console.log("in user experience: ", response);
             if (!response.error && response.data) {
                 //skills
                 $scope.masterSkills = response.data.skills.masterSkills;
@@ -38,6 +38,7 @@ completeProfile.controller("ExperienceController", function(
                 $scope.masterCauseList = response.data.causes.masterCauses;
             } else {
                 $scope.actionError = response.error.errorMessage;
+                console.log("error is: ", $scope.actionError);
                 $scope.error = true;
             }
         })

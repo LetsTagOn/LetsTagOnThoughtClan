@@ -40,6 +40,7 @@ letsTagOn.controller("MainController", function(
                     $scope.error = false;
                     $rootScope.userId = data.principal.id;
                     $rootScope.userObj = data.principal.user;
+                    console.log("userObj received: ", data.principal.user);
                     $rootScope.profilePicture =
                         data.principal.user.profilePicture;
                 } else {
