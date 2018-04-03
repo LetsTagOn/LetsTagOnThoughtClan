@@ -39,6 +39,9 @@ public class UserExperienceModalConverter implements Converter<UserExperience, U
 		userExperienceDTO.setTitle(source.getTitle());
 		userExperienceDTO.setType(source.getType());
 		userExperienceDTO.setSkill(source.getSkill());
+		userExperienceDTO.setHours(source.getHours());
+		userExperienceDTO.setComment(source.getComment());
+		userExperienceDTO.setOther(source.getOther());
 		return userExperienceDTO;
 	}
 
