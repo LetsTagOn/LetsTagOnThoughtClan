@@ -19,6 +19,9 @@ completeProfile.controller("ExperienceController", function(
     $scope.masterCauseList = [];
     $scope.isRequired = false;
     $scope.value = false;
+    $scope.validEndDate=true;
+    $scope.formReady = false;
+   
     $http({
         url: "/profile/interests/user/" + $rootScope.userId,
         dataType: "json",
@@ -36,6 +39,8 @@ completeProfile.controller("ExperienceController", function(
 
                 //causes
                 $scope.masterCauseList = response.data.causes.masterCauses;
+
+                $scope.formReady = true;
             } else {
                 $scope.actionError = response.error.errorMessage;
                 console.log("error is: ", $scope.actionError);
@@ -82,13 +87,35 @@ completeProfile.controller("ExperienceController", function(
             .next()
             .removeClass("focus-effect");
     });
+
+    $("#volExpStartDate").on('focus', function(){
+        if (!$scope.formReady) {
+     
+            $(this).val('');
+        }
+        
+    })
+    $("#volExpEndDate").on('focus', function(){
+        if (!$scope.formReady) {
+           
+            $(this).val('');
+        }
+    })
     $scope.isExpVisible = false;
     $scope.isEduVisible = false;
     $scope.isVolExpVisible = false;
     $scope.redirectProfilePage = function() {
         $location.path("/profile/user/" + $rootScope.userId);
     };
-
+    $scope.validateEndDate = function() {
+        console.log('validating end date');
+        
+        // $scope.userVolunteerExperience.startDate = $scope.expStartDate;
+        // $scope.userVolunteerExperience.endDate = $scope.expEndDate;
+        if (Date.parse($scope.userVolunteerExperience.startDate) >  Date.parse($scope.userVolunteerExperience.endDate)) {
+            $scope.validEndDate = false;
+        }
+    }
     $scope.showVolHiddenContainer = function() {
         $scope.volunnteerExperience = "";
         $scope.isVolExpVisible = $scope.isVolExpVisible ? false : true;
@@ -144,21 +171,26 @@ completeProfile.controller("ExperienceController", function(
     $("#expEndDate")
         .datepicker({
             format: "yyyy-mm-dd",
-            todayHighlight: true
+            todayHighlight: true,
+           
         })
         .on("changeDate", function(e) {
-            $scope.userExperience.endDate = $(this).val();
+            $scope.userVolunteerExperience.endDate = $(this).val();
             $(this).focus();
             $(this).datepicker("hide");
+            
         });
 
     $("#volExpStartDate")
         .datepicker({
             format: "yyyy-mm-dd",
             todayHighlight: true
+           
         })
         .on("changeDate", function(e) {
-            $scope.userVolunteerExperience.startDate = $(this).val();
+          
+             angular.element($('#volExpStartDate')).triggerHandler('input');
+            
             $(this).focus();
             $(this).datepicker("hide");
         });
@@ -168,7 +200,7 @@ completeProfile.controller("ExperienceController", function(
             todayHighlight: true
         })
         .on("changeDate", function(e) {
-            $scope.userVolunteerExperience.endDate = $(this).val();
+           angular.element($('#volExpEndDate')).triggerHandler('input');
             $(this).focus();
             $(this).datepicker("hide");
         });
@@ -444,6 +476,9 @@ completeProfile.controller("ExperienceController", function(
         $scope.userVolunteerExperience.endDate = new Date(
             $("#volExpEndDate").val()
         );
+
+        if (!$scope.validEndDate) return;
+        
         var user = new Object();
         user.id = $rootScope.userId;
         $scope.userVolunteerExperience.userBean = user;

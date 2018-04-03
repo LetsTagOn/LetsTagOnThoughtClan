@@ -95,6 +95,8 @@
   "lto_link_experience": "Experience",
   "lto_link_interest": "Interests",
   "lto_span_RequirFieldError": "Mandatory Field",
+  "lto_span_BackwardTimeError": "End Date cannot precede Start Date",
+  "lto_span_formReady": "Please wait for form data to load",
   "lto_span_welcome_addVolOpportunity": "Add Volunteering Opportunities",
   "lto_link_welcome_about": "LetsTagOne Focus with Launch of New Application",
   "lto_link_viewAll": "View All",
