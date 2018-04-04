@@ -28,7 +28,7 @@ letsTagOn.controller("MainController", function(
         $http
             .get("user")
             .success(function(data) {
-                console.log("user data received: ", data);
+                // console.log("user data received: ", data);
                 if (data.name) {
                     $rootScope.authenticated = true;
                     $("#modalLogin").modal("hide");

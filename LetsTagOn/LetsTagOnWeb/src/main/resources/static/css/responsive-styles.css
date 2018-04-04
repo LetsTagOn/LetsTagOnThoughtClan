@@ -45,6 +45,10 @@
     .top-header ul li {
         height:30px;
     }
+
+    .top-header li .hidden-lg {
+        font-size: 13px;
+    }
 }
 
 

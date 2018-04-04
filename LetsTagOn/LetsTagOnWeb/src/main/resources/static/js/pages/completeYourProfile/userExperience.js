@@ -450,8 +450,8 @@ completeProfile.controller("ExperienceController", function(
             $("#comment").val("");
             $scope.isRequired = false;
         }
-        $scope.userVolunteerExperience.causearea = experience.cause;
-        $scope.userVolunteerExperience.skillarea = experience.skill;
+        $scope.userVolunteerExperience.cause = experience.cause;
+        $scope.userVolunteerExperience.skill = experience.skill;
         $scope.userVolunteerExperience.comment = experience.comment;
         $scope.userVolunteerExperience.other = experience.other;
         $scope.userVolunteerExperience.hours = experience.hours;
@@ -467,6 +467,9 @@ completeProfile.controller("ExperienceController", function(
         $scope.userVolunteerExperience.description = experience.description;
         $scope.userVolunteerExperience.id = experience.id;
         $scope.isVolExpVisible = true;
+
+        //since the edit form opens on the top, the user should be taken there when he clicks on edit
+       $anchorScroll("volExpForm");
     };
     //TO save experience details of user
     $scope.saveVolunteerExperienceDetails = function() {
