@@ -34,8 +34,17 @@
 
 @media screen and (max-width: 767px) {
     .top-header ul.utility-bar {
-        top:80px;
+        top:70px;
+        max-width:90%;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+
     }    
+
+    .top-header ul li {
+        height:30px;
+    }
 }
 
 
