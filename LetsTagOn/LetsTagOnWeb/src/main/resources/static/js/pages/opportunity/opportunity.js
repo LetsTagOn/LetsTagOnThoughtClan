@@ -262,6 +262,7 @@ opportunity.controller("CreateOpportunityController", function(
         program.name = $scope.program.name;
         program.description = $scope.program.description;
         program.type = "PROGRAM";
+        program.createdBy  = $rootScope.userId;
 
         $http({
             url: "/opportunity",
