@@ -71,7 +71,7 @@
 
 												</select>
 
-												<span class="error" ng-show="submitted && volunteerExperience.causearea.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span>
+												<span class="error" ng-show="submitted && volunteerExperience.causearea.$error.required " i18n="{{'common.lto_span_RequirFieldError'}}"></span>
 												<input type="text" name="other" class="form-control" id="other" placeholder="{{'common.lto_placeholder_other'|i18n}}" ng-model="userVolunteerExperience.other"
 												 ng-required={{value}} readonly> <span class="glyphicon glyphicon-tint">
 												<span class="error" ng-show="submitted && volunteerExperience.other.$error.required"
@@ -99,6 +99,7 @@
 												<label for="trade" i18n="{{'common.lto_heading_interest_skill'}}"></label>
 												<select ng-model="userVolunteerExperience.skill" name="skillarea" id="skillarea" ng-change="GetSkill()" class="form-control"
 												 ng-required="true">
+												 <option ng-selected="true">Select an Option</option>
 												<option ng:repeat="skill in masterSkills" value="{{skill.name}}" ng-selected="userVolunteerExperience.skill===skill.name">{{skill.name}}</option>
 												</select>
 												<span class="error" ng-show="submitted && volunteerExperience.skillarea.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span>
