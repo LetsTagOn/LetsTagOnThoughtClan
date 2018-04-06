@@ -776,6 +776,7 @@ span.lto-cp-skill-edit-label:hover {
 .lto-profile-row {
     padding: 0;
     border: none;
+    max-height: 60px;
 }
 .lto-profile-LHS {
     padding: 20px 10%;

@@ -104,6 +104,17 @@ completeProfile.controller("ExperienceController", function(
     $scope.isExpVisible = false;
     $scope.isEduVisible = false;
     $scope.isVolExpVisible = false;
+
+    $scope.$watchGroup(['userVolunteerExperience.cause', 'userVolunteerExperience.skill'], function(){
+        // console.log('replacing &');
+        if ($scope.userVolunteerExperience.cause) {
+            $scope.userVolunteerExperience.cause=$scope.userVolunteerExperience.cause.replace("&amp;", "&");
+        }
+        if ($scope.userVolunteerExperience.skill) {
+            $scope.userVolunteerExperience.skill=$scope.userVolunteerExperience.skill.replace("&amp;", "&");
+        }
+        
+    })
     $scope.redirectProfilePage = function() {
         $location.path("/profile/user/" + $rootScope.userId);
     };
@@ -114,10 +125,13 @@ completeProfile.controller("ExperienceController", function(
         // $scope.userVolunteerExperience.endDate = $scope.expEndDate;
         if (Date.parse($scope.userVolunteerExperience.startDate) >  Date.parse($scope.userVolunteerExperience.endDate)) {
             $scope.validEndDate = false;
+            return;
         }
+        $scope.validEndDate = true;
+
     }
     $scope.showVolHiddenContainer = function() {
-        $scope.volunnteerExperience = "";
+        // $scope.volunteerExperience = "";
         $scope.isVolExpVisible = $scope.isVolExpVisible ? false : true;
         $scope.userVolunteerExperience = "";
     };
@@ -425,6 +439,7 @@ completeProfile.controller("ExperienceController", function(
 
     // TO edit professional experience details
     $scope.editCurrentVolunteerExperienceDetail = function(experience) {
+        console.log('volexperience to be edited: ', experience);
         $scope.userVolunteerExperience = new Object();
         $scope.userVolunteerExperience.organizationName =
             experience.organizationName;
@@ -450,8 +465,8 @@ completeProfile.controller("ExperienceController", function(
             $("#comment").val("");
             $scope.isRequired = false;
         }
-        $scope.userVolunteerExperience.cause = experience.cause;
-        $scope.userVolunteerExperience.skill = experience.skill;
+        // $scope.userVolunteerExperience.causearea = experience.causearea;
+        // $scope.userVolunteerExperience.skillarea = experience.skillarea;
         $scope.userVolunteerExperience.comment = experience.comment;
         $scope.userVolunteerExperience.other = experience.other;
         $scope.userVolunteerExperience.hours = experience.hours;
@@ -473,6 +488,8 @@ completeProfile.controller("ExperienceController", function(
     };
     //TO save experience details of user
     $scope.saveVolunteerExperienceDetails = function() {
+        console.log('saving vol experience');
+        
         $scope.userVolunteerExperience.startDate = new Date(
             $("#volExpStartDate").val()
         );
@@ -486,6 +503,9 @@ completeProfile.controller("ExperienceController", function(
         user.id = $rootScope.userId;
         $scope.userVolunteerExperience.userBean = user;
         $scope.userVolunteerExperience.type = "VLNTREXP";
+        // $scope.userVolunteerExperience.cause.replace("&amp", "&");
+        // $scope.userVolunteerExperience.cause.skill("&amp", "&");
+        console.log('userVolunteerExperience obj being saved: ', $scope.userVolunteerExperience);
         $("#loading-indicator").show();
         $http({
             url: "/profile/user/saveOrUpdate/userExperience",

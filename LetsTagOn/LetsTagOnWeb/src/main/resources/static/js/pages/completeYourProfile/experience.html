@@ -43,38 +43,44 @@
 					<div class="col-xs-12 col-sm-12 lto-cp-exp">
 						<div id="volExpForm" ng-show="isVolExpVisible" class="profile-form">
 							<form name="volunteerExperience" ng-submit="volunteerExperience.$valid && validEndDate && saveVolunteerExperienceDetails()"
-							 novalidate="novalidate">
+							 novalidate>
 								<!-- TO capture company details -->
 								<div class="lto-cp-exp-form profile-form">
-									<div class="row">
-										<div class="col-xs-12 col-sm-6">
-											<label for="trade" i18n="{{'common.lto_lable_organization_name'}}"></label>
-											<input type="text" name="organizationName" class="form-control" id="organizationName" placeholder="{{'common.lto_placeholder_volunteer_organization'|i18n}}"
-											 ng-model="userVolunteerExperience.organizationName" ng-required="true"> <span class="glyphicon glyphicon-user"></span>											<span class="error" ng-show="submitted && volunteerExperience.organizationName.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span>
-										</div>
-										<div class="col-xs-12 col-sm-6 ">
-											<label for="trade" i18n="{{'common.lto_lable_organization_role'}}"></label><input type="text" name="title" class="form-control"
-											 id="title" placeholder="{{'common.lto_placeholder_volunteer_role'|i18n}}" ng-model="userVolunteerExperience.title"
-											 ng-required="true"> <span class="glyphicon glyphicon-user"></span> <span class="error" ng-show="submitted && volunteerExperience.title.$error.required"
-											 i18n="{{'common.lto_span_RequirFieldError'}}"></span>
-										</div>
-										<div class="col-xs-12 col-sm-6 ">
-											<input type="hidden" name="cause" class="form-control" id="cause" placeholder="{{'common.lto_placeholder_cause'|i18n}}" ng-model="userVolunteerExperience.cause">
-											<label for="trade" i18n="{{'common.lto_lable_organization_cause'}}"></label>
-											<select ng-model="userVolunteerExperience.causearea" name="causearea" id="causearea" ng-change="GetCause()" class="form-control"
-											 ng-required="true">
-  												<option ng:repeat="cause in masterCauseList" value="{{cause.name}}" ng-selected="userVolunteerExperience.cause===cause.name">{{cause.name}}</option>
-											</select>
-											<span class="error" ng-show="submitted && volunteerExperience.causearea.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span>											<input type="text" name="other" class="form-control" id="other" placeholder="{{'common.lto_placeholder_other'|i18n}}"
-											 ng-model="userVolunteerExperience.other" ng-required={{value}} readonly> <span class="glyphicon glyphicon-tint">
-										<span class="error" ng-show="submitted && volunteerExperience.other.$error.required"
-											i18n="{{'common.lto_span_RequirFieldError'}}"
-										></span>
-										</div>
-										<div class="col-xs-12 col-sm-6 ">
-											<fieldset ng-disabled="!formReady"><label for="trade" i18n="{{'common.lto_lable_date'}}">
+									<!--<pre>validEndDate: {{validEndDate}}, validForm: {{volunteerExperience.$valid}}, submitted: {{submitted}}</pre>-->
+									<fieldset ng-disabled="!formReady">
+										<div class="row">
+											<div class="col-xs-12 col-sm-6">
+												<label for="trade" i18n="{{'common.lto_label_organization_name'}}"></label>
+												<input type="text" name="organizationName" class="form-control" id="organizationName" placeholder="{{'common.lto_placeholder_volunteer_organization'|i18n}}"
+												 ng-model="userVolunteerExperience.organizationName" ng-required="true"> <span class="glyphicon glyphicon-user"></span>												<span class="error" ng-show="submitted && volunteerExperience.organizationName.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span>
+											</div>
+											<div class="col-xs-12 col-sm-6 ">
+												<label for="trade" i18n="{{'common.lto_label_organization_role'}}"></label>
+												<input type="text" name="title" class="form-control" id="title" placeholder="{{'common.lto_placeholder_volunteer_role'|i18n}}"
+												 ng-model="userVolunteerExperience.title" ng-required="true">
+												<span class="glyphicon glyphicon-user"></span> <span class="error" ng-show="submitted && volunteerExperience.title.$error.required"
+												 i18n="{{'common.lto_span_RequirFieldError'}}"></span>
+											</div>
+											<div class="col-xs-12 col-sm-6 ">
+												<!--<input type="hidden" name="cause" class="form-control" id="cause" placeholder="{{'common.lto_placeholder_cause'|i18n}}">-->
+												<label for="trade" i18n="{{'common.lto_label_organization_cause'}}"></label>
+												<select ng-model="userVolunteerExperience.cause" name="causearea" id="causearea" ng-change="GetCause()" class="form-control"
+												 ng-required="true">
+												<option ng-selected="true">Select an Option</option>
+												<option ng:repeat="cause in masterCauseList" value="{{cause.name}}" ng-selected="userVolunteerExperience.cause===cause.name">{{cause.name}}</option>
+
+												</select>
+
+												<span class="error" ng-show="submitted && volunteerExperience.causearea.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span>
+												<input type="text" name="other" class="form-control" id="other" placeholder="{{'common.lto_placeholder_other'|i18n}}" ng-model="userVolunteerExperience.other"
+												 ng-required={{value}} readonly> <span class="glyphicon glyphicon-tint">
+												<span class="error" ng-show="submitted && volunteerExperience.other.$error.required"
+												i18n="{{'common.lto_span_RequirFieldError'}}"></span>
+											</div>
+											<div class="col-xs-12 col-sm-6 ">
+												<label for="trade" i18n="{{'common.lto_lable_date'}}">
 												</label><input type="text" class="form-control" id="volExpStartDate" placeholder="{{'common.lto_placeholder_volunteer_startDate'|i18n}}"
-												 name="startDate" ng-model="userVolunteerExperience.startDate" ng-required="true">
+												 name="startDate" ng-model="userVolunteerExperience.startDate" ng-required="true" ng-change="validateEndDate()">
 												<span class="glyphicon glyphicon-calendar"></span>
 												<span class="error" ng-show="submitted && volunteerExperience.startDate.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span>
 
@@ -85,49 +91,50 @@
 												<span class="error" ng-show="submitted && volunteerExperience.endDate.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span>
 												<span class="error" ng-show="!validEndDate" i18n="{{'common.lto_span_BackwardTimeError'}}">
 											 </span>
-												<span class="error" ng-show="!formReady" i18n="{{'common.lto_span_formReady'}}"></span>
-												<!--<pre>userVolunteerExperience = {{userVolunteerExperience | json}}</pre>-->
 
-											</fieldset>
-											<!--<pre>{{userVolunteerExperience | json}}</pre>-->
-										</div>
-										<div class="col-xs-12 col-sm-6 ">
-											<input type="hidden" ng-model="userVolunteerExperience.skill" name="skill" class="form-control" id="skill">
-											<label for="trade" i18n="{{'common.lto_heading_interest_skill'}}"></label>
-											<select ng-model="userVolunteerExperience.skillarea" name="skillarea" id="skillarea" ng-change="GetSkill()" class="form-control"
-											 ng-required="true">
+
+											</div>
+											<div class="col-xs-12 col-sm-6 ">
+												<!--<input type="hidden" name="skill" class="form-control" id="skill">-->
+												<label for="trade" i18n="{{'common.lto_heading_interest_skill'}}"></label>
+												<select ng-model="userVolunteerExperience.skill" name="skillarea" id="skillarea" ng-change="GetSkill()" class="form-control"
+												 ng-required="true">
 												<option ng:repeat="skill in masterSkills" value="{{skill.name}}" ng-selected="userVolunteerExperience.skill===skill.name">{{skill.name}}</option>
-											</select>
-											<span class="error" ng-show="submitted && volunteerExperience.skillarea.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span>											<input type="text" name="comment" class="form-control" id="comment" placeholder="{{'common.lto_placeholder_other'|i18n}}"
-											 ng-model="userVolunteerExperience.comment" ng-required={{isRequired}} readonly> <span class="glyphicon glyphicon-tint">
-											<span class="error" ng-show="submitted && volunteerExperience.comment.$error.required"
-											i18n="{{'common.lto_span_RequirFieldError'}}"></span>
-										</div>
-										<div class="col-xs-12 col-sm-6 ">
-											<label for="trade" i18n="{{'common.lto_heading_hours'}}"></label> <input type="text" name="hours" class="form-control"
-											 id="hours" placeholder="{{'common.lto_heading_no_hours'|i18n}}" ng-model="userVolunteerExperience.hours" ng-required="true">
-											<span class="error" ng-show="submitted && volunteerExperience.hours.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span>
-										</div>
-										<div class="col-xs-12 col-sm-12 ">
-											<label for="trade" i18n="{{'common.lto_lable_vol_description'}}"></label>
-											<textarea type="text" name="description" class="form-control" id="vol_description" placeholder="{{'common.lto_placeholder_volunteer_description'|i18n}}"
-											 ng-model="userVolunteerExperience.description"></textarea>
-											<span class="glyphicon glyphicon-list-alt"></span>
-										</div>
-										<div class="col-xs-12 col-sm-6">
+												</select>
+												<span class="error" ng-show="submitted && volunteerExperience.skillarea.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span>
+												<input type="text" name="comment" class="form-control" id="comment" placeholder="{{'common.lto_placeholder_other'|i18n}}"
+												 ng-model="userVolunteerExperience.comment" ng-required={{isRequired}} readonly> <span class="glyphicon glyphicon-tint">
+												<span class="error" ng-show="submitted && volunteerExperience.comment.$error.required"
+												i18n="{{'common.lto_span_RequirFieldError'}}"></span>
+											</div>
+											<div class="col-xs-12 col-sm-6 ">
+												<label for="trade" i18n="{{'common.lto_heading_hours'}}"></label>
+												<input type="text" name="hours" class="form-control" id="hours" placeholder="{{'common.lto_heading_no_hours'|i18n}}" ng-model="userVolunteerExperience.hours"
+												 ng-required="true">
+												<span class="error" ng-show="submitted && volunteerExperience.hours.$error.required" i18n="{{'common.lto_span_RequirFieldError'}}"></span>
+											</div>
+											<div class="col-xs-12 col-sm-12 ">
+												<label for="trade" i18n="{{'common.lto_lable_vol_description'}}"></label>
+												<textarea type="text" name="description" class="form-control" id="vol_description" placeholder="{{'common.lto_placeholder_volunteer_description'|i18n}}"
+												 ng-model="userVolunteerExperience.description"></textarea>
+												<span class="glyphicon glyphicon-list-alt"></span>
+											</div>
+											<div class="col-xs-12 col-sm-6">
 
+											</div>
 										</div>
-									</div>
-									<div class="text-center">
-										<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click="submitted=true" i18n="{{'common.lto_button_text_save'|i18n}}"></button>
-										<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click="showVolHiddenContainer()" i18n="{{'common.lto_button_text_cancle'}}"></button>
-										<div class="success-toast-message" ng-show="success">
-											<span ng-model="actionSuccess">{{actionSuccess}}</span>
+										<div class="text-center">
+											<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click="submitted=true" i18n="{{'common.lto_button_text_save'|i18n}}"></button>
+											<button class="btn btn-primary btn--block-centered lto-cp-exp-btn" ng-click="showVolHiddenContainer()" i18n="{{'common.lto_button_text_cancle'}}"></button>
+											<div class="success-toast-message" ng-show="success">
+												<span ng-model="actionSuccess">{{actionSuccess}}</span>
+											</div>
+											<div class="error-toast-message" ng-show="error">
+												<span ng-model="actionError">{{actionError}}</span>
+											</div>
 										</div>
-										<div class="error-toast-message" ng-show="error">
-											<span ng-model="actionError">{{actionError}}</span>
-										</div>
-									</div>
+										<span class="error" ng-show="!formReady" i18n="{{'common.lto_span_formReady'}}"></span>
+									</fieldset>
 								</div>
 							</form>
 						</div>
