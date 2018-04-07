@@ -1,9 +1,11 @@
 package com.letstagon.web.controller.rest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -30,6 +32,10 @@ public class ResetPasswordController {
 
 	/** The Constant LOG. */
 	private static final Logger LOG = LoggerFactory.getLogger(ResetPasswordController.class);
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 
 	/**
 	 * Change password.
@@ -43,6 +49,9 @@ public class ResetPasswordController {
 				+ user.getPassword());
 		AjaxResponseDTO response = new AjaxResponseDTO();
 		try {
+			if(StringUtils.isNotBlank(user.getPassword())) {
+				user.setPassword(passwordEncoder.encode(user.getPassword()));
+			}
 			emailFacade.resetPassword(user.getUserName(), user.getResetPassordToken(), user.getPassword());
 			response.setData(ControllerConstants.StatusCodes.SUCCESS);
 		} catch (LinkExpiredException le) {
