@@ -391,10 +391,13 @@ searchModule
                 $scope.resultsPerPage = 10;
             }
             //=====================search query without filters===========
-            let name = $scope.searchString;
+            let name;  
             // console.log($scope.getFacetQuery($scope.getSimpleFacetFields()));
             // console.log($scope.getQueryString());
-            if ($("#searchByName").val()) {
+            if ($scope.searchString) {
+                name = "*"+$scope.searchString+"*";
+            }
+            else if ($("#searchByName").val()) {
                 name = "*" + $("#searchByName").val() + "*";
             } else {
                 name = "*";

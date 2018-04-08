@@ -3,7 +3,8 @@
 	<nav class="navbar navbar-default">
 		<div class="container-fluid " ng-controller="ProfileController">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+				 aria-expanded="false">
 					<span class="sr-only">Toggle navigation </span> 
 					<span class="icon-bar"> </span> 
 					<span class="icon-bar"> </span>
@@ -14,28 +15,31 @@
 				</a>
 			</div>
 			<div class="collapse navbar-collapse nav-collapse lto-header-container" id="bs-example-navbar-collapse-1">
-				<a data-toggle="collapse" data-target=".nav-collapse.in" ng-href = "{{authenticated? '#/search/opportunity/' : '/#/'}}" class="start-header__logo hidden-xs"> 
+				<a data-toggle="collapse" data-target=".nav-collapse.in" ng-href="{{authenticated? '#/search/opportunity/' : '/#/'}}" class="start-header__logo hidden-xs"> 
 					<img class="cursor" src="./images/logo1.png" height="45" width="100" alt="...">
 				</a>
 
 				<div class="hidden-xs search-field" ng-controller="SearchController">
-					<input type="text" name="trade" class="form-control lto-header-search-adj" id="headerSearch" placeholder="Search for Volunteers/ Events near your place" ng-keypress="($event.which === 13)?redirectToSearchPage():0" ng-model="searchString"> 
+					<input type="text" name="trade" class="form-control lto-header-search-adj" id="headerSearch" placeholder="Search for Opportunities"
+					 ng-keypress="($event.which === 13)?redirectToSearchPage():0" ng-model="searchString">
 					<span class="glyphicon glyphicon-search cursor" ng-click="redirectToSearchPage()"> 
 					</span>
 
 				</div>
-				<ul class="utility-bar lto-profile-header-bar" data-toggle="collapse" data-target=".nav-collapse.in" >
+				<ul class="utility-bar lto-profile-header-bar" data-toggle="collapse" data-target=".nav-collapse.in">
 					<!-- <li class="no-focus-color" data-toggle="collapse" data-target=".nav-collapse.in"><span class="glyphicon glyphicon-map-marker "> </span>{{displayUserDetails.addressBean.city}}</li> -->
 					<!--  Loding unread messages-->
 
 					<li class="dropdown" ng-controller="LtoMessagesController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getUnreadMessages()">
-						<!-- Section one --> 
+						<!-- Section one -->
 						<a class="dropdown-toggle" type="button" data-toggle="dropdown" role="button" aria-expanded="false" title="Messages" aria-expanded="false"> 
 							<span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length > 0"></span> 
 							<span class="glyphicon glyphicon-comment" ng-if="unreadMessagelist.length==0" ng-click="redirect('/view/myMessages')" > </span> 
 							<span class="hidden-lg hidden-sm hidden-md">Messages</span>
-						</a> <!-- Section two -->
-						<ul class="dropdown-menu lto-pending-notification-user-dropdownList lto-pending-message-user-dropdownList lto-notification-dropdown-header hidden-xs" role="menu" ng-hide="unreadMessagelist.length==0">
+						</a>
+						<!-- Section two -->
+						<ul class="dropdown-menu lto-pending-notification-user-dropdownList lto-pending-message-user-dropdownList lto-notification-dropdown-header hidden-xs"
+						 role="menu" ng-hide="unreadMessagelist.length==0">
 							<div class="lto-pending-section-header">
 								<span class="float-left lto-pending-notification-label">Unread Messages
 								</span>
@@ -47,7 +51,8 @@
 								<li class="lto-pending-notification-drop-row lto-pending-message-drop-row" id="message{{message.id}}" ng-repeat="message in unreadMessagelist">
 									<div ng-click="markMessageAsRead(message)">
 										<div class="float-left ">
-											<img class="profile-img lto-pending-notification-image lto-pending-message-image" ng-src="{{getProfileImage(message.toParty.userBean.senderProfilePicture)}}" ng-if="message.toParty.userBean.senderProfilePicture != null"> 
+											<img class="profile-img lto-pending-notification-image lto-pending-message-image" ng-src="{{getProfileImage(message.toParty.userBean.senderProfilePicture)}}"
+											 ng-if="message.toParty.userBean.senderProfilePicture != null">
 											<img class="profile-img lto-pending-notification-image lto-pending-message-image" src="../images/UserImage.png" ng-if="message.toParty.userBean.senderProfilePicture == null">
 										</div>
 										<div class="float-left lto-notification-RHS">
@@ -58,20 +63,19 @@
 											<div class="lto-notification-RHS-message"> {{message.messageText}}
 											</div>
 											<div class="lto-notification-action-container">
-                                				<span class="glyphicon glyphicon-time" ></span>
-                                				<span>
+												<span class="glyphicon glyphicon-time"></span>
+												<span>
                                 					<time class="font-size-12 " am-time-ago="message.sentTime"></time> 
                                 				</span>
-                            				</div> 
+											</div>
 										</div>
-									</div>  
+									</div>
 								</li>
 							</div>
-							<div class="hidden-xs more-results focus-effect cursor" ng-click="redirect('/view/myMessages')" i18n = "{{'common.lto_link_viewAll'}}"><b class="caret"></b></div>
+							<div class="hidden-xs more-results focus-effect cursor" ng-click="redirect('/view/myMessages')" i18n="{{'common.lto_link_viewAll'}}"><b class="caret"></b></div>
 						</ul>
 
-						<span 	class="badge badge-notify" id="MessageLength" 
-								ng-if="unreadMessagelist.length > 0">{{unreadMessagelist.length}} 
+						<span class="badge badge-notify" id="MessageLength" ng-if="unreadMessagelist.length > 0">{{unreadMessagelist.length}} 
 						</span>
 					</li>
 					<!-- End of message section -->
@@ -85,8 +89,8 @@
 						</a> 
 					</li> -->
 					<!-- Notifications section-->
-					
-					<li  class = "dropdown" ng-controller="UserNotificationController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getAllUnreadNotifications()"> 
+
+					<li class="dropdown" ng-controller="UserNotificationController" data-toggle="collapse" data-target=".nav-collapse.in" ng-init="getAllUnreadNotifications()">
 						<a role="button" type="button" aria-expanded="false" title="Notifications" class="dropdown-toggle" data-toggle="dropdown"> 
 							<span class="lto-sec-nav glyphicon glyphicon-flag" ng-if="unreadNotificationList.length > 0" > 
 							</span> 
@@ -96,26 +100,28 @@
 							<span class="hidden-lg hidden-sm hidden-md" i18n="{{'common.lto_heading_notification'}}"> 
 							</span>
 						</a>
-						<ul class="dropdown-menu lto-pending-notification-user-dropdownList lto-notification-dropdown-header hidden-xs" role="menu" ng-hide="unreadNotificationList.length===0">
+						<ul class="dropdown-menu lto-pending-notification-user-dropdownList lto-notification-dropdown-header hidden-xs" role="menu"
+						 ng-hide="unreadNotificationList.length===0">
 							<div class="lto-pending-section-header">
 								<span class="float-left lto-pending-notification-label" i18n="{{'common.lto_heading_notification'}}"> 
 								</span>
 								<a class="float-right lto-pending-notification-label focus-effect cursor" i18n="{{'common.lto_mark_as_read'}}" ng-click="markAllNotificationAsRead()"> 
 								</a>
 							</div>
-							<hr class="header-separator" >
+							<hr class="header-separator">
 							<div class="notification-scroll-container" id="notification-scroll-container">
 								<li class="lto-pending-notification-drop-row" id="notification{{notification.id}}" ng-repeat="notification in unreadNotificationList">
 									<div ng-click="actionOnNotification(notification)">
 										<div class="float-left ">
-											<img class="profile-img lto-pending-notification-image" ng-src="{{getProfileImage(notification.params.senderProfilePicture)}}" ng-if="notification.params.senderProfilePicture != null">
-											 <img class="profile-img lto-pending-notification-image" src="../images/UserImage.png" ng-if="notification.params.senderProfilePicture == null">
+											<img class="profile-img lto-pending-notification-image" ng-src="{{getProfileImage(notification.params.senderProfilePicture)}}"
+											 ng-if="notification.params.senderProfilePicture != null">
+											<img class="profile-img lto-pending-notification-image" src="../images/UserImage.png" ng-if="notification.params.senderProfilePicture == null">
 										</div>
 										<div class="float-left lto-notification-RHS">
 											<div class="">
 												<a class="lto-notification-pending-user" ng-model="notification.params.senderUserId">From: {{notification.params.senderName}}</a>
 											</div>
-											<div class="lto-notification-RHS-message">	{{notification.content}} 
+											<div class="lto-notification-RHS-message"> {{notification.content}}
 											</div>
 										</div>
 									</div>
@@ -128,17 +134,16 @@
 							<div class="hidden-xs more-results focus-effect cursor" ng-click="viewAllNotificationOfUser()" i18n="{{'common.lto_link_viewAll'}}">
 								<b class="caret"></b>
 							</div>
-						</ul> 
+						</ul>
 						<span class=" hidden-sm hidden-md hidden-lg lto-sec-nav glyphicon glyphicon glyphicon-chevron-right"></span>
 						<!--
 						<span ng-click="redirect('/view/notifications')" class="glyphicon glyphicon-notify" ng-if="unreadNotificationList.length == 0"></span> -->
 						<span class="badge badge-notify" id="notificationLength" ng-if="unreadNotificationList.length > 0">{{unreadNotificationList.length}} </span>
-						</li>
-					
-						<!--end of notification section -->
-						<!--start of connections section -->
-					   <li  class="dropdown" data-toggle="collapse" data-target=".nav-collapse.in" ng-controller="ConnectionController" 
-					   	ng-init="getPendingConnections()">
+					</li>
+
+					<!--end of notification section -->
+					<!--start of connections section -->
+					<li class="dropdown" data-toggle="collapse" data-target=".nav-collapse.in" ng-controller="ConnectionController" ng-init="getPendingConnections()">
 						<a type="button" class="dropdown-toggle" data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Connections">
 						 <span class="glyphicon glyphicon-user" ng-show="pendingConnections.length==0" ng-click="redirectToUserConnections()"> 
 						 </span>
@@ -151,7 +156,8 @@
 							<div class="lto-pending-section-header">
 								<span ng-show="pendingConnections.length>0" class="float-left lto-pending-connection-label" i18n="{{'common.lto_link_pendingConnection'}}">
 								</span>
-								<div ng-show="pendingConnections.length==0" class="float-left lto-pending-connection-label" i18n="{{'common.lto_span_noPendingRequest'}}" ng-click="showPendingConnections()"></div>
+								<div ng-show="pendingConnections.length==0" class="float-left lto-pending-connection-label" i18n="{{'common.lto_span_noPendingRequest'}}"
+								 ng-click="showPendingConnections()"></div>
 								<span ng-show="pendingConnections.length>0">
 								    <a class="lto-pending-connection-all pull-right lto-pending-action-conatiner cursor" ng-click="showPendingConnections()" i18n="{{'common.lto_link_viewAll'}}"> 
 								    </a>
@@ -161,7 +167,8 @@
 							<div class="notification-scroll-container" id="connection-scroll-container">
 								<li class="lto-pending-connection-drop-row" ng-repeat="connection in pendingConnections">
 									<div class="float-left ">
-										<img class="profile-img lto-pending-connection-image" ng-src="{{getProfileImage(connection.party1.userBean.profilePicture)}}" ng-if="connection.party1.userBean.profilePicture != null">
+										<img class="profile-img lto-pending-connection-image" ng-src="{{getProfileImage(connection.party1.userBean.profilePicture)}}"
+										 ng-if="connection.party1.userBean.profilePicture != null">
 										<img class="profile-img lto-pending-connection-image" src="../images/UserImage.png" ng-if="connection.party1.userBean.profilePicture == null">
 									</div>
 									<div class="float-left ">
@@ -183,29 +190,29 @@
 									</div>
 								</div>
 							</li>
-						</ul> 
-							<!--
+						</ul>
+						<!--
 							<span class="lto-sec-nav glyphicon glyphicon-chevron-right hidden-sm hidden-md hidden-lg">
 								<span ng-click="showPendingConnections()" i18n="{{'common.lto_link_pendingConnection'}}"> 
 								</span> 
 							</span>-->
-							<span class="badge badge-notify" ng-if="pendingConnections.length > 0">{{pendingConnections.length}} 
+						<span class="badge badge-notify" ng-if="pendingConnections.length > 0">{{pendingConnections.length}} 
 							</span>
-						</li>
-					<li  data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Profile"> 
+					</li>
+					<li data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Profile">
 						<a ng-href="#/profile/user/{{userId}}"> 
 							<img ng-if="profilePicture != null" ng-src="{{getProfileImage(profilePicture)}}" style="width: 27px;"> 
 							<img ng-if="profilePicture == null" src="../images/UserImage.png" style="width: 27px;"> 
 							<span class="hidden-lg hidden-sm hidden-md"
 							i18n="{{'common.lto_span_profile'}}"
 							></span>
-						</a> 
+						</a>
 					</li>
-					<li class="" data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Logout"> 
+					<li class="" data-toggle="collapse tooltip" data-target=".nav-collapse.in" title="Logout">
 						<a href="" ng-click="logout()"> 
 							<span class="glyphicon glyphicon-log-out"></span>
 							<span class="hidden-lg hidden-sm hidden-md" i18n="{{'common.lto_span_logOut'}}"></span>
-						</a> 
+						</a>
 					</li>
 				</ul>
 			</div>
