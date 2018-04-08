@@ -1,13 +1,14 @@
 package com.letstagon.web.controller.rest;
 
 import java.util.Random;
-import java.util.UUID;
 
 import javax.persistence.NonUniqueResultException;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,6 +41,9 @@ public class RegistrationRestController {
 	/** The user repository. */
 	@Autowired
 	private UserRepository userRepository;
+
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	/** The Constant LOG. */
 	private static final Logger LOG = LoggerFactory.getLogger(RegistrationRestController.class);
@@ -59,6 +63,9 @@ public class RegistrationRestController {
 		try {
 			user.setAccountVerified(null);
 			user.setToken(this.getToken());
+			if(StringUtils.isNotBlank(user.getPassword())) {
+				user.setPassword(passwordEncoder.encode(user.getPassword()));
+			}
 			UserDTO response = userFacade.create(user);
 			responseDTO.setData(response);
 			// to send email to user after registration

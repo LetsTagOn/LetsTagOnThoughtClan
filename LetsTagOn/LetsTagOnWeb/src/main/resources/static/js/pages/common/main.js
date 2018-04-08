@@ -38,11 +38,11 @@ letsTagOn.controller("MainController", function(
                     sessionStorage.authenticated = true;
                     $rootScope.logout = true;
                     $scope.error = false;
-                    $rootScope.userId = data.principal.id;
-                    $rootScope.userObj = data.principal.user;
-                    console.log("userObj received: ", data.principal.user);
+                    console.log("userObj received: ", data);
+                    $rootScope.userId = data.id;
+                    $rootScope.userObj = data;
                     $rootScope.profilePicture =
-                        data.principal.user.profilePicture;
+                        data.profilePicture;
                 } else {
                     $rootScope.authenticated = false;
                     sessionStorage.authenticated = false;
