@@ -1,12 +1,15 @@
 package com.letstagon.dao.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.letstagon.dao.model.Message;
 import com.letstagon.dao.model.Party;
@@ -94,5 +97,12 @@ public interface MessageRepository extends
 	Page<Message> getAllUnreadMessagesForParty(
 			@Param("toParty") Party toParty,
 			Pageable pageable);
+
+	@Transactional
+	@Modifying(clearAutomatically = true)
+	@Query("update Message message set message.isRead =:isRead, message.readTime=:readTime where message.toParty=:toParty")
+	void markAllNotificationAsReadForUser(@Param("toParty") Party toParty, 
+			                              @Param("isRead") boolean isRead, 
+			                              @Param("readTime") Date readTime);
 
 }

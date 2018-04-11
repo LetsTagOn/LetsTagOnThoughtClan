@@ -198,4 +198,26 @@ public class MessageRestController {
 		return response;
 	}
 
+	/**
+	 * Mark all message as read for user.
+	 *
+	 * @param partyID the party ID
+	 * @return the ajax response DTO
+	 */
+	@RequestMapping(value = "/mark/message/read/{partyID}", method = RequestMethod.POST)
+	public AjaxResponseDTO markAllMessageAsRead(@PathVariable(value = "partyID") long partyID) {
+
+		PartyDTO partyBean = this.ltoSessionService.findLoggedInParty(partyID);
+		AjaxResponseDTO responseDTO = new AjaxResponseDTO();
+		try {
+			this.messageManagementFacade.markAllAsRead(partyBean);
+		} catch (InvalidPreferenceException e) {
+			AjaxErrorDTO errorDTO = new AjaxErrorDTO();
+			errorDTO.setErrorCode(ControllerConstants.ErrorCodes.BAD_REQUEST);
+			errorDTO.setErrorMessage(ControllerConstants.ErrorMessages.RESOURCE_NOT_FOUND);
+			responseDTO.setError(errorDTO);
+		}
+		return responseDTO;
+
+	}
 }

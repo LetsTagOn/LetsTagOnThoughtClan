@@ -185,4 +185,13 @@ public class MessageManagementFacadeImpl implements MessageManagementFacade {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see com.letstagon.facade.MessageManagementFacade#markAllAsRead(com.letstagon.facade.dto.PartyDTO)
+	 */
+	@Override
+	public void markAllAsRead(PartyDTO party) throws InvalidPreferenceException {
+		Party partyBean = dozerBeanMapper.map(party, Party.class);
+		messagingService.markAllNotificationAsRead(partyBean);
+	}
+
 }

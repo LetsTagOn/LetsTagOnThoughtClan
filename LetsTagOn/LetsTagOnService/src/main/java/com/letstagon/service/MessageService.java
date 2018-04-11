@@ -84,4 +84,6 @@ public interface MessageService {
 	 * @return the message
 	 */
 	Message markMessageAsRead(Message message);
+
+	public void markAllNotificationAsRead(Party partyBean) throws InvalidPreferenceException;;
 }
