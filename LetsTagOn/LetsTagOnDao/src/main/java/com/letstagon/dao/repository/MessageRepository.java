@@ -101,7 +101,7 @@ public interface MessageRepository extends
 	@Transactional
 	@Modifying(clearAutomatically = true)
 	@Query("update Message message set message.isRead =:isRead, message.readTime=:readTime where message.toParty=:toParty")
-	void markAllNotificationAsReadForUser(@Param("toParty") Party toParty, 
+	void markAllMessageAsRead(@Param("toParty") Party toParty, 
 			                              @Param("isRead") boolean isRead, 
 			                              @Param("readTime") Date readTime);
 

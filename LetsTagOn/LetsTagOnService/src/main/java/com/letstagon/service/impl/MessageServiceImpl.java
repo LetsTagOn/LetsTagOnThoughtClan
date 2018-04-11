@@ -153,12 +153,12 @@ public class MessageServiceImpl implements MessageService {
 	}
 
 	@Override
-	public void markAllNotificationAsRead(Party party) throws InvalidPreferenceException {
+	public void markAllMessageAsRead(Party party) throws InvalidPreferenceException {
 		if(party == null){
 			throw new InvalidPreferenceException("Required party details not found");
 		}
-		Date readTime = Calendar.getInstance().getTime()
-		messagingRepository.markAllNotificationAsReadForUser(party, true, readTime);
+		Date readTime = Calendar.getInstance().getTime();
+		messagingRepository.markAllMessageAsRead(party, true, readTime);
 	}
 
 }

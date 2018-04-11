@@ -91,6 +91,6 @@ public interface MessageManagementFacade {
 	 *
 	 * @param partyBean the PartyDTO
 	 */
-	public void markAllAsRead(PartyDTO partyBean) throws InvalidPreferenceException;
+	public void markAllMessageAsRead(PartyDTO partyBean) throws InvalidPreferenceException;
 
 }

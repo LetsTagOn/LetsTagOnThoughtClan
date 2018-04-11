@@ -210,7 +210,7 @@ public class MessageRestController {
 		PartyDTO partyBean = this.ltoSessionService.findLoggedInParty(partyID);
 		AjaxResponseDTO responseDTO = new AjaxResponseDTO();
 		try {
-			this.messageManagementFacade.markAllAsRead(partyBean);
+			this.messageManagementFacade.markAllMessageAsRead(partyBean);
 		} catch (InvalidPreferenceException e) {
 			AjaxErrorDTO errorDTO = new AjaxErrorDTO();
 			errorDTO.setErrorCode(ControllerConstants.ErrorCodes.BAD_REQUEST);
