@@ -204,7 +204,7 @@ public class MessageRestController {
 	 * @param partyID the party ID
 	 * @return the ajax response DTO
 	 */
-	@RequestMapping(value = "/mark/message/read/{partyID}", method = RequestMethod.POST)
+	@RequestMapping(value = "/message/markAll/read/{partyID}", method = RequestMethod.PUT)
 	public AjaxResponseDTO markAllMessageAsRead(@PathVariable(value = "partyID") long partyID) {
 
 		PartyDTO partyBean = this.ltoSessionService.findLoggedInParty(partyID);
