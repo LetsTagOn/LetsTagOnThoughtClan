@@ -1,5 +1,6 @@
 package com.letstagon.service.impl;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -149,6 +150,15 @@ public class MessageServiceImpl implements MessageService {
 		mess.setReadTime(new Date());
 		return messagingRepository.save(mess);
 		 
+	}
+
+	@Override
+	public void markAllMessageAsRead(Party party) throws InvalidPreferenceException {
+		if(party == null){
+			throw new InvalidPreferenceException("Required party details not found");
+		}
+		Date readTime = Calendar.getInstance().getTime();
+		messagingRepository.markAllMessageAsRead(party, true, readTime);
 	}
 
 }
