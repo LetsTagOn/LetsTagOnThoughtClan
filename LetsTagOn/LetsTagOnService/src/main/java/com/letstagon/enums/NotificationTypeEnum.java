@@ -33,6 +33,9 @@ public enum NotificationTypeEnum {
  /** The opportunity application sent. */
  OPPORTUNITY_APPLICATION_SENT(
 			"OppAppSentEvent", "Application Sent"), 
+ /** The opportunity application applied. */
+ OPPORTUNITY_APPLICATION_APPLY(
+			"OppAppApplyEvent", "Application Received"), 
  /** The password reset. */
  PASSWORD_RESET(
 			"PasswordResetEvent", "Password has been reset");

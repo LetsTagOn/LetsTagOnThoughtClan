@@ -24,6 +24,7 @@ import com.letstagon.service.PartyService;
 import com.letstagon.service.event.OppApplicationStatusChangeEvent;
 import com.letstagon.service.event.OppAttendanceChangeEvent;
 import com.letstagon.service.event.OppFeedbackChangeEvent;
+import com.letstagon.service.event.OpportunityApplicationApplyEvent;
 import com.letstagon.service.event.OpportunityApplicationSentEvent;
 
 // TODO: Auto-generated Javadoc
@@ -71,10 +72,13 @@ public class PartyParticipationServiceImpl implements PartyParticipationService 
 			partyParticipation = this.partyParticipationRepository.save(partyParticipation);
 		}
 
-		OpportunityApplicationSentEvent applicationSentEvent = new OpportunityApplicationSentEvent(partyParticipation,
-				opportunityRepository.findOne(partyParticipation.getOpportunityBean().getId()),
-				partyRepository.findOne(partyParticipation.getPartyBean().getId()), new Date());
+		Date date = new Date();
+		Opportunity opp = opportunityRepository.findOne(partyParticipation.getOpportunityBean().getId());
+		OpportunityApplicationSentEvent applicationSentEvent = new OpportunityApplicationSentEvent(partyParticipation, opp,
+				partyRepository.findOne(partyParticipation.getPartyBean().getId()), date);
+		OpportunityApplicationApplyEvent applicationApplyEvent = new OpportunityApplicationApplyEvent(partyParticipation, opp, applyingParty, date);
 		eventPublisher.publishEvent(applicationSentEvent);
+		eventPublisher.publishEvent(applicationApplyEvent);
 
 		return partyParticipation;
 	}
