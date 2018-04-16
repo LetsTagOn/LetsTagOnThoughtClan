@@ -43,7 +43,7 @@
 							<div class="lto-pending-section-header">
 								<span class="float-left lto-pending-notification-label">Unread Messages
 								</span>
-								<a class="float-right lto-pending-notification-label focus-effect cursor" i18n="{{'common.lto_mark_as_read'}}" ng-click="markMessageAsRead()"> 
+								<a class="float-right lto-pending-notification-label focus-effect cursor" i18n="{{'common.lto_mark_as_read'}}" ng-click="markAllMessagesAsRead()"> 
 								</a>
 							</div>
 							<hr class="header-separator" ng-hide="unreadMessagelist.length==0">
@@ -144,7 +144,7 @@
 					<!--end of notification section -->
 					<!--start of connections section -->
 					<li class="dropdown" data-toggle="collapse" data-target=".nav-collapse.in" ng-controller="ConnectionController" ng-init="getPendingConnections()">
-						<a type="button" class="dropdown-toggle" data-toggle="dropdown tooltip" role="button" aria-expanded="false" title="Connections">
+						<a type="button" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="Connections">
 						 <span class="glyphicon glyphicon-user" ng-show="pendingConnections.length==0" ng-click="redirectToUserConnections()"> 
 						 </span>
 						 <span class="glyphicon glyphicon-user" ng-show="pendingConnections.length > 0"> 

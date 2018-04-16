@@ -300,6 +300,7 @@ ltoMessagesModule.controller("LtoMessagesController", function(
     //======================================= End =============================================================================================
     //======================================= Function to mark message as read =============================================================================================
 
+    
     $scope.markMessageAsRead = function(message) {
         $location.path("/view/myMessages");
         $http({
@@ -333,9 +334,9 @@ ltoMessagesModule.controller("LtoMessagesController", function(
     $scope.markAllMessagesAsRead = function() {
         //need to get the correct api end point for this
         $http({
-            url: "/message/markAll/read/party/" + 0,
+            url: "/message/markAll/read/party/" + $rootScope.userId,
             dataType: "json",
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             }

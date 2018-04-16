@@ -98,6 +98,10 @@ letsTagOn.controller("MainController", function(
     authenticate();
     $scope.credentials = {};
     $scope.login = function() {
+        // console.log('in login function');
+        $scope.error = false;
+        $scope.submitted = false;
+        
         $http
             .post("login", $.param($scope.credentials), {
                 headers: {
@@ -126,7 +130,7 @@ letsTagOn.controller("MainController", function(
                     } else {
                         // Sourabh: Fixed issue of rerouting to home page. This was tryng to relocate to welcome page. Hence commented.   $location.path("/");
                         $scope.error = true;
-                        $scope.authenticationError = "Invalid credentails";
+                        $scope.authenticationError = "Invalid credentials";
                     }
                 });
             })

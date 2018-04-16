@@ -377,7 +377,8 @@ searchModule
                 $scope.resultsPerPage * (pageNumber - 1) +
                 "&" +
                 $scope.getFacetQuery($scope.getSimpleFacetFields()) +
-                $scope.getQueryString()
+                $scope.getQueryString() + 
+                "&sort=dateStart desc"
             );
             //   Modified by Ravi
             //  $scope.getFilterQueryString();
