@@ -42,12 +42,49 @@
 
     }    
 
-    .top-header ul li {
+
+    /*.top-header ul li {
         height:30px;
-    }
+    }*/
 
     .top-header li .hidden-lg {
         font-size: 13px;
+    }
+  
+}
+
+@media screen and (max-width: 767px) {
+      ul.dropdown-menu.lto-pending-notification-user-dropdownList:before {
+        left: 60px;
+    }
+
+    .lto-pending-notification-user-dropdownList {
+        position: absolute;
+        left: 0;
+    }
+
+    .lto-pending-message-user-dropdownList {
+        left: -5vw;
+    }
+}
+
+@media screen and (max-width: 460px) {
+    .lto-pending-message-user-dropdownList {
+     
+        left: -5vw !important;
+        top: 10px;
+    }
+    .lto-pending-notification-user-dropdownList {
+     
+        left: -45vw;
+        top: 10px;
+    }
+    ul.dropdown-menu.lto-pending-notification-user-dropdownList:before {
+        left: 200px;
+    }
+
+    ul.dropdown-menu.lto-pending-message-user-dropdownList:before {
+        left: 20px;
     }
 }
 
