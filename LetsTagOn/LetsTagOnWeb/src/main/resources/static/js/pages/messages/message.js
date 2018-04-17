@@ -334,7 +334,7 @@ ltoMessagesModule.controller("LtoMessagesController", function(
     $scope.markAllMessagesAsRead = function() {
         //need to get the correct api end point for this
         $http({
-            url: "/message/markAll/read/party/" + $rootScope.userId,
+            url: "/message/markAll/read/0",
             dataType: "json",
             method: "PUT",
             headers: {
