@@ -66,6 +66,10 @@
     .lto-pending-message-user-dropdownList {
         left: -5vw;
     }
+
+    .lto-pending-connection-user-dropdownList {
+        left: -50vw !important
+    }
 }
 
 @media screen and (max-width: 460px) {
@@ -79,12 +83,21 @@
         left: -45vw;
         top: 10px;
     }
+
+    .lto-pending-connection-user-dropdownList {
+        left: 5vw !important;
+        top: 10px;
+    }
     ul.dropdown-menu.lto-pending-notification-user-dropdownList:before {
         left: 200px;
     }
 
     ul.dropdown-menu.lto-pending-message-user-dropdownList:before {
         left: 20px;
+    }
+    ul.dropdown-menu.lto-pending-connection-user-dropdownList:before {
+        left: 0;
+        
     }
 }
 

@@ -333,6 +333,7 @@ ltoMessagesModule.controller("LtoMessagesController", function(
     //===================Function to mark all messages as Read =================================
     $scope.markAllMessagesAsRead = function() {
         //need to get the correct api end point for this
+        console.log('marking all as read');
         $http({
             url: "/message/markAll/read/0",
             dataType: "json",
@@ -343,7 +344,7 @@ ltoMessagesModule.controller("LtoMessagesController", function(
         })
             .success(function(response) {
                 if (response.error == null) {
-                    $rootScope.unreadMessagelist = [];
+                    $scope.unreadMessagelist = [];
                 }
             })
             .error(function(error) {

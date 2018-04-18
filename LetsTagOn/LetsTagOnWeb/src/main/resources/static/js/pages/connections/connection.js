@@ -13,36 +13,36 @@ connection.controller("ConnectionController", function(
     $scope.viewUserDetails = false;
     $scope.pendingConnectionsPageNo = 1;
     $scope.pendingConnections = [];
-
+    $scope.pendingConnectionsPerPage = 5;
     $scope.connects = [];
     $scope.totalConnects = 0;
     $scope.connectsPerPage = 10;
-    console.log("making call to: ", "/connection/" + userId + "/list");
-    $http({
-        url: "/connection/" + userId + "/list",
-        dataType: "json",
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json"
-        }
-    })
-        .success(function(response) {
-            console.log("received user connections: ", response);
-            if (response.error == null) {
-                $scope.userList = response.searchResult;
-            }
-        })
-        .error(function(error) {
-            console.log(
-                "error while getting profile details of user with id:" +
-                    $rootScope.userId
-            );
-        });
+    // console.log("making call to: ", "/connection/" + userId + "/list");
+    // $http({
+    //     url: "/connection/" + $rootScope.userId + "/list",
+    //     dataType: "json",
+    //     method: "GET",
+    //     headers: {
+    //         "Content-Type": "application/json"
+    //     }
+    // })
+    //     .success(function(response) {
+    //         console.log("received user connections: ", response);
+    //         if (response.error == null) {
+    //             $scope.userList = response.searchResult;
+    //         }
+    //     })
+    //     .error(function(error) {
+    //         console.log(
+    //             "error while getting profile details of user with id:" +
+    //                 $rootScope.userId
+    //         );
+    //     });
     // this should match
     // however
     // many results your API puts on
     // one page
-    getResultsPage(1);
+    // getResultsPage(1);
 
     $scope.pagination = {
         current: 1
@@ -64,7 +64,7 @@ connection.controller("ConnectionController", function(
                     "/openRequests?size=" +
                     $scope.pendingConnectionsPerPage +
                     "&page=" +
-                    (pageNumber - 1)
+                    (pageNumber-1)
             )
             .then(function(result) {
                 console.log("got pending connections: ", result.data);
@@ -75,7 +75,7 @@ connection.controller("ConnectionController", function(
                 ready = true;
             })
             .catch(err => {
-                console.log("unable to get pending conns: ", err);
+                console.log("unable to get pending conns: ", err.statusText);
             });
     }
     $scope.redirectToUserConnections = function() {
@@ -100,7 +100,7 @@ connection.controller("ConnectionController", function(
         $http
             .get(
                 "/connection/" +
-                    userId +
+                    $rootScope.userId +
                     "/list?size=" +
                     $scope.connectsPerPage +
                     "&page=" +
@@ -133,17 +133,17 @@ connection.controller("ConnectionController", function(
             }
         })
             .success(function(response) {
-                $rootScope.pendingConnectionList.forEach(function(
+                $scope.pendingConnections.forEach(function(
                     currentConnention
                 ) {
                     if (currentConnention.party2.id == connection.party2.id) {
-                        var index = $rootScope.pendingConnectionList.indexOf(
+                        var index = $scope.pendingConnections.indexOf(
                             currentConnention
                         );
-                        $rootScope.pendingConnectionList.splice(index, 1);
+                        $scope.pendingConnections.splice(index, 1);
                     }
                 });
-                $rootScope.ltoSuccessMessage =
+                $scope.ltoSuccessMessage =
                     "You are successfully connected to " +
                     connection.party1.userBean.name +
                     ".";
@@ -175,14 +175,14 @@ connection.controller("ConnectionController", function(
             }
         })
             .success(function(response) {
-                $rootScope.pendingConnectionList.forEach(function(
+                $rootScope.pendingConnections.forEach(function(
                     currentConnention
                 ) {
                     if (currentConnention.party2.id == connection.party2.id) {
-                        var index = $rootScope.pendingConnectionList.indexOf(
+                        var index = $scope.pendingConnections.indexOf(
                             currentConnention
                         );
-                        $rootScope.pendingConnectionList.splice(index, 1);
+                        $scope.pendingConnections.splice(index, 1);
                     }
                 });
             })
