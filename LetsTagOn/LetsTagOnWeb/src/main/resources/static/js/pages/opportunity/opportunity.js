@@ -1213,7 +1213,7 @@ opportunity.controller("ViewOpportunityController", function(
     })
         .success(function(response) {
             console.log("oppDetails: ", response.data);
-            if (response.error == null) {
+            if (response.error == null && response.data) {
                 console.log("got event details:...", response.data);
                 $scope.oppDetails = response.data;
                 $scope.compareDate(response.data.dateEnd);
@@ -1226,12 +1226,14 @@ opportunity.controller("ViewOpportunityController", function(
                         initMap($scope.oppDetails.latLong)
                     );
             }
+            else $scope.oppDetails = null;
         })
         .error(function(error) {
             console.log(
                 "error while getting profile details of user with id:" +
                     $rootScope.userId
             );
+            
         });
     $scope.compareDate = function(dateEnd) {
         $scope.eventComplete = false;

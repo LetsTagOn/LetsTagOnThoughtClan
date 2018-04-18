@@ -510,7 +510,8 @@ a.selected {
 }
 .update-picture .label .glyphicon {
   margin-right: 10px;
-  vertical-align: middle;
+  /*vertical-align: middle;*/
+  top:15px;
 }
 .upload-profile-txt {
   margin: 0 5px;
