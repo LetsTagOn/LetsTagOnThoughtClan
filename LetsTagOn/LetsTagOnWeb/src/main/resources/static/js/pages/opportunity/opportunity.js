@@ -495,7 +495,7 @@ opportunity.controller("OpportunityEditController", function(
             .success(function(response) {
                 console.info(response);
                 $scope.opportunityJobTypes = response.data.opportunityJobTypes;
-                $scope.removeJobFromMasterJobType();
+                // $scope.removeJobFromMasterJobType();
             })
             .error(function(error) {
                 console.info(error);
@@ -789,7 +789,7 @@ opportunity.controller("OpportunityEditController", function(
 
                         $scope.opportunityJobTypes =
                             response.data.opportunityDTO.opportunityJobTypes;
-                        $scope.removeJobFromMasterJobType();
+                        // $scope.removeJobFromMasterJobType();
                     }
                 );
                 console.log("inital load isField: ", $scope.isField);
@@ -864,7 +864,7 @@ opportunity.controller("OpportunityEditController", function(
         $scope.jobType.numberOfPositions = parseInt(job.numberOfPositions);
         $scope.jobType.hours = parseInt(job.hours);
         $scope.jobType.selectionCriteria = job.selectionCriteria;
-        $scope.removeJobFromMasterJobType();
+        // $scope.removeJobFromMasterJobType();
         $scope.masterJobTypeList.unshift(job.jobTypeBean);
         $scope.selectedJobType = job.jobTypeBean.id;
         $scope.selectedJobTypeName = job.jobTypeBean.name;
@@ -883,7 +883,7 @@ opportunity.controller("OpportunityEditController", function(
             selectionCriteria: "",
             id: null
         };
-        $scope.removeJobFromMasterJobType();
+        // $scope.removeJobFromMasterJobType();
         $scope.addJobSectionDisplays();
     };
 
