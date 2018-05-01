@@ -34,8 +34,8 @@ public interface OpportunityRepository extends PagingAndSortingRepository<Opport
 	 * @param pageRequest the page request
 	 * @return the page
 	 */
-	@Query("Select p From Opportunity p"
-			+ " where p.dateStart > :dateStart And p.createdByParty=:createdByParty")
+	@Query("Select o From PartyParticipation p Join p.opportunityBean o"
+			+ " where p.partyBean=:createdByParty And o.dateStart > :dateStart ")
 	Page<Opportunity> findAllByPartyBeanAndStatusAndStartDateAfter(@Param("createdByParty") Party createdByParty,
 		@Param("dateStart") Date dateStart, Pageable pageRequest);
 
