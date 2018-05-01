@@ -17,32 +17,32 @@ connection.controller("ConnectionController", function(
     $scope.connects = [];
     $scope.totalConnects = 0;
     $scope.connectsPerPage = 10;
-    // console.log("making call to: ", "/connection/" + userId + "/list");
-    // $http({
-    //     url: "/connection/" + $rootScope.userId + "/list",
-    //     dataType: "json",
-    //     method: "GET",
-    //     headers: {
-    //         "Content-Type": "application/json"
-    //     }
-    // })
-    //     .success(function(response) {
-    //         console.log("received user connections: ", response);
-    //         if (response.error == null) {
-    //             $scope.userList = response.searchResult;
-    //         }
-    //     })
-    //     .error(function(error) {
-    //         console.log(
-    //             "error while getting profile details of user with id:" +
-    //                 $rootScope.userId
-    //         );
-    //     });
+    console.log("making call to: ", "/connection/" + userId + "/list");
+    $http({
+        url: "/connection/" + $rootScope.userId + "/list",
+        dataType: "json",
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .success(function(response) {
+            console.log("received user connections: ", response);
+            if (response.error == null) {
+                $scope.userList = response.searchResult;
+            }
+        })
+        .error(function(error) {
+            console.log(
+                "error while getting profile details of user with id:" +
+                    $rootScope.userId
+            );
+        });
     // this should match
     // however
     // many results your API puts on
     // one page
-    // getResultsPage(1);
+    getResultsPage(1);
 
     $scope.pagination = {
         current: 1

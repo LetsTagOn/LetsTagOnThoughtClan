@@ -2,60 +2,62 @@
 <div class="container lto-main-container" ng-controller="SearchController" ng-init="getMasterData()">
 	<div class="row">
 		<main class="col-xs-12 col-sm-12 col-md-12 no-padding ">
-		<div id="custom-search-input" ng-show="isSearchBoxVisible">
-			<div class="input-group col-xs-12 col-sm-12 col-md-12  float-left lto-user-search-main-container">
-				<img class="search-usr-icon" src="./images/find_user.png" alt="..."> <input type="text" class=" search-query form-control" ng-model="searchString" id="searchByName" placeholder="{{'common.lto_placeholder_search'|i18n}}" ng-keypress="($event.which === 13)?getResultsPage(1):0" />
-				<button class="btn btn-primary btn--block-centered lto-search-btn" ng-click="getResultsPage(1)" id="searchPgBtnPrimary">
+			<div id="custom-search-input" ng-show="isSearchBoxVisible">
+				<div class="input-group col-xs-12 col-sm-12 col-md-12  float-left lto-user-search-main-container">
+					<img class="search-usr-icon" src="./images/find_user.png" alt="..."> <input type="text" class=" search-query form-control"
+					 ng-model="searchString" id="searchByName" placeholder="{{'common.lto_placeholder_search'|i18n}}" ng-keypress="($event.which === 13)?getResultsPage(1):0"
+					/>
+					<button class="btn btn-primary btn--block-centered lto-search-btn" ng-click="getResultsPage(1)" id="searchPgBtnPrimary">
 
 					<span class="no-focus-color" i18n="common.lto_button_text_search"></span>
 				</button>
-				<button id="lto-search-btn-clear" ng-click="ClearResults()"> 
+					<button id="lto-search-btn-clear" ng-click="ClearResults()"> 
 					<span i18n="common.lto_button_text_clear_search"></span>
 				</button>
-			</div>
-		</div>
-		<div class="row no-margin row-space">
-			<div class="col-xs-12 col-sm-12 col-md-12 lto-complete-profile-exp">
-				<div class="lto-cp-exp-section-left font-star">
-					<h2 class="lto-search-result-header" i18n="{{'common.lto_heading_search_searchResults'}}"></h2>
 				</div>
 			</div>
-			<div class="col-xs-12 col-sm-12 col-md-12">
-				<div class="well well-consent search-result-container col-xs-12 col-sm-12 col-md-8">
-					<div class="col-xs-12 col-sm-12 col-md-3 lto-search-vr-line">
-						<!-- <h3 class=" hidden-sm hidden-xs lto-search-advanced-header" i18n="{{'common.lto_heading_search_searchFilter'}}"></h3> -->
-					<!-- 	<h3 class="hidden-lg hidden-md lto-search-advanced-header cursor" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="true" aria-controls="advancedSearch" i18n="{{'common.lto_heading_search_searchFilter'}}"></h3> -->
-						<div class=" col-xs-12 col-sm-12 col-md-12 checkbox-custom lto-search-advanced-checkbox" id="advancedSearch">
-							<div class="form-group">
-								<div class="btn-group" ng-controller="SearchController">
-									<label class=" " btn-radio="users" for="searchModeUsers">
+			<div class="row no-margin row-space">
+				<div class="col-xs-12 col-sm-12 col-md-12 lto-complete-profile-exp">
+					<div class="lto-cp-exp-section-left font-star">
+						<h2 class="lto-search-result-header" i18n="{{'common.lto_heading_search_searchResults'}}"></h2>
+					</div>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-12">
+					<div class="well well-consent search-result-container col-xs-12 col-sm-12 col-md-8">
+						<div class="col-xs-12 col-sm-12 col-md-3 lto-search-vr-line">
+							<!-- <h3 class=" hidden-sm hidden-xs lto-search-advanced-header" i18n="{{'common.lto_heading_search_searchFilter'}}"></h3> -->
+							<!-- 	<h3 class="hidden-lg hidden-md lto-search-advanced-header cursor" type="button" data-toggle="collapse" data-target="#advancedSearch" aria-expanded="true" aria-controls="advancedSearch" i18n="{{'common.lto_heading_search_searchFilter'}}"></h3> -->
+							<div class=" col-xs-12 col-sm-12 col-md-12 checkbox-custom lto-search-advanced-checkbox" id="advancedSearch">
+								<div class="form-group">
+									<div class="btn-group" ng-controller="SearchController">
+										<label class=" " btn-radio="users" for="searchModeUsers">
 									   <input ng-click=getResultsPage(1) id="searchModeUsers" class=" " name="searchMode" value="users" checked type="radio">
 										<any i18n="common.User"></any> 
 										<br>
-									</label> 
-									<label for="searchModeOpps" class="" btn-radio='opportunity'>
+									</label>
+										<label for="searchModeOpps" class="" btn-radio='opportunity'>
 									   <input name="searchMode" value="opportunity" type="radio" class=" " id="searchModeOpps" ng-click="getResultsPage(1)">
 									   <any i18n="common.opportunity"></any>
 									   <br>
 								   </label>
-								   <!-- <label class="lto-search-label" ng-show="showOppDateRange"> 
+										<!-- <label class="lto-search-label" ng-show="showOppDateRange"> 
                                     <input type="checkbox" name="searchModeOppsDate" class="float-left" ng-model="dateRange" id="searchModeOppsDate"> 
                                     <span class="checkboxText float-left lto-search-small-text" i18n="common.opportunity_By_date">
                                     </span>
                                     </label> -->
-                                   <!--  <label class="lto-search-label" ng-show="searchByDateRange"> 
+										<!--  <label class="lto-search-label" ng-show="searchByDateRange"> 
 	                                    <input type="checkbox" name="searchModeOppsDateRange" class="float-left" ng-model="startEndDateRange" id="searchModeOppsDateRange" > 
 	                                    <span class="checkboxText float-left lto-search-small-text" i18n="common.opportunity_by_date_range">	                                        
 	                                    </span>
                                     </label> -->
-                                    <!-- <div ng-show="startEndDateRange">                                           
+										<!-- <div ng-show="startEndDateRange">                                           
                                                 <input type="text" name="opportunityStartDate" class="form-control" id="opportunityStartDate" placeholder="{{'common.lto_placeholder_event_startDate'|i18n}}">                                                 
                                                 <br/>
                                                 <input type="text" name="opportunityEndDate" class="form-control" id="opportunityEndDate" placeholder="{{'common.lto_placeholder_volunteer_endDate'|i18n}}"> 
                                      </div> -->
-								</div>
-								<!-- <label for="sel1" class="lto-advanced-search-option-header" i18n="{{'common.lto_lable_location'}}"></label> -->
-                                <!-- <div class="lto-advanced-search-option-conatiner">
+									</div>
+									<!-- <label for="sel1" class="lto-advanced-search-option-header" i18n="{{'common.lto_lable_location'}}"></label> -->
+									<!-- <div class="lto-advanced-search-option-conatiner">
                                     <label class="lto-search-label" ng-show="location.count>0" ng-repeat="location in systemLocationData">
 	                                     <input type="checkbox" class="float-left" ng-model="location.selected" ng-change="getResultsPage(1)"> 
 	                                     <span class="checkboxText float-left lto-search-small-text">{{location.name}} 
@@ -63,8 +65,9 @@
 	                                    </span>
                                     </label> <span ng-show="!locationFacetAvailable" i18n="{{'common.lto_span_location_noFilter'}}"></span> 
                                 </div> -->
-								<br> <!-- <label for="sel1" class="lto-advanced-search-option-header" i18n="{{'common.lto_heading_jobType'}}"></label> -->
-								<!-- <div class="lto-advanced-search-option-conatiner">
+									<br>
+									<!-- <label for="sel1" class="lto-advanced-search-option-header" i18n="{{'common.lto_heading_jobType'}}"></label> -->
+									<!-- <div class="lto-advanced-search-option-conatiner">
 									<label class="lto-search-label" ng-show="skill.count>0" ng-repeat="skill in masterSkillList" ng-if="skill.name.toLowerCase() != 'all' && skill.description.toLowerCase() != 'all'"> 
 									<input type="checkbox" class="float-left" ng-model="skill.selected" ng-change="getResultsPage(1)"> <span class="checkboxText float-left lto-search-small-text">{{skill.description}} <span
 											ng-show="skill.count>0" class="lto-search-small-text"
@@ -72,85 +75,101 @@
 									</span>
 									</label> <span ng-show="!jobTypeFacetAvailable" i18n="{{'common.lto_span_skill_noFilter'}}"></span>
 								</div> -->
-								<br> <!-- <label for="sel1" class="lto-advanced-search-option-header" i18n="{{'common.lto_heading_cause'}}"></label> -->
-								<!-- <div class="lto-advanced-search-option-conatiner">
+									<br>
+									<!-- <label for="sel1" class="lto-advanced-search-option-header" i18n="{{'common.lto_heading_cause'}}"></label> -->
+									<!-- <div class="lto-advanced-search-option-conatiner">
 									<label class="lto-search-label" ng-repeat="cause in masterCauseList" ng-show="cause.count>0" ng-if="cause.name.toLowerCase() != 'all' && cause.description.toLowerCase() != 'all'"> <input type="checkbox" class="float-left" ng-model="cause.selected" ng-change="getResultsPage(1)"> <span class="checkboxText float-left lto-search-small-text">{{cause.description}} <span
 											ng-show="cause.count>0" class="lto-search-small-text"
 										>({{cause.count}})</span>
 									</span>
 									</label> <span ng-show="!causeFacetAvailable" i18n="{{'common.lto_span_cause_noFilter'}}"></span>
 								</div> -->
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="col-xs-12 col-sm-7 col-md-8 start-property-tile__title lto-search lto-search-result">
-						<dir-pagination-controls boundary-links="true" class="col-md-12 col-sm-12 col-xs-12" on-page-change="pageChanged(newPageNumber)" template-url="/js/pages/fragments/pagination/dirPagination.tpl.html"></dir-pagination-controls>
-						<div class="row no-margin row-space">
-							<div ng-if="totalResults==0" class="bold" i18n="{{'common.lto_span_noSearchResult'}}"></div>
-							<br> <br>
-							<div dir-paginate="resultItem in results | itemsPerPage: resultsPerPage | filter:q " total-items="totalResults" current-page="pagination.current" class="col-xs-12 col-sm-12 col-md-12 start-property-tile__title lto-search lto-search-result">
-								<div ng-if="showUserResultSet==true" ng-show="showUserResultSet" class="">
-									<div class="pull-left margin-right-10">
-										<img class="lto-profile-adj" ng-if="resultItem.profilePicture != null" ng-src="{{getProfileImage(resultItem.profilePicture)}}"> <img class="lto-profile-adj" ng-if="resultItem.profilePicture == null" src="../images/UserImage.png">
-									</div>
-									<div class="pull-left col-xs-5 col-sm-6">
-										<h3 class="lto-cp-exp-details-row lto-search-result-row-one ">
-											<span class="cursor font-bold font-star" ng-click="paintUserProfileDetails(resultItem.id)">{{resultItem.fullName}}<span class="text-highlight" ng-if="resultItem.rating != null">
-                                            <span  class="glyphicon glyphicon-star"></span>{{resultItem.rating}}</span></span> 
-											
-										</h3>
-										<h3 class="lto-cp-exp-details-row lto-search-small-text">
-											<div class="lto-search-small-text" ng-show="resultItem.emailaddress.length>1">Email : {{resultItem.emailaddress}}</div>
-											<div class="lto-search-small-text" ng-show="resultItem.phoneNumber.length>1">Phone : {{resultItem.phoneNumber}}</div>
-											<span class="lto-search-small-text" ng-show="resultItem.address_city.length > 0">{{resultItem.address_city}}</span> <span class="lto-search-small-text" ng-show="resultItem.address_state.length > 0"><span ng-if="resultItem.address_city.length > 0">,</span> {{resultItem.address_state}}</span><span class="lto-search-small-text" ng-show="resultItem.address_country.length > 0"><span
+						<div class="col-xs-12 col-sm-7 col-md-8 start-property-tile__title lto-search lto-search-result">
+							<dir-pagination-controls boundary-links="true" class="col-md-12 col-sm-12 col-xs-12" on-page-change="pageChanged(newPageNumber)"
+							 template-url="/js/pages/fragments/pagination/dirPagination.tpl.html"></dir-pagination-controls>
+							<div class="row no-margin row-space">
+								<div ng-if="totalResults==0" class="bold" i18n="{{'common.lto_span_noSearchResult'}}"></div>
+								<br> <br>
+								<div dir-paginate="resultItem in results | itemsPerPage: resultsPerPage | filter:q " total-items="totalResults" current-page="pagination.current"
+								 class="col-xs-12 col-sm-12 col-md-12 start-property-tile__title lto-search lto-search-result">
+									<div ng-if="showUserResultSet==true" ng-show="showUserResultSet" class="">
+										<div class="pull-left margin-right-10">
+											<img class="lto-profile-adj" ng-if="resultItem.profilePicture != null" ng-src="{{getProfileImage(resultItem.profilePicture)}}">											<img class="lto-profile-adj" ng-if="resultItem.profilePicture == null" src="../images/UserImage.png">
+										</div>
+										<div class="pull-left col-xs-5 col-sm-6">
+											<h3 class="lto-cp-exp-details-row lto-search-result-row-one ">
+												<span class="cursor font-bold font-star" ng-click="paintUserProfileDetails(resultItem.id)">{{resultItem.fullName}}<span class="text-highlight" ng-if="resultItem.rating != null">
+                                            <span  class="glyphicon glyphicon-star"></span>{{resultItem.rating}}</span>
+												</span>
+
+											</h3>
+											<h3 class="lto-cp-exp-details-row lto-search-small-text">
+												<div class="lto-search-small-text" ng-show="resultItem.emailaddress.length>1">Email : {{resultItem.emailaddress}}</div>
+												<div class="lto-search-small-text" ng-show="resultItem.phoneNumber.length>1">Phone : {{resultItem.phoneNumber}}</div>
+												<span class="lto-search-small-text" ng-show="resultItem.address_city.length > 0">{{resultItem.address_city}}</span>												<span class="lto-search-small-text" ng-show="resultItem.address_state.length > 0"><span ng-if="resultItem.address_city.length > 0">,</span>												{{resultItem.address_state}}</span><span class="lto-search-small-text" ng-show="resultItem.address_country.length > 0"><span
 												ng-if="resultItem.address_state.length > 0"
-											>,</span> {{resultItem.address_country}}</span><span class="lto-search-small-text" ng-show="resultItem.address_postal_code.length > 0"><span ng-if="resultItem.address_country.length > 0">,</span> {{resultItem.address_postal_code}}</span>
-										</h3>
-									</div>
-									<span class=" lto-search-small-text pull-right"> <span class=" " ng-if="resultItem.id != userId"> <span ng-show="resultItem.ifConnected" class="lto-search-small-text" i18n="{{'common.lto_span_tagged'}}"><span class="glyphicon glyphicon-bookmark"></span></span> <span ng-show="resultItem.ifPending" class="lto-search-small-text" i18n="{{'common.lto_span_requestSent'}}"><span
+											>,</span> {{resultItem.address_country}}</span><span class="lto-search-small-text" ng-show="resultItem.address_postal_code.length > 0"><span ng-if="resultItem.address_country.length > 0">,</span>												{{resultItem.address_postal_code}}</span>
+											</h3>
+										</div>
+										<span class=" lto-search-small-text pull-right"> <span class=" " ng-if="resultItem.id != userId"> <span ng-show="resultItem.ifConnected" class="lto-search-small-text" i18n="{{'common.lto_span_tagged'}}"><span class="glyphicon glyphicon-bookmark"></span></span>
+										<span ng-show="resultItem.ifPending" class="lto-search-small-text" i18n="{{'common.lto_span_requestSent'}}"><span
 												class="glyphicon glyphicon-bell"
-											></span></span> <span ng-show="resultItem.tagOn" class="lto-profile-following-btn"><a ng-click="sendInvite(resultItem)" class="lto-search-small-text"><button class="btn btn-primary" i18n="{{'common.lto_button_text_tagOn'}}"></button></a></span> <span ng-show="resultItem.pendingResponse" class="lto-profile-following-btn"><span class="lto-pending-action-conatiner cursor"
+											></span></span> <span ng-show="resultItem.tagOn" class="lto-profile-following-btn"><a ng-click="sendInvite(resultItem)" class="lto-search-small-text"><button class="btn btn-primary" i18n="{{'common.lto_button_text_tagOn'}}"></button></a></span>										<span ng-show="resultItem.pendingResponse" class="lto-profile-following-btn"><span class="lto-pending-action-conatiner cursor"
 												ng-click="acceptInvite(resultItem)"
-											><span class="glyphicon glyphicon-ok lto-glyphicon-adj lto-search-small-text"></span><span i18n="{{'common.lto_button_accept'}}"></span> </span> <span class="lto-pending-action-conatiner cursor" ng-click="rejectInvite(resultItem)"><span class="glyphicon glyphicon-remove lto-glyphicon-adj lto-search-small-text"></span><span i18n="{{'common.lto_button_reject'}}"></span> </span></span>
-									</span>
-									</span>
-									<hr class="lto-search-hr-line">
-								</div>
-								<div ng-if="showOppResultSet==true" ng-show="showOppResultSet">
-									<div class="pull-left margin-right-10">
-										<img class="lto-profile-adj" ng-if="resultItem.bannerImage != null" ng-src="{{getBannerImage(resultItem.bannerImage)}}"> <img class="lto-profile-adj" ng-if="resultItem.bannerImage == null" src="../../images/image2.png">
+											><span class="glyphicon glyphicon-ok lto-glyphicon-adj lto-search-small-text"></span><span i18n="{{'common.lto_button_accept'}}"></span>										</span> <span class="lto-pending-action-conatiner cursor" ng-click="rejectInvite(resultItem)"><span class="glyphicon glyphicon-remove lto-glyphicon-adj lto-search-small-text"></span>
+										<span i18n="{{'common.lto_button_reject'}}"></span>
+										</span>
+										</span>
+										</span>
+										</span>
+										<span ng-if="!authenticated" class="lto-search-small-text pull-right">
+										<span class="lto-profile-following-btn">
+											<a ng-click="" class="lto-search-small-text" ng-controller="BootstrapModalController as modal" data-toggle="modal"
+								 data-target="#modalLogin" >
+												<button class="btn btn-primary" i18n="{{'common.lto_button_text_tagOn'}}">
+												</button>
+											</a>
+										</span>
+										<div ng-include="'./js/pages/common/login.html'"></div>
+										</span>
+										<hr class="lto-search-hr-line">
 									</div>
-									<div class="pull-left col-xs-5 col-sm-6">
-										<h3 class="lto-cp-exp-details-row lto-search-result-row-one cursor" ng-click="paintOppDetails(resultItem.id)">
-											<span class="cursor font-bold" ng-click="paintOppDetails(resultItem.id)">{{resultItem.name}}</span>
-										</h3>
-										<h3 class="lto-cp-exp-details-row lto-search-small-text">
-											{{ resultItem.description | limitTo:100 }}{{resultItem.description.length > 100 ? '...' : ''}} <span class="lto-cp-exp-details-row">{{resultItem.phoneNumber}}</span> <br> <span class="lto-search-small-text"> <span class="lto-search-small-text font-bold" i18n="{{'common.lto_lable_address'}}"></span> <span class="lto-search-small-text"
-												ng-show="resultItem.address_city.length > 0"
-											>{{resultItem.addressBean.city}}</span> <span class="lto-search-small-text" ng-show="resultItem.address_state.length > 0"><span ng-if="resultItem.address_city.length > 0">,</span> {{resultItem.address_state}}</span><span class="lto-search-small-text" ng-show="resultItem.address_country.length > 0"><span ng-if="resultItem.address_state.length > 0">,</span> {{resultItem.address_country}}</span><span
-												class="lto-search-small-text" ng-show="resultItem.address_postal_code.length > 0"
-											><span ng-if="resultItem.address_country.length > 0">,</span> {{resultItem.address_postal_code}}</span>
-											</span> <br> <span class="lto-search-small-text"> <span class="lto-search-small-text font-bold">Created by :</span> <span class="lto-search-small-text"> {{resultItem.creator_name}} , {{resultItem.creator_email_address}} </span>
-											</span> <span ng-if="resultItem.cause.length>0" class="lto-search-small-text font-bold"><br>Causes :</span> <span ng-repeat="cause in resultItem.cause" class="lto-search-small-text"> {{cause}} </span> <span ng-if="resultItem.jobtype.length>0" class="lto-search-small-text font-bold"><br>Skills Needed : :</span> <span ng-repeat="jobtype in resultItem.jobtype"
-												class="lto-search-small-text"
-											> {{jobtype}} </span>
-										</h3>
+									<div ng-if="showOppResultSet==true" ng-show="showOppResultSet">
+										<div class="pull-left margin-right-10">
+											<img class="lto-profile-adj" ng-if="resultItem.bannerImage != null" ng-src="{{getBannerImage(resultItem.bannerImage)}}">											<img class="lto-profile-adj" ng-if="resultItem.bannerImage == null" src="../../images/image2.png">
+										</div>
+										<div class="pull-left col-xs-5 col-sm-6">
+											<h3 class="lto-cp-exp-details-row lto-search-result-row-one cursor" ng-click="paintOppDetails(resultItem.id)">
+												<span class="cursor font-bold" ng-click="paintOppDetails(resultItem.id)">{{resultItem.name}}</span>
+											</h3>
+											<h3 class="lto-cp-exp-details-row lto-search-small-text">
+												{{ resultItem.description | limitTo:100 }}{{resultItem.description.length > 100 ? '...' : ''}} <span class="lto-cp-exp-details-row">{{resultItem.phoneNumber}}</span>												<br> <span class="lto-search-small-text"> <span class="lto-search-small-text font-bold" i18n="{{'common.lto_lable_address'}}"></span>												<span class="lto-search-small-text" ng-show="resultItem.address_city.length > 0">{{resultItem.addressBean.city}}</span>												<span class="lto-search-small-text" ng-show="resultItem.address_state.length > 0"><span ng-if="resultItem.address_city.length > 0">,</span>												{{resultItem.address_state}}</span><span class="lto-search-small-text" ng-show="resultItem.address_country.length > 0"><span ng-if="resultItem.address_state.length > 0">,</span>												{{resultItem.address_country}}</span><span class="lto-search-small-text" ng-show="resultItem.address_postal_code.length > 0"><span ng-if="resultItem.address_country.length > 0">,</span>												{{resultItem.address_postal_code}}</span>
+												</span> <br> <span class="lto-search-small-text"> <span class="lto-search-small-text font-bold">Created by :</span>
+												<span class="lto-search-small-text"> {{resultItem.creator_name}} , {{resultItem.creator_email_address}} </span>
+												</span> <span ng-if="resultItem.cause.length>0" class="lto-search-small-text font-bold"><br>Causes :</span>
+												<span ng-repeat="cause in resultItem.cause" class="lto-search-small-text"> {{cause}} </span> <span ng-if="resultItem.jobtype.length>0"
+												 class="lto-search-small-text font-bold"><br>Skills Needed : :</span> <span ng-repeat="jobtype in resultItem.jobtype"
+												 class="lto-search-small-text"> {{jobtype}} </span>
+											</h3>
+										</div>
+										<span class=" lto-search-small-text pull-right"> <span class="lto-profile-following-btn"><a ng-click="paintOppDetails(resultItem.id)" class="lto-search-small-text"><button class="btn btn-primary" i18n="{{'common.lto_button_view'}}"></button></a></span>
+										</span>
+										<hr class="lto-search-hr-line">
 									</div>
-									<span class=" lto-search-small-text pull-right"> <span class="lto-profile-following-btn"><a ng-click="paintOppDetails(resultItem.id)" class="lto-search-small-text"><button class="btn btn-primary" i18n="{{'common.lto_button_view'}}"></button></a></span>
-									</span>
-									<hr class="lto-search-hr-line">
 								</div>
+								<dir-pagination-controls boundary-links="true" class="col-md-12" on-page-change="pageChanged(newPageNumber)" template-url="/js/pages/fragments/pagination/dirPagination.tpl.html"></dir-pagination-controls>
 							</div>
-							<dir-pagination-controls boundary-links="true" class="col-md-12" on-page-change="pageChanged(newPageNumber)" template-url="/js/pages/fragments/pagination/dirPagination.tpl.html"></dir-pagination-controls>
 						</div>
 					</div>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-4 lto-invite-widget">
-					<div ng-include="'./js/pages/connections/connection_suggestion_list.html'"></div>
-					<div ng-include="'./js/pages/common/right_suggestions.html'"></div>
+					<div class="col-xs-12 col-sm-4 col-md-4 lto-invite-widget">
+						<div ng-include="'./js/pages/connections/connection_suggestion_list.html'"></div>
+						<div ng-include="'./js/pages/common/right_suggestions.html'"></div>
+					</div>
 				</div>
 			</div>
-		</div>
 		</main>
 		<!-- /main content area -->
 	</div>

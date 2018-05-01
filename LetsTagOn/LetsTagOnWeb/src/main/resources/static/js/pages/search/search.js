@@ -789,7 +789,7 @@ searchModule
 
         // Function to send connection invitation from search result
         $scope.sendInvite = function(displayUserDetails) {
-            $http({
+            $rootScope.userID !== displayUserDetails.id && $http({
                 url:
                     "/party/" +
                     $rootScope.userId +
