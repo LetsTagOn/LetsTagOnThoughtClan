@@ -788,8 +788,18 @@ searchModule
         };
 
         // Function to send connection invitation from search result
+        $scope.sendInviteOnLogin = function(volunteer) {
+            console.log('waiting for login to complete before sending invite for: ', volunteer)
+            $rootScope.$on("TagOnVolunteer", function(){
+                console.log('Login completed. Sending Invite for: ', volunteer);
+                (volunteer.ifConnected==="false") && 
+                (volunteer.ifPending==="false") && 
+                $scope.sendInvite(volunteer);
+            })
+        }
         $scope.sendInvite = function(displayUserDetails) {
-            $rootScope.userID !== displayUserDetails.id && $http({
+            console.log('sending Invite to: ', displayUserDetails );
+            $rootScope.userId !== displayUserDetails.id && $http({
                 url:
                     "/party/" +
                     $rootScope.userId +
@@ -802,6 +812,7 @@ searchModule
                 }
             })
                 .success(function(response) {
+                    console.log('successfully sent connection');
                     var resultItemObj = null;
                     // fetch the correct result item
                     $scope.results.forEach(function(resultItem) {

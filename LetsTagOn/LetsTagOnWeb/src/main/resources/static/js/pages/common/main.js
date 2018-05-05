@@ -110,6 +110,7 @@ letsTagOn.controller("MainController", function(
             })
             .success(function(data) {
                 authenticate(function() {
+                    console.log('in callback of authenticated with path being: ', $location.path());
                     // console.log("authenticated: ?", $rootScope.authenticated);
                     if ($rootScope.authenticated) {
                         if ($location.path() === "/welcome") {
@@ -117,7 +118,12 @@ letsTagOn.controller("MainController", function(
                             //redirection to search page should happen provided login is happening from landing page
                             $location.path("/search/opportunity/");
                             // $location.path("/view/connection/user/167");
-                        } else {
+                        } else if($location.path()==="/search/opportunity/") {
+                            console.log('completed login of user. Emitting TagOnVolunteer')
+                            $route.reload();
+                            $rootScope.$emit("TagOnVolunteer");
+                        }
+                        else {
                             //need to reload the page so that features which were hidden when user was not authenticated
                             //can be shown once the user is authenticated
                             $route.reload();
